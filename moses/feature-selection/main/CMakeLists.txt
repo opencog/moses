@@ -10,7 +10,7 @@ ADD_EXECUTABLE (eval-features eval-features.cc)
 TARGET_LINK_LIBRARIES(eval-features
 	comboreduct
 	comboant
-	cogutil
+	mosesutil
 	${Boost_PROGRAM_OPTIONS_LIBRARY} 
 )
 

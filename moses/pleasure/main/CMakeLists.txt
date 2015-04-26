@@ -4,7 +4,7 @@ TARGET_LINK_LIBRARIES (pleasure-main
 	pleasure
 	comboreduct
 	comboant
-	cogutil
+	mosesutil
 )
 
 ADD_CUSTOM_COMMAND(
