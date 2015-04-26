@@ -188,9 +188,11 @@ ELSE(Boost_MATH_C99_FOUND)
 ENDIF(Boost_MATH_C99_FOUND)
 
 FIND_PACKAGE(Cxxtest)
-IF (NOT CXXTEST_FOUND)
+IF (CXXTEST_FOUND)
+	MESSAGE(STATUS "Found CxxTest.")
+ELSE (CXXTEST_FOUND)
 	MESSAGE(STATUS "CxxTest missing: needed for unit tests.")
-ENDIF (NOT CXXTEST_FOUND)
+ENDIF (CXXTEST_FOUND)
 
 
 # Look for libiberty-dev. Needed for pretty stack printing.
@@ -319,8 +321,6 @@ IF (CXXTEST_FOUND)
 		)
 	ENDIF (CMAKE_BUILD_TYPE STREQUAL "Coverage")
 ENDIF (CXXTEST_FOUND)
-
-ADD_SUBDIRECTORY(examples EXCLUDE_FROM_ALL)
 
 ADD_CUSTOM_TARGET(cscope
 	COMMAND find opencog examples tests -name '*.cc' -o -name '*.h' -o -name '*.cxxtest' -o -name '*.scm' > ${CMAKE_SOURCE_DIR}/cscope.files
