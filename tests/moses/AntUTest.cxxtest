@@ -22,18 +22,18 @@
 
 #include <cxxtest/TestSuite.h>
 
-#include <opencog/learning/moses/moses/moses_main.h>
-#include <opencog/learning/moses/example-ant/ant_scoring.h>
-#include <opencog/learning/moses/metapopulation/metapopulation.h>
-#include <opencog/learning/moses/optimization/hill-climbing.h>
-#include <opencog/learning/moses/scoring/behave_cscore.h>
-#include <opencog/comboreduct/reduct/reduct.h>
-#include <opencog/comboreduct/combo/vertex.h>
-#include <opencog/comboreduct/ant_combo_vocabulary/ant_combo_vocabulary.h>
-#include <opencog/util/Logger.h>
-#include <opencog/util/oc_omp.h>
+#include <moses/moses/moses/moses_main.h>
+#include <moses/moses/example-ant/ant_scoring.h>
+#include <moses/moses/metapopulation/metapopulation.h>
+#include <moses/moses/optimization/hill-climbing.h>
+#include <moses/moses/scoring/behave_cscore.h>
+#include <moses/comboreduct/reduct/reduct.h>
+#include <moses/comboreduct/combo/vertex.h>
+#include <moses/comboreduct/ant_combo_vocabulary/ant_combo_vocabulary.h>
+#include <moses/util/Logger.h>
+#include <moses/util/oc_omp.h>
 
-using namespace opencog;
+using namespace moses;
 using namespace moses;
 using namespace reduct;
 using namespace boost;
@@ -62,7 +62,7 @@ public:
         // initial random number seed. At the time of this writing, some
         // seeds result in a solution being found in a few seconds or
         // less, while others take at least minutes, or longer. The
-        // bottom of the file opencog/learning/moses/diary-performance.txt
+        // bottom of the file moses/moses/diary-performance.txt
         // provides more information.
         //
         int rand_seed = 10;

@@ -1,7 +1,7 @@
-#include <opencog/comboreduct/combo/iostream_combo.h>
-#include <opencog/comboreduct/combo/combo.h>
+#include <moses/comboreduct/combo/iostream_combo.h>
+#include <moses/comboreduct/combo/combo.h>
 
-using namespace opencog::combo;
+using namespace moses3::combo;
 using namespace std;
 
 class iostream_comboUTest : public CxxTest::TestSuite {

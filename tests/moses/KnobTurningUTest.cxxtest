@@ -25,11 +25,11 @@
 #include <cxxtest/TestSuite.h>
 #include <sstream>
 #include <string>
-#include <opencog/util/mt19937ar.h>
-#include <opencog/comboreduct/reduct/reduct.h>
-#include <opencog/learning/moses/representation/knobs.h>
+#include <moses/util/mt19937ar.h>
+#include <moses/comboreduct/reduct/reduct.h>
+#include <moses/moses/representation/knobs.h>
 
-using namespace opencog;
+using namespace moses;
 using namespace moses;
 using namespace reduct;
 using namespace combo;

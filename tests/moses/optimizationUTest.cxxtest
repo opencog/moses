@@ -22,19 +22,19 @@
 
 #include <cxxtest/TestSuite.h>
 
-#include <opencog/util/iostreamContainer.h>
-#include <opencog/util/Logger.h>
-#include <opencog/util/numeric.h>
-#include <opencog/util/mt19937ar.h>
+#include <moses/util/iostreamContainer.h>
+#include <moses/util/Logger.h>
+#include <moses/util/numeric.h>
+#include <moses/util/mt19937ar.h>
 
-#include <opencog/learning/moses/eda/initialization.h>
-#include <opencog/learning/moses/scoring/scoring_base.h>
-#include <opencog/learning/moses/moses/types.h>
-#include <opencog/learning/moses/optimization/hill-climbing.h>
-#include <opencog/learning/moses/optimization/optimization.h>
-#include <opencog/learning/moses/representation/field_set.h>
+#include <moses/moses/eda/initialization.h>
+#include <moses/moses/scoring/scoring_base.h>
+#include <moses/moses/moses/types.h>
+#include <moses/moses/optimization/hill-climbing.h>
+#include <moses/moses/optimization/optimization.h>
+#include <moses/moses/representation/field_set.h>
 
-using namespace opencog;
+using namespace moses;
 using namespace moses;
 
 class optimizationUTest : public CxxTest::TestSuite {

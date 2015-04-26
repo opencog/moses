@@ -24,17 +24,17 @@
 
 #include <cxxtest/TestSuite.h>
 
-#include <opencog/util/oc_omp.h>
-#include <opencog/comboreduct/table/table.h>
-#include <opencog/comboreduct/table/table_io.h>
+#include <moses/util/oc_omp.h>
+#include <moses/comboreduct/table/table.h>
+#include <moses/comboreduct/table/table_io.h>
 
-#include <opencog/learning/feature-selection/algo/incremental.h>
-#include <opencog/learning/feature-selection/main/feature-selection.h>
-#include <opencog/learning/moses/optimization/optimization.h>  // for moses::hc
+#include <moses/feature-selection/algo/incremental.h>
+#include <moses/feature-selection/main/feature-selection.h>
+#include <moses/moses/optimization/optimization.h>  // for moses3::hc
 
 #define FEATURE_SELECTION_TEST_DIR PROJECT_SOURCE_DIR"/tests/learning/feature-selection/"
 
-using namespace opencog;
+using namespace moses;
 using namespace combo;
 using namespace std;
 using boost::counting_iterator;
@@ -304,7 +304,7 @@ private:
 
         // set feature selection parameters
         feature_selection_parameters fsp;
-        fsp.algorithm = moses::hc;
+        fsp.algorithm = moses3::hc;
         fsp.scorer = mi;
         fsp.input_file = FEATURE_SELECTION_TEST_DIR"small-dataset.csv";
         fsp.jobs = n_jobs;

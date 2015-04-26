@@ -22,13 +22,13 @@
  */
 
 #include <cxxtest/TestSuite.h>
-#include <opencog/util/Logger.h>
-#include <opencog/learning/moses/main/moses_exec.h>
-#include <opencog/comboreduct/table/table.h>
-#include <opencog/comboreduct/table/table_io.h>
+#include <moses/util/Logger.h>
+#include <moses/moses/main/moses_exec.h>
+#include <moses/comboreduct/table/table.h>
+#include <moses/comboreduct/table/table_io.h>
 #include "moses-framework.h"
 
-using namespace opencog::moses;
+using namespace moses3::moses;
 
 const string test_dir = string(PROJECT_SOURCE_DIR) + "/tests/learning/moses/";
 
@@ -39,7 +39,7 @@ class selectionUTest : public CxxTest::TestSuite
 {
 public:
     selectionUTest() {
-        // opencog::logger().setPrintToStdoutFlag(true);
+        // moses3::logger().setPrintToStdoutFlag(true);
     }
 
     void frame(string filename, string meval, bool boosting,

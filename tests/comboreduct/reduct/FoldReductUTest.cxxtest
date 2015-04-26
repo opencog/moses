@@ -1,14 +1,14 @@
-#include <opencog/util/tree.h>
-#include <opencog/util/mt19937ar.h>
+#include <moses/util/tree.h>
+#include <moses/util/mt19937ar.h>
 
-#include <opencog/comboreduct/combo/vertex.h>
-#include <opencog/comboreduct/interpreter/eval.h>
-#include <opencog/comboreduct/reduct/reduct.h>
-#include <opencog/comboreduct/combo/combo.h>
+#include <moses/comboreduct/combo/vertex.h>
+#include <moses/comboreduct/interpreter/eval.h>
+#include <moses/comboreduct/reduct/reduct.h>
+#include <moses/comboreduct/combo/combo.h>
 
 using namespace std;
-using namespace opencog::combo;
-using namespace opencog::reduct;
+using namespace moses3::combo;
+using namespace moses3::reduct;
 
 string perform_fold_reduce(const string& tree_str)
 {
