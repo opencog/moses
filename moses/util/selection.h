@@ -23,12 +23,12 @@
 #ifndef _OPENCOG_SELECTION_H
 #define _OPENCOG_SELECTION_H
 
-#include "functional.h"
-#include "numeric.h"
+#include <moses/util/functional.h>
+#include <moses/util/numeric.h>
 #include <iterator>
-#include "dorepeat.h"
-#include "RandGen.h"
-#include "mt19937ar.h"
+#include <moses/util/dorepeat.h>
+#include <moses/util/RandGen.h>
+#include <moses/util/mt19937ar.h>
 
 namespace moses3
 {

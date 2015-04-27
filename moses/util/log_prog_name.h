@@ -24,7 +24,7 @@
 #define _OPENCOG_LOG_PROG_NAME_H
 
 #include <boost/program_options.hpp>
-#include "iostreamContainer.h"
+#include <moses/util/iostreamContainer.h>
 
 namespace moses3 {
 /** \addtogroup grp_cogutil

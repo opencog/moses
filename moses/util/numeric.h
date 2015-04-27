@@ -33,10 +33,10 @@
 
 #include <boost/range/numeric.hpp>
 
-#include "exceptions.h"
-#include "oc_assert.h"
+#include <moses/util/exceptions.h>
+#include <moses/util/oc_assert.h>
 
-#include "iostreamContainer.h"
+#include <moses/util/iostreamContainer.h>
 
 /** \addtogroup grp_cogutil
  *  @{

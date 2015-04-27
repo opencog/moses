@@ -8,8 +8,8 @@
 
 #include <ext/algorithm>
 
-#include "numeric.h"
-#include "exceptions.h"
+#include <moses/util/numeric.h>
+#include <moses/util/exceptions.h>
 
 namespace moses3
 {

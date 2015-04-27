@@ -26,8 +26,8 @@
 #include <boost/range/numeric.hpp>
 #include <boost/range/adaptor/map.hpp>
 
-#include "Counter.h"
-#include "ranking.h"
+#include <moses/util/Counter.h>
+#include <moses/util/ranking.h>
 
 namespace moses3 {
 /** \addtogroup grp_cogutil

@@ -26,7 +26,7 @@
 #ifndef _OPENCOG_ASSERT_H
 #define _OPENCOG_ASSERT_H
 
-#include "exceptions.h"
+#include <moses/util/exceptions.h>
 
 /** \addtogroup grp_cogutil
  *  @{

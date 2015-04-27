@@ -26,9 +26,9 @@
 #include <queue>
 #include <vector>
 #include <set>
-#include "algorithm.h"
-#include "exceptions.h"
-#include "oc_assert.h"
+#include <moses/util/algorithm.h>
+#include <moses/util/exceptions.h>
+#include <moses/util/oc_assert.h>
 #include <boost/iterator/counting_iterator.hpp>
 
 namespace moses3

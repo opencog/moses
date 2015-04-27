@@ -31,7 +31,7 @@
 
 #include <stdarg.h>
 #include <string.h>
-#include "macros.h"
+#include <moses/util/macros.h>
 
 namespace moses3
 {

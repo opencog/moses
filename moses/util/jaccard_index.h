@@ -20,7 +20,7 @@
 #ifndef _OPENCOG_JACCARD_INDEX_H
 #define _OPENCOG_JACCARD_INDEX_H
 
-#include "algorithm.h"
+#include <moses/util/algorithm.h>
 
 namespace moses3 {
 

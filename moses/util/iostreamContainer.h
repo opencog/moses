@@ -31,7 +31,7 @@
 
 #include <boost/lexical_cast.hpp>
 
-#include "oc_assert.h"
+#include <moses/util/oc_assert.h>
 
 namespace moses3 {
 /** \addtogroup grp_cogutil

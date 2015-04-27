@@ -27,9 +27,9 @@
 #include <boost/range/adaptor/map.hpp>
 #include <boost/range/numeric.hpp>
 
-#include "dorepeat.h"
-#include "Logger.h"
-#include "Counter.h"
+#include <moses/util/dorepeat.h>
+#include <moses/util/Logger.h>
+#include <moses/util/Counter.h>
 
 
 namespace moses3 {

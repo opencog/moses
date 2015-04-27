@@ -62,8 +62,6 @@
 #ifndef _UTIL_TREE_H
 #define _UTIL_TREE_H
 
-#include "exceptions.h"
-
 #include <cassert>
 #include <memory>
 #include <stdexcept>
@@ -77,6 +75,7 @@
 #include <boost/iterator/counting_iterator.hpp>
 
 #include <moses/util/oc_assert.h>
+#include <moses/util/exceptions.h>
 // #define tree_assert assert
 #define tree_assert OC_ASSERT
 
