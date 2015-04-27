@@ -65,6 +65,7 @@ ADD_LIBRARY(comboreduct SHARED
 TARGET_LINK_LIBRARIES (comboreduct
 	mosesutil
 	${Boost_DATE_TIME_LIBRARY}
+	${Boost_THREAD_LIBRARY}
 )
 
 ADD_LIBRARY(comboant SHARED
@@ -76,6 +77,7 @@ ADD_LIBRARY(comboant SHARED
 )
 
 TARGET_LINK_LIBRARIES (comboant
+	comboreduct
 	mosesutil
 )
 
