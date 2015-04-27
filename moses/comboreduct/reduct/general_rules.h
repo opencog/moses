@@ -24,7 +24,7 @@
 #ifndef _REDUCT_GENERAL_RULES_H
 #define _REDUCT_GENERAL_RULES_H
 
-#include <moses/util/RandGen.h>
+#include <opencog/util/RandGen.h>
 
 #include "reduct.h"
 #include "../interpreter/eval.h"

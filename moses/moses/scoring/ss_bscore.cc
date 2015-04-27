@@ -33,7 +33,7 @@
 #include <boost/accumulators/statistics/min.hpp>
 #include <boost/accumulators/statistics/max.hpp>
 
-#include <moses/util/random.h>
+#include <opencog/util/random.h>
 
 namespace opencog { namespace moses {
 

@@ -24,8 +24,8 @@
 #ifndef _ANN_XOR_SCORING_H
 #define _ANN_XOR_SCORING_H
 
-#include <moses/util/numeric.h>
-#include <moses/util/mt19937ar.h>
+#include <opencog/util/numeric.h>
+#include <opencog/util/mt19937ar.h>
 
 #include <moses/comboreduct/combo/vertex.h>
 #include <moses/comboreduct/combo/simple_nn.h>

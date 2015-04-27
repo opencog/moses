@@ -27,10 +27,10 @@
 #include <cmath>
 #include <boost/lexical_cast.hpp>
 
-#include <moses/util/exceptions.h>
-#include <moses/util/numeric.h>
-#include <moses/util/RandGen.h>
-#include <moses/util/oc_assert.h>
+#include <opencog/util/exceptions.h>
+#include <opencog/util/numeric.h>
+#include <opencog/util/RandGen.h>
+#include <opencog/util/oc_assert.h>
 
 #include "../representation/field_set.h"
 

@@ -25,7 +25,7 @@
 #include <cxxtest/TestSuite.h>
 #include <sstream>
 #include <string>
-#include <moses/util/mt19937ar.h>
+#include <opencog/util/mt19937ar.h>
 #include <moses/comboreduct/reduct/reduct.h>
 #include <moses/moses/representation/knobs.h>
 

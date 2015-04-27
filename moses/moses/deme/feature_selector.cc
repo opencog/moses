@@ -32,10 +32,10 @@
 
 #include <moses/comboreduct/table/table.h>
 #include <moses/comboreduct/table/table_io.h>
-#include <moses/util/oc_omp.h>
-#include <moses/util/random.h>
-#include <moses/util/lazy_random_selector.h>
-#include <moses/util/jaccard_index.h>
+#include <opencog/util/oc_omp.h>
+#include <opencog/util/random.h>
+#include <opencog/util/lazy_random_selector.h>
+#include <opencog/util/jaccard_index.h>
 
 #include "feature_selector.h"
 

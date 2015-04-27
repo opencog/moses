@@ -36,11 +36,11 @@
 #include <boost/operators.hpp>
 #include <boost/date_time/gregorian/gregorian.hpp>
 
-#include <moses/util/algorithm.h>
-#include <moses/util/Counter.h>
-#include <moses/util/dorepeat.h>
-#include <moses/util/exceptions.h>
-#include <moses/util/KLD.h>
+#include <opencog/util/algorithm.h>
+#include <opencog/util/Counter.h>
+#include <opencog/util/dorepeat.h>
+#include <opencog/util/exceptions.h>
+#include <opencog/util/KLD.h>
 
 #include "../interpreter/eval.h"   /* Needed for binding map, and then obsolete */
 #include "../interpreter/interpreter.h"

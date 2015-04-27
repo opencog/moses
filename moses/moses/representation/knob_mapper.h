@@ -28,7 +28,7 @@
 
 #include <map>
 
-#include <moses/util/hashing.h>
+#include <opencog/util/hashing.h>
 
 #include "field_set.h"
 #include "knobs.h"

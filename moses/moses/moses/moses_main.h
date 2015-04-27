@@ -26,7 +26,7 @@
 #include <iostream>
 #include <fstream>
 
-#include <moses/util/Logger.h>
+#include <opencog/util/Logger.h>
 
 #include <moses/comboreduct/combo/combo.h>
 

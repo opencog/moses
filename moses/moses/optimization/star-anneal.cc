@@ -27,7 +27,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include <moses/util/oc_omp.h>
+#include <opencog/util/oc_omp.h>
 
 #include "../moses/neighborhood_sampling.h"
 

@@ -26,9 +26,9 @@
  * will need. These define the various optimization algos that get used.
  */
 
-#include <moses/util/Logger.h>
-#include <moses/util/mt19937ar.h>
-#include <moses/util/selection.h>
+#include <opencog/util/Logger.h>
+#include <opencog/util/mt19937ar.h>
+#include <opencog/util/selection.h>
 
 #include <moses/moses/eda/initialization.h>
 #include <moses/moses/eda/local_structure.h>

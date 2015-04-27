@@ -28,7 +28,7 @@
 #include <boost/program_options.hpp>
 #include <boost/format.hpp>
 
-#include <moses/util/oc_assert.h>
+#include <opencog/util/oc_assert.h>
 #include <moses/comboreduct/table/table_io.h>
 #include <moses/moses/moses/types.h>
 

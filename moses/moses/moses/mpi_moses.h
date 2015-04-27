@@ -27,7 +27,7 @@
 
 #include <atomic>
 #include <future>
-#include <moses/util/pool.h>
+#include <opencog/util/pool.h>
 
 #include "../deme/deme_expander.h"
 #include "../metapopulation/metapopulation.h"

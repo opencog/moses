@@ -27,10 +27,10 @@
 #include <boost/program_options.hpp>
 #include <boost/range/numeric.hpp>
 
-#include <moses/util/mt19937ar.h>
-#include <moses/util/random.h>
-#include <moses/util/lazy_random_selector.h>
-#include <moses/util/dorepeat.h>
+#include <opencog/util/mt19937ar.h>
+#include <opencog/util/random.h>
+#include <opencog/util/lazy_random_selector.h>
+#include <opencog/util/dorepeat.h>
 
 #include "../combo/iostream_combo.h"
 

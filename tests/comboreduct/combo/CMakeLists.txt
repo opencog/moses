@@ -2,74 +2,74 @@ ADD_CXXTEST(vertexUTest)
 TARGET_LINK_LIBRARIES(vertexUTest
 	comboreduct
 	comboant
-	mosesutil
+	cogutil
 )
 
 ADD_CXXTEST(messageUTest)
 TARGET_LINK_LIBRARIES(messageUTest
 	comboreduct
 	comboant
-	mosesutil
+	cogutil
 )
 
 ADD_CXXTEST(listUTest)
 TARGET_LINK_LIBRARIES(listUTest
 	comboreduct
 	comboant
-	mosesutil
+	cogutil
 )
 
 ADD_CXXTEST(similarityUTest)
 TARGET_LINK_LIBRARIES(similarityUTest
 	comboreduct
 	comboant
-	mosesutil
+	cogutil
 )
 
 ADD_CXXTEST(type_treeUTest)
 TARGET_LINK_LIBRARIES(type_treeUTest
 	comboreduct
 	comboant
-	mosesutil
+	cogutil
 )
 
 ADD_CXXTEST(annUTest)
 TARGET_LINK_LIBRARIES(annUTest
 	comboreduct
-	mosesutil
+	cogutil
 )
 
 ADD_CXXTEST(variable_unifierUTest)
 TARGET_LINK_LIBRARIES(variable_unifierUTest
 	comboreduct
 	comboant
-	mosesutil
+	cogutil
 )
 
 ADD_CXXTEST(procedure_callUTest)
 TARGET_LINK_LIBRARIES(procedure_callUTest
 	comboreduct
 	comboant
-	mosesutil
+	cogutil
 )
 
 ADD_CXXTEST(procedure_repositoryUTest)
 TARGET_LINK_LIBRARIES(procedure_repositoryUTest
 	comboreduct
 	comboant
-	mosesutil
+	cogutil
 )
 
 ADD_CXXTEST(interpreterUTest)
 TARGET_LINK_LIBRARIES(interpreterUTest
 	comboreduct
 	comboant
-	mosesutil
+	cogutil
 )
 
 ADD_CXXTEST(iostream_comboUTest)
 TARGET_LINK_LIBRARIES(iostream_comboUTest
 	comboreduct
 	comboant
-	mosesutil
+	cogutil
 )

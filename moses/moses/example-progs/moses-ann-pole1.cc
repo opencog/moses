@@ -20,8 +20,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 #include <iostream>
-#include <moses/util/mt19937ar.h>
-#include <moses/util/Logger.h>
+#include <opencog/util/mt19937ar.h>
+#include <opencog/util/Logger.h>
 #include <moses/comboreduct/interpreter/eval.h>
 
 #include "../deme/deme_expander.h"

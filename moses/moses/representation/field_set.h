@@ -29,13 +29,13 @@
 #include <boost/operators.hpp>  // for random_access_iterator_helper
 #include <boost/variant.hpp>
 
-#include <moses/util/dorepeat.h>
-#include <moses/util/Logger.h>
-#include <moses/util/mt19937ar.h>
-#include <moses/util/numeric.h>
-#include <moses/util/oc_assert.h>
-#include <moses/util/RandGen.h>
-#include <moses/util/Counter.h>
+#include <opencog/util/dorepeat.h>
+#include <opencog/util/Logger.h>
+#include <opencog/util/mt19937ar.h>
+#include <opencog/util/numeric.h>
+#include <opencog/util/oc_assert.h>
+#include <opencog/util/RandGen.h>
+#include <opencog/util/Counter.h>
 
 #include "instance.h"
 

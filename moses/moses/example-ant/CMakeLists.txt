@@ -12,5 +12,5 @@ TARGET_LINK_LIBRARIES (moses-ant-hillclimbing
 	moses
 	comboreduct
 	comboant
-	mosesutil
+	cogutil
 )

@@ -25,7 +25,7 @@
 #include <boost/range/irange.hpp>
 #include <boost/range/algorithm/random_shuffle.hpp>
 
-#include <moses/util/random.h>
+#include <opencog/util/random.h>
 
 #include "deme_expander.h"
 

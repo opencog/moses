@@ -34,9 +34,9 @@
 #include <boost/range/algorithm/set_algorithm.hpp>
 #include <boost/range/algorithm_ext/push_back.hpp>
 
-#include <moses/util/dorepeat.h>
-#include <moses/util/Logger.h>
-#include <moses/util/lazy_random_selector.h>
+#include <opencog/util/dorepeat.h>
+#include <opencog/util/Logger.h>
+#include <opencog/util/lazy_random_selector.h>
 
 #include "../combo/ann.h"
 #include "../combo/simple_nn.h"

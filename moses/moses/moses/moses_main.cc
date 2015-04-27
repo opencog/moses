@@ -22,7 +22,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include <moses/util/Logger.h>
+#include <opencog/util/Logger.h>
 
 #include "../metapopulation/metapopulation.h"
 #include "distributed_moses.h"

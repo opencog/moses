@@ -23,7 +23,7 @@
  */
 #include "mixed_rules.h"
 #include <moses/comboreduct/type_checker/type_tree.h>
-#include <moses/util/exceptions.h>
+#include <opencog/util/exceptions.h>
 #include <map>
 
 namespace opencog { namespace reduct {

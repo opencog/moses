@@ -24,7 +24,7 @@
 #ifndef TREE_GENERATION_H
 #define TREE_GENERATION_H
 
-#include <moses/util/tree.h>
+#include <opencog/util/tree.h>
 
 #include "../combo/vertex.h"
 #include "../type_checker/type_tree.h"

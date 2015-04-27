@@ -28,10 +28,10 @@
 #include <boost/functional/hash.hpp>
 #include <boost/variant.hpp>
 
-#include <moses/util/tree.h>
-#include <moses/util/numeric.h>
-#include <moses/util/exceptions.h>
-#include <moses/util/oc_assert.h>
+#include <opencog/util/tree.h>
+#include <opencog/util/numeric.h>
+#include <opencog/util/exceptions.h>
+#include <opencog/util/oc_assert.h>
 
 #include <moses/comboreduct/combo/action.h>
 #include <moses/comboreduct/combo/action_symbol.h>

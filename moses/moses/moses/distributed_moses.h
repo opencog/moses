@@ -27,8 +27,8 @@
 #include <boost/program_options.hpp>
 #include <boost/tuple/tuple.hpp>
 
-#include <moses/util/iostreamContainer.h>
-#include <moses/util/log_prog_name.h>
+#include <opencog/util/iostreamContainer.h>
+#include <opencog/util/log_prog_name.h>
 
 #include "../deme/deme_expander.h"
 #include "../metapopulation/metapopulation.h"

@@ -21,7 +21,7 @@
  * Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
-#include <moses/util/exceptions.h>
+#include <opencog/util/exceptions.h>
 #include <moses/comboreduct/combo/combo.h>
 
 #include "complexity.h"

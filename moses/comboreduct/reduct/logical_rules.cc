@@ -26,9 +26,9 @@
 #include <boost/iterator/counting_iterator.hpp>
 #include <boost/iterator/indirect_iterator.hpp>
 
-#include <moses/util/exceptions.h>
-#include <moses/util/algorithm.h>
-#include <moses/util/mt19937ar.h>
+#include <opencog/util/exceptions.h>
+#include <opencog/util/algorithm.h>
+#include <opencog/util/mt19937ar.h>
 #include <moses/comboreduct/combo/assumption.h>
 #include "logical_rules.h"
 #include "../table/table.h"

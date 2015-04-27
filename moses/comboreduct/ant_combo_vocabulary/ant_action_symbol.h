@@ -24,7 +24,7 @@
 #ifndef _ANT_ACTION_SYMBOL_H
 #define _ANT_ACTION_SYMBOL_H
 
-#include <moses/util/numeric.h>
+#include <opencog/util/numeric.h>
 
 #include <moses/comboreduct/combo/action_symbol.h>
 #include "ant_operator.h"

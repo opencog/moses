@@ -23,10 +23,10 @@
  */
 #include "field_set.h"
 #include <sstream>
-#include <moses/util/dorepeat.h>
-#include <moses/util/exceptions.h>
-#include <moses/util/oc_assert.h>
-#include <moses/util/iostreamContainer.h>
+#include <opencog/util/dorepeat.h>
+#include <opencog/util/exceptions.h>
+#include <opencog/util/oc_assert.h>
+#include <opencog/util/iostreamContainer.h>
 
 namespace opencog {
 namespace moses {

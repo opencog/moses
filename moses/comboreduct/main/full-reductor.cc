@@ -23,7 +23,7 @@
  */
 #include <iostream>
 
-#include <moses/util/mt19937ar.h>
+#include <opencog/util/mt19937ar.h>
 
 #include "../reduct/reduct.h"
 #include "../interpreter/eval.h"

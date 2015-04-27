@@ -24,7 +24,7 @@
  */
 #include "vertex.h"
 #include "procedure_call.h"
-#include <moses/util/algorithm.h>
+#include <opencog/util/algorithm.h>
 #include "iostream_combo.h"
 
 namespace opencog { namespace combo {

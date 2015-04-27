@@ -27,7 +27,7 @@
 #include <algorithm>
 #include <iostream>
 #include <sstream>
-#include <moses/util/Logger.h>
+#include <opencog/util/Logger.h>
 
 #include "../representation/field_set.h"
 

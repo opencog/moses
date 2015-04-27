@@ -31,7 +31,7 @@
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
-#include <moses/util/functional.h>
+#include <opencog/util/functional.h>
 
 #include "../type_checker/type_tree.h"
 #include "reduct.h"

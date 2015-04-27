@@ -25,7 +25,7 @@
 #ifndef _OPENCOG_FEATURE_SELECTION_RANDOM_ALGO_H
 #define _OPENCOG_FEATURE_SELECTION_RANDOM_ALGO_H
 
-#include <moses/util/random.h>
+#include <opencog/util/random.h>
 
 #include "../main/feature-selection.h"  // needed for feature_set, feature_selection_parameters
 

@@ -24,7 +24,7 @@
 #ifndef _ANT_PERCEPTION_H
 #define _ANT_PERCEPTION_H
 
-#include <moses/util/numeric.h>
+#include <opencog/util/numeric.h>
 
 #include <moses/comboreduct/combo/perception.h>
 #include "ant_operator.h"

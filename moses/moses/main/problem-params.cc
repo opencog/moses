@@ -30,7 +30,7 @@
 #include <boost/format.hpp>
 #include <boost/lexical_cast.hpp>
 
-#include <moses/util/oc_omp.h>
+#include <opencog/util/oc_omp.h>
 
 #include <moses/comboreduct/table/table.h>
 #include <moses/comboreduct/table/table_io.h>

@@ -1,8 +1,8 @@
 
 #include <iostream>
 
-#include <moses/util/mt19937ar.h>
-#include <moses/util/Logger.h>
+#include <opencog/util/mt19937ar.h>
+#include <opencog/util/Logger.h>
 
 #include <moses/comboreduct/interpreter/eval.h>
 

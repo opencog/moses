@@ -28,11 +28,11 @@
 
 #include <functional>
 
-#include <moses/util/numeric.h>
-#include <moses/util/lru_cache.h>
-#include <moses/util/algorithm.h>
-#include <moses/util/functional.h>
-#include <moses/util/oc_omp.h>
+#include <opencog/util/numeric.h>
+#include <opencog/util/lru_cache.h>
+#include <opencog/util/algorithm.h>
+#include <opencog/util/functional.h>
+#include <opencog/util/oc_omp.h>
 
 #include "../main/feature-selection.h" // needed for feature_set, feature_selection_parameters
 

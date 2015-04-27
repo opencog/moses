@@ -24,7 +24,7 @@
 #ifndef _OPENCOG_FS_SCORERS_OPTIM_H
 #define _OPENCOG_FS_SCORERS_OPTIM_H
 
-#include <moses/util/numeric.h>
+#include <opencog/util/numeric.h>
 
 #include <moses/comboreduct/combo/common_def.h>
 #include <moses/moses/representation/field_set.h>

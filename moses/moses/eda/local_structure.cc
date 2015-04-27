@@ -24,11 +24,11 @@
 
 #include <boost/iterator/indirect_iterator.hpp>
 
-#include <moses/util/numeric.h>
-#include <moses/util/algorithm.h>
-#include <moses/util/selection.h>
-#include <moses/util/exceptions.h>
-#include <moses/util/oc_assert.h>
+#include <opencog/util/numeric.h>
+#include <opencog/util/algorithm.h>
+#include <opencog/util/selection.h>
+#include <opencog/util/exceptions.h>
+#include <opencog/util/oc_assert.h>
 
 #include "local_structure.h"
 

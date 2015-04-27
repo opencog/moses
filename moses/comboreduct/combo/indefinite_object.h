@@ -24,7 +24,7 @@
 #ifndef _COMBO_INDEFINITE_OBJECT_H
 #define _COMBO_INDEFINITE_OBJECT_H
 
-#include <moses/util/exceptions.h>
+#include <opencog/util/exceptions.h>
 
 #include <moses/comboreduct/type_checker/type_tree_def.h>
 #include <moses/comboreduct/combo/operator_base.h>

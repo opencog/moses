@@ -37,8 +37,8 @@
 #include <boost/operators.hpp>
 #include <boost/ptr_container/ptr_set.hpp>
 
-#include <moses/util/functional.h>
-#include <moses/util/iostreamContainer.h>
+#include <opencog/util/functional.h>
+#include <opencog/util/iostreamContainer.h>
 
 #include <moses/comboreduct/combo/combo.h>
 #include "complexity.h"

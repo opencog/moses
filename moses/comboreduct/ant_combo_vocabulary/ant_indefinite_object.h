@@ -24,7 +24,7 @@
 #ifndef _ANT_INDEFINITE_OBJECT_H
 #define _ANT_INDEFINITE_OBJECT_H
 
-#include <moses/util/numeric.h>
+#include <opencog/util/numeric.h>
 
 #include <moses/comboreduct/combo/indefinite_object.h>
 #include "ant_operator.h"

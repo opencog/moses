@@ -23,7 +23,7 @@
  */
 #include "perception_rules.h"
 #include <moses/comboreduct/combo/assumption.h>
-#include <moses/util/exceptions.h>
+#include <opencog/util/exceptions.h>
 
 namespace opencog { namespace reduct {
 typedef combo_tree::sibling_iterator sib_it;

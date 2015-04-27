@@ -24,7 +24,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include <moses/util/Logger.h>
+#include <opencog/util/Logger.h>
 #include <moses/moses/main/problem-params.h>
 #include <moses/moses/moses/types.h>
 #include <moses/moses/scoring/behave_cscore.h>

@@ -30,7 +30,7 @@
 #include <boost/range/irange.hpp>
 
 #include <moses/comboreduct/table/table_io.h>
-#include <moses/util/oc_assert.h>
+#include <opencog/util/oc_assert.h>
 #include "scoring_base.h"
 
 namespace opencog { namespace moses {

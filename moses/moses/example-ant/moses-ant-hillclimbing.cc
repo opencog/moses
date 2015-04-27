@@ -26,9 +26,9 @@
 #include <iostream>
 #include <string>
 
-#include <moses/util/mt19937ar.h>
-#include <moses/util/numeric.h>
-#include <moses/util/oc_omp.h>
+#include <opencog/util/mt19937ar.h>
+#include <opencog/util/numeric.h>
+#include <opencog/util/oc_omp.h>
 
 #include <moses/comboreduct/combo/vertex.h>
 #include <moses/comboreduct/ant_combo_vocabulary/ant_combo_vocabulary.h>

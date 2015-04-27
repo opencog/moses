@@ -24,12 +24,12 @@
 #ifndef _COMBO_DESCRIPTIONS_H
 #define _COMBO_DESCRIPTIONS_H
 
-#include <moses/util/numeric.h>
+#include <opencog/util/numeric.h>
 
 #include <moses/comboreduct/combo/action.h>
 #include <moses/comboreduct/type_checker/type_tree.h>
 
-#include <moses/util/tree.h>
+#include <opencog/util/tree.h>
 
 namespace opencog { namespace combo {
 

@@ -82,7 +82,7 @@ TARGET_LINK_LIBRARIES (moses
 	feature_selection
 	comboreduct
 	comboant
-	mosesutil
+	cogutil
 	${Boost_PROGRAM_OPTIONS_LIBRARY}
 )
 

@@ -36,10 +36,10 @@
 #include <boost/spirit/include/phoenix_core.hpp>
 #include <boost/spirit/include/phoenix_operator.hpp>
 
-#include <moses/util/dorepeat.h>
-#include <moses/util/iostreamContainer.h>
-#include <moses/util/oc_omp.h>
-#include <moses/util/comprehension.h>
+#include <opencog/util/dorepeat.h>
+#include <opencog/util/iostreamContainer.h>
+#include <opencog/util/oc_omp.h>
+#include <opencog/util/comprehension.h>
 
 #include "table.h"
 #include "table_io.h"

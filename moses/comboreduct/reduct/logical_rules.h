@@ -24,7 +24,7 @@
 #ifndef _REDUCT_LOGICAL_RULES_H
 #define _REDUCT_LOGICAL_RULES_H
 
-#include <moses/util/exceptions.h>
+#include <opencog/util/exceptions.h>
 
 #include "reduct.h"
 #include "flat_normal_form.h"

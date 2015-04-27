@@ -24,8 +24,8 @@
 #ifndef _COMBO_PROCEDURE_REPOSITORY_H
 #define _COMBO_PROCEDURE_REPOSITORY_H
 
-#include <moses/util/exceptions.h>
-#include <moses/util/Logger.h>
+#include <opencog/util/exceptions.h>
+#include <opencog/util/Logger.h>
 
 #include <moses/comboreduct/combo/procedure_call.h>
 #include <moses/comboreduct/combo/vertex.h>

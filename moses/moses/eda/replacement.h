@@ -24,9 +24,9 @@
 #ifndef _EDA_REPLACE_H
 #define _EDA_REPLACE_H
 
-#include <moses/util/exceptions.h>
-#include <moses/util/lazy_random_selector.h>
-#include <moses/util/oc_omp.h>
+#include <opencog/util/exceptions.h>
+#include <opencog/util/lazy_random_selector.h>
+#include <opencog/util/oc_omp.h>
 
 #include "../representation/field_set.h"
 #include "../representation/scored_instance.h"

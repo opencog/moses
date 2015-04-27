@@ -29,8 +29,8 @@
 #include <boost/math/special_functions/binomial.hpp>
 #include <boost/numeric/conversion/cast.hpp>
 
-#include <moses/util/dorepeat.h>
-#include <moses/util/lazy_random_selector.h>
+#include <opencog/util/dorepeat.h>
+#include <opencog/util/lazy_random_selector.h>
 
 #include "../eda/initialization.h"
 #include "../representation/instance_set.h"
