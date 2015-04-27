@@ -28,7 +28,7 @@
 #include <boost/program_options.hpp>
 #include <moses/comboreduct/combo/vertex.h>
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 class option_base
 {
@@ -75,6 +75,6 @@ unsigned alphabet_size(const combo::type_tree& tt,
 
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif // _OPENCOG_MOSES_PROBLEM_H

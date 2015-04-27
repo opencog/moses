@@ -26,7 +26,7 @@
 #include <moses/util/exceptions.h>
 #include <moses/comboreduct/combo/descriptions.h>
 
-namespace moses3 { namespace reduct {
+namespace opencog { namespace reduct {
 
 typedef combo_tree::sibling_iterator sib_it;
 typedef combo_tree::iterator pre_it;
@@ -758,4 +758,4 @@ bool reduce_free_post_action (builtin_action pre_a, builtin_action post_a, bool 
 }
 
 } // ~namespace reduct
-} // ~namespace moses3 
+} // ~namespace opencog 

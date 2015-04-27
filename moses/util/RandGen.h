@@ -1,5 +1,5 @@
 /*
- * moses3/util/RandGen.h
+ * opencog/util/RandGen.h
  *
  * Copyright (C) 2002-2007 Novamente LLC
  * All Rights Reserved
@@ -22,13 +22,13 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _MOSES3_RAND_GEN_H
-#define _MOSES3_RAND_GEN_H
+#ifndef _OPENCOG_RAND_GEN_H
+#define _OPENCOG_RAND_GEN_H
 
 #include <set>
 #include <moses/util/exceptions.h>
 
-namespace moses3
+namespace opencog
 {
 /** \addtogroup grp_cogutil
  *  @{
@@ -68,6 +68,6 @@ public:
 };
 
 /** @}*/
-} // ~namespace moses3
+} // ~namespace opencog
 
-#endif // _MOSES3_RAND_GEN_H
+#endif // _OPENCOG_RAND_GEN_H

@@ -28,7 +28,7 @@
 #include "general_rules.h"
 #include "action_rules.h"
 
-namespace moses3 { namespace reduct {
+namespace opencog { namespace reduct {
 
 const rule& action_reduction()
 {
@@ -82,5 +82,5 @@ const rule& action_reduction()
 }
 
 } // ~namespace reduct
-} // ~namespace moses3 
+} // ~namespace opencog 
 

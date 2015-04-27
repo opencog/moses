@@ -1,5 +1,5 @@
 /*
- * moses3/util/oc_assert.h
+ * opencog/util/oc_assert.h
  *
  * Copyright (C) 2002-2007 Novamente LLC
  * All Rights Reserved
@@ -23,8 +23,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _MOSES3_ASSERT_H
-#define _MOSES3_ASSERT_H
+#ifndef _OPENCOG_ASSERT_H
+#define _OPENCOG_ASSERT_H
 
 #include <moses/util/exceptions.h>
 
@@ -33,7 +33,7 @@
  */
 
 /** @name Assertions
- *  Macro OC_ASSERT corresponding to moses3::cassert(TRACE_INFO, ...)
+ *  Macro OC_ASSERT corresponding to opencog::cassert(TRACE_INFO, ...)
  *  if IGNORE_OC_ASSERT is not defined, and ignored otherwise.
  *
  *  To disable assertions:
@@ -49,13 +49,13 @@
     /* unless cond is false! (Sometimes, evaluating the args is */ \
     /* CPU intensive, and/or requires taking locks!) */ \
     { bool test = (cond); \
-    if (not test) moses3::cassert(TRACE_INFO, test, ##__VA_ARGS__); }
+    if (not test) opencog::cassert(TRACE_INFO, test, ##__VA_ARGS__); }
 #else
 #define OC_ASSERT(...) \
     ((void)0)
 #endif
 
-namespace moses3 {
+namespace opencog {
 
 //! cassert complet with message and trace info
 void cassert(const char * trace,  bool condition, const char * msg, ...);
@@ -66,7 +66,7 @@ void cassert(const char* trace, bool condition, const std::string& msg);
 //! cassert without message. Just trace information
 void cassert(const char * trace, bool condition);
 
-} // namespace moses3
+} // namespace opencog
 ///@}
 /** @}*/
 

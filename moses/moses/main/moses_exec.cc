@@ -30,7 +30,7 @@
 #include "table-problems.h"
 #include "problem.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 using namespace std;
 using namespace reduct;
@@ -81,4 +81,4 @@ int moses_exec(const string& args)
 }
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog

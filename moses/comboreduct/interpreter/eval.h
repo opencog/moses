@@ -37,7 +37,7 @@
 #include "../crutil/exception.h"
 #include "../type_checker/type_tree.h"
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 // it has this name because it evaluates a procedure and returns a tree
 combo_tree eval_procedure_tree(const vertex_seq& bmap, combo_tree::iterator it);
@@ -93,6 +93,6 @@ arity_t arity(const tree<T>& tr)
     return a;
 }
 
-}} // ~namespaces combo moses3
+}} // ~namespaces combo opencog
 
 #endif

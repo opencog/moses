@@ -1,5 +1,5 @@
 /*
- * moses3/util/StringTokenizer.h
+ * opencog/util/StringTokenizer.h
  *
  * Copyright (C) 2002-2007 Novamente LLC
  * All Rights Reserved
@@ -22,13 +22,13 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _MOSES3_STRING_TOKENIZER_H
-#define _MOSES3_STRING_TOKENIZER_H
+#ifndef _OPENCOG_STRING_TOKENIZER_H
+#define _OPENCOG_STRING_TOKENIZER_H
 
 #include <string>
 #include <vector>
 
-namespace moses3
+namespace opencog
 {
 /** \addtogroup grp_cogutil
  *  @{
@@ -103,4 +103,4 @@ private:
 /** @}*/
 }  // namespace
 
-#endif // _MOSES3_STRING_TOKENIZER_H
+#endif // _OPENCOG_STRING_TOKENIZER_H

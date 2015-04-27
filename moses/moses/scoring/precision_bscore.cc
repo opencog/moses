@@ -30,7 +30,7 @@
 
 #include "precision_bscore.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 using namespace std;
 using namespace combo;
@@ -835,4 +835,4 @@ score_t precision_conj_bscore::min_improv() const
 }
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog

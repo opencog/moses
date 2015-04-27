@@ -29,7 +29,7 @@
 
 #include "../representation/instance_set.h"
 
-namespace moses3 { 
+namespace opencog { 
 namespace moses {
     
     // Generic evolutionary competition algorithm, intended for use
@@ -183,6 +183,6 @@ namespace moses {
     }
     
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif

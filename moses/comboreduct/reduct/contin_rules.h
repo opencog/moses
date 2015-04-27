@@ -26,7 +26,7 @@
 
 #include "reduct.h"
 
-namespace moses3 { namespace reduct {
+namespace opencog { namespace reduct {
 
 //x+0 -> x
 struct reduce_plus_zero : public crule<reduce_plus_zero> {
@@ -186,6 +186,6 @@ struct reduce_impulse_arg : public crule<reduce_impulse_arg>
 };
 
 } // ~namespace reduct
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif

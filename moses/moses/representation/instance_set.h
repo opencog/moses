@@ -45,7 +45,7 @@
 #define MAYBE_CONST const
 #endif
 
-namespace moses3 {
+namespace opencog {
 namespace moses {
 
 template<typename ScoreT>
@@ -146,7 +146,7 @@ public:
 };
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 
 #undef GCC46_EMPLACE_BACK_WORKAROUND
 #undef MAYBE_CONST

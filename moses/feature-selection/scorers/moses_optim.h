@@ -31,7 +31,7 @@
 #include <moses/moses/representation/instance_scorer.h>
 #include <moses/moses/moses/types.h>
 
-namespace moses3 {
+namespace opencog {
 
 using namespace moses;
 using namespace combo;
@@ -77,6 +77,6 @@ struct deme_based_scorer : public iscorer_base
     const field_set& _fields;
 };
 
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif // _OPENCOG_FS_SCORERS_OPTIM_H

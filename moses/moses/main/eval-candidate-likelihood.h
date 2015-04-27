@@ -23,7 +23,7 @@
 #ifndef _OPENCOG_EVAL_CANDIDATE_LIKELIHOOD_H
 #define _OPENCOG_EVAL_CANDIDATE_LIKELIHOOD_H
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 // structure holding the options
 struct eval_candidate_likelihood_params
@@ -52,6 +52,6 @@ static const std::string prerec="prerec"; // regression based on input table,
                                           // recall const.
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif // _OPENCOG_EVAL_CANDIDATE_H

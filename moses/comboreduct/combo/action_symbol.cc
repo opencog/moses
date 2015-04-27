@@ -24,7 +24,7 @@
 #include "action_symbol.h"
 #include <moses/util/oc_assert.h>
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 std::ostream& operator<<(std::ostream& out, action_symbol as) {
     OC_ASSERT(as);
@@ -32,4 +32,4 @@ std::ostream& operator<<(std::ostream& out, action_symbol as) {
 }
 
 } // ~namespace combo
-} // ~namespace moses3
+} // ~namespace opencog

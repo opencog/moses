@@ -29,7 +29,7 @@
 
 #include "../main/feature-selection.h"  // needed for feature_set, feature_selection_parameters
 
-namespace moses3 {
+namespace opencog {
 
 feature_set_pop random_select_feature_sets(const CTable& ctable,
                                            const feature_selection_parameters& fs_params);
@@ -57,6 +57,6 @@ FeatureSet random_selection(const FeatureSet& features,
 }
 
 
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif // _OPENCOG_FEATURE_SELECTION_RANDOM_ALGO_H

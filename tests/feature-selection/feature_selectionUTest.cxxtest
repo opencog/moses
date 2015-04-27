@@ -30,11 +30,11 @@
 
 #include <moses/feature-selection/algo/incremental.h>
 #include <moses/feature-selection/main/feature-selection.h>
-#include <moses/moses/optimization/optimization.h>  // for moses3::hc
+#include <moses/moses/optimization/optimization.h>  // for opencog::hc
 
 #define FEATURE_SELECTION_TEST_DIR PROJECT_SOURCE_DIR"/tests/feature-selection/"
 
-using namespace moses3;
+using namespace opencog;
 using namespace combo;
 using namespace std;
 using boost::counting_iterator;
@@ -304,7 +304,7 @@ private:
 
         // set feature selection parameters
         feature_selection_parameters fsp;
-        fsp.algorithm = moses3::hc;
+        fsp.algorithm = opencog::hc;
         fsp.scorer = mi;
         fsp.input_file = FEATURE_SELECTION_TEST_DIR"small-dataset.csv";
         fsp.jobs = n_jobs;

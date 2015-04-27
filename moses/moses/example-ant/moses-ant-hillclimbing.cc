@@ -43,7 +43,7 @@
 #include "ant_scoring.h"
 
 
-using namespace moses3;
+using namespace opencog;
 using namespace moses;
 using namespace reduct;
 using namespace boost;

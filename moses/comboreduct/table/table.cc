@@ -45,7 +45,7 @@
 #include "table.h"
 #include "table_io.h"
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 using namespace std;
 using namespace boost;
@@ -928,4 +928,4 @@ double OTEntropy(const OTable& ot)
     return entropy(py);
 }
 
-}} // ~namespaces combo moses3
+}} // ~namespaces combo opencog

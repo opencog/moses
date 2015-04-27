@@ -1,5 +1,5 @@
 /*
- * moses3/util/lru_cache.h
+ * opencog/util/lru_cache.h
  *
  * Copyright (C) 2002-2007 Novamente LLC
  * All Rights Reserved
@@ -20,8 +20,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _MOSES3_LRU_CACHE_H
-#define _MOSES3_LRU_CACHE_H
+#ifndef _OPENCOG_LRU_CACHE_H
+#define _OPENCOG_LRU_CACHE_H
 
 #include <list>
 #include <limits>
@@ -37,7 +37,7 @@
 #include <moses/util/oc_assert.h>
 #include <moses/util/platform.h>
 
-namespace moses3 {
+namespace opencog {
 /** \addtogroup grp_cogutil
  *  @{
  */
@@ -690,6 +690,6 @@ protected:
 
 ///@}
 /** @}*/
-} //~namespace moses3
+} //~namespace opencog
 
 #endif

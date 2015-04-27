@@ -1,5 +1,5 @@
 /*
- * moses3/util/lazy_random_selector.h
+ * opencog/util/lazy_random_selector.h
  *
  * Copyright (C) 2002-2007 Novamente LLC
  * All Rights Reserved
@@ -20,14 +20,14 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _MOSES3_LAZY_RANDOM_SELECTOR_H
-#define _MOSES3_LAZY_RANDOM_SELECTOR_H
+#ifndef _OPENCOG_LAZY_RANDOM_SELECTOR_H
+#define _OPENCOG_LAZY_RANDOM_SELECTOR_H
 
 #include <moses/util/lazy_selector.h>
 #include <moses/util/RandGen.h>
 #include <moses/util/mt19937ar.h>
 
-namespace moses3
+namespace opencog
 {
 /** \addtogroup grp_cogutil
  *  @{
@@ -41,16 +41,16 @@ namespace moses3
  */
 struct lazy_random_selector : public lazy_selector {
     lazy_random_selector(unsigned int u,
-                         moses3::RandGen& _rng = randGen());
+                         opencog::RandGen& _rng = randGen());
     lazy_random_selector(unsigned int u, unsigned int l,
-                         moses3::RandGen& _rng = randGen());
+                         opencog::RandGen& _rng = randGen());
 protected:
     unsigned int select();
 private:
-    moses3::RandGen& rng;
+    opencog::RandGen& rng;
 };
 
 /** @}*/
-} //~namespace moses3
+} //~namespace opencog
 
 #endif

@@ -28,9 +28,9 @@
 #include <moses/util/numeric.h> // needed for pow2
 #include <moses/comboreduct/combo/vertex.h> // needed for contin_t
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
-using namespace moses3::combo;
+using namespace opencog::combo;
 
 // Base functor for functors taking an iterator range of value type and result T
 template<typename T>
@@ -121,6 +121,6 @@ struct simple_symbolic_regression : public iterator_function<contin_t>
 };
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif

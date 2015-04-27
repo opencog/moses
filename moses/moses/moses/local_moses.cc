@@ -24,7 +24,7 @@
 
 #include "local_moses.h"
 
-namespace moses3 {
+namespace opencog {
 namespace moses {
 
 using namespace combo;
@@ -219,5 +219,5 @@ void local_moses(metapopulation& mp,
 }
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 

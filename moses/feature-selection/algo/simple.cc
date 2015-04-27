@@ -26,7 +26,7 @@
 
 #include "simple.h"
 
-namespace moses3 {
+namespace opencog {
     
 using namespace std;
 
@@ -60,4 +60,4 @@ feature_set_pop simple_select_feature_sets(const CTable& ctable,
     return {sfs};
 }
 
-} // ~namespace moses3
+} // ~namespace opencog

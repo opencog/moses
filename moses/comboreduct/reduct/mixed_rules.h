@@ -26,7 +26,7 @@
 
 #include "reduct.h"
 
-namespace moses3 { namespace reduct {
+namespace opencog { namespace reduct {
 
 //0<c*x -> 0<x if c>0
 //0<c*x -> 0<-1*x if c<0
@@ -280,6 +280,6 @@ struct reduce_inequality_from_assumptions : public crule<reduce_inequality_from_
 };
   
 } // ~namespace reduct
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif

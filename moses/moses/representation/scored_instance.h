@@ -27,7 +27,7 @@
 #include "instance.h"
 #include <moses/util/functional.h>
 
-namespace moses3 { 
+namespace opencog { 
 namespace moses {
 
 template<typename ScoreT>
@@ -52,6 +52,6 @@ struct scored_instance : public tagged_item<instance, ScoreT>
 };
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif

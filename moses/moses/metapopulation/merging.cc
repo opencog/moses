@@ -31,7 +31,7 @@
 
 #include "metapopulation.h"
 
-namespace moses3 {
+namespace opencog {
 namespace moses {
 
 using namespace combo;
@@ -638,5 +638,5 @@ void metapopulation::log_best_candidates() const
 }
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 

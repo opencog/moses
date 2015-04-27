@@ -2,8 +2,8 @@
 #include <moses/comboreduct/interpreter/interpreter.h>
 #include <moses/comboreduct/combo/combo.h>
 
-using namespace moses3;
-using namespace moses3::combo;
+using namespace opencog;
+using namespace opencog::combo;
 using namespace std;
 
 class interpreterUTest :  public CxxTest::TestSuite {

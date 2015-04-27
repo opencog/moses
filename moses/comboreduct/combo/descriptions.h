@@ -31,7 +31,7 @@
 
 #include <moses/util/tree.h>
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 namespace builtin_properties {
 
@@ -119,6 +119,6 @@ private:
 
 }  // namespace action_properties
 
-}} // ~namespaces combo moses3
+}} // ~namespaces combo opencog
 
 #endif // _COMBO_DESCRIPTIONS_H

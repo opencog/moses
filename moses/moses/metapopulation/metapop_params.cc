@@ -22,7 +22,7 @@
 
 #include "metapop_params.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 diversity_parameters::diversity_parameters()
     : pressure(0.0),
@@ -82,4 +82,4 @@ void diversity_parameters::set_dst2dp(diversity_parameters::dst2dp_enum_t d2de)
 }
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog

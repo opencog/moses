@@ -25,7 +25,7 @@
 
 #include <string>
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 using namespace std;
 
@@ -89,6 +89,6 @@ static const pair<string, string> hc_crossover_opt("hc-crossover", "Z");
 string opt_desc_str(const pair<string, string>& opt);
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif // _OPENCOG_MOSES_OPTIONS_NAMES_H

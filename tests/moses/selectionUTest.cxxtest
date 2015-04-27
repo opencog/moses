@@ -28,7 +28,7 @@
 #include <moses/comboreduct/table/table_io.h>
 #include "moses-framework.h"
 
-using namespace moses3::moses;
+using namespace opencog::moses;
 
 const string test_dir = string(PROJECT_SOURCE_DIR) + "/tests/moses/";
 
@@ -39,7 +39,7 @@ class selectionUTest : public CxxTest::TestSuite
 {
 public:
     selectionUTest() {
-        // moses3::logger().setPrintToStdoutFlag(true);
+        // opencog::logger().setPrintToStdoutFlag(true);
     }
 
     void frame(string filename, string meval, bool boosting,

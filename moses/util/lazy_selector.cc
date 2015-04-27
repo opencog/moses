@@ -1,5 +1,5 @@
 /*
- * moses3/util/lazy_selector.cc
+ * opencog/util/lazy_selector.cc
  *
  * Copyright (C) 2002-2009 Novamente LLC
  * All Rights Reserved
@@ -33,7 +33,7 @@
 #include <boost/bind.hpp>
 #include <boost/iterator/counting_iterator.hpp>
 
-namespace moses3
+namespace opencog
 {
 
 using std::make_pair;
@@ -107,4 +107,4 @@ void lazy_selector::increase_l_till_free() {
     } while(!is_free(_l));
 }
 
-} //~namespace moses3
+} //~namespace opencog

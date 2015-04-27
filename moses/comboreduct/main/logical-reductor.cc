@@ -32,14 +32,14 @@
 #include "../table/table_io.h"
 
 using namespace std;
-using namespace moses3;
+using namespace opencog;
 using namespace reduct;
 
 int main()
 {
     logger().setPrintErrorLevelStdout();
 
-    moses3::combo::vertex_set ignore_ops;
+    opencog::combo::vertex_set ignore_ops;
 
     const int effort = 3; // effort allocated for reduction (3 is max)
 

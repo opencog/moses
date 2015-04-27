@@ -24,7 +24,7 @@
 
 #include "deme_optimize.h"
 
-namespace moses3 {
+namespace opencog {
     
 using namespace std;
 
@@ -40,4 +40,4 @@ instance initial_instance(const feature_selection_parameters& fs_params,
 }
 
 
-} // ~namespace moses3
+} // ~namespace opencog

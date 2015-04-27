@@ -37,7 +37,7 @@
 #include <moses/comboreduct/combo/iostream_combo.h>
 #include <moses/comboreduct/combo/../type_checker/type_tree_def.h>
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 class procedure_call_base : public operator_base
 {
@@ -200,6 +200,6 @@ std::ostream& operator<<(std::ostream&, const procedure_call_base&);
 std::ostream& operator<<(std::ostream&, procedure_call);
 
 } // ~namespace combo
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif

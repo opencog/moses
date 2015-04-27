@@ -19,7 +19,7 @@ using namespace moses;
 using namespace reduct;
 using namespace boost;
 using namespace std;
-using namespace moses3;
+using namespace opencog;
 
 
 int main(int argc, char** argv)

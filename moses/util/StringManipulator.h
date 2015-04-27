@@ -1,5 +1,5 @@
 /*
- * moses3/util/StringManipulator.h
+ * opencog/util/StringManipulator.h
  *
  * Copyright (C) 2002-2007 Novamente LLC
  * All Rights Reserved
@@ -20,14 +20,14 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _MOSES3_STRINGMANIPULATOR_H_
-#define _MOSES3_STRINGMANIPULATOR_H_
+#ifndef _OPENCOG_STRINGMANIPULATOR_H_
+#define _OPENCOG_STRINGMANIPULATOR_H_
 
 #include <string>
 #include <vector>
 #include <sstream>
 
-namespace moses3 {
+namespace opencog {
 /** \addtogroup grp_cogutil
  *  @{
  */
@@ -87,4 +87,4 @@ public:
 /** @}*/
 }  // namespace
 
-#endif /*_MOSES3_STRINGMANIPULATOR_H_*/
+#endif /*_OPENCOG_STRINGMANIPULATOR_H_*/

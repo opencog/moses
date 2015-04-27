@@ -23,7 +23,7 @@
 #include <cxxtest/TestSuite.h>
 #include "moses-framework.h"
 
-using namespace moses3::moses;
+using namespace opencog::moses;
 
 const string mixedUTest_dir = string(PROJECT_SOURCE_DIR) + "/tests/moses/";
 

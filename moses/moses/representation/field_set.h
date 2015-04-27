@@ -39,7 +39,7 @@
 
 #include "instance.h"
 
-namespace moses3 {
+namespace opencog {
 namespace moses {
 
  /**
@@ -75,7 +75,7 @@ namespace moses {
   * of a tree are commonly called 'constants' or 'zero-ary functions',
   * while the internal nodes of the tree would be called 'n-ary functions'
   * (presuming that they have n children).  The labels on nodes are
-  * strings.  Note that atoms (in the general sense, not the moses3
+  * strings.  Note that atoms (in the general sense, not the opencog
   * sense) are terms with truth values (predicates);  however no atoms or
   * truth values are used here.  See for example, Baader & Nipkow,
   * 'Term Rewriting and All That', for more information. Or wikipedia.
@@ -1046,7 +1046,7 @@ public:
             return _fs->disc_and_bit()[spec_idx].multy;
         }
 
-        void randomize(moses3::RandGen& rng = randGen())
+        void randomize(opencog::RandGen& rng = randGen())
         {
             _fs->set_raw(*_inst, _idx, rng.randint(multy()));
         }
@@ -1374,6 +1374,6 @@ inline std::ostream& operator<<(std::ostream& out,
 
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif

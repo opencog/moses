@@ -24,7 +24,7 @@
 #include "../scoring/scoring_base.h"
 #include "../scoring/behave_cscore.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 using namespace std;
 

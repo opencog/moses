@@ -26,7 +26,7 @@
 #include <moses/util/Logger.h>
 #include "mpi_moses.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 
 #define ROOT_NODE 0
@@ -687,6 +687,6 @@ void mpi_moses(metapopulation& mp,
 
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif /* HAVE_MPI */

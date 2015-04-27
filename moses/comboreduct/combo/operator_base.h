@@ -27,7 +27,7 @@
 #include <moses/comboreduct/combo/common_def.h>
 #include <moses/comboreduct/type_checker/type_tree_def.h>
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
   //that abstract class contains common methods
   //of builtin_action_base and perception_base
@@ -50,6 +50,6 @@ namespace moses3 { namespace combo {
     virtual const type_tree& get_input_type_tree(arity_t i) const = 0;
   };
 
-}} // ~namespace combo moses3
+}} // ~namespace combo opencog
 
 #endif

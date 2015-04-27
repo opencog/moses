@@ -24,7 +24,7 @@
 #include "builtin_action.h"
 #include <moses/util/oc_assert.h>
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 std::ostream& operator<<(std::ostream& out, combo::builtin_action a) {
     OC_ASSERT(a);
@@ -32,4 +32,4 @@ std::ostream& operator<<(std::ostream& out, combo::builtin_action a) {
 }
 
 } // ~namespace combo
-} // ~namespace moses3
+} // ~namespace opencog

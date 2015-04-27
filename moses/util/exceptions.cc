@@ -1,5 +1,5 @@
 /*
- * moses3/util/exceptions.cc
+ * opencog/util/exceptions.cc
  *
  * Copyright (C) 2002-2007 Novamente LLC
  * All Rights Reserved
@@ -36,7 +36,7 @@
 
 #define MAX_MSG_LENGTH 2048
 
-using namespace moses3;
+using namespace opencog;
 
 /*
  * ----------------------------------------------------------------------------
@@ -48,7 +48,7 @@ void StandardException::parseErrorMessage(const char* fmt, va_list ap, bool logE
     char buf[MAX_MSG_LENGTH];
 
     vsnprintf(buf, sizeof(buf), fmt, ap);
-    if (logError) moses3::logger().error(buf);
+    if (logError) opencog::logger().error(buf);
     setMessage(buf);
 }
 
@@ -292,7 +292,7 @@ AssertionException::AssertionException(const char* fmt, ...)
     va_end(ap);
 
     setMessage(buf);
-    moses3::logger().error(buf);
+    opencog::logger().error(buf);
 }
 
 AssertionException::AssertionException(const char* fmt, va_list ap)
@@ -301,6 +301,6 @@ AssertionException::AssertionException(const char* fmt, va_list ap)
 
     vsnprintf(buf, sizeof(buf), fmt, ap);
     setMessage(buf);
-    moses3::logger().error(buf);
+    opencog::logger().error(buf);
 }
 

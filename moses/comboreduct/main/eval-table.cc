@@ -33,7 +33,7 @@
 using namespace boost::program_options;
 using boost::lexical_cast;
 using boost::trim;
-using namespace moses3;
+using namespace opencog;
 
 /**
  * Program to output the result of a combo program given input data

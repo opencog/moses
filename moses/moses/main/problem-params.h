@@ -40,7 +40,7 @@
 #include <moses/moses/optimization/hill-climbing.h>
 
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 // XXX FIXME TODO The structure below should be split into multiple
 // parts, with each sub-part responsible for picking out the argv's
@@ -227,6 +227,6 @@ private:
 };
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif // _OPENCOG_MOSES_PROBLEM_PARAMS_H

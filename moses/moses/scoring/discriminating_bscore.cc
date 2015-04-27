@@ -34,7 +34,7 @@
 #include <boost/spirit/include/phoenix_core.hpp>
 #include <boost/spirit/include/phoenix_operator.hpp>
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 using namespace std;
 using namespace combo;
@@ -695,4 +695,4 @@ score_t f_one_bscore::get_variable(score_t pos, score_t neg, unsigned cnt) const
 }
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog

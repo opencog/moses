@@ -30,7 +30,7 @@
 
 #include "scoring_base.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 /**
  * Composite score calculated from the behavioral score.
@@ -128,6 +128,6 @@ public:
 
 
 } //~namespace moses
-} //~namespace moses3
+} //~namespace opencog
 
 #endif // _MOSES_BEHAVE_CSCORE_H

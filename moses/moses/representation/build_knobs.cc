@@ -41,7 +41,7 @@
 
 using namespace std;
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 typedef combo_tree::sibling_iterator sib_it;
 typedef combo_tree::pre_order_iterator pre_it;
@@ -1348,4 +1348,4 @@ void build_knobs::ann_canonize(pre_it it)
 }
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog

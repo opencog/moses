@@ -34,7 +34,7 @@
 #include "../representation/instance_scorer.h"
 #include "../representation/instance_set.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 /**
  * information_theoretic_bits -- return information content of the field set.
@@ -186,6 +186,6 @@ struct optimizer_base : optim_stats
 };
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif

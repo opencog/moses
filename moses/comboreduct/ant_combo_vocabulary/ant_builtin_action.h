@@ -29,7 +29,7 @@
 #include <moses/comboreduct/combo/builtin_action.h>
 #include "ant_operator.h"
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
   
 //later to be replaced by id
 namespace id {
@@ -52,7 +52,7 @@ typedef id::ant_builtin_action_enum ant_builtin_action_enum;
 namespace ant_builtin_action_properties {
 
   //struct for description of name and type
-  typedef moses3::combo::ant_operator<ant_builtin_action_enum, id::ant_builtin_action_count>::basic_description action_basic_description;
+  typedef opencog::combo::ant_operator<ant_builtin_action_enum, id::ant_builtin_action_count>::basic_description action_basic_description;
 
   //struct for decription of action properties
   struct action_property_description {
@@ -167,6 +167,6 @@ public:
   const std::set<builtin_action> preconditions() const;
 };
 
-}} // ~namespaces combo moses3
+}} // ~namespaces combo opencog
 
 #endif

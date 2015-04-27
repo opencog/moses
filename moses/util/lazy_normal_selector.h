@@ -1,5 +1,5 @@
 /*
- * moses3/util/lazy_normal_selector.h
+ * opencog/util/lazy_normal_selector.h
  *
  * Copyright (C) 2002-2007 Novamente LLC
  * All Rights Reserved
@@ -20,13 +20,13 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _MOSES3_LAZY_NORMAL_SELECTOR_H
-#define _MOSES3_LAZY_NORMAL_SELECTOR_H
+#ifndef _OPENCOG_LAZY_NORMAL_SELECTOR_H
+#define _OPENCOG_LAZY_NORMAL_SELECTOR_H
 
 #include <moses/util/lazy_selector.h>
 #include <moses/util/oc_assert.h>
 
-namespace moses3
+namespace opencog
 {
 /** \addtogroup grp_cogutil
  *  @{
@@ -46,6 +46,6 @@ private:
 };
 
 /** @}*/
-} //~namespace moses3
+} //~namespace opencog
 
 #endif

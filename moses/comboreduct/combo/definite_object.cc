@@ -25,7 +25,7 @@
 
 #define ACTION_NAME_POSTFIX "_action"
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 bool is_action_definite_object(const definite_object& d) {
     return std::string::npos != d.rfind(ACTION_NAME_POSTFIX);
@@ -39,4 +39,4 @@ definite_object get_action_definite_object(const std::string& action_name) {
     return definite_object(action_name + std::string(ACTION_NAME_POSTFIX));
 }
 
-}} // ~namespaces combo moses3
+}} // ~namespaces combo opencog

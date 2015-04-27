@@ -26,11 +26,11 @@
 
 #include "problem.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 void register_demo_problems(problem_manager&, option_manager&);
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif // _OPENCOG_MOSES_DEMO_PROBLEMS_H

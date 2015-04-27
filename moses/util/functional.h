@@ -1,5 +1,5 @@
-#ifndef _MOSES3_FUNCTIONAL_H
-#define _MOSES3_FUNCTIONAL_H
+#ifndef _OPENCOG_FUNCTIONAL_H
+#define _OPENCOG_FUNCTIONAL_H
 
 #include <utility>
 #include <functional>
@@ -14,7 +14,7 @@
 
 #include <ext/functional>
 
-namespace moses3
+namespace opencog
 {
 /** \addtogroup grp_cogutil
  *  @{
@@ -254,6 +254,6 @@ struct toFunc {
 };
 
 /** @}*/
-} //~namespace moses3;
+} //~namespace opencog;
 
 #endif

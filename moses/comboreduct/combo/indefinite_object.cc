@@ -24,11 +24,11 @@
 #include "perception.h"
 #include "descriptions.h"
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 std::ostream& operator<<(std::ostream& out, indefinite_object i) {
   return out << i->get_name();
 }
 
 } // ~namespace combo
-} // ~namespace moses3
+} // ~namespace opencog

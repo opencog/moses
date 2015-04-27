@@ -24,7 +24,7 @@
 #include "iostream_combo.h"
 #include "procedure_call.h"
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 using namespace std;
 using namespace boost;
@@ -627,4 +627,4 @@ ostream& operator<<(ostream& out, const vertex& v)
     return ostream_vertex(out, v);
 }
 
-}} // ~namespaces combo moses3
+}} // ~namespaces combo opencog

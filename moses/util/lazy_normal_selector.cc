@@ -1,5 +1,5 @@
 /*
- * moses3/util/lazy_normal_selector.cc
+ * opencog/util/lazy_normal_selector.cc
  *
  * Copyright (C) 2002-2007 Novamente LLC
  * All Rights Reserved
@@ -22,7 +22,7 @@
 
 #include "lazy_normal_selector.h"
 
-namespace moses3
+namespace opencog
 {
 
 unsigned int lazy_normal_selector::select()
@@ -30,4 +30,4 @@ unsigned int lazy_normal_selector::select()
     return _s;
 }
 
-} //~namespace moses3
+} //~namespace opencog

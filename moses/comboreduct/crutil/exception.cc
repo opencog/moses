@@ -23,7 +23,7 @@
  */
 #include "exception.h"
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 ComboReductException::ComboReductException(std::string m)
   : _message(m) {}
@@ -52,4 +52,4 @@ vertex EvalException::get_vertex() const
 TypeCheckException::TypeCheckException(int arg)
     : ComboReductException("Type check Exception"), _arg(arg) {} 
 
-}} // ~namespaces combo moses3
+}} // ~namespaces combo opencog

@@ -36,7 +36,7 @@
 #include <moses/comboreduct/type_checker/type_tree.h>
 
 using namespace boost::program_options;
-using namespace moses3;
+using namespace opencog;
 using namespace combo;
 using namespace std;
 

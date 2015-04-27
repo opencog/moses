@@ -22,7 +22,7 @@
 
 #include "neighborhood_sampling.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 // See the header for the function comments
 
@@ -37,7 +37,7 @@ void flip_LR(field_set::disc_iterator itr) {
 // See header for comment
 void twiddle_contin_bit(field_set::disc_iterator itr,
                         field_set::disc_iterator next_itr,
-                        moses3::RandGen& rng)
+                        opencog::RandGen& rng)
 {
     if (*itr == field_set::contin_spec::Stop) {
         *itr = rng.randbool() ?
@@ -56,7 +56,7 @@ void generate_contin_neighbor(const field_set& fs,
                               instance& inst,
                               field_set::contin_iterator it,
                               unsigned dist,
-                              moses3::RandGen& rng)
+                              opencog::RandGen& rng)
 {
     size_t begin = fs.contin_to_raw_idx(it.idx()),
         depth = fs.contin()[it.idx()].depth,
@@ -295,4 +295,4 @@ size_t sample_new_instances(size_t number_of_new_instances,
 }
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog

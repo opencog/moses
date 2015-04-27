@@ -26,7 +26,7 @@
 
 #include "knobs.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 /////////////////
 // contin_knob //
@@ -434,4 +434,4 @@ std::string simple_action_subtree_knob::locStr() const
 }
 
 } //~namespace moses
-} //~namespace moses3
+} //~namespace opencog

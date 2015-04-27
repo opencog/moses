@@ -32,7 +32,7 @@
 
 #include "optimization.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 double
 information_theoretic_bits(const field_set& fs)
@@ -186,5 +186,5 @@ void print_stats_header(optim_stats *os, bool diversity)
 }
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 

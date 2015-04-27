@@ -34,7 +34,7 @@
 
 #include "../main/feature-selection.h" // needed for feature_selection_params
 
-namespace moses3 {
+namespace opencog {
 
 using namespace moses;
 using namespace combo;
@@ -129,6 +129,6 @@ feature_set_pop moses_select_feature_sets(const CTable& ctable,
     return create_deme_select_feature_sets(ctable, optimize, fs_sc, fs_params);
 }
 
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif // _OPENCOG_FEATURE-SELECTION_DEME_OPTIMIZE_H

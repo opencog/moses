@@ -29,7 +29,7 @@
 #include <moses/comboreduct/combo/perception.h>
 #include "ant_operator.h"
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
   
 //later to be replaced by id
 namespace id {
@@ -129,6 +129,6 @@ public:
   bool is_identity_of_indiscernibles() const;
 };
 
-}} // ~namespaces combo moses3
+}} // ~namespaces combo opencog
 
 #endif

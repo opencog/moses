@@ -38,7 +38,7 @@
 #include "moses_exec_def.h"
 #include "problem-params.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 using namespace std;
 
@@ -881,7 +881,7 @@ problem_params::add_options(boost::program_options::options_description& desc)
          "  inc, for incremental max-relevency, min-redundancy.\n"
          "  smd, for stochastic mutual dependency,\n"
          "  random, for uniform random dependency,\n")
-         .append(moses3::hc).append(" for moses-hillclimbing.\n").c_str())
+         .append(opencog::hc).append(" for moses-hillclimbing.\n").c_str())
 
         ("fs-scorer",
          po::value<string>(&fs_params.scorer)->default_value(mi),
@@ -1462,5 +1462,5 @@ void problem_params::parse_options(boost::program_options::variables_map& vm)
 }
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 

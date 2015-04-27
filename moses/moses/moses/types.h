@@ -43,7 +43,7 @@
 #include <moses/comboreduct/combo/combo.h>
 #include "complexity.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 using combo::vertex;
 using boost::indirect_iterator;

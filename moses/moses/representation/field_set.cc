@@ -28,7 +28,7 @@
 #include <moses/util/oc_assert.h>
 #include <moses/util/iostreamContainer.h>
 
-namespace moses3 {
+namespace opencog {
 namespace moses {
 
 const disc_t field_set::contin_spec::Stop = 0;
@@ -267,4 +267,4 @@ std::ostream& field_set::ostream_field_set(std::ostream& out) const
 
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog

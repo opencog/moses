@@ -27,7 +27,7 @@
 #include <moses/comboreduct/combo/simple_nn.h>
 #include <moses/comboreduct/combo/vertex.h>
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 /**
  * converter combo_tree <-> ann
@@ -202,6 +202,6 @@ struct tree_transform {
     }
 };
 
-}} // ~namespaces combo moses3
+}} // ~namespaces combo opencog
 
 #endif // _COMBO_CONVERTER_ANN_COMBO_TREE_H

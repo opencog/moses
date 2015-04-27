@@ -32,7 +32,7 @@
 #include "../representation/instance_set.h"
 #include "optimization.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 // Parameters specific to EDA optimization
 struct eda_parameters
@@ -75,6 +75,6 @@ struct univariate_optimization : optimizer_base
 };
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif

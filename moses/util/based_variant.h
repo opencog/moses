@@ -1,5 +1,5 @@
 /*
- * moses3/util/based_variant.h
+ * opencog/util/based_variant.h
  *
  * Copyright (C) 2002-2007 Novamente LLC
  * All Rights Reserved
@@ -20,12 +20,12 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _MOSES3_BASED_VARIANT_H
-#define _MOSES3_BASED_VARIANT_H
+#ifndef _OPENCOG_BASED_VARIANT_H
+#define _OPENCOG_BASED_VARIANT_H
 
 #include <boost/variant.hpp>
 
-namespace moses3
+namespace opencog
 {
 /** \addtogroup grp_cogutil
  *  @{
@@ -71,6 +71,6 @@ struct based_variant : public Variant {
 };
 
 /** @}*/
-} //~namespace moses3
+} //~namespace opencog
 
-#endif // _MOSES3_BASED_VARIANT_H
+#endif // _OPENCOG_BASED_VARIANT_H

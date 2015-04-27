@@ -35,7 +35,7 @@
 
 using namespace std;
 using namespace boost::assign;
-using namespace moses3;
+using namespace opencog;
 using namespace combo;
 
 string opt_desc_str(const pair<string, string>& opt) {

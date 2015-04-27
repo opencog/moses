@@ -28,7 +28,7 @@
 #include "../metapopulation/metapopulation.h"
 #include "moses_params.h"
 
-namespace moses3 {
+namespace opencog {
 namespace moses {
 
 using namespace combo;
@@ -41,6 +41,6 @@ void local_moses(metapopulation&,
                  moses_statistics&);
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif

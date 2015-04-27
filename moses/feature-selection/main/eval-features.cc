@@ -34,7 +34,7 @@
 #include "eval-features.h"
 
 using namespace boost::program_options;
-using namespace moses3;
+using namespace opencog;
 
 /**
  * Program to output the feature quality of a feature set given a data

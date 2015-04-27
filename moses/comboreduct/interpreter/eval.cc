@@ -26,7 +26,7 @@
 #include <iostream>
 #include <iterator>
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 using namespace std;
 
@@ -601,4 +601,4 @@ combo_tree eval_throws_tree(const vertex_seq& bmap, const combo_tree& tr)
 }
 
 
-}} // ~namespaces combo moses3
+}} // ~namespaces combo opencog

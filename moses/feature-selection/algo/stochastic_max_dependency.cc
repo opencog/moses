@@ -26,7 +26,7 @@
 
 #include "stochastic_max_dependency.h"
 
-namespace moses3 {
+namespace opencog {
 
 using namespace std;
 
@@ -53,4 +53,4 @@ feature_set_pop smd_select_feature_sets(const CTable& ctable,
 }
 
 
-} // ~namespace moses3
+} // ~namespace opencog

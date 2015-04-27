@@ -28,7 +28,7 @@
 #include <map>
 #include <boost/program_options/variables_map.hpp>
 
-namespace moses3 {
+namespace opencog {
 namespace moses {
 
 /// A map between hostname and number of jobs allocated.
@@ -97,6 +97,6 @@ struct moses_statistics
 
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif

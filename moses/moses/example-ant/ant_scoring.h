@@ -33,7 +33,7 @@
 #include "../scoring/scoring_base.h"
 
 using namespace ant_combo;
-using namespace moses3::moses;
+using namespace opencog::moses;
 
 #define MIN_FITNESS -1.0e10
 

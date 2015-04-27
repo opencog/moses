@@ -25,7 +25,7 @@
 #include <moses/comboreduct/combo/assumption.h>
 #include <moses/util/exceptions.h>
 
-namespace moses3 { namespace reduct {
+namespace opencog { namespace reduct {
 typedef combo_tree::sibling_iterator sib_it;
 typedef combo_tree::iterator pre_it;
 
@@ -206,4 +206,4 @@ void reduce_identity_of_indiscernibles::operator()(combo_tree& tr,combo_tree::it
 }
 
 } // ~namespace reduct
-} // ~namespace moses3
+} // ~namespace opencog

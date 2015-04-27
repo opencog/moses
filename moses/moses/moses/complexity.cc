@@ -26,9 +26,9 @@
 
 #include "complexity.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
-using namespace moses3::combo;
+using namespace opencog::combo;
 
 // For a Boolean formula, the complexity is the neg(# of literals)
 // That is, a Boolean formula can always be reduced to CNF or DNF,
@@ -120,4 +120,4 @@ complexity_t tree_complexity(const combo_tree& tr,
 }
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog

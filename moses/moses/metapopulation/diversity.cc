@@ -35,7 +35,7 @@
 
 #include "metapopulation.h"
 
-namespace moses3 {
+namespace opencog {
 namespace moses {
 
 using namespace std;
@@ -303,5 +303,5 @@ metapopulation::cached_dst::gather_stats() const
 
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 

@@ -31,7 +31,7 @@
 #include <sstream>
 #include <moses/comboreduct/combo/vertex.h>
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 typedef std::map<std::string, unsigned> tree_branch_vector;
 tree_branch_vector tree_flatten(const combo_tree&);
@@ -50,6 +50,6 @@ std::string toString(const tree_branch_vector& tbv)
 }
 
 } // ~namespace combo
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif // COMBO_SIMILARITY_H_

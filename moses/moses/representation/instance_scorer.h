@@ -30,7 +30,7 @@
 #include "representation.h"
 #include "../scoring/behave_cscore.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 struct iscorer_base : public std::unary_function<instance, composite_score>
 {
@@ -107,6 +107,6 @@ protected:
 };
 
 } //~namespace moses
-} //~namespace moses3
+} //~namespace opencog
 
 #endif

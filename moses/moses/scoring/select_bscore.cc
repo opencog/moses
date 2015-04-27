@@ -26,7 +26,7 @@
 
 #include "select_bscore.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 using namespace combo;
 
@@ -345,4 +345,4 @@ void select_bscore::update_weights(const std::vector<double>& rew)
 }
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog

@@ -25,7 +25,7 @@
 #include "iostream_combo.h"
 #include "../type_checker/type_tree.h"
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 procedure_call_base::procedure_call_base(const std::string& name,
                                          arity_t arity,
@@ -139,5 +139,5 @@ std::ostream& operator<<(std::ostream& out, procedure_call pc)
 }
 
 } // ~namespace combo
-} // ~namespace moses3
+} // ~namespace opencog
 

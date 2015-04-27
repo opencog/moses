@@ -37,10 +37,10 @@
 
 #include <moses/comboreduct/combo/vertex.h>
 
-namespace moses3 { namespace reduct {
-typedef std::set<int, moses3::absolute_value_order<int> > clause;
+namespace opencog { namespace reduct {
+typedef std::set<int, opencog::absolute_value_order<int> > clause;
 typedef std::list<clause> nf;
-using namespace moses3::combo;
+using namespace opencog::combo;
 
 //does c contain p and !p?
 bool tautology(const clause& c);
@@ -96,10 +96,10 @@ template<typename T>
 class nf_mapper
 {
 public:
-    typedef moses3::tree<T> tree;
+    typedef opencog::tree<T> tree;
     typedef typename tree::sibling_iterator sib_it;
     typedef std::map<sib_it,int,
-                     moses3::lexicographic_subtree_order<T> > Item2Int;
+                     opencog::lexicographic_subtree_order<T> > Item2Int;
     typedef std::unordered_map<int,tree> Int2Item;
 
     nf add_cnf(sib_it, sib_it);
@@ -273,9 +273,9 @@ void nf_mapper<T>::create(tree& t, sib_it at, int idx) const
 }
 
 } // ~namespace reduct
-} // ~namespace moses3
+} // ~namespace opencog
 
-std::ostream& operator<<(std::ostream& out,const moses3::reduct::clause& c);
-std::ostream& operator<<(std::ostream& out,const moses3::reduct::nf& d);
+std::ostream& operator<<(std::ostream& out,const opencog::reduct::clause& c);
+std::ostream& operator<<(std::ostream& out,const opencog::reduct::nf& d);
 
 #endif

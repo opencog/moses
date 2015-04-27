@@ -27,7 +27,7 @@
 #include "general_rules.h"
 #include "logical_rules.h"
 
-namespace moses3 { namespace reduct {
+namespace opencog { namespace reduct {
 
 const rule& clean_reduction()
 {
@@ -55,4 +55,4 @@ const rule& clean_reduction()
 }
 
 } // ~namespace reduct
-} // ~namespace moses3
+} // ~namespace opencog

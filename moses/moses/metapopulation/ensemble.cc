@@ -31,7 +31,7 @@
 #include  <moses/moses/moses/complexity.h>
 #include "ensemble.h"
 
-namespace moses3 {
+namespace opencog {
 namespace moses {
 
 using namespace combo;
@@ -434,5 +434,5 @@ score_t ensemble::flat_score() const
 }
 
 
-}}; // namespace moses3::moses
+}}; // namespace opencog::moses
 

@@ -1,5 +1,5 @@
 /*
- * moses3/util/StringManipulator.cc
+ * opencog/util/StringManipulator.cc
  *
  * Copyright (C) 2002-2007 Novamente LLC
  * All Rights Reserved
@@ -23,7 +23,7 @@
 #include <cctype>
 #include <boost/regex.hpp>
 #include "StringManipulator.h"
-using namespace moses3;
+using namespace opencog;
 
 #define isvalidtoken(ch) ((ch) == ')' || (ch)== '(' || (ch) == ',' )
 

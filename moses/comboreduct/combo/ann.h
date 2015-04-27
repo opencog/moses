@@ -24,7 +24,7 @@
 #ifndef _COMBO_ANN_H
 #define _COMBO_ANN_H
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 namespace id {
 enum ann_id {
@@ -50,6 +50,6 @@ public:
     }
 };
 
-}} // ~namespaces combo moses3
+}} // ~namespaces combo opencog
 
 #endif // _COMBO_ANN_H

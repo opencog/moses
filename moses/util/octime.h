@@ -1,5 +1,5 @@
 /*
- * moses3/util/octime.h
+ * opencog/util/octime.h
  *
  * Copyright (C) 2011 OpenCog Foundation
  * All Rights Reserved
@@ -20,10 +20,10 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef MOSES3_UTILS_TIME_H
-#define MOSES3_UTILS_TIME_H
+#ifndef OPENCOG_UTILS_TIME_H
+#define OPENCOG_UTILS_TIME_H
 
-namespace moses3
+namespace opencog
 {
 /** \addtogroup grp_cogutil
  *  @{
@@ -41,6 +41,6 @@ void initReferenceTime();
 unsigned long getElapsedMillis();
 
 /** @}*/
-} // namespace moses3
+} // namespace opencog
 
-#endif //  MOSES3_UTILS_TIME_H
+#endif //  OPENCOG_UTILS_TIME_H

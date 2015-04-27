@@ -31,7 +31,7 @@
 // Note: the rule names are useful when debugging the reduct engine
 // (uncomment META_RULE_DEBUG in meta_rules.cc)
 
-namespace moses3 { namespace reduct {
+namespace opencog { namespace reduct {
 
 const rule& contin_reduction(int reduct_effort,
                              const vertex_set& ignore_ops)
@@ -135,4 +135,4 @@ const rule& contin_reduction(int reduct_effort,
 }
 
 } // ~namespace reduct
-} // ~namespace moses3
+} // ~namespace opencog

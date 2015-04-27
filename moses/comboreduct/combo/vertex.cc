@@ -27,7 +27,7 @@
 #include <moses/util/algorithm.h>
 #include "iostream_combo.h"
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 bool operator<(const combo_tree& lt, const combo_tree& rt) {
     return size_tree_order<vertex>()(lt, rt);
@@ -262,4 +262,4 @@ void copy_without_null_vertices(combo_tree::iterator src,
             copy_without_null_vertices(sib, dst_tr, dst_tr.append_child(dst));
 }
 
-}} // ~namespaces combo moses3
+}} // ~namespaces combo opencog

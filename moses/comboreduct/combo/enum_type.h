@@ -31,7 +31,7 @@
 #include <boost/thread.hpp>
 #include <boost/operators.hpp>
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 // enum_t is essentially a string but is coded as a different type
 // than definite_object (or message), because it semantically denotes
@@ -103,10 +103,10 @@ public:
     }
 };
 
-std::ostream& operator<<(std::ostream&, const moses3::combo::enum_t&);
+std::ostream& operator<<(std::ostream&, const opencog::combo::enum_t&);
 
 } // ~namespace combo
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif
 

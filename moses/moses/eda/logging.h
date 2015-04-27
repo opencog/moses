@@ -31,7 +31,7 @@
 
 #include "../representation/field_set.h"
 
-namespace moses3 {
+namespace opencog {
 namespace moses {
 
     struct cout_log_best_and_gen
@@ -55,6 +55,6 @@ namespace moses {
     };
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif

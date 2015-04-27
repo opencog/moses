@@ -1,5 +1,5 @@
 /*
- * moses3/util/concurrent_stack.h
+ * opencog/util/concurrent_stack.h
  *
  * Based off of http://www.justsoftwaresolutions.co.uk/threading/implementing-a-thread-safe-queue-using-condition-variables.html
  * Original version by Anthony Williams

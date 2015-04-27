@@ -1,5 +1,5 @@
 /*
- * moses3/util/lazy_selector.h
+ * opencog/util/lazy_selector.h
  *
  * Copyright (C) 2002-2009 Novamente LLC
  * All Rights Reserved
@@ -22,12 +22,12 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _MOSES3_LAZY_SELECTOR_H
-#define _MOSES3_LAZY_SELECTOR_H
+#ifndef _OPENCOG_LAZY_SELECTOR_H
+#define _OPENCOG_LAZY_SELECTOR_H
 
 #include <unordered_set>
 
-namespace moses3
+namespace opencog
 {
 /** \addtogroup grp_cogutil
  *  @{
@@ -84,6 +84,6 @@ private:
 };
 
 /** @}*/
-} //~namespace moses3
+} //~namespace opencog
 
 #endif

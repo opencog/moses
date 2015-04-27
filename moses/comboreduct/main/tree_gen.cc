@@ -31,7 +31,7 @@
 
 int main(int argc, char** argv)
 {
-    using namespace moses3;
+    using namespace opencog;
     using namespace trees;
     using namespace boost;
     using namespace std;

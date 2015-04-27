@@ -21,8 +21,8 @@
  */
 
 
-#ifndef _MOSES3_RANDOM_H
-#define _MOSES3_RANDOM_H
+#ifndef _OPENCOG_RANDOM_H
+#define _OPENCOG_RANDOM_H
 
 #include <boost/numeric/conversion/cast.hpp>
 
@@ -36,7 +36,7 @@
  * This file contains a collection of random generators based on RandGen
  */
 
-namespace moses3 {
+namespace opencog {
 /** \addtogroup grp_cogutil
  *  @{
  */
@@ -91,6 +91,6 @@ static inline bool biased_randbool(float b, RandGen& rng = randGen())
 }
 
 /** @}*/
-} // ~namespace moses3
+} // ~namespace opencog
 
-#endif // _MOSES3_RANDOM_H
+#endif // _OPENCOG_RANDOM_H

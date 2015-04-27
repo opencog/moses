@@ -27,7 +27,7 @@
 
 #include <moses/util/tree.h>
 
-namespace moses3 {
+namespace opencog {
 namespace moses {
 
 // Storage types for packed populations.
@@ -43,6 +43,6 @@ typedef tree<term_t> term_tree;
 typedef std::vector<packed_t> instance;
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif

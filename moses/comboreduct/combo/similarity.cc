@@ -26,7 +26,7 @@
 
 #include "similarity.h"
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 /**
  * This file implements a combo tree similarity measure, obtained by
@@ -254,4 +254,4 @@ std::ostream& operator<<(std::ostream& os, const tree_branch_vector& btv)
 
 
 } // ~namespace combo
-} // ~namespace moses3
+} // ~namespace opencog

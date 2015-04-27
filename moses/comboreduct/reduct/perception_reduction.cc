@@ -29,7 +29,7 @@
 #include "mixed_rules.h"
 #include "perception_rules.h"
 
-namespace moses3 { namespace reduct {
+namespace opencog { namespace reduct {
 
 const rule& perception_reduction()
 {
@@ -78,5 +78,5 @@ const rule& perception_reduction()
 }
 
 } // ~namespace reduct
-} // ~namespace moses3
+} // ~namespace opencog
 

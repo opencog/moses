@@ -26,7 +26,7 @@
 
 #include <set>
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 typedef int arity_t;
 typedef std::set<arity_t> arity_set;

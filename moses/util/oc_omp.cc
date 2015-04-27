@@ -22,7 +22,7 @@
 
 #include "oc_omp.h"
 
-namespace moses3 {
+namespace opencog {
 
 void setting_omp(unsigned num_threads, unsigned min_n) {
 #ifdef OC_OMP

@@ -35,7 +35,7 @@
 
 #include <moses/util/random.h>
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 ///////////////
 // ss_bscore //
@@ -159,4 +159,4 @@ const CTable& ss_bscore::get_ctable() const {
 }
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog

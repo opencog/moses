@@ -25,7 +25,7 @@
 #include "descriptions.h"
 #include "../type_checker/type_tree.h"
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 namespace builtin_properties {
 
@@ -224,4 +224,4 @@ actions_properties::actions_properties()
 
 }  // namespace action_properties
 
-}} // ~namespaces combo moses3
+}} // ~namespaces combo opencog

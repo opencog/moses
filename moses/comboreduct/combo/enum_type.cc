@@ -24,7 +24,7 @@
 #include "enum_type.h"
 #include <moses/util/mt19937ar.h>
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 using namespace std;
 
 // Global table of string-to-int, so that the operator==() can run
@@ -72,5 +72,5 @@ ostream& operator<<(ostream& out, const combo::enum_t& m)
 }
 
 } // ~namespace combo
-} // ~namespace moses3
+} // ~namespace opencog
 

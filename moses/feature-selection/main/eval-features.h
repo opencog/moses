@@ -38,8 +38,8 @@
 
 using namespace std;
 using namespace boost::assign;
-using namespace moses3;
-using namespace moses3::combo;
+using namespace opencog;
+using namespace opencog::combo;
 
 static const pair<string, string> rand_seed_opt("random-seed", "r");
 static const pair<string, string> scorer_opt("scorer", "H");

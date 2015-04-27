@@ -38,7 +38,7 @@
 //action property methods which have not been implemented
 #define NO_DEFAULT_ACTION_PROPERTY_METHODS
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
   /**
  * builtin_action_base is an abstract class to be implemented
@@ -123,6 +123,6 @@ typedef builtin_action_set::const_iterator builtin_action_set_const_it;
 std::ostream& operator<<(std::ostream&, combo::builtin_action);
 
 } // ~namespace combo
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif

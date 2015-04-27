@@ -26,7 +26,7 @@
 #include <moses/comboreduct/table/table.h>
 #include <moses/comboreduct/table/table_io.h>
 
-using namespace moses3;
+using namespace opencog;
 using namespace combo;
 using namespace moses;
 using namespace std;

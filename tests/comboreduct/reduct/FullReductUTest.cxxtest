@@ -8,8 +8,8 @@
 #include <moses/comboreduct/combo/combo.h>
 
 using namespace std;
-using namespace moses3::combo;
-using namespace moses3::reduct;
+using namespace opencog::combo;
+using namespace opencog::reduct;
 
 class FullReductUTest : public CxxTest::TestSuite
 {

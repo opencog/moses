@@ -29,7 +29,7 @@
 
 #include "deme_expander.h"
 
-namespace moses3 {
+namespace opencog {
 namespace moses {
 
 deme_expander::deme_expander(const type_tree& type_signature,
@@ -530,4 +530,4 @@ unsigned deme_expander::total_evals()
 }
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog

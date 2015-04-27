@@ -28,7 +28,7 @@
 #include "logical_rules.h"
 #include "mixed_rules.h"
 
-namespace moses3 { namespace reduct {
+namespace opencog { namespace reduct {
 
 rule* logical_reduction::p_extra_simple = NULL;
 rule* logical_reduction::p_simple = NULL;
@@ -98,7 +98,7 @@ logical_reduction& logical_reduction::operator=(const logical_reduction& rhs)
 
 logical_reduction::logical_reduction(const vertex_set& ignore_ops)
 {
-    using namespace moses3::combo;
+    using namespace opencog::combo;
 
     do_init();
 
@@ -137,7 +137,7 @@ logical_reduction::logical_reduction(const vertex_set& ignore_ops)
 // effort 0 (extra simple) to 3 (complex)
 const rule& logical_reduction::operator()(int effort)
 {
-    using namespace moses3::combo;
+    using namespace opencog::combo;
 
     switch (effort) {
     case 0: return *p_extra_simple;
@@ -161,4 +161,4 @@ const rule& logical_reduction::operator()(int effort)
 }
 
 } // ~namespace reduct
-} // ~namespace moses3
+} // ~namespace opencog

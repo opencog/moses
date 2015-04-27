@@ -1,5 +1,5 @@
 /*
- * moses3/util/files.cc
+ * opencog/util/files.cc
  *
  * Copyright (C) 2002-2007 Novamente LLC
  * All Rights Reserved
@@ -59,22 +59,22 @@
 static const std::vector<std::string> paths =
 {
     PROJECT_BINARY_DIR,
-    PROJECT_BINARY_DIR "/moses3",
+    PROJECT_BINARY_DIR "/opencog",
     PROJECT_SOURCE_DIR,
-    PROJECT_SOURCE_DIR "/moses3",
+    PROJECT_SOURCE_DIR "/opencog",
     CMAKE_INSTALL_PREFIX,
-    CMAKE_INSTALL_PREFIX "/moses3",
+    CMAKE_INSTALL_PREFIX "/opencog",
     DATADIR,         // this too is an install dir
-    DATADIR "/moses3",
+    DATADIR "/opencog",
 #ifndef WIN32
-    "/usr/local/share/moses3",  // search local first, then system.
-    "/usr/share/moses3",
+    "/usr/local/share/opencog",  // search local first, then system.
+    "/usr/share/opencog",
     "/",
 #endif // !WIN32
 };
-const std::vector<std::string> moses3::DEFAULT_MODULE_PATHS = paths;
+const std::vector<std::string> opencog::DEFAULT_MODULE_PATHS = paths;
 
-bool moses3::fileExists(const char* filename)
+bool opencog::fileExists(const char* filename)
 {
     std::fstream dumpFile(filename, std::ios::in);
     dumpFile.close();
@@ -86,7 +86,7 @@ bool moses3::fileExists(const char* filename)
     return true;
 }
 
-bool moses3::exists(const char *fname)
+bool opencog::exists(const char *fname)
 {
     FILE* f = fopen(fname, "rb");
     if (!f)
@@ -95,7 +95,7 @@ bool moses3::exists(const char *fname)
     return true;
 }
 
-void moses3::expandPath(std::string& path)
+void opencog::expandPath(std::string& path)
 {
 
     size_t user_index = path.find(USER_FLAG, 0);
@@ -107,7 +107,7 @@ void moses3::expandPath(std::string& path)
     return;
 }
 
-bool moses3::createDirectory(const char* directory)
+bool opencog::createDirectory(const char* directory)
 {
 
 #ifdef WIN32_NOT_CYGWIN
@@ -120,7 +120,7 @@ bool moses3::createDirectory(const char* directory)
     return false;
 }
 
-bool moses3::appendFileContent(const char* filename, std::string &s) {
+bool opencog::appendFileContent(const char* filename, std::string &s) {
     std::ifstream in(filename);
     if (!in.is_open())
         return false;
@@ -137,7 +137,7 @@ bool moses3::appendFileContent(const char* filename, std::string &s) {
     return true;
 }
 
-bool moses3::LoadTextFile(const std::string fname, std::string& dest)
+bool opencog::LoadTextFile(const std::string fname, std::string& dest)
 {
     FILE *f = fopen(fname.c_str(), "rt");
     if (f == NULL) {

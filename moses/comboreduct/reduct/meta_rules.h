@@ -36,7 +36,7 @@
 #include "../type_checker/type_tree.h"
 #include "reduct.h"
 
-namespace moses3 { namespace reduct {
+namespace opencog { namespace reduct {
 
 using std::string;
 
@@ -172,6 +172,6 @@ struct sequential : public crule<sequential> {
 };
 
 } // ~namespace reduct
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif

@@ -21,8 +21,8 @@
  */
 
 
-#ifndef _MOSES3_PRINTCONTAINER_H
-#define _MOSES3_PRINTCONTAINER_H
+#ifndef _OPENCOG_PRINTCONTAINER_H
+#define _OPENCOG_PRINTCONTAINER_H
 
 #include <iterator>
 #include <algorithm>
@@ -33,7 +33,7 @@
 
 #include <moses/util/oc_assert.h>
 
-namespace moses3 {
+namespace opencog {
 /** \addtogroup grp_cogutil
  *  @{
  */
@@ -293,5 +293,5 @@ namespace moses3 {
     ///@}
 
 /** @}*/
-} // ~namespace moses3
-#endif // _MOSES3_PRINTCONTAINER_H
+} // ~namespace opencog
+#endif // _OPENCOG_PRINTCONTAINER_H

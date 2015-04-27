@@ -29,7 +29,7 @@
 #include <moses/comboreduct/combo/action_symbol.h>
 #include "ant_operator.h"
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 //this set is empty but the code is given as example
 namespace id {
@@ -101,6 +101,6 @@ public:
 
 };
 
-}} // ~namespaces combo moses3
+}} // ~namespaces combo opencog
 
 #endif

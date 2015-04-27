@@ -42,7 +42,7 @@
 // exemplar
 #define EXEMPLAR_FEATURE_NAME "__exemplar_feature__"
 
-namespace moses3 {
+namespace opencog {
 namespace moses {
 
 namespace ba = boost::accumulators;
@@ -473,4 +473,4 @@ feature_set feature_selector::sample_enforced_features() const {
 }
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog

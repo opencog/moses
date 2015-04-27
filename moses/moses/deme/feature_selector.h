@@ -29,7 +29,7 @@
 #include <moses/comboreduct/combo/vertex.h>
 #include <moses/feature-selection/main/feature-selection.h>
 
-namespace moses3 {
+namespace opencog {
 namespace moses {
 
 /**
@@ -228,6 +228,6 @@ protected:
 };
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif // _OPENCOG_FEATURE_SELECTOR_H

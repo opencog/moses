@@ -22,14 +22,14 @@
  */
 
 
-#ifndef _MOSES3_UTIL_POOL_H
-#define _MOSES3_UTIL_POOL_H
+#ifndef _OPENCOG_UTIL_POOL_H
+#define _OPENCOG_UTIL_POOL_H
 
 #include <queue>
 #include <mutex>
 #include <condition_variable>
 
-namespace moses3 {
+namespace opencog {
 /** \addtogroup grp_cogutil
  *  @{
  */
@@ -85,6 +85,6 @@ class pool
 
 
 /** @}*/
-} // ~namespace moses3
+} // ~namespace opencog
 
-#endif // _MOSES3_UTIL_POOL_H
+#endif // _OPENCOG_UTIL_POOL_H

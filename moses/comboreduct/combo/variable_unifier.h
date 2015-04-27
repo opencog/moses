@@ -29,7 +29,7 @@
 #include <string>
 #include <vector>
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 enum UnifierOperation {
     UNIFY_NOT,
@@ -191,6 +191,6 @@ private:
 
 }; // class
 
-}} // ~namespaces combo moses3
+}} // ~namespaces combo opencog
 
 #endif /*VARIABLE_UNIFIER_H_*/

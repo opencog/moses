@@ -35,7 +35,7 @@
  * building a vertex or a combo_tree.
  */
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 /**
  * Interpreter for boolean expressions.
@@ -96,6 +96,6 @@ protected:
     const std::vector<vertex>& _mixed_inputs;
 };            
 
-}} // ~namespaces combo moses3
+}} // ~namespaces combo opencog
         
 #endif // _OPENCOG_INTERPRETER_H

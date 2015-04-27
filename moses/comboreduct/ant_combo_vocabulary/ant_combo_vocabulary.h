@@ -34,7 +34,7 @@
 //and make coexist several vocabularies
 namespace ant_combo {
 
-using namespace moses3::combo;
+using namespace opencog::combo;
 
 //return a pointer to class base instance
 //of a given action or perception enum

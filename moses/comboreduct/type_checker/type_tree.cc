@@ -28,7 +28,7 @@
 #include "type_tree.h"
 #include "../combo/descriptions.h"
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 using namespace std;
 
@@ -861,7 +861,7 @@ void reduce_type_tree(type_tree& tt, type_tree_pre_it it,
             if(!tr.empty()) { // trace debug info available
                 message << "'" << *ct_it
                         << "', located at pre-order index "
-                        << moses3::pre_order_index(tr, ct_it)
+                        << opencog::pre_order_index(tr, ct_it)
                         << " of procedure '"
                         << proc_name << "', ";
             }
@@ -959,7 +959,7 @@ type_tree get_intersection(const type_tree& tt1, type_tree_pre_it it1,
     //check if tt1 and tt2 are unions, if so the intersection of the unions
     //is the union of the interections
     else if (*it1 == id::union_type && *it2 == id::union_type) {
-        set<type_tree, moses3::size_tree_order<type_node> > union_of_inter;
+        set<type_tree, opencog::size_tree_order<type_node> > union_of_inter;
         for (type_tree_sib_it sib1 = it1.begin(); sib1 != it1.end(); ++sib1) {
             for (type_tree_sib_it sib2 = it2.begin(); sib2 != it2.end(); ++sib2) {
                 type_tree inter_tt = get_intersection(tt1,
@@ -1352,13 +1352,13 @@ type_tree gen_signature(type_node iotype, arity_t arity)
 }
 
 } // ~namespace combo
-} // ~namespace moses3
+} // ~namespace opencog
 
 namespace std {
 
-ostream& operator<<(ostream& out, const moses3::combo::type_node& n)
+ostream& operator<<(ostream& out, const opencog::combo::type_node& n)
 {
-    using namespace moses3::combo;
+    using namespace opencog::combo;
     switch (n) {
 
         // Type operators
@@ -1405,9 +1405,9 @@ ostream& operator<<(ostream& out, const moses3::combo::type_node& n)
     }
 }
 
-istream& operator>>(istream& in, moses3::combo::type_node& n)
+istream& operator>>(istream& in, opencog::combo::type_node& n)
 {
-    using namespace moses3::combo;
+    using namespace opencog::combo;
     string str;
     in >> str;
     OC_ASSERT(!str.empty(),

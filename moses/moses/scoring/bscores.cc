@@ -47,7 +47,7 @@
 
 #include "bscores.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 using namespace std;
 using boost::adaptors::map_values;
@@ -1072,4 +1072,4 @@ score_t cluster_bscore::min_improv() const
 }
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog

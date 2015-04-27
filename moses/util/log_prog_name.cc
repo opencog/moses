@@ -23,7 +23,7 @@
 #include "log_prog_name.h"
 #include "oc_assert.h"
 
-namespace moses3 {
+namespace opencog {
 
 using namespace std;
 
@@ -81,4 +81,4 @@ string determine_log_name(const string& log_file_prefix,
     return log_file;
 }
 
-} // ~namespace moses3
+} // ~namespace opencog

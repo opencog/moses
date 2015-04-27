@@ -71,7 +71,7 @@ these.
    the selection: that is, a lower-scored, but also lower complexity
    exemplar may be a better starting place than a high-score,
    high-complexity exemplar.  The discovery & solution of this behaviour
-   is documented on the moses3 blog; the blog page captured in the
+   is documented on the opencog blog; the blog page captured in the
    file documentation/Select_Exemplar.html in this directory. Misc data
    and graphing tools can be found in diary/complexity-temperature.
    In the diary below, this starts at the section titled:

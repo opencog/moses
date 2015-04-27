@@ -41,7 +41,7 @@
 
 #include <cstdio>
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 typedef combo_tree::iterator pre_it;
 typedef combo_tree::sibling_iterator sib_it;
@@ -88,10 +88,10 @@ void procedure_repository::instantiate_procedure_calls(combo_tree& tr,
             str_proc_map_const_it proc=_repo.find(str);
             if(proc==_repo.end()) {
                 if(wodo) {
-                    moses3::logger().debug("ComboProcedureRepository - Creating definite_object '%s'.", str.c_str());
+                    opencog::logger().debug("ComboProcedureRepository - Creating definite_object '%s'.", str.c_str());
                 }
             } else {
-                moses3::logger().debug("ComboProcedureRepository - Replacing procedure name by procedure object '%s'", str.c_str());
+                opencog::logger().debug("ComboProcedureRepository - Replacing procedure name by procedure object '%s'", str.c_str());
                 *it=proc->second;
             }
         }
@@ -537,4 +537,4 @@ std::ostream& operator<<(std::ostream& out, procedure_repository pr) {
 }
 
 } // ~namespace combo
-} // ~namespace moses3
+} // ~namespace opencog

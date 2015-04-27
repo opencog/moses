@@ -27,7 +27,7 @@
 #include "reduct.h"
 #include <moses/comboreduct/type_checker/type_tree.h>
 
-namespace moses3 { namespace reduct {
+namespace opencog { namespace reduct {
   
 //add in the set of assumptions such knowledge
 //f(x, z) <= max{d(x, y), d(y, z)}
@@ -80,6 +80,6 @@ struct reduce_identity_of_indiscernibles : public crule<reduce_identity_of_indis
 };
 
 } // ~namespace reduct
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif

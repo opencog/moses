@@ -32,7 +32,7 @@
 #include "../type_checker/type_tree.h"
 
 using namespace std;
-using namespace moses3;
+using namespace opencog;
 using namespace reduct;
 
 int main()

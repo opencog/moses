@@ -38,7 +38,7 @@
 
 #include "../main/feature-selection.h"  // needed for feature_set, feature_selection_parameters
 
-namespace moses3 {
+namespace opencog {
 
 feature_set_pop incremental_select_feature_sets(const CTable& ctable,
                                                 const feature_selection_parameters& fs_params);
@@ -105,7 +105,7 @@ FeatureSet incremental_selection(const FeatureSet& features,
         gettimeofday(&start, NULL);
 
         // Define the set of set of features to test for relevancy
-        FeatureSet tf = moses3::set_difference(features, rel);
+        FeatureSet tf = opencog::set_difference(features, rel);
         std::set<FeatureSet> fss = powerset(tf, i, true);
 
         logger().debug("Iteration %d feature set size=%d powerset size=%d",
@@ -305,6 +305,6 @@ FeatureSet redundant_features(const FeatureSet& features, const Scorer& scorer,
     return FS();
 }
 
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif // _OPENCOG_FEATURE_SELECTION_INCREMENTAL_ALGO_H

@@ -33,7 +33,7 @@
 
 #include "pole_balancing.h"
 
-using namespace moses3;
+using namespace opencog;
 using namespace combo;
 using namespace std;
 using namespace moses;

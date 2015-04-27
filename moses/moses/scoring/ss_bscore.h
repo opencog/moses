@@ -26,7 +26,7 @@
 
 #include "scoring_base.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 using combo::combo_tree;
 using combo::arity_t;
@@ -78,6 +78,6 @@ protected:
 };
 
 } //~namespace moses
-} //~namespace moses3
+} //~namespace opencog
 
 #endif

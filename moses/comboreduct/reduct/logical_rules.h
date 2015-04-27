@@ -30,7 +30,7 @@
 #include "flat_normal_form.h"
 #include "../type_checker/type_tree.h"
 
-namespace moses3 { namespace reduct {
+namespace opencog { namespace reduct {
 
 /// Ensure that all arguments and 'or' nodes have an 'and' node as their parent.
 /// This is important so that other normalizations can catch all cases.
@@ -182,7 +182,7 @@ protected:
         typedef vertex value_type;
         typedef combo_tree::sibling_iterator sib_it;
         typedef combo_tree::upwards_iterator up_it;
-        typedef moses3::lexicographic_subtree_order<value_type> Comp;
+        typedef opencog::lexicographic_subtree_order<value_type> Comp;
         typedef std::set<sib_it,Comp> subtree_set;
 
         combo_tree& tr;
@@ -281,6 +281,6 @@ struct reduce_remove_subtree_equal_tt
 };
 
 } // ~namespace reduct
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif

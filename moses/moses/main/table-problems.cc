@@ -35,7 +35,7 @@
 #include "moses_exec_def.h"
 #include "table-problems.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 // set the complexity ratio.
 template <typename BScorer>
@@ -581,5 +581,5 @@ void register_table_problems(problem_manager& pmr, option_manager& mgr)
 }
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 

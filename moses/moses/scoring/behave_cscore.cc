@@ -28,7 +28,7 @@
 
 #include "behave_cscore.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 behave_cscore::behave_cscore(bscore_base& b, size_t initial_cache_size)
     : _bscorer(b),
@@ -132,4 +132,4 @@ score_t behave_cscore::worst_possible_score() const
 }
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog

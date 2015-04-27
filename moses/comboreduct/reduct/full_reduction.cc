@@ -30,7 +30,7 @@
 #include "contin_rules.h"
 #include "mixed_rules.h"
 
-namespace moses3 { namespace reduct {
+namespace opencog { namespace reduct {
 
 const rule& full_reduction()
 {
@@ -235,4 +235,4 @@ const rule& full_reduction()
 }
 
 } // ~namespace reduct
-} // ~namespace moses3
+} // ~namespace opencog

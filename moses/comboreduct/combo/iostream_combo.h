@@ -37,7 +37,7 @@
  * format. Current formats supported are combo (default) and python.
  */
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 enum class output_format {
     combo,
@@ -280,6 +280,6 @@ std::ostream& ostream_abbreviate_literal(std::ostream&, const argument&,
                                          std::vector<std::string>());
 std::ostream& operator<<(std::ostream&, const vertex&);
 
-}} // ~ namespace moses3::combo
+}} // ~ namespace opencog::combo
 
 #endif // _IOSTREAM_COMBO_H
