@@ -1,4 +1,4 @@
-ADD_LIBRARY(feature_selection SHARED STATIC
+ADD_LIBRARY(feature_selection SHARED
 	algo/deme_optimize
 	algo/incremental
 	algo/random
@@ -9,7 +9,6 @@ ADD_LIBRARY(feature_selection SHARED STATIC
 )
 
 TARGET_LINK_LIBRARIES(feature_selection
-	moses
 	mosesutil
 	${Boost_PROGRAM_OPTIONS_LIBRARY} 
 )
