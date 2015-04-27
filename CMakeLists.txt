@@ -203,7 +203,7 @@ IF (COGUTIL_FOUND)
 	ADD_DEFINITIONS(-DHAVE_COGUTIL)
 	SET(HAVE_COGUTIL 1)
 ELSE (COGUTIL_FOUND)
-	MESSAGE(STATUS "CogUtil missing: needed to build this package!")
+	MESSAGE(FATAL_ERROR "CogUtil missing: it is needed to build this package!")
 ENDIF (COGUTIL_FOUND)
 
 # MPI is needed for MOSES on compute clusters.
