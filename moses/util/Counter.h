@@ -21,8 +21,8 @@
  */
 
 
-#ifndef _OPENCOG_COUNTER_H
-#define _OPENCOG_COUNTER_H
+#ifndef _MOSES3_COUNTER_H
+#define _MOSES3_COUNTER_H
 
 #include <map>
 #include <initializer_list>
@@ -156,4 +156,4 @@ std::ostream& operator<<(std::ostream& out, const Counter<T, CT>& c)
 /** @}*/
 } // ~namespace moses3
 
-#endif // _OPENCOG_COUNTER_H
+#endif // _MOSES3_COUNTER_H

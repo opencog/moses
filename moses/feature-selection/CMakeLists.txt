@@ -16,3 +16,12 @@ TARGET_LINK_LIBRARIES(feature_selection
 
 ADD_SUBDIRECTORY(main)
 ADD_SUBDIRECTORY(man)
+
+# Install library
+IF (WIN32)
+	INSTALL(TARGETS feature_selection DESTINATION "lib${LIB_DIR_SUFFIX}/moses3")
+ELSE (WIN32)
+	INSTALL(TARGETS feature_selection
+	        LIBRARY DESTINATION "lib${LIB_DIR_SUFFIX}"    # lib*.so files
+	        ARCHIVE DESTINATION "lib${LIB_DIR_SUFFIX}")   # lib*.a files
+ENDIF (WIN32)

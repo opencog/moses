@@ -17,10 +17,10 @@
  * limitations under the License.
  */
 
-#ifndef _OPENCOG_JACCARD_INDEX_H
-#define _OPENCOG_JACCARD_INDEX_H
+#ifndef _MOSES3_JACCARD_INDEX_H
+#define _MOSES3_JACCARD_INDEX_H
 
-#include "algorithm.h"
+#include <moses/util/algorithm.h>
 
 namespace moses3 {
 
@@ -37,4 +37,4 @@ float jaccardIndex(const Set& s1, const Set& s2) {
 
 }
 
-#endif // _OPENCOG_JACCARD_INDEX_H
+#endif // _MOSES3_JACCARD_INDEX_H

@@ -20,8 +20,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _OPENCOG_BASED_VARIANT_H
-#define _OPENCOG_BASED_VARIANT_H
+#ifndef _MOSES3_BASED_VARIANT_H
+#define _MOSES3_BASED_VARIANT_H
 
 #include <boost/variant.hpp>
 
@@ -73,4 +73,4 @@ struct based_variant : public Variant {
 /** @}*/
 } //~namespace moses3
 
-#endif // _OPENCOG_BASED_VARIANT_H
+#endif // _MOSES3_BASED_VARIANT_H

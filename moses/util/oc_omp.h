@@ -21,8 +21,8 @@
  */
 
 
-#ifndef _OPENCOG_OC_OMP_H
-#define _OPENCOG_OC_OMP_H
+#ifndef _MOSES3_OC_OMP_H
+#define _MOSES3_OC_OMP_H
 
 /** \addtogroup grp_cogutil
  *  @{
@@ -74,4 +74,4 @@ std::pair<unsigned, unsigned> split_jobs(unsigned n_jobs);
 ///@}
 /** @}*/
 
-#endif // _OPENCOG_OC_OMP_H
+#endif // _MOSES3_OC_OMP_H

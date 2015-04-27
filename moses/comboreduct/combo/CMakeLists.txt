@@ -3,6 +3,7 @@ INSTALL(FILES
 
 	action.h
 	action_symbol.h
+	ann.h
 	argument.h
 	assumption.h
 	builtin_action.h
@@ -24,5 +25,5 @@ INSTALL(FILES
 
 	DESTINATION
 
-	"include/${PROJECT_NAME}/combo" 
+	"include/${PROJECT_NAME}/comboreduct/combo"
 )

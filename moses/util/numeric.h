@@ -20,8 +20,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _OPENCOG_NUMERIC_H
-#define _OPENCOG_NUMERIC_H
+#ifndef _MOSES3_NUMERIC_H
+#define _MOSES3_NUMERIC_H
 
 #include <algorithm> // for std::max
 #include <cmath>
@@ -33,10 +33,10 @@
 
 #include <boost/range/numeric.hpp>
 
-#include "exceptions.h"
-#include "oc_assert.h"
+#include <moses/util/exceptions.h>
+#include <moses/util/oc_assert.h>
 
-#include "iostreamContainer.h"
+#include <moses/util/iostreamContainer.h>
 
 /** \addtogroup grp_cogutil
  *  @{
@@ -529,4 +529,4 @@ Float angular_distance(const Vec& a, const Vec& b, bool pos_n_neg = true)
 } // ~namespace moses3
 /** @}*/
 
-#endif // _OPENCOG_NUMERIC_H
+#endif // _MOSES3_NUMERIC_H

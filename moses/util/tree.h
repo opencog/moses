@@ -62,8 +62,6 @@
 #ifndef _UTIL_TREE_H
 #define _UTIL_TREE_H
 
-#include "exceptions.h"
-
 #include <cassert>
 #include <memory>
 #include <stdexcept>
@@ -77,6 +75,7 @@
 #include <boost/iterator/counting_iterator.hpp>
 
 #include <moses/util/oc_assert.h>
+#include <moses/util/exceptions.h>
 // #define tree_assert assert
 #define tree_assert OC_ASSERT
 
@@ -3230,7 +3229,6 @@ std::ostream& operator<<(std::ostream& out, const moses3::tree<T>& tr)
 
 template<typename T>
 std::istream& operator>>(std::istream& in, moses3::tree<T>& tr)
-	throw (moses3::InconsistenceException, std::bad_exception)
 {
     moses3::tree<std::string> tmp;
     in >> tmp;

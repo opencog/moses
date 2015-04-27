@@ -20,11 +20,11 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _OPENCOG_LOG_PROG_NAME_H
-#define _OPENCOG_LOG_PROG_NAME_H
+#ifndef _MOSES3_LOG_PROG_NAME_H
+#define _MOSES3_LOG_PROG_NAME_H
 
 #include <boost/program_options.hpp>
-#include "iostreamContainer.h"
+#include <moses/util/iostreamContainer.h>
 
 namespace moses3 {
 /** \addtogroup grp_cogutil
@@ -69,4 +69,4 @@ std::string determine_log_name(const std::string& log_file_prefix,
 /** @}*/
 } // ~namespace moses3
 
-#endif // _OPENCOG_LOG_PROG_NAME_H
+#endif // _MOSES3_LOG_PROG_NAME_H

@@ -20,8 +20,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _OPENCOG_LRU_CACHE_H
-#define _OPENCOG_LRU_CACHE_H
+#ifndef _MOSES3_LRU_CACHE_H
+#define _MOSES3_LRU_CACHE_H
 
 #include <list>
 #include <limits>
@@ -31,11 +31,11 @@
 #include <boost/thread.hpp>
 #include <boost/numeric/conversion/cast.hpp>
 
-#include "exceptions.h"
-#include "hashing.h"
-#include "Logger.h"
-#include "oc_assert.h"
-#include "platform.h"
+#include <moses/util/exceptions.h>
+#include <moses/util/hashing.h>
+#include <moses/util/Logger.h>
+#include <moses/util/oc_assert.h>
+#include <moses/util/platform.h>
 
 namespace moses3 {
 /** \addtogroup grp_cogutil

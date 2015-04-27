@@ -6,5 +6,5 @@ INSTALL(FILES
 
 	DESTINATION
 
-	"include/${PROJECT_NAME}/type_checker" 
+	"include/${PROJECT_NAME}/comboreduct/type_checker"
 )

@@ -24,7 +24,7 @@
 #ifndef _COMBO_ASSUMPTION_H
 #define _COMBO_ASSUMPTION_H
 
-#include "vertex.h"
+#include <moses/comboreduct/combo/vertex.h>
 
 namespace moses3 { namespace combo {
 

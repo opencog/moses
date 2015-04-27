@@ -17,8 +17,8 @@
  * limitations under the License.
  */
 
-#ifndef OPENCOG_UTIL_GEOMETRIC_MEAN
-#define OPENCOG_UTIL_GEOMETRIC_MEAN
+#ifndef MOSES3_UTIL_GEOMETRIC_MEAN
+#define MOSES3_UTIL_GEOMETRIC_MEAN
 
 #include <boost/mpl/placeholders.hpp>
 #include <boost/accumulators/framework/accumulator_base.hpp>

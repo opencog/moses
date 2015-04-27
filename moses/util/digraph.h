@@ -20,15 +20,15 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _OPENCOG_DIGRAPH_H
-#define _OPENCOG_DIGRAPH_H
+#ifndef _MOSES3_DIGRAPH_H
+#define _MOSES3_DIGRAPH_H
 
 #include <queue>
 #include <vector>
 #include <set>
-#include "algorithm.h"
-#include "exceptions.h"
-#include "oc_assert.h"
+#include <moses/util/algorithm.h>
+#include <moses/util/exceptions.h>
+#include <moses/util/oc_assert.h>
 #include <boost/iterator/counting_iterator.hpp>
 
 namespace moses3

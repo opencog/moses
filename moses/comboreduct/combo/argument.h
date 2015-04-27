@@ -24,7 +24,7 @@
 #ifndef _COMBO_ARGUMENT_H
 #define _COMBO_ARGUMENT_H
 
-#include "common_def.h"
+#include <moses/comboreduct/combo/common_def.h>
 #include <boost/operators.hpp>
 
 namespace moses3 { namespace combo {

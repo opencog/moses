@@ -1,5 +1,5 @@
-#ifndef _OPENCOG_ALGORITHM_H
-#define _OPENCOG_ALGORITHM_H
+#ifndef _MOSES3_ALGORITHM_H
+#define _MOSES3_ALGORITHM_H
 
 #include <algorithm>
 #include <set>
@@ -8,8 +8,8 @@
 
 #include <ext/algorithm>
 
-#include "numeric.h"
-#include "exceptions.h"
+#include <moses/util/numeric.h>
+#include <moses/util/exceptions.h>
 
 namespace moses3
 {

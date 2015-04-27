@@ -24,8 +24,8 @@
 #ifndef _COMBO_ACTION_SYMBOL_H
 #define _COMBO_ACTION_SYMBOL_H
 
-#include "operator_base.h"
-#include "../type_checker/type_tree_def.h"
+#include <moses/comboreduct/combo/operator_base.h>
+#include <moses/comboreduct/type_checker/type_tree_def.h>
 
 namespace moses3 { namespace combo {
 

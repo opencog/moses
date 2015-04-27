@@ -22,6 +22,5 @@ INSTALL(FILES
 
 	DESTINATION
 
-	"include/${PROJECT_NAME}/crutil"
+	"include/${PROJECT_NAME}/comboreduct/crutil"
 )
-

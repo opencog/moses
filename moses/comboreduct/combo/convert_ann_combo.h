@@ -24,8 +24,8 @@
 #ifndef _COMBO_CONVERTER_ANN_COMBO_TREE_H
 #define _COMBO_CONVERTER_ANN_COMBO_TREE_H
 
-#include "simple_nn.h"
-#include "vertex.h"
+#include <moses/comboreduct/combo/simple_nn.h>
+#include <moses/comboreduct/combo/vertex.h>
 
 namespace moses3 { namespace combo {
 

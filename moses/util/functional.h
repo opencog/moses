@@ -1,5 +1,5 @@
-#ifndef _OPENCOG_FUNCTIONAL_H
-#define _OPENCOG_FUNCTIONAL_H
+#ifndef _MOSES3_FUNCTIONAL_H
+#define _MOSES3_FUNCTIONAL_H
 
 #include <utility>
 #include <functional>

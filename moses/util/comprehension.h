@@ -21,8 +21,8 @@
  */
 
 
-#ifndef _OPENCOG_COMPREHENSION_H
-#define _OPENCOG_COMPREHENSION_H
+#ifndef _MOSES3_COMPREHENSION_H
+#define _MOSES3_COMPREHENSION_H
 
 #include <boost/range/algorithm/transform.hpp>
 #include <boost/range/adaptor/filtered.hpp>
@@ -158,5 +158,5 @@ auto list_comp(const Container& c, const Function& func,
 ///@}
 /** @}*/
 
-#endif // _OPENCOG_COMPREHENSION_H
+#endif // _MOSES3_COMPREHENSION_H
 

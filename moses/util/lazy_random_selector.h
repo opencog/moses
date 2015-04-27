@@ -20,12 +20,12 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _OPENCOG_LAZY_RANDOM_SELECTOR_H
-#define _OPENCOG_LAZY_RANDOM_SELECTOR_H
+#ifndef _MOSES3_LAZY_RANDOM_SELECTOR_H
+#define _MOSES3_LAZY_RANDOM_SELECTOR_H
 
-#include "lazy_selector.h"
-#include "RandGen.h"
-#include "mt19937ar.h"
+#include <moses/util/lazy_selector.h>
+#include <moses/util/RandGen.h>
+#include <moses/util/mt19937ar.h>
 
 namespace moses3
 {

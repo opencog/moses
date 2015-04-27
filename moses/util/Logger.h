@@ -24,8 +24,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _OPENCOG_LOGGER_H
-#define _OPENCOG_LOGGER_H
+#ifndef _MOSES3_LOGGER_H
+#define _MOSES3_LOGGER_H
 
 #include <cstdarg>
 #include <mutex>
@@ -303,4 +303,4 @@ Logger& logger();
 /** @}*/
 }  // namespace moses3
 
-#endif // _OPENCOG_LOGGER_H
+#endif // _MOSES3_LOGGER_H

@@ -22,8 +22,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _OPENCOG_CONFIG_H
-#define _OPENCOG_CONFIG_H
+#ifndef _MOSES3_CONFIG_H
+#define _MOSES3_CONFIG_H
 
 #include <string>
 #include <map>
@@ -107,4 +107,4 @@ Config& config(ConfigFactory* = Config::createInstance,
 /** @}*/
 } // namespace moses3
 
-#endif // _OPENCOG_CONFIG_H
+#endif // _MOSES3_CONFIG_H

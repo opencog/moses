@@ -24,8 +24,8 @@
 #ifndef _COMBO_OPERATOR_BASE_H
 #define _COMBO_OPERATOR_BASE_H
 
-#include "common_def.h"
-#include "../type_checker/type_tree_def.h"
+#include <moses/comboreduct/combo/common_def.h>
+#include <moses/comboreduct/type_checker/type_tree_def.h>
 
 namespace moses3 { namespace combo {
 

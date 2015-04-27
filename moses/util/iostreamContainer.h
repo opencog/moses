@@ -21,8 +21,8 @@
  */
 
 
-#ifndef _OPENCOG_PRINTCONTAINER_H
-#define _OPENCOG_PRINTCONTAINER_H
+#ifndef _MOSES3_PRINTCONTAINER_H
+#define _MOSES3_PRINTCONTAINER_H
 
 #include <iterator>
 #include <algorithm>
@@ -31,7 +31,7 @@
 
 #include <boost/lexical_cast.hpp>
 
-#include "oc_assert.h"
+#include <moses/util/oc_assert.h>
 
 namespace moses3 {
 /** \addtogroup grp_cogutil
@@ -294,4 +294,4 @@ namespace moses3 {
 
 /** @}*/
 } // ~namespace moses3
-#endif // _OPENCOG_PRINTCONTAINER_H
+#endif // _MOSES3_PRINTCONTAINER_H

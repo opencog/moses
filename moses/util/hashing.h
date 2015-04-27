@@ -20,8 +20,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _OPENCOG_HASHING_H
-#define _OPENCOG_HASHING_H
+#ifndef _MOSES3_HASHING_H
+#define _MOSES3_HASHING_H
 
 #include <boost/functional/hash.hpp>
 
@@ -87,4 +87,4 @@ struct obj_ptr_cmp {
 /** @}*/
 } //~namespace moses3
 
-#endif // _OPENCOG_HASHING_H
+#endif // _MOSES3_HASHING_H

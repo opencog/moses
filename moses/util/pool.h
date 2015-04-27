@@ -22,8 +22,8 @@
  */
 
 
-#ifndef _OPENCOG_UTIL_POOL_H
-#define _OPENCOG_UTIL_POOL_H
+#ifndef _MOSES3_UTIL_POOL_H
+#define _MOSES3_UTIL_POOL_H
 
 #include <queue>
 #include <mutex>
@@ -87,4 +87,4 @@ class pool
 /** @}*/
 } // ~namespace moses3
 
-#endif // _OPENCOG_UTIL_POOL_H
+#endif // _MOSES3_UTIL_POOL_H

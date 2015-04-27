@@ -21,10 +21,10 @@
  */
 
 
-#ifndef _OPENCOG_RANKING_H
-#define _OPENCOG_RANKING_H
+#ifndef _MOSES3_RANKING_H
+#define _MOSES3_RANKING_H
 
-#include "Counter.h"
+#include <moses/util/Counter.h>
 
 namespace moses3 {
 /** \addtogroup grp_cogutil
@@ -50,4 +50,4 @@ Counter<Key, FloatT> ranking(const Counter<Key, FloatT>& counter) {
 /** @}*/
 } // ~namespace moses3
 
-#endif // _OPENCOG_RANKING_H
+#endif // _MOSES3_RANKING_H

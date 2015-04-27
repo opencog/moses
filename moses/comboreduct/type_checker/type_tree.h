@@ -30,12 +30,12 @@
 #include <moses/util/numeric.h>
 #include <moses/util/exceptions.h>
 
-#include "type_tree_def.h"
-#include "../crutil/exception.h"
-#include "../combo/vertex.h"
-#include "../combo/common_def.h"
-#include "../combo/perception.h"
-#include "../combo/procedure_call.h"
+#include <moses/comboreduct/type_checker/type_tree_def.h>
+#include <moses/comboreduct/crutil/exception.h>
+#include <moses/comboreduct/combo/vertex.h>
+#include <moses/comboreduct/combo/common_def.h>
+#include <moses/comboreduct/combo/perception.h>
+#include <moses/comboreduct/combo/procedure_call.h>
 
 namespace moses3 { namespace combo {
 

@@ -23,15 +23,15 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _OPENCOG_EXCEPTIONS_H
-#define _OPENCOG_EXCEPTIONS_H
+#ifndef _MOSES3_EXCEPTIONS_H
+#define _MOSES3_EXCEPTIONS_H
 
 #include <string>
 #include <iostream>
 
 #include <stdarg.h>
 #include <string.h>
-#include "macros.h"
+#include <moses/util/macros.h>
 
 namespace moses3
 {
@@ -331,4 +331,4 @@ inline std::ostream& operator<<(std::ostream& out, const StandardException& ex)
 /** @}*/
 } // namespace moses3
 
-#endif // _OPENCOG_EXCEPTIONS_H
+#endif // _MOSES3_EXCEPTIONS_H
