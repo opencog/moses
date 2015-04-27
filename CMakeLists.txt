@@ -17,7 +17,7 @@ IF (COMMAND CMAKE_POLICY)
 	CMAKE_POLICY(SET CMP0005 OLD)
 ENDIF (COMMAND CMAKE_POLICY)
 
-PROJECT(opencog)
+PROJECT(moses)
 
 # To supress Cygwin warning "CMake no longer defines WIN32 on Cygwin!"
 # Remove when CMake >= 2.8.4 is required to build the project
@@ -250,16 +250,13 @@ IF (NOT DEFINED CONFDIR)
 	SET (CONFDIR "${CMAKE_INSTALL_PREFIX}/etc")
 ENDIF (NOT DEFINED CONFDIR)
 IF (NOT DEFINED DATADIR)
-	SET (DATADIR "${CMAKE_INSTALL_PREFIX}/share/opencog")
+	SET (DATADIR "${CMAKE_INSTALL_PREFIX}/share/moses")
 ENDIF (NOT DEFINED DATADIR)
 ADD_DEFINITIONS(-DCONFDIR=\\"${CONFDIR}\\")
 ADD_DEFINITIONS(-DDATADIR=\\"${DATADIR}\\")
 
 # (re?)define MAN_INSTALL_DIR
 SET (MAN_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/share/man")
-
-# include custom opencog cmake macros
-INCLUDE("${CMAKE_SOURCE_DIR}/lib/OpenCogMacros.cmake")
 
 # small hack to handle unixes that use "/usr/lib64" instead of "/usr/lib" as the
 # default lib path on 64 bit archs
@@ -280,7 +277,7 @@ INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR} ${Boost_INCLUDE_DIRS})
 # rpath handling
 SET(CMAKE_SKIP_BUILD_RPATH	FALSE)
 SET(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
-SET(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib/opencog")
+SET(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib/moses")
 SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
 ADD_SUBDIRECTORY(moses)
@@ -319,7 +316,7 @@ IF (CXXTEST_FOUND)
 ENDIF (CXXTEST_FOUND)
 
 ADD_CUSTOM_TARGET(cscope
-	COMMAND find opencog examples tests -name '*.cc' -o -name '*.h' -o -name '*.cxxtest' -o -name '*.scm' > ${CMAKE_SOURCE_DIR}/cscope.files
+	COMMAND find moses tests -name '*.cc' -o -name '*.h' -o -name '*.cxxtest' > ${CMAKE_SOURCE_DIR}/cscope.files
 	COMMAND cscope -b
 	WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
 	COMMENT "Generating CScope database"
@@ -385,14 +382,13 @@ IF (WIN32)
 		# properly. Make sure there is at least one set of four (4)
 		# backslashes.
 		SET(CPACK_PACKAGE_ICON "${CMake_SOURCE_DIR}\\\\lib\\\\opencog.ico")
-		SET(CPACK_NSIS_INSTALLED_ICON_NAME "bin\\\\cogserver.exe")
 		SET(CPACK_NSIS_DISPLAY_NAME "${CPACK_PACKAGE_INSTALL_DIRECTORY} The Open Cognition Framework")
 		SET(CPACK_NSIS_HELP_LINK "http:\\\\\\\\www.opencog.org")
 		SET(CPACK_NSIS_URL_INFO_ABOUT "http:\\\\\\\\www.opencog.org")
 		SET(CPACK_NSIS_CONTACT "opencog@googlegroups.com")
 		SET(CPACK_NSIS_MODIFY_PATH ON)
 	ELSE(NOT UNIX)
-		SET(CPACK_STRIP_FILES "bin/cogserver")
+		SET(CPACK_STRIP_FILES "bin/moses")
 		SET(CPACK_SOURCE_STRIP_FILES "")
 	ENDIF(NOT UNIX)
 ENDIF(WIN32)

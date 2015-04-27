@@ -75,7 +75,7 @@ this flag will result in faster builds, but slower executables.
 Unit tests
 ----------
 To build and run the unit tests, from the ./build directory enter (after
-building opencog as above):
+building moses as above):
 
     make test
 
