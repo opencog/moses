@@ -24,5 +24,5 @@ INSTALL(FILES
 
 	DESTINATION
 
-	"include/${PROJECT_NAME}/combo" 
+	"include/${PROJECT_NAME}/comboreduct/combo"
 )

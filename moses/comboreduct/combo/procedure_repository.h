@@ -27,8 +27,8 @@
 #include <moses/util/exceptions.h>
 #include <moses/util/Logger.h>
 
-#include "procedure_call.h"
-#include "vertex.h"
+#include <moses/comboreduct/combo/procedure_call.h>
+#include <moses/comboreduct/combo/vertex.h>
 
 #include <set>
 #include <map>

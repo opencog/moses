@@ -31,11 +31,11 @@
 #include <moses/util/exceptions.h>
 #include <moses/util/Logger.h>
 
-#include "common_def.h"
-#include "operator_base.h"
-#include "vertex.h"
-#include "iostream_combo.h"
-#include "../type_checker/type_tree_def.h"
+#include <moses/comboreduct/combo/common_def.h>
+#include <moses/comboreduct/combo/operator_base.h>
+#include <moses/comboreduct/combo/vertex.h>
+#include <moses/comboreduct/combo/iostream_combo.h>
+#include <moses/comboreduct/combo/../type_checker/type_tree_def.h>
 
 namespace moses3 { namespace combo {
 

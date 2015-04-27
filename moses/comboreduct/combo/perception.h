@@ -26,8 +26,8 @@
 
 #include <moses/util/exceptions.h>
 
-#include "../type_checker/type_tree_def.h"
-#include "operator_base.h"
+#include <moses/comboreduct/type_checker/type_tree_def.h>
+#include <moses/comboreduct/combo/operator_base.h>
 
 //if the user wants to use the reduct engine it is recommended to
 //enable the following macro in order to allow the compiler to detect 

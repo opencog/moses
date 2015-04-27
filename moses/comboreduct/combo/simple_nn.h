@@ -35,7 +35,7 @@
 #include <moses/util/iostreamContainer.h>
 #include <moses/util/RandGen.h>
 
-#include "vertex.h"
+#include <moses/comboreduct/combo/vertex.h>
 
 namespace moses3 { namespace combo {
 

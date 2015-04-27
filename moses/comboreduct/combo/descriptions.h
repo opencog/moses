@@ -26,8 +26,8 @@
 
 #include <moses/util/numeric.h>
 
-#include "action.h"
-#include "../type_checker/type_tree.h"
+#include <moses/comboreduct/combo/action.h>
+#include <moses/comboreduct/type_checker/type_tree.h>
 
 #include <moses/util/tree.h>
 

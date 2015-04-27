@@ -26,10 +26,10 @@
 
 /// Main header to include to access combo API
 
-#include "vertex.h"
-#include "procedure_repository.h"
-#include "iostream_combo.h"
-#include "../interpreter/eval.h"
-#include "../table/table.h"
+#include <moses/comboreduct/combo/vertex.h>
+#include <moses/comboreduct/combo/procedure_repository.h>
+#include <moses/comboreduct/combo/iostream_combo.h>
+#include <moses/comboreduct/interpreter/eval.h>
+#include <moses/comboreduct/table/table.h>
 
 #endif // _OPENCOG_COMBO_H

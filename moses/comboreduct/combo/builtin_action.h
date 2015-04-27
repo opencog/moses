@@ -24,14 +24,14 @@
 #ifndef _COMBO_BUILTIN_ACTION_H
 #define _COMBO_BUILTIN_ACTION_H
 
-#include <moses/util/exceptions.h>
-
-#include "../type_checker/type_tree_def.h"
-#include "common_def.h"
 #include <iostream>
 #include <vector>
-//#include <cassert>
-#include "operator_base.h"
+
+#include <moses/util/exceptions.h>
+
+#include <moses/comboreduct/type_checker/type_tree_def.h>
+#include <moses/comboreduct/combo/common_def.h>
+#include <moses/comboreduct/combo/operator_base.h>
 
 //if the user wants to use the reduct engine it is recommended to
 //enable the following macro in order to allow the compiler to detect 

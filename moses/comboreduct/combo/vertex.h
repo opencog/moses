@@ -33,17 +33,17 @@
 #include <moses/util/exceptions.h>
 #include <moses/util/oc_assert.h>
 
-#include "action.h"
-#include "action_symbol.h"
-#include "ann.h"
-#include "argument.h"
-#include "builtin_action.h"
-#include "common_def.h"
-#include "definite_object.h"
-#include "enum_type.h"
-#include "indefinite_object.h"
-#include "message.h"
-#include "perception.h"
+#include <moses/comboreduct/combo/action.h>
+#include <moses/comboreduct/combo/action_symbol.h>
+#include <moses/comboreduct/combo/ann.h>
+#include <moses/comboreduct/combo/argument.h>
+#include <moses/comboreduct/combo/builtin_action.h>
+#include <moses/comboreduct/combo/common_def.h>
+#include <moses/comboreduct/combo/definite_object.h>
+#include <moses/comboreduct/combo/enum_type.h>
+#include <moses/comboreduct/combo/indefinite_object.h>
+#include <moses/comboreduct/combo/message.h>
+#include <moses/comboreduct/combo/perception.h>
 
 // uncomment that if you want to interpret log(x) as log(abs(x))
 // #define ABS_LOG

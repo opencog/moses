@@ -30,7 +30,7 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/regex.hpp>
 
-#include "vertex.h"
+#include <moses/comboreduct/combo/vertex.h>
 
 /**
  * Set of functions to read and write combo programs in various
