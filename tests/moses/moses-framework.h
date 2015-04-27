@@ -26,17 +26,17 @@
 #include <boost/range/algorithm/find_if.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 
-#include <opencog/util/oc_assert.h>
+#include <moses/util/oc_assert.h>
 
-#include <opencog/comboreduct/combo/vertex.h>
-#include <opencog/learning/moses/moses/types.h>
-#include <opencog/learning/moses/main/moses_exec.h>
+#include <moses/comboreduct/combo/vertex.h>
+#include <moses/moses/moses/types.h>
+#include <moses/moses/main/moses_exec.h>
 
 using namespace std;
 using boost::trim_copy;
 using namespace boost::posix_time;
-using namespace opencog::moses;
-using namespace opencog::combo;
+using namespace moses3::moses;
+using namespace moses3::combo;
 
 string mkstemp_moses_output() {
     char tempfile[] = "/tmp/mosesUTestXXXXXX";

@@ -22,12 +22,12 @@
  */
 
 #include <cxxtest/TestSuite.h>
-#include <opencog/util/mt19937ar.h>
+#include <moses/util/mt19937ar.h>
 #include "moses-framework.h"
 
-using namespace opencog::moses;
+using namespace moses3::moses;
 
-const string test_dir = string(PROJECT_SOURCE_DIR) + "/tests/learning/moses/";
+const string test_dir = string(PROJECT_SOURCE_DIR) + "/tests/moses/";
 
 /**
  * Test operation of the dynamic feature selector.
@@ -57,7 +57,7 @@ public:
     void test_dyn_feat_score()
     {
         // Reset the seed, so that this, and the next test, give exactly the same result.
-        opencog::randGen().seed(1);
+        moses3::randGen().seed(1);
         vector<string> ans;
         ans.push_back("and(or(and(or(and(or($16 $124 !$168 $200) !$23 !$284 !$287 !$288) and($16 $284) $184) !$22 !$273 !$282) $27) !$13)");
 
@@ -83,7 +83,7 @@ public:
     void test_dyn_feat_score_threaded()
     {
         // Reset the seed, so that this, and the previou test, give exactly the same result.
-        opencog::randGen().seed(1);
+        moses3::randGen().seed(1);
 
         vector<string> ans;
         ans.push_back("and(or(and(or(and(or($16 $124 !$168 $200) !$23 !$284 !$287 !$288) and($16 $284) $184) !$22 !$273 !$282) $27) !$13)");
@@ -112,7 +112,7 @@ public:
     void test_dyn_feat_hc_breadth_first()
     {
         // Reset the seed, so that this, and the next test, give exactly the same result.
-        opencog::randGen().seed(1);
+        moses3::randGen().seed(1);
         vector<scored_combo_tree> scts;
         scts.push_back(string_to_scored_combo_tree("-26 and(or(and(or($16 !$23) or($16 !$36) !$22 !$30 !$53) and($16 !$36 !$59)) !$105) [score=-33, penalized score=-36.1428565979003906, complexity=11, complexity penalty=3.14285731315612793, diversity penalty=0]"));
         scts.push_back(string_to_scored_combo_tree("-26 and(or(and(or($16 !$23) or($16 !$36) !$22 !$30 !$53) and($16 !$36 !$161)) !$105) [score=-33, penalized score=-36.1428565979003906, complexity=11, complexity penalty=3.14285731315612793, diversity penalty=0]"));
@@ -148,7 +148,7 @@ public:
     void test_dyn_feat_hc_breadth_first_subsampling()
     {
         // Reset the seed, so that this, and the next test, give exactly the same result.
-        opencog::randGen().seed(1);
+        moses3::randGen().seed(1);
         vector<scored_combo_tree> scts;
         scts.push_back(string_to_scored_combo_tree("1 and($16 !$209) [score=1, penalized score=0.980000019073486328, complexity=2, complexity penalty=0.0199999995529651642, diversity penalty=0]"));
         scts.push_back(string_to_scored_combo_tree("0.923076927661895752 and($16 !$60 !$105) [score=0.923076927661895752, penalized score=0.893076956272125244, complexity=3, complexity penalty=0.0299999993294477463, diversity penalty=0]"));

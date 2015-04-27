@@ -12,7 +12,7 @@ using namespace combo;
 using namespace util;
 using namespace std;
 
-static opencog::MT19937RandGen rng(0);
+static moses3::MT19937RandGen rng(0);
 
 class ActionReductUTest : public CxxTest::TestSuite {
 public:

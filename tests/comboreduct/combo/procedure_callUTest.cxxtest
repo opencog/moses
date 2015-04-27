@@ -20,8 +20,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include <opencog/comboreduct/combo/procedure_call.h>
-#include <opencog/comboreduct/ant_combo_vocabulary/ant_combo_vocabulary.h>
+#include <moses/comboreduct/combo/procedure_call.h>
+#include <moses/comboreduct/ant_combo_vocabulary/ant_combo_vocabulary.h>
 
 using namespace ant_combo;
 

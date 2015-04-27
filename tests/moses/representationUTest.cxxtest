@@ -1,5 +1,5 @@
 /*
- * tests/learning/moses/representationUTest.cxxtest
+ * tests/moses/representationUTest.cxxtest
  *
  * Copyright (C) 2010 Novamente LLC
  * All Rights Reserved
@@ -26,12 +26,12 @@
 #include <sstream>
 #include <string>
 
-#include <opencog/learning/moses/representation/representation.h>
-#include <opencog/comboreduct/reduct/reduct.h>
-#include <opencog/util/mt19937ar.h>
-#include <opencog/util/Logger.h>
+#include <moses/moses/representation/representation.h>
+#include <moses/comboreduct/reduct/reduct.h>
+#include <moses/util/mt19937ar.h>
+#include <moses/util/Logger.h>
 
-using namespace opencog;
+using namespace moses3;
 using namespace moses;
 using namespace reduct;
 using namespace combo;

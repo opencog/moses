@@ -1,8 +1,8 @@
-#include <opencog/comboreduct/combo/combo.h>
-#include <opencog/comboreduct/type_checker/type_tree.h>
+#include <moses/comboreduct/combo/combo.h>
+#include <moses/comboreduct/type_checker/type_tree.h>
 
-using namespace opencog;
-using namespace opencog::combo;
+using namespace moses3;
+using namespace moses3::combo;
 using namespace std;
 
 class TreeTypeUTest : public CxxTest::TestSuite

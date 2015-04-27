@@ -1,7 +1,7 @@
-#include <opencog/comboreduct/combo/vertex.h>
-#include <opencog/comboreduct/combo/iostream_combo.h>
+#include <moses/comboreduct/combo/vertex.h>
+#include <moses/comboreduct/combo/iostream_combo.h>
 
-using namespace opencog::combo;
+using namespace moses3::combo;
 using namespace std;
 
 class vertexUTest :  public CxxTest::TestSuite {

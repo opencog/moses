@@ -1,7 +1,7 @@
-#include <opencog/comboreduct/interpreter/eval.h>
-#include <opencog/comboreduct/combo/combo.h>
+#include <moses/comboreduct/interpreter/eval.h>
+#include <moses/comboreduct/combo/combo.h>
 
-using namespace opencog::combo;
+using namespace moses3::combo;
 using namespace std;
 
 string teval(string input)

@@ -22,13 +22,13 @@
 
 #include <cxxtest/TestSuite.h>
 
-#include <opencog/util/mt19937ar.h>
+#include <moses/util/mt19937ar.h>
 
-#include <opencog/comboreduct/combo/vertex.h>
-#include <opencog/learning/moses/metapopulation/metapopulation.h>
-#include <opencog/learning/moses/scoring/behave_cscore.h>
+#include <moses/comboreduct/combo/vertex.h>
+#include <moses/moses/metapopulation/metapopulation.h>
+#include <moses/moses/scoring/behave_cscore.h>
 
-using namespace opencog;
+using namespace moses3;
 using namespace combo;
 using namespace moses;
 

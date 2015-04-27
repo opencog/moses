@@ -1,5 +1,5 @@
 /*
- * tests/learning/moses/iostream_bscored_combo_treeUTest.cxxtest
+ * tests/moses/iostream_bscored_combo_treeUTest.cxxtest
  *
  * Copyright (C) 2012 OpenCog Foundation
  * All Rights Reserved
@@ -26,9 +26,9 @@
 #include <sstream>
 #include <string>
 
-#include <opencog/learning/moses/moses/types.h>
+#include <moses/moses/moses/types.h>
 
-using namespace opencog;
+using namespace moses3;
 using namespace moses;
 
 class iostream_scored_combo_treeUTest : public CxxTest::TestSuite

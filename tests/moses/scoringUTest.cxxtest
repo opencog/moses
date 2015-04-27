@@ -22,16 +22,16 @@
 
 #include <cxxtest/TestSuite.h>
 
-#include <opencog/learning/moses/scoring/precision_bscore.h>
-#include <opencog/comboreduct/table/table.h>
-#include <opencog/comboreduct/table/table_io.h>
+#include <moses/moses/scoring/precision_bscore.h>
+#include <moses/comboreduct/table/table.h>
+#include <moses/comboreduct/table/table_io.h>
 
-using namespace opencog;
+using namespace moses3;
 using namespace combo;
 using namespace moses;
 using namespace std;
 
-const string mosesUTest_dir=string(PROJECT_SOURCE_DIR) + "/tests/learning/moses/";
+const string mosesUTest_dir=string(PROJECT_SOURCE_DIR) + "/tests/moses/";
 const string target_feature = "target";
 
 class scoringUTest : public CxxTest::TestSuite
