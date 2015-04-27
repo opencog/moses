@@ -29,7 +29,7 @@
 #include <moses/moses/moses/types.h>
 #include <moses/moses/scoring/behave_cscore.h>
 #include <moses/moses/scoring/bscores.h>
-#include <moses/moses/example-progs/scoring_iterators.h>
+#include <examples/example-progs/scoring_iterators.h>
 
 #include "problem.h"
 #include "demo-problems.h"

@@ -23,7 +23,7 @@
 #include <cxxtest/TestSuite.h>
 
 #include <moses/moses/moses/moses_main.h>
-#include <moses/moses/example-ant/ant_scoring.h>
+#include <examples/example-ant/ant_scoring.h>
 #include <moses/moses/metapopulation/metapopulation.h>
 #include <moses/moses/optimization/hill-climbing.h>
 #include <moses/moses/scoring/behave_cscore.h>

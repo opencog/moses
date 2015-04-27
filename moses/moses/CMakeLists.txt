@@ -26,8 +26,6 @@ ADD_SUBDIRECTORY (representation)
 ADD_SUBDIRECTORY (optimization)
 ADD_SUBDIRECTORY (eda)
 ADD_SUBDIRECTORY (main)
-ADD_SUBDIRECTORY (example-ant)
-ADD_SUBDIRECTORY (example-progs)
 ADD_SUBDIRECTORY (man)
 
 ADD_LIBRARY (moses SHARED
@@ -74,7 +72,6 @@ ADD_LIBRARY (moses SHARED
 	scoring/ss_bscore
 	scoring/scoring_base
 	scoring/select_bscore
-
 )
 
 
