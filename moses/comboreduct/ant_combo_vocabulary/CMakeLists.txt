@@ -10,5 +10,5 @@ INSTALL(FILES
 
 	DESTINATION
 
-	"include/${PROJECT_NAME}/ant_combo_vocabulary"
+	"include/${PROJECT_NAME}/comboreduct/ant_combo_vocabulary"
 )

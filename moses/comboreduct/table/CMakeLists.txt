@@ -6,5 +6,5 @@ INSTALL(FILES
 
 	DESTINATION
 
-	"include/${PROJECT_NAME}/table" 
+	"include/${PROJECT_NAME}/comboreduct/table"
 )

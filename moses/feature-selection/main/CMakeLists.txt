@@ -14,5 +14,15 @@ TARGET_LINK_LIBRARIES(eval-features
 	${Boost_PROGRAM_OPTIONS_LIBRARY} 
 )
 
+#install header files
+INSTALL(FILES
+
+	feature-selection.h
+
+	DESTINATION
+
+	"include/${PROJECT_NAME}/feature-selection/main"
+)
+
 # install feature-selection
 INSTALL(TARGETS fs-main eval-features RUNTIME DESTINATION bin)

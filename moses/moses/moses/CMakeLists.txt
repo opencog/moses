@@ -7,6 +7,7 @@ INSTALL(FILES
 	mpi_moses.h
 	partial.h
 	types.h
+	complexity.h
 
 	DESTINATION
 

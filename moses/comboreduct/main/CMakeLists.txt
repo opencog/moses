@@ -109,6 +109,6 @@ INSTALL(FILES
 
    DESTINATION
 
-   "include/${PROJECT_NAME}/main" 
+   "include/${PROJECT_NAME}/comboreduct/main"
 )
 
