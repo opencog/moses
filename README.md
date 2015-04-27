@@ -45,6 +45,12 @@ few exceptions, most Linux distributions will provide these packages.
 > Currently, opencog requires cxxtest version 3, and is not compatible
   with version 4.
 
+###### cogutil
+> Common OpenCog C++ utilities
+> http://github/opencog/cogutils
+> It uses exactly the same build proceedure as this pakcage. Be sure
+  to `sudo make install` at the end.
+
 Optional Prerequisites
 ----------------------
 The following packages are optional. If they are not installed, some
@@ -82,6 +88,7 @@ building moses as above):
 
 INSTALLATION
 ------------
+Just say `sudo make install`  after finishing the build.
 
 
 PROJECT DIRECTORY
