@@ -27,7 +27,7 @@
 #include "reduct.h"
 #include <boost/logic/tribool.hpp>
 
-namespace moses3 { namespace reduct {
+namespace opencog { namespace reduct {
 
 using namespace combo;
 
@@ -267,6 +267,6 @@ struct preconditions_check : public crule<preconditions_check> {
 bool reduce_free_post_action (builtin_action pre_a, builtin_action post_a, bool free_pre_action_before, combo_tree& tr, combo_tree::iterator it);
 
 } // ~namespace reduct
-} // ~namespace moses3 
+} // ~namespace opencog 
 
 #endif

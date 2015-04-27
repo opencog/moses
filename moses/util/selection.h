@@ -1,5 +1,5 @@
 /*
- * moses3/util/selection.h
+ * opencog/util/selection.h
  *
  * Copyright (C) 2002-2007 Novamente LLC
  * All Rights Reserved
@@ -20,8 +20,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _MOSES3_SELECTION_H
-#define _MOSES3_SELECTION_H
+#ifndef _OPENCOG_SELECTION_H
+#define _OPENCOG_SELECTION_H
 
 #include <moses/util/functional.h>
 #include <moses/util/numeric.h>
@@ -30,7 +30,7 @@
 #include <moses/util/RandGen.h>
 #include <moses/util/mt19937ar.h>
 
-namespace moses3
+namespace opencog
 {
 /** \addtogroup grp_cogutil
  *  @{
@@ -151,6 +151,6 @@ private:
 };
 
 /** @}*/
-} //~namespace moses3
+} //~namespace opencog
 
 #endif

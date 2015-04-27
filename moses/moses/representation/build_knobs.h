@@ -36,7 +36,7 @@
 #include "field_set.h"
 #include "representation.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 using namespace combo;
 
@@ -200,6 +200,6 @@ protected:
 };
 
 } //~namespace moses
-} //~namespace moses3
+} //~namespace opencog
 
 #endif

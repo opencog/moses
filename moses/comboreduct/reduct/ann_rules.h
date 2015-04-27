@@ -32,9 +32,9 @@
 #include "../combo/vertex.h"
 #include "../combo/convert_ann_combo.h"
 
-namespace moses3 { namespace reduct {
+namespace opencog { namespace reduct {
 
-using namespace moses3::combo;
+using namespace opencog::combo;
 
 //ann reduction rule
 // WARNING: this rule should only be used alone, not combined with meta_rules
@@ -50,6 +50,6 @@ struct ann_rule : public crule<ann_rule> {
 };
 
 } // ~namespace reduct
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif

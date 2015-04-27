@@ -21,8 +21,8 @@
  */
 
 
-#ifndef _MOSES3_COUNTER_H
-#define _MOSES3_COUNTER_H
+#ifndef _OPENCOG_COUNTER_H
+#define _OPENCOG_COUNTER_H
 
 #include <map>
 #include <initializer_list>
@@ -30,7 +30,7 @@
 #include <boost/range/numeric.hpp>
 #include <boost/range/adaptor/map.hpp>
 
-namespace moses3 {
+namespace opencog {
 /** \addtogroup grp_cogutil
  *  @{
  */
@@ -154,6 +154,6 @@ std::ostream& operator<<(std::ostream& out, const Counter<T, CT>& c)
 }
 
 /** @}*/
-} // ~namespace moses3
+} // ~namespace opencog
 
-#endif // _MOSES3_COUNTER_H
+#endif // _OPENCOG_COUNTER_H

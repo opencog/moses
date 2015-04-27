@@ -40,6 +40,6 @@
 #include "edaopt.h"
 #include "scoring_functions.h"
 
-using namespace moses3;
+using namespace opencog;
 using namespace moses;
 

@@ -23,11 +23,11 @@
  */
 #include "message.h"
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 std::ostream& operator<<(std::ostream& out, const combo::message& m) {
     return out << combo::message::prefix() << '\"' << m.getContent() << '\"';
 }
 
 } // ~namespace combo
-} // ~namespace moses3
+} // ~namespace opencog

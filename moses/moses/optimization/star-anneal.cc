@@ -33,7 +33,7 @@
 
 #include "star-anneal.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 /////////////////////////
 // Star-shaped search  //
@@ -159,5 +159,5 @@ void simulated_annealing::operator()(deme_t& deme,
 }
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 

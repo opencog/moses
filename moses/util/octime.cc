@@ -1,5 +1,5 @@
 /*
- * moses3/util/octime.cc
+ * opencog/util/octime.cc
  *
  * Copyright (C) 2011 OpenCog Foundation
  * All Rights Reserved
@@ -33,9 +33,9 @@
 #include <moses/util/exceptions.h>
 #include <moses/util/oc_assert.h>
 
-using namespace moses3;
+using namespace opencog;
 
-namespace moses3 {
+namespace opencog {
 
 /**
  * Time used as reference to set/get timestamps over the code

@@ -6,5 +6,5 @@ INSTALL(FILES
 
 	DESTINATION
 
-	"include/${PROJECT_NAME}/interpreter" 
+	"include/${PROJECT_NAME}/comboreduct/interpreter"
 )

@@ -38,7 +38,7 @@
 #include "../moses/complexity.h"
 #include "field_set.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 using namespace combo;
 
@@ -335,13 +335,13 @@ typedef based_variant <boost::variant<logical_subtree_knob,
 // Without this helper, the compiler gets confused and tries to cast
 // knob_base to something strange.
 inline std::ostream& operator<<(std::ostream& out,
-                                const moses3::moses::knob_base& s)
+                                const opencog::moses::knob_base& s)
 {
 	return out << s.toStr();
 }
 
 } //~namespace moses
-} //~namespace moses3
+} //~namespace opencog
 
 #endif
 

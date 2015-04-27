@@ -27,7 +27,7 @@
 #include <string>
 #include <set>
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 typedef std::string definite_object;
 
@@ -43,6 +43,6 @@ bool is_action_definite_object(const definite_object& d);
 std::string get_action_name(const definite_object& d);
 definite_object get_action_definite_object(const std::string& action_name);
 
-}} // ~namespaces combo moses3
+}} // ~namespaces combo opencog
 
 #endif

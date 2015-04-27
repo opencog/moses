@@ -27,7 +27,7 @@
 
 #include "random.h"
 
-namespace moses3 {
+namespace opencog {
     
 feature_set_pop random_select_feature_sets(const CTable& ctable,
                                            const feature_selection_parameters& fs_params)
@@ -40,4 +40,4 @@ feature_set_pop random_select_feature_sets(const CTable& ctable,
     return {sfs};
 }
 
-} // ~namespace moses3
+} // ~namespace opencog

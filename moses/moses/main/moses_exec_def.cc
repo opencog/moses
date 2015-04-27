@@ -22,7 +22,7 @@
 
 #include "moses_exec_def.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 string opt_desc_str(const pair<string, string>& opt)
 {
@@ -33,4 +33,4 @@ string opt_desc_str(const pair<string, string>& opt)
 }
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog

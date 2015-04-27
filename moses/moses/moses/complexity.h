@@ -29,7 +29,7 @@
 
 #include <moses/comboreduct/combo/vertex.h>
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
     // Right now, the algorithmic complexity of any combo program
     // is always an (unsigned) int.  I guess it could be made a float,
@@ -45,6 +45,6 @@ namespace moses3 { namespace moses {
                         bool (*)(const combo::combo_tree::iterator&) = NULL);
 
 } //~namespace moses
-} //~namespace moses3
+} //~namespace opencog
 
 #endif

@@ -55,7 +55,7 @@
 
 class metapopulationUTest;
 
-namespace moses3 {
+namespace opencog {
 namespace moses {
 
 /**
@@ -575,6 +575,6 @@ protected:
 };
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif // _OPENCOG_METAPOPULATION_H

@@ -20,8 +20,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _MOSES3_MT19937AR_H
-#define _MOSES3_MT19937AR_H
+#ifndef _OPENCOG_MT19937AR_H
+#define _OPENCOG_MT19937AR_H
 
 /** @todo Once C++11 is fully supported by GCC feel free to remove anything
  * wrapped by #ifndef USE_STL_RANDOM  
@@ -89,7 +89,7 @@
 #include <random>
 #endif
 
-namespace moses3
+namespace opencog
 {
 /** \addtogroup grp_cogutil
  *  @{
@@ -185,6 +185,6 @@ public:
 RandGen& randGen();
 
 /** @}*/
-} // namespace moses3
+} // namespace opencog
 
-#endif // _MOSES3_MT19937AR_H
+#endif // _OPENCOG_MT19937AR_H

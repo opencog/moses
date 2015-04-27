@@ -29,7 +29,7 @@
 #include <moses/comboreduct/combo/indefinite_object.h>
 #include "ant_operator.h"
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 namespace id {
     enum ant_indefinite_object_enum {
@@ -101,6 +101,6 @@ public:
 
 };
 
-}} // ~namespaces combo moses3
+}} // ~namespaces combo opencog
 
 #endif

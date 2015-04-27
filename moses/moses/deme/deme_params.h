@@ -27,7 +27,7 @@
 #include "feature_selector.h"
 #include "../representation/representation.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 static const operator_set empty_ignore_ops = operator_set();
 
@@ -83,6 +83,6 @@ struct deme_parameters
 };
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif // _OPENCOG_DEME_PARAMETERS_H

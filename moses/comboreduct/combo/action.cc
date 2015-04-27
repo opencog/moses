@@ -24,7 +24,7 @@
 #include "action.h"
 #include "descriptions.h"
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 arity_t get_arity(action a)
 {
@@ -68,4 +68,4 @@ std::ostream& operator<<(std::ostream& out, const action& a)
     }
 }
 
-}} // ~namespaces combo moses3
+}} // ~namespaces combo opencog

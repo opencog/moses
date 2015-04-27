@@ -43,7 +43,7 @@
 // reduction during optimization
 // #define __FINE_LOG_CND_REDUCED__
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 // Stepsize should be roughly the standard-deviation of the expected
 // distribution of the contin variables.
@@ -438,4 +438,4 @@ void representation::set_exemplar_inst()
 #endif // EXEMPLAR_INST_IS_UNDEAD
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog

@@ -27,7 +27,7 @@
 #include <string>
 #include <moses/comboreduct/combo/vertex.h>
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 /// Base class for all combo user-error exceptions
 ///
@@ -76,6 +76,6 @@ public:
     TypeCheckException(int arg = 0);
 };
 
-}} // ~namespaces combo moses3
+}} // ~namespaces combo opencog
 
 #endif

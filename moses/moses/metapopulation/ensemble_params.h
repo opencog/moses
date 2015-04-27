@@ -24,7 +24,7 @@
 #ifndef _OPENCOG_ENSEMBLE_PARAMS_H
 #define _OPENCOG_ENSEMBLE_PARAMS_H
 
-namespace moses3 {
+namespace opencog {
 namespace moses {
 
 struct ensemble_parameters
@@ -47,7 +47,7 @@ struct ensemble_parameters
 	                     // per learning iteration.
 };
 
-}}; // namespace moses3::moses
+}}; // namespace opencog::moses
 
 #endif // _OPENCOG_ENSEMBLE_PARAMS_H
 

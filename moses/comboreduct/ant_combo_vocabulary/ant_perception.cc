@@ -24,7 +24,7 @@
 #include "ant_perception.h"
 #include <moses/comboreduct/type_checker/type_tree.h>
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 using namespace ant_perception_properties;
 
@@ -137,4 +137,4 @@ bool ant_perception::is_identity_of_indiscernibles() const {
     return _identity_of_indiscernibles;
 }
 
-}} // ~namespaces combo moses3
+}} // ~namespaces combo opencog

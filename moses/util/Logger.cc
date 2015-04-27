@@ -1,5 +1,5 @@
 /*
- * moses3/util/Logger.cc
+ * opencog/util/Logger.cc
  *
  * Copyright (C) 2002-2007 Novamente LLC
  * Copyright (C) 2008, 2010 OpenCog Foundation
@@ -63,7 +63,7 @@
 #define fdatasync fsync
 #endif
 
-using namespace moses3;
+using namespace opencog;
 
 // messages greater than this will be truncated
 #define MAX_PRINTF_STYLE_MESSAGE_SIZE (1<<15)
@@ -266,7 +266,7 @@ Logger::Logger(const std::string &fname, Logger::Level level, bool tsEnabled)
 {
     this->fileName.assign(fname);
     this->currentLevel = level;
-    this->backTraceLevel = getLevelFromString(moses3::config()["BACK_TRACE_LOG_LEVEL"]);
+    this->backTraceLevel = getLevelFromString(opencog::config()["BACK_TRACE_LOG_LEVEL"]);
 
     this->timestampEnabled = tsEnabled;
     this->printToStdout = false;
@@ -499,7 +499,7 @@ const Logger::Level Logger::getLevelFromString(const std::string& levelStr)
 }
 
 // create and return the single instance
-Logger& moses3::logger()
+Logger& opencog::logger()
 {
     static Logger instance;
     return instance;

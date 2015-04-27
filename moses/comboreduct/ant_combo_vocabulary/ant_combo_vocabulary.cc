@@ -102,7 +102,7 @@ bool operator!=(ant_indefinite_object_enum e, indefinite_object i) {
 
 }//~namespace ant_combo
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
   
 std::istream& operator>>(std::istream& in, vertex& v) {
     return stream_to_vertex<ant_builtin_action, ant_perception, ant_action_symbol, ant_indefinite_object>(in, v);
@@ -113,4 +113,4 @@ std::istream& operator>>(std::istream& in, combo_tree& tr) {
 }  
   
 } // ~namespace combo
-} // ~namespace moses3
+} // ~namespace opencog

@@ -36,7 +36,7 @@
 
 using namespace std;
 using namespace boost::program_options;
-using namespace moses3;
+using namespace opencog;
 using namespace combo;
 
 /**

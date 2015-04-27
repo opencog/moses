@@ -30,7 +30,7 @@
 #include <moses/moses/scoring/precision_bscore.h>
 #include "fs_scorer_base.h"
 
-namespace moses3 {
+namespace opencog {
 
 using namespace moses;
 using combo::CTable;
@@ -88,6 +88,6 @@ protected:
 };
 
 
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif // _OPENCOG_FS_SCORERS_MATRIX_H

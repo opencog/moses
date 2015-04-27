@@ -24,7 +24,7 @@
 #ifndef _OPENCOG_EVAL_CANDIDATE_H
 #define _OPENCOG_EVAL_CANDIDATE_H
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 // structure holding the options
 struct eval_candidate_params
@@ -52,6 +52,6 @@ struct eval_candidate_params
 static const std::string f_one="f_one";
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif // _OPENCOG_EVAL_CANDIDATE_H

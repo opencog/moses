@@ -35,8 +35,8 @@
 using namespace std;
 using boost::trim_copy;
 using namespace boost::posix_time;
-using namespace moses3::moses;
-using namespace moses3::combo;
+using namespace opencog::moses;
+using namespace opencog::combo;
 
 string mkstemp_moses_output() {
     char tempfile[] = "/tmp/mosesUTestXXXXXX";

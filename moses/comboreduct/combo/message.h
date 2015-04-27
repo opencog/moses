@@ -29,7 +29,7 @@
 #include <string>
 #include <boost/operators.hpp>
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 // message is essentially a string but is coded as a different type
 // than definite_object, because it semantically denotes something else.
@@ -69,10 +69,10 @@ typedef std::set<message> message_set;
 typedef message_set::iterator message_set_it;
 typedef message_set::const_iterator message_set_const_it;
 
-std::ostream& operator<<(std::ostream&, const moses3::combo::message&);
+std::ostream& operator<<(std::ostream&, const opencog::combo::message&);
 
 } // ~namespace combo
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif
 

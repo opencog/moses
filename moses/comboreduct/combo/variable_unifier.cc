@@ -26,7 +26,7 @@
 
 #include <boost/lexical_cast.hpp>
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 variable_unifier& variable_unifier::DEFAULT_VU()
 {
@@ -146,4 +146,4 @@ std::string variable_unifier::toString() const {
     return res;
 }
 
-}} // ~namespaces combo moses3
+}} // ~namespaces combo opencog

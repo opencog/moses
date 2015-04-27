@@ -1,5 +1,5 @@
 /*
- * moses3/util/hashing.h
+ * opencog/util/hashing.h
  *
  * Copyright (C) 2002-2007 Novamente LLC
  * All Rights Reserved
@@ -20,14 +20,14 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _MOSES3_HASHING_H
-#define _MOSES3_HASHING_H
+#ifndef _OPENCOG_HASHING_H
+#define _OPENCOG_HASHING_H
 
 #include <boost/functional/hash.hpp>
 
 #include <moses/util/tree.h>
 
-namespace moses3
+namespace opencog
 {
 /** \addtogroup grp_cogutil
  *  @{
@@ -85,6 +85,6 @@ struct obj_ptr_cmp {
 };
 
 /** @}*/
-} //~namespace moses3
+} //~namespace opencog
 
-#endif // _MOSES3_HASHING_H
+#endif // _OPENCOG_HASHING_H

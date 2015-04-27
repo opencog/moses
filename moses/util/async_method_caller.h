@@ -36,7 +36,7 @@
 #include <moses/util/Logger.h>
 #include <moses/util/macros.h>
 
-namespace moses3
+namespace opencog
 {
 /** \addtogroup grp_cogutil
  *  @{
@@ -269,6 +269,6 @@ void async_caller<Writer, Element>::enqueue(Element& elt)
 }
 
 /** @}*/
-} // namespace moses3
+} // namespace opencog
 
 #endif // _OC_ASYNC_WRITER_H

@@ -40,7 +40,7 @@
 #include "table.h"
 #include "../type_checker/type_tree.h"
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 /**
  * remove the carriage return (for DOS format)
@@ -252,6 +252,6 @@ std::ostream& operator<<(std::ostream& out, const CTable& ct);
 
 std::ostream& operator<<(std::ostream& out, const complete_truth_table& tt);
 
-}} // ~namespaces combo moses3
+}} // ~namespaces combo opencog
 
 #endif // _OPENCOG_TABLE_IO_H

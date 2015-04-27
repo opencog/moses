@@ -32,7 +32,7 @@
 #include "../scoring/bscores.h"
 #include "moses_main.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 using namespace combo;
 using namespace reduct;

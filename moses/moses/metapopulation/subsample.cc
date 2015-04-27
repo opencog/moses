@@ -36,7 +36,7 @@
 
 #include "metapopulation.h"
 
-namespace moses3 {
+namespace opencog {
 namespace moses {
 
 void metapopulation::recompute_scores_over_whole_dataset(

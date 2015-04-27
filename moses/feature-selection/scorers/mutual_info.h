@@ -28,7 +28,7 @@
 #include <moses/comboreduct/table/table.h>
 #include "fs_scorer_base.h"
 
-namespace moses3 {
+namespace opencog {
 
 using namespace combo;
 
@@ -128,6 +128,6 @@ struct MICScorerCTable : public fs_scorer_base<FeatureSet>
     }
 };
 
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif // _OPENCOG_FEATURE_SCORERS_MI_H

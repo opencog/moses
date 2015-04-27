@@ -38,7 +38,7 @@
 #include "../type_checker/type_tree.h"
 
 using namespace std;
-using namespace moses3;
+using namespace opencog;
 using namespace reduct;
 using namespace boost::assign;
 
@@ -53,7 +53,7 @@ typedef ref_rule_map::iterator ref_rule_map_it;
  */
 const rule* select_rule(string rule_ref_str)
 {
-    static moses3::combo::vertex_set ignore_ops;
+    static opencog::combo::vertex_set ignore_ops;
     int reduct_effort = 2;
 
     const static ref_rule_map ref_rules = 

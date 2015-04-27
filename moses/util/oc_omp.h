@@ -21,8 +21,8 @@
  */
 
 
-#ifndef _MOSES3_OC_OMP_H
-#define _MOSES3_OC_OMP_H
+#ifndef _OPENCOG_OC_OMP_H
+#define _OPENCOG_OC_OMP_H
 
 /** \addtogroup grp_cogutil
  *  @{
@@ -54,7 +54,7 @@
 #define OMP_ALGO std
 #endif
 
-namespace moses3 {
+namespace opencog {
 
 //! setting the parallel env, such as number of threads, number of
 //! minimal iterations to parallelize
@@ -69,9 +69,9 @@ unsigned num_threads();
 /// recursive functions
 std::pair<unsigned, unsigned> split_jobs(unsigned n_jobs);
 
-} // ~namespace moses3
+} // ~namespace opencog
 
 ///@}
 /** @}*/
 
-#endif // _MOSES3_OC_OMP_H
+#endif // _OPENCOG_OC_OMP_H

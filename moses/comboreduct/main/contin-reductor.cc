@@ -31,7 +31,7 @@
 #include "../table/table_io.h"
 
 using namespace std;
-using namespace moses3;
+using namespace opencog;
 using namespace reduct;
 
 int main()

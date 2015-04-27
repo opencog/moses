@@ -34,7 +34,7 @@
 #include "../representation/instance_set.h"
 #include "optimization.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 /// Hill-climbing paramters
 struct hc_parameters
@@ -294,6 +294,6 @@ protected:
 
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif

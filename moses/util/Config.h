@@ -1,5 +1,5 @@
 /*
- * moses3/util/Config.h
+ * opencog/util/Config.h
  *
  * Copyright (C) 2008 by OpenCog Foundation
  * All Rights Reserved
@@ -22,13 +22,13 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _MOSES3_CONFIG_H
-#define _MOSES3_CONFIG_H
+#ifndef _OPENCOG_CONFIG_H
+#define _OPENCOG_CONFIG_H
 
 #include <string>
 #include <map>
 
-namespace moses3
+namespace opencog
 {
 /** \addtogroup grp_cogutil
  *  @{
@@ -105,6 +105,6 @@ Config& config(ConfigFactory* = Config::createInstance,
                bool overwrite = false);
 
 /** @}*/
-} // namespace moses3
+} // namespace opencog
 
-#endif // _MOSES3_CONFIG_H
+#endif // _OPENCOG_CONFIG_H

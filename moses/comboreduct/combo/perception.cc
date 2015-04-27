@@ -24,7 +24,7 @@
 #include "perception.h"
 #include "descriptions.h"
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 std::ostream& operator<<(std::ostream& out, perception p) {
     OC_ASSERT(p);
@@ -32,4 +32,4 @@ std::ostream& operator<<(std::ostream& out, perception p) {
 }
 
 } // ~namespace combo
-} // ~namespace moses3
+} // ~namespace opencog

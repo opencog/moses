@@ -29,7 +29,7 @@
 #include <moses/moses/scoring/scoring_base.h>
 #include "problem-params.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 void register_table_problems(problem_manager&, option_manager&);
 
@@ -229,6 +229,6 @@ class cluster_table_problem : public table_problem_base
 };
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif // _OPENCOG_MOSES_TABLE_PROBLEMS_H

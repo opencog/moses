@@ -27,7 +27,7 @@
 #include <moses/comboreduct/table/table_io.h>
 #include <moses/util/numeric.h>
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 using namespace combo;
 
@@ -115,4 +115,4 @@ float bscore_ctable_time_dispersion::get_time_dispersion_penalty(const CTableTim
 }
 
 } //~namespace moses
-} //~namespace moses3
+} //~namespace opencog

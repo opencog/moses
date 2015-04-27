@@ -28,7 +28,7 @@
 // uncomment if you want to have a trace of the rules
 // #define META_RULE_DEBUG
 
-namespace moses3 { namespace reduct {
+namespace opencog { namespace reduct {
 
 #ifdef META_RULE_DEBUG
 
@@ -84,7 +84,7 @@ void downwards::operator()(combo_tree& tr, combo_tree::iterator it) const
     ++end;
 
     static const type_tree unknown_type_tree =
-        type_tree(moses3::combo::id::unknown_type);
+        type_tree(opencog::combo::id::unknown_type);
 
     if (input == unknown_type_tree)
         for( ; it != end; ++it) {
@@ -98,7 +98,7 @@ void downwards::operator()(combo_tree& tr, combo_tree::iterator it) const
                // &&
                // @todo: checking that it inherits would be better
                // but has to be sure of it (Nil)
-               moses3::combo::get_output_type_tree(*it) == type_tree(output))
+               opencog::combo::get_output_type_tree(*it) == type_tree(output))
                 (*r)(tr, it);
         }
     DEC_TAB
@@ -152,5 +152,5 @@ void assum_iterative::operator()(combo_tree& tr,combo_tree::iterator it) const {
 }
 
 } // ~namespace reduct
-} // ~namespace moses3
+} // ~namespace opencog
 

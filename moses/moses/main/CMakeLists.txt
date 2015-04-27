@@ -46,7 +46,7 @@ INSTALL(TARGETS moses-exec eval-diversity eval-candidate eval-candidate-likeliho
 
 # Install library
 IF (WIN32)
-	INSTALL(TARGETS moses DESTINATION "lib${LIB_DIR_SUFFIX}/moses3")
+	INSTALL(TARGETS moses DESTINATION "lib${LIB_DIR_SUFFIX}/moses")
 ELSE (WIN32)
 	INSTALL(TARGETS moses_exec
 	        LIBRARY DESTINATION "lib${LIB_DIR_SUFFIX}"    # lib*.so files

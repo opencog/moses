@@ -20,13 +20,13 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _MOSES3_LOG_PROG_NAME_H
-#define _MOSES3_LOG_PROG_NAME_H
+#ifndef _OPENCOG_LOG_PROG_NAME_H
+#define _OPENCOG_LOG_PROG_NAME_H
 
 #include <boost/program_options.hpp>
 #include <moses/util/iostreamContainer.h>
 
-namespace moses3 {
+namespace opencog {
 /** \addtogroup grp_cogutil
  *  @{
  */
@@ -49,7 +49,7 @@ bool to_string(const boost::program_options::variable_value& vv,
         str = boost::lexical_cast<std::string>(vv.as<T>());
         return true;
     } else if(vv.value().type() == typeid(std::vector<T>)) {
-        str = moses3::containerToStr(vv.as<std::vector<T> >(), separator.c_str());
+        str = opencog::containerToStr(vv.as<std::vector<T> >(), separator.c_str());
         return true;
     }
     return false;
@@ -67,6 +67,6 @@ std::string determine_log_name(const std::string& log_file_prefix,
                                const std::string& log_file_suffix = ".log");
 
 /** @}*/
-} // ~namespace moses3
+} // ~namespace opencog
 
-#endif // _MOSES3_LOG_PROG_NAME_H
+#endif // _OPENCOG_LOG_PROG_NAME_H

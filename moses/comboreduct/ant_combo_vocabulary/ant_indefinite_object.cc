@@ -24,7 +24,7 @@
 #include "ant_indefinite_object.h"
 #include <moses/comboreduct/type_checker/type_tree.h>
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 using namespace ant_indefinite_object_properties;
 
@@ -90,4 +90,4 @@ const type_tree& ant_indefinite_object::get_input_type_tree(arity_t i) const {
   return argument_type_list_input_type(_arg_type_tree, _arity, i);
 }
 
-}} // ~namespaces combo moses3
+}} // ~namespaces combo opencog

@@ -28,7 +28,7 @@
 #include "scoring_base.h"
 #include "time_dispersion.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 using combo::CTable;
 using combo::count_t;
@@ -230,6 +230,6 @@ private:
 };
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif

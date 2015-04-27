@@ -40,7 +40,7 @@
 #include "scoring_base.h"
 #include "../moses/types.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 using namespace combo;
 
@@ -141,7 +141,7 @@ protected:
  *
  * The math justifying the program size penalty equations is based on
  * the following thread
- * http://groups.google.com/group/moses3-news/browse_thread/thread/b7704419e082c6f1
+ * http://groups.google.com/group/opencog-news/browse_thread/thread/b7704419e082c6f1
  *
  * It turns out this is closely related to the Akaike Information
  * Criterion, see in particular
@@ -638,6 +638,6 @@ protected:
 };
 
 } //~namespace moses
-} //~namespace moses3
+} //~namespace opencog
 
 #endif

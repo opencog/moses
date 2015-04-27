@@ -33,7 +33,7 @@
 #include "field_set.h"
 #include "knobs.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 /**
  * maps disc_spec (resp. contin_spec) to actual disc_knob
@@ -93,6 +93,6 @@ struct knob_mapper
 };
 
 } //~namespace moses
-} //~namespace moses3
+} //~namespace opencog
 
 #endif

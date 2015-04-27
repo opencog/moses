@@ -31,7 +31,7 @@
 
 #include "moses_main.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 #define strform(x) #x
 #define stringify(x) strform(x)
@@ -101,5 +101,5 @@ void adjust_termination_criteria(const behave_cscore& c_scorer,
 }
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 

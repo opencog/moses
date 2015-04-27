@@ -30,7 +30,7 @@
 #include <moses/comboreduct/combo/vertex.h>
 #include <moses/comboreduct/table/table.h>
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 using combo::combo_tree;
 using combo::arity_t;
@@ -346,6 +346,6 @@ static inline void log_candidate_bscore(const combo_tree& tr,
 }
 
 } //~namespace moses
-} //~namespace moses3
+} //~namespace opencog
 
 #endif

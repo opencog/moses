@@ -35,7 +35,7 @@
 
 using namespace std;
 using namespace boost;
-using namespace moses3;
+using namespace opencog;
 using namespace moses;
 using namespace reduct;
 

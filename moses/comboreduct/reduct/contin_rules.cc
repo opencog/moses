@@ -27,7 +27,7 @@
 #include <moses/comboreduct/type_checker/type_tree.h>
 #include "contin_rules.h"
 
-namespace moses3 { namespace reduct {
+namespace opencog { namespace reduct {
 
 typedef combo_tree::sibling_iterator sib_it;
 typedef combo_tree::pre_order_iterator pre_it;
@@ -1021,5 +1021,5 @@ void reduce_impulse_arg::operator()(combo_tree& tr, combo_tree::iterator it) con
 
 
 } // ~namespace reduct
-} // ~namespace moses3
+} // ~namespace opencog
 

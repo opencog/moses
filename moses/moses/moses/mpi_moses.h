@@ -33,7 +33,7 @@
 #include "../metapopulation/metapopulation.h"
 #include "moses_params.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 #ifdef HAVE_MPI
 
@@ -111,6 +111,6 @@ static inline void mpi_moses(metapopulation& mp,
 #endif  // HAVE_MPI
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif // _OPENCOG_MPI_MOSES_H

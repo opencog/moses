@@ -1,6 +1,6 @@
 #include <moses/comboreduct/combo/combo.h>
 
-using namespace moses3::combo;
+using namespace opencog::combo;
 using namespace std;
 
 #define TEST_MESSAGE "yo  man"

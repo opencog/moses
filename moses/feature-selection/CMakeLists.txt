@@ -14,12 +14,13 @@ TARGET_LINK_LIBRARIES(feature_selection
 	${Boost_PROGRAM_OPTIONS_LIBRARY} 
 )
 
+ADD_SUBDIRECTORY(scorers)
 ADD_SUBDIRECTORY(main)
 ADD_SUBDIRECTORY(man)
 
 # Install library
 IF (WIN32)
-	INSTALL(TARGETS feature_selection DESTINATION "lib${LIB_DIR_SUFFIX}/moses3")
+	INSTALL(TARGETS feature_selection DESTINATION "lib${LIB_DIR_SUFFIX}/moses")
 ELSE (WIN32)
 	INSTALL(TARGETS feature_selection
 	        LIBRARY DESTINATION "lib${LIB_DIR_SUFFIX}"    # lib*.so files

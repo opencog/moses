@@ -26,7 +26,7 @@
 #include <string>
 #include <vector>
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 /// used by the main function, it is included in the library for its
 /// convenience
@@ -40,6 +40,6 @@ int moses_exec(const std::vector<std::string>& argv);
 int moses_exec(const std::string& argvs);
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif // _OPENCOG_MOSES_EXEC_H

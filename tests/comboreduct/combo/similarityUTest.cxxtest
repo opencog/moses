@@ -23,7 +23,7 @@
 
 #include <moses/comboreduct/combo/similarity.h>
 
-using namespace moses3::combo;
+using namespace opencog::combo;
 using namespace std;
 
 class similarityUTest : public CxxTest::TestSuite

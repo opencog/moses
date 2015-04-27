@@ -22,7 +22,7 @@
 
 #include "moses_optim.h"
 
-namespace moses3 {
+namespace opencog {
 
 std::set<arity_t> get_feature_set(const field_set& fields,
                                   const instance& inst)
@@ -35,4 +35,4 @@ std::set<arity_t> get_feature_set(const field_set& fields,
     return fs;
 }
 
-} // ~namespace moses3
+} // ~namespace opencog

@@ -1,5 +1,5 @@
 /*
- * moses3/util/exceptions.h
+ * opencog/util/exceptions.h
  *
  * Copyright (C) 2002-2007 Novamente LLC
  * All Rights Reserved
@@ -23,8 +23,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _MOSES3_EXCEPTIONS_H
-#define _MOSES3_EXCEPTIONS_H
+#ifndef _OPENCOG_EXCEPTIONS_H
+#define _OPENCOG_EXCEPTIONS_H
 
 #include <string>
 #include <iostream>
@@ -33,7 +33,7 @@
 #include <string.h>
 #include <moses/util/macros.h>
 
-namespace moses3
+namespace opencog
 {
 /** \addtogroup grp_cogutil
  *  @{
@@ -329,6 +329,6 @@ inline std::ostream& operator<<(std::ostream& out, const StandardException& ex)
 }
 
 /** @}*/
-} // namespace moses3
+} // namespace opencog
 
-#endif // _MOSES3_EXCEPTIONS_H
+#endif // _OPENCOG_EXCEPTIONS_H

@@ -34,7 +34,7 @@
 
 #include "../representation/field_set.h"
 
-using namespace moses3;
+using namespace opencog;
 using namespace moses;
 
 // Example scoring functions.

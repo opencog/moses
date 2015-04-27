@@ -27,7 +27,7 @@
 #include <moses/comboreduct/combo/operator_base.h>
 #include <moses/comboreduct/type_checker/type_tree_def.h>
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 //action_symbol_base inherit operator_base
 //without additional properties
@@ -41,6 +41,6 @@ typedef const action_symbol_base* action_symbol;
 std::ostream& operator<<(std::ostream&, combo::action_symbol);
 
 } // ~namespace combo
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif

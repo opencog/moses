@@ -29,7 +29,7 @@
 
 #include "scoring_base.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 using combo::CTable;
 using combo::type_node;
@@ -233,6 +233,6 @@ protected:
 };
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif

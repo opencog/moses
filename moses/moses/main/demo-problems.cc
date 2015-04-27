@@ -34,7 +34,7 @@
 #include "problem.h"
 #include "demo-problems.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 struct demo_params : public option_base
 {
@@ -512,5 +512,5 @@ void register_demo_problems(problem_manager& pmr, option_manager& mgr)
 }
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 

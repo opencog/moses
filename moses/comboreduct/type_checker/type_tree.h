@@ -37,7 +37,7 @@
 #include <moses/comboreduct/combo/perception.h>
 #include <moses/comboreduct/combo/procedure_call.h>
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 // templates helpers to convert C++ type into type_node
 /// @note if I don't inline I get linkage error, go figure...
@@ -428,12 +428,12 @@ type_tree gen_signature(const type_tree& iotype, arity_t arity);
 
 
 } // ~namespace combo
-} // ~namespace moses3
+} // ~namespace opencog
 
 namespace std {
 
-std::ostream& operator<<(std::ostream&, const moses3::combo::type_node&);
-std::istream& operator>>(std::istream&, moses3::combo::type_node&);
+std::ostream& operator<<(std::ostream&, const opencog::combo::type_node&);
+std::istream& operator>>(std::istream&, opencog::combo::type_node&);
 
 } // ~namespace std
 

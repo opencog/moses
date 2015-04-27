@@ -32,7 +32,7 @@
 
 #include "../representation/field_set.h"
 
-namespace moses3 {
+namespace opencog {
 namespace moses {
 
 // Code in this file is used to implement the Bayesian Optimization
@@ -323,6 +323,6 @@ void local_structure_probs_learning::rec_learn(const field_set& fs,
 }
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif

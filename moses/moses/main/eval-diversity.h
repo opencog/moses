@@ -33,7 +33,7 @@
 
 #include <moses/util/iostreamContainer.h>
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 using namespace boost::accumulators;
 
@@ -87,5 +87,5 @@ Out& ostream_results(Out& out, const eval_diversity_params& edp,
 }
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 

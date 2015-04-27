@@ -27,13 +27,13 @@
 #include <iostream>
 #include <vector>
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 typedef combo_tree::iterator pre_it;
 typedef combo_tree::sibling_iterator sib_it;
 
 void insert_assumption(combo_tree& tr, combo_tree::iterator assum_it) {
-    typedef moses3::lexicographic_subtree_order<vertex> Comp;
+    typedef opencog::lexicographic_subtree_order<vertex> Comp;
     pre_it main_tree = tr.begin();
     OC_ASSERT(tr.is_valid(main_tree), "combo_tree ins't valid (insert_assumption).");
     int max_pos = tr.number_of_siblings(main_tree);
@@ -114,4 +114,4 @@ void delete_all_assumptions(combo_tree& tr) {
             assum = tr.erase(assum);
 }
 
-}} // ~namespaces combo moses3
+}} // ~namespaces combo opencog

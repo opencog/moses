@@ -34,7 +34,7 @@
 #include "../metapopulation/metapopulation.h"
 #include "moses_params.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 // both sender and receiver must use exactly this string for n_evals.
 static const std::string number_of_evals_str = "n_evals";
@@ -151,6 +151,6 @@ void distributed_moses(metapopulation&,
                        moses_statistics&);
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif // _OPENCOG_DISTRIBUTED_MOSES_H

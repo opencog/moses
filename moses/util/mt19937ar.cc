@@ -77,7 +77,7 @@
 #include <moses/atomspace/Logger.h>
 #endif
 
-using namespace moses3;
+using namespace opencog;
 
 #ifndef USE_STL_RANDOM
 /* Period parameters */  
@@ -309,7 +309,7 @@ double MT19937RandGen::genrand_res53(void)
 
 // Create and return the single instance. The initial seed is zero but
 // can be changed with the public method RandGen::seed(unsigned long)
-RandGen& moses3::randGen()
+RandGen& opencog::randGen()
 {
     static MT19937RandGen instance(0);
     return instance;

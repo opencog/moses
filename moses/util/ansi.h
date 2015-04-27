@@ -1,5 +1,5 @@
 /*
- * moses3/util/ansi.h
+ * opencog/util/ansi.h
  *
  * Copyright (C) 2010 OpenCog Foundation
  * All Rights Reserved
@@ -24,7 +24,7 @@
 #include <string>
 
 #include <moses/util/Config.h>
-namespace moses3 {
+namespace opencog {
 /** \addtogroup grp_cogutil
  *  @{
  */

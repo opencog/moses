@@ -32,7 +32,7 @@
 #include "distributed_moses.h"
 #include "../main/moses_exec_def.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 pid_t get_parent_pid() {
     return getpid();
@@ -472,4 +472,4 @@ theend:
 }
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog

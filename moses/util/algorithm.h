@@ -1,5 +1,5 @@
-#ifndef _MOSES3_ALGORITHM_H
-#define _MOSES3_ALGORITHM_H
+#ifndef _OPENCOG_ALGORITHM_H
+#define _OPENCOG_ALGORITHM_H
 
 #include <algorithm>
 #include <set>
@@ -11,7 +11,7 @@
 #include <moses/util/numeric.h>
 #include <moses/util/exceptions.h>
 
-namespace moses3
+namespace opencog
 {
 /** \addtogroup grp_cogutil
  *  @{
@@ -311,6 +311,6 @@ Seq seq_filtered(const Seq& seq, const Indices& indices) {
 
     
 /** @}*/
-} //~namespace moses3
+} //~namespace opencog
 
 #endif

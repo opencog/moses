@@ -36,7 +36,7 @@
 #include "../representation/instance_set.h"
 #include "../moses/types.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 /**
  * This procedure generates the initial deme randomly
@@ -86,7 +86,7 @@ void flip_LR(field_set::disc_iterator itr);
 // 3. Otherwise just flip
 void twiddle_contin_bit(field_set::disc_iterator itr,
                         field_set::disc_iterator next_itr,
-                        moses3::RandGen& rng = randGen());
+                        opencog::RandGen& rng = randGen());
 
 /**
  * This routine modifies the instance 'inst' so that the new instance
@@ -111,7 +111,7 @@ void generate_contin_neighbor(const field_set& fs,
                               instance& inst,
                               field_set::contin_iterator it,
                               unsigned dist,
-                              moses3::RandGen& rng = randGen());
+                              opencog::RandGen& rng = randGen());
 
 /**
  * Sample (with replacement) 'sample_size' instances from the
@@ -538,6 +538,6 @@ size_t sample_new_instances(size_t number_of_new_instances,
                             unsigned dist);
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif // _OPENCOG_NEIGHBORHOOD_SAMPLING_H

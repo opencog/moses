@@ -1,7 +1,7 @@
 #include <moses/comboreduct/combo/vertex.h>
 #include <moses/comboreduct/combo/simple_nn.h>
 
-using namespace moses3::combo;
+using namespace opencog::combo;
 
 class annUTest :  public CxxTest::TestSuite {
 public:

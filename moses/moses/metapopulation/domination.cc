@@ -30,7 +30,7 @@
 
 #include "metapopulation.h"
 
-namespace moses3 {
+namespace opencog {
 namespace moses {
 
 using namespace std;
@@ -305,5 +305,5 @@ void metapopulation::merge_nondominated(const scored_combo_tree_set& bcs, unsign
 }
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 

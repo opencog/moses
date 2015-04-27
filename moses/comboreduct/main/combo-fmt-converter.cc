@@ -34,7 +34,7 @@
 using namespace boost::program_options;
 using namespace boost::algorithm;
 using namespace std;
-using namespace moses3;
+using namespace opencog;
 using namespace combo;
 using boost::trim;
 

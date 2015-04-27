@@ -29,7 +29,7 @@
 #include "reduct.h"
 #include "../interpreter/eval.h"
 
-namespace moses3 { namespace reduct {
+namespace opencog { namespace reduct {
 
 // Flattens all associative functions: f(a,f(b,c)) -> f(a,b,c)
 // Note that level is recursive that is f(a,f(b,f(c,d))) -> f(a,b,c,d)
@@ -73,6 +73,6 @@ struct remove_all_assumptions : public crule<remove_all_assumptions>
 };
 
 } // ~namespace reduct
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif

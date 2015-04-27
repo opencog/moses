@@ -24,7 +24,7 @@
 #include "ant_builtin_action.h"
 #include <moses/comboreduct/type_checker/type_tree.h>
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 using namespace ant_builtin_action_properties;
 
@@ -215,4 +215,4 @@ const std::set<builtin_action> ant_builtin_action::preconditions() const {
     return empty_precondition_set;
 }
 
-}} // ~namespaces combo moses3
+}} // ~namespaces combo opencog

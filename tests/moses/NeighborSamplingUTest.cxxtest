@@ -9,12 +9,12 @@
 #include <moses/moses/moses/neighborhood_sampling.h>
 
 
-using namespace moses3;
+using namespace opencog;
 using namespace moses;
 using namespace std;
 
 class NeighborSamplingUTest : public CxxTest::TestSuite {
-    moses3::RandGen& rng;
+    opencog::RandGen& rng;
 public:
     NeighborSamplingUTest() : rng(randGen()) {
         logger().setPrintToStdoutFlag(true);

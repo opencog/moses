@@ -27,7 +27,7 @@
 
 #include "reduct.h"
 
-namespace moses3 { namespace reduct {
+namespace opencog { namespace reduct {
 
 /// Apply boolean reduction to each predicate
 /// (same class structure as reduce_impulse_arg)
@@ -88,6 +88,6 @@ struct reduce_cond_const : public crule<reduce_cond_const>
 
 
 } // ~namespace reduct
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif

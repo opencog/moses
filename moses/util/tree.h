@@ -82,7 +82,7 @@
 // HP-style construct/destroy have gone from the standard,
 // so here is a copy.
 
-namespace moses3 {
+namespace opencog {
 /** \addtogroup grp_cogutil
  *  @{
  */
@@ -2997,12 +2997,12 @@ typename tree<T, tree_node_allocator>::upwards_iterator& tree<T, tree_node_alloc
     return (*this);
 }
 
-} // ~namespace moses3
+} // ~namespace opencog
 
 namespace std {
 
 template<typename T>
-void swap(moses3::tree<T>& x, moses3::tree<T>& y) {
+void swap(opencog::tree<T>& x, opencog::tree<T>& y) {
     std::swap(x.head,y.head);
     std::swap(x.feet,y.feet);
 }
@@ -3010,7 +3010,7 @@ void swap(moses3::tree<T>& x, moses3::tree<T>& y) {
 } // ~namespace std
 
 
-namespace moses3 {
+namespace opencog {
 
 template<typename treeT1,typename src_iterator,
          typename treeT2,typename dst_iterator>
@@ -3201,7 +3201,7 @@ std::string subtree_to_string(iter it)
     return ss.str();
 }
 
-} // ~namespace moses3
+} // ~namespace opencog
 
 // Instantiate a string-specific converter first, as we need this for
 // the general case, below. Note that it is being instantiated in the
@@ -3211,33 +3211,33 @@ std::string subtree_to_string(iter it)
 // final, desired typename-tree. Without this, operator>>() would be
 // infinitely recursive.
 namespace std {
-    std::istream& operator>>(std::istream&, moses3::tree<std::string>&);
+    std::istream& operator>>(std::istream&, opencog::tree<std::string>&);
 }
 
-namespace moses3 {
+namespace opencog {
 // Provide operators that know how to print trees and input them.
-// Note: These operators need to live on the moses3 namespace, not
+// Note: These operators need to live on the opencog namespace, not
 // the std namespace. Putting them in std will elicit weird bugs.
 
 template<typename T>
-std::ostream& operator<<(std::ostream& out, const moses3::tree<T>& tr)
+std::ostream& operator<<(std::ostream& out, const opencog::tree<T>& tr)
 {
-    typename moses3::tree<T>::sibling_iterator it = tr.begin();
+    typename opencog::tree<T>::sibling_iterator it = tr.begin();
     if (it != tr.end()) out << subtree_to_string(it);
     return out;
 }
 
 template<typename T>
-std::istream& operator>>(std::istream& in, moses3::tree<T>& tr)
+std::istream& operator>>(std::istream& in, opencog::tree<T>& tr)
 {
-    moses3::tree<std::string> tmp;
+    opencog::tree<std::string> tmp;
     in >> tmp;
     try {
-        moses3::tree_convert(tmp, tr);
+        opencog::tree_convert(tmp, tr);
     } catch (boost::bad_lexical_cast&) {
         std::stringstream stream (std::stringstream::out);
         stream << "Bad node data in tree '" << tr << "'" << std::endl;
-        throw moses3::InconsistenceException(TRACE_INFO,
+        throw opencog::InconsistenceException(TRACE_INFO,
                                               "tree - %s.",
                                               stream.str().c_str());
     }
@@ -3245,6 +3245,6 @@ std::istream& operator>>(std::istream& in, moses3::tree<T>& tr)
 }
 
 /** @}*/
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif

@@ -23,11 +23,11 @@
  */
 #include "reduct.h"
 
-namespace moses3 { namespace reduct {
+namespace opencog { namespace reduct {
 
 // This little piece of silliness is needed by boost, in order
 // to implement ptr_vector and other things ...
 reduct::rule* new_clone(const reduct::rule& r) { return r.clone(); }
 
 } // ~namespace reduct
-} // ~namespace moses3
+} // ~namespace opencog

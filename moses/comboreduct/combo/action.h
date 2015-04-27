@@ -31,7 +31,7 @@
 #include <vector>
 #include "common_def.h"
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 namespace id {
     enum action {
@@ -60,6 +60,6 @@ arity_t get_arity(action aa);
 std::ostream& operator<<(std::ostream&, const action&);
 
 } // ~namespace combo
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif

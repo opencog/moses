@@ -25,8 +25,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _MOSES3_MISC_H
-#define _MOSES3_MISC_H
+#ifndef _OPENCOG_MISC_H
+#define _OPENCOG_MISC_H
 
 #include <iterator>
 #include <functional>
@@ -35,7 +35,7 @@
 #include <cxxabi.h>
 #endif
 
-namespace moses3
+namespace opencog
 {
 /** \addtogroup grp_cogutil
  *  @{
@@ -83,6 +83,6 @@ std::string demangle(const std::string& mangled);
 #endif
 
 /** @}*/
-} // namespace moses3
+} // namespace opencog
 
-#endif // _MOSES3_MISC_H
+#endif // _OPENCOG_MISC_H

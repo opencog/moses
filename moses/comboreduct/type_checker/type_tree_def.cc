@@ -24,7 +24,7 @@
 #include "type_tree_def.h"
 #include <moses/util/oc_assert.h>
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 bool is_argument_type(type_node n)
 {
@@ -38,4 +38,4 @@ unsigned int arg_to_idx(type_node n)
     return (unsigned int)((int)n-(int)id::argument_type+1);
 }
 
-}} // ~namespaces combo moses3
+}} // ~namespaces combo opencog

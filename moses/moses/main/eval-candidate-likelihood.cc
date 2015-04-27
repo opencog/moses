@@ -41,7 +41,7 @@
 #include "eval-candidate-likelihood.h"
 
 using namespace std;
-using namespace moses3;
+using namespace opencog;
 using namespace moses;
 using namespace combo;
 using boost::str;

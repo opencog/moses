@@ -1,5 +1,5 @@
 /*
- * moses3/util/numeric.h
+ * opencog/util/numeric.h
  *
  * Copyright (C) 2002-2007 Novamente LLC
  * All Rights Reserved
@@ -20,8 +20,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _MOSES3_NUMERIC_H
-#define _MOSES3_NUMERIC_H
+#ifndef _OPENCOG_NUMERIC_H
+#define _OPENCOG_NUMERIC_H
 
 #include <algorithm> // for std::max
 #include <cmath>
@@ -52,7 +52,7 @@
 #include <ext/numeric>
 #endif
 
-namespace moses3
+namespace opencog
 {
 
 using std::numeric_limits;
@@ -313,7 +313,7 @@ Float bound(Float x, Float l, Float u)
 //! useful for entropy
 template<typename FloatT> FloatT weightInformation(FloatT p)
 {
-    return p > PROB_EPSILON? -p * moses3::log2(p) : 0;
+    return p > PROB_EPSILON? -p * opencog::log2(p) : 0;
 }
 
 //! compute the binary entropy of probability p
@@ -526,7 +526,7 @@ Float angular_distance(const Vec& a, const Vec& b, bool pos_n_neg = true)
         return 0;
 }
 
-} // ~namespace moses3
+} // ~namespace opencog
 /** @}*/
 
-#endif // _MOSES3_NUMERIC_H
+#endif // _OPENCOG_NUMERIC_H

@@ -1,5 +1,5 @@
 /*
- * moses3/util/files.h
+ * opencog/util/files.h
  *
  * Copyright (C) 2002-2007 Novamente LLC
  * All Rights Reserved
@@ -20,8 +20,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _MOSES3_FILES_H_
-#define _MOSES3_FILES_H_
+#ifndef _OPENCOG_FILES_H_
+#define _OPENCOG_FILES_H_
 
 /**
  * \file files.h
@@ -33,7 +33,7 @@
 #include <string>
 #include <vector>
 
-namespace moses3
+namespace opencog
 {
 /** \addtogroup grp_cogutil
  *  @{
@@ -96,6 +96,6 @@ std::string getExeName();
 std::string getExeDir(); 
 
 /** @}*/
-} // namespace moses3
+} // namespace opencog
 
-#endif //_MOSES3_FILES_H_
+#endif //_OPENCOG_FILES_H_

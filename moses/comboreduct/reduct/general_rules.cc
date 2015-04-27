@@ -25,7 +25,7 @@
 #include "../interpreter/eval.h"
 #include <moses/comboreduct/combo/assumption.h>
 
-namespace moses3 { namespace reduct {
+namespace opencog { namespace reduct {
 typedef combo_tree::sibling_iterator sib_it;
 
 /// Flattens all associative functions: f(a,f(b,c)) -> f(a,b,c)
@@ -102,7 +102,7 @@ void reorder_commutative::operator()(combo_tree& tr,combo_tree::iterator it) con
 {
     if (is_commutative(*it))
         tr.sort_on_subtrees(it.begin(), it.end(),
-                            moses3::lexicographic_subtree_order<vertex>(),false);
+                            opencog::lexicographic_subtree_order<vertex>(),false);
 }
 
 // Get rid of subtrees marked with a null_vertex in their roots
@@ -136,5 +136,5 @@ void remove_all_assumptions::operator()(combo_tree& tr,combo_tree::iterator it) 
 }
 
 } // ~namespace reduct
-} // ~namespace moses3
+} // ~namespace opencog
 

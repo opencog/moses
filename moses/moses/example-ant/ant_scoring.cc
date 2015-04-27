@@ -167,7 +167,7 @@ AntFitnessEstimator::AntFitnessEstimator(int steps, int noise)
     : AntFitnessFunction(steps), _noise(noise) {}
 score_t AntFitnessEstimator::operator()(const combo_tree& tr) const
 {
-    int error = moses3::randGen().randint(_noise + 1) - _noise / 2;
+    int error = opencog::randGen().randint(_noise + 1) - _noise / 2;
     return AntFitnessFunction::operator()(tr) + error;
 }
 

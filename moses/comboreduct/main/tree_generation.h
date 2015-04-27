@@ -29,9 +29,9 @@
 #include "../combo/vertex.h"
 #include "../type_checker/type_tree.h"
 
-namespace moses3 { namespace trees {
+namespace opencog { namespace trees {
 
-  using namespace moses3::combo;
+  using namespace opencog::combo;
 
   template<int MIN_ARITY>
   class Generator {
@@ -94,6 +94,6 @@ namespace moses3 { namespace trees {
     }
   }
 
-}} // ~namespaces trees moses3
+}} // ~namespaces trees opencog
 
 #endif

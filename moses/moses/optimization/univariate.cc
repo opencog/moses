@@ -39,7 +39,7 @@
 
 #include "univariate.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 /////////////////////////////
 // Univariate Optimization //
@@ -100,5 +100,5 @@ void univariate_optimization::operator()(deme_t& deme,
 }
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 

@@ -29,7 +29,7 @@
 #include "../scoring/behave_cscore.h"
 #include "../scoring/scoring_base.h"
 
-namespace moses3 {
+namespace opencog {
 namespace moses {
 
 /**
@@ -91,7 +91,7 @@ private:
     const combo::combo_tree& get_expert_tree() const;
 };
 
-}}; // namespace moses3::moses
+}}; // namespace opencog::moses
 
 #endif // _OPENCOG_ENSEMBLE_H
 

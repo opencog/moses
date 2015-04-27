@@ -8,6 +8,6 @@ INSTALL(FILES
 
 	DESTINATION
 
-	"include/${PROJECT_NAME}/pleasure" 
+	"include/${PROJECT_NAME}/pleasure/pleasure"
 )
 

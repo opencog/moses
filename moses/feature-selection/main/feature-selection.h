@@ -32,7 +32,7 @@
 #include "../scorers/moses_matrix.h"  // for pre_scorer
 
 
-namespace moses3 {
+namespace opencog {
 
 // using namespace moses;
 
@@ -223,6 +223,6 @@ feature_set select_features(const Table& table,
 void feature_selection(const Table& table,
                        const feature_selection_parameters& fs_params);
 
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif // _OPENCOG_FEATURE-SELECTION_H

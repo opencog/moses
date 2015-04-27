@@ -30,7 +30,7 @@
 
 #include "knob_mapper.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 void set_stepsize(double new_ss);
 void set_expansion(double new_ex);
@@ -206,12 +206,12 @@ protected:
 
 // This helper seems to be needed to unconfuse the compiler.
 inline std::ostream& operator<<(std::ostream& out,
-                                const moses3::moses::representation& r)
+                                const opencog::moses::representation& r)
 {
     return r.ostream_prototype(out);
 }
 
 } //~namespace moses
-} //~namespace moses3
+} //~namespace opencog
 
 #endif

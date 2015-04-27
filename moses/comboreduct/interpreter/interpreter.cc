@@ -28,7 +28,7 @@
 #include <moses/util/exceptions.h>
 #include <moses/util/mt19937ar.h>
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 /////////////////////////
 // Boolean interpreter //
@@ -384,4 +384,4 @@ vertex mixed_interpreter::mixed_eval(combo_tree::iterator it) const
     }
 }
 
-}} // ~namespaces combo moses3
+}} // ~namespaces combo opencog

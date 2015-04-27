@@ -26,7 +26,7 @@
 
 #include <moses/comboreduct/table/table.h>
 
-namespace moses3 {
+namespace opencog {
 
 using namespace combo;
 

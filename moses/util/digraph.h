@@ -1,5 +1,5 @@
 /*
- * moses3/util/digraph.h
+ * opencog/util/digraph.h
  *
  * Copyright (C) 2002-2007 Novamente LLC
  * All Rights Reserved
@@ -20,8 +20,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _MOSES3_DIGRAPH_H
-#define _MOSES3_DIGRAPH_H
+#ifndef _OPENCOG_DIGRAPH_H
+#define _OPENCOG_DIGRAPH_H
 
 #include <queue>
 #include <vector>
@@ -31,7 +31,7 @@
 #include <moses/util/oc_assert.h>
 #include <boost/iterator/counting_iterator.hpp>
 
-namespace moses3
+namespace opencog
 {
 /** \addtogroup grp_cogutil
  *  @{
@@ -119,6 +119,6 @@ Out randomized_topological_sort(digraph g, Out out)
 }
 
 /** @}*/
-} //~namespace moses3
+} //~namespace opencog
 
 #endif

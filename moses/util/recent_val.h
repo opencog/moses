@@ -1,5 +1,5 @@
 /*
- * moses3/util/recent_val.h
+ * opencog/util/recent_val.h
  *
  * Copyright (C) 2008 by OpenCog Foundation
  * All Rights Reserved
@@ -22,10 +22,10 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _MOSES3_RECENT_VAL_H
-#define _MOSES3_RECENT_VAL_H
+#ifndef _OPENCOG_RECENT_VAL_H
+#define _OPENCOG_RECENT_VAL_H
 
-namespace moses3
+namespace opencog
 {
 /** \addtogroup grp_cogutil
  *  @{
@@ -59,4 +59,4 @@ template<class ValueType> struct recent_val {
 /** @}*/
 }
 
-#endif // _MOSES3_RECENT_VAL_H
+#endif // _OPENCOG_RECENT_VAL_H

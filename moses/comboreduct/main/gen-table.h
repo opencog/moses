@@ -26,7 +26,7 @@
 
 #include <boost/program_options.hpp>
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 using std::pair;
 using std::string;
@@ -44,6 +44,6 @@ static const pair<string, string> output_file_opt("output-file", "o");
 static const pair<string, string> target_index_opt("target_index", "t");
 
 } // ~namespace combo
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif // _OPENCOG_GEN-TABLE_H

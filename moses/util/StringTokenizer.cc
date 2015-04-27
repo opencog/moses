@@ -1,5 +1,5 @@
 /*
- * moses3/util/StringTokenizer.cc
+ * moses/util/StringTokenizer.cc
  *
  * Copyright (C) 2002-2007 Novamente LLC
  * All Rights Reserved
@@ -31,7 +31,7 @@
 
 
 
-using namespace moses3;
+using namespace opencog;
 
 StringTokenizer::StringTokenizer()
 {

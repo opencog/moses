@@ -37,7 +37,7 @@
 
 #include <moses/comboreduct/combo/vertex.h>
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 //anns are composed of nodes and connections
 class ann;
@@ -627,6 +627,6 @@ public:
     }
 };
 
-}} // ~namespaces combo moses3
+}} // ~namespaces combo opencog
 
 #endif // _COMBO_SIMPLE_NN_H

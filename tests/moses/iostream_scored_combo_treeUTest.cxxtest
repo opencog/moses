@@ -28,7 +28,7 @@
 
 #include <moses/moses/moses/types.h>
 
-using namespace moses3;
+using namespace opencog;
 using namespace moses;
 
 class iostream_scored_combo_treeUTest : public CxxTest::TestSuite

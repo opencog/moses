@@ -26,7 +26,7 @@
 
 #include <moses/comboreduct/combo/vertex.h>
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 //This file contains all function required to treat assumptions in combo_tree
 
@@ -61,6 +61,6 @@ bool equal_assumptions(const combo_tree& tr1, const combo_tree& tr2);
 //it is assumed that the tree is not empty
 void delete_all_assumptions(combo_tree& tr);
 
-}} // ~namespaces combo moses3
+}} // ~namespaces combo opencog
 
 #endif

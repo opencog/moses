@@ -27,7 +27,7 @@
 #include <moses/comboreduct/combo/operator_base.h>
 #include <moses/comboreduct/type_checker/type_tree.h>
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 using namespace std;
 
@@ -102,7 +102,7 @@ void ant_operator<OPERATOR_ENUM, enum_count>::set_basic_description(OPERATOR_ENU
             try {
                 is >> _type_tree;
             }
-            catch(moses3::InconsistenceException& ie) {
+            catch(opencog::InconsistenceException& ie) {
                 std::cout << "WARNING : there must be a problem with the type description of " << _name << ", as the interpretation of the type string : " << "\"" << is.str() << "\"" << " has raised the following exception : " << ie.getMessage() << std::endl;
             }
             //setting arity
@@ -122,6 +122,6 @@ OPERATOR_ENUM ant_operator<OPERATOR_ENUM, enum_count>::get_enum() const {
     return _enum;
 }  
 
-}} // ~namespaces combo moses3
+}} // ~namespaces combo opencog
 
 #endif

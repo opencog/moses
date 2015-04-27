@@ -34,7 +34,7 @@
 //perception property methods which have not been implemented
 #define NO_DEFAULT_PERCEPTION_PROPERTY_METHODS
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 /**
  * perception_base is an abstract class to be implemented
@@ -97,7 +97,7 @@ typedef perception_set::const_iterator perception_set_const_it;
 std::ostream& operator<<(std::ostream&, perception);
 
 } // ~namespace combo
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif
 

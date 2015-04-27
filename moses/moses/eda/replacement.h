@@ -31,7 +31,7 @@
 #include "../representation/field_set.h"
 #include "../representation/scored_instance.h"
 
-namespace moses3 { 
+namespace opencog { 
 namespace moses {
 
 // Replace the lowest-scored individuals in the current population,
@@ -106,6 +106,6 @@ protected:
 };
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif

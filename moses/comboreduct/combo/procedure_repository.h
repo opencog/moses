@@ -35,7 +35,7 @@
 
 #define LINE_CHAR_MAX 4096
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
   typedef std::set<const procedure_call_base*> procedure_call_set;
   typedef procedure_call_set::const_iterator procedure_call_set_const_it;
@@ -174,7 +174,7 @@ unsigned int load_procedure_repository(std::istream& in,
 
 std::ostream& operator<<(std::ostream& out, procedure_repository pr);
 
-}} // ~namespaces combo moses3
+}} // ~namespaces combo opencog
 
 #endif
 

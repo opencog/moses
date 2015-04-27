@@ -32,7 +32,7 @@
 
 #include "local_structure.h"
 
-namespace moses3 {
+namespace opencog {
 namespace moses {
 
 // true if the variable at index idx is identical over the range of
@@ -159,4 +159,4 @@ void local_structure_model::sample(dtree::iterator dtr, disc_t& dst,
 }
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog

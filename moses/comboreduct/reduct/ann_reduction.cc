@@ -25,12 +25,12 @@
 #include "meta_rules.h"
 #include "ann_rules.h"
 
-namespace moses3 { namespace reduct {
+namespace opencog { namespace reduct {
 const rule& ann_reduction() {
-    using namespace moses3::combo;
+    using namespace opencog::combo;
     static ann_rule r;
     return r;
 }
 
 } // ~namespace reduct
-} // ~namespace moses3
+} // ~namespace opencog

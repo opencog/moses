@@ -27,7 +27,7 @@
 #include <algorithm>
 #include <limits>
 
-namespace moses3 { 
+namespace opencog { 
 namespace moses {
 
 //* Terminate iteration if the score is greater than the indicated
@@ -75,6 +75,6 @@ protected:
 };
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif

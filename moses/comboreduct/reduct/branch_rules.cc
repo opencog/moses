@@ -26,7 +26,7 @@
 #include "../type_checker/type_tree.h"
 #include <moses/util/exceptions.h>
 
-namespace moses3 { namespace reduct {
+namespace opencog { namespace reduct {
 
 typedef combo_tree::sibling_iterator sib_it;
 typedef combo_tree::iterator pre_it;
@@ -168,4 +168,4 @@ void reduce_cond_const::operator()(combo_tree& tr,
 }
 
 } // ~namespace reduct
-} // ~namespace moses3
+} // ~namespace opencog

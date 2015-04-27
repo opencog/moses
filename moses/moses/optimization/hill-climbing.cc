@@ -37,7 +37,7 @@
 
 #include "hill-climbing.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 
 ///////////////////
@@ -832,5 +832,5 @@ void hill_climbing::log_stats_legend()
 }
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 

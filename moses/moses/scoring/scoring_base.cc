@@ -33,7 +33,7 @@
 #include <moses/util/oc_assert.h>
 #include "scoring_base.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 // Note that this function returns a POSITIVE number, since p < 0.5
 score_t discrete_complexity_coef(unsigned alphabet_size, double p)
@@ -235,7 +235,7 @@ void bscore_ctable_base::ignore_cols(const std::set<arity_t>& idxs) const
     // Get permitted idxs.
     auto irng = boost::irange(0, _orig_ctable.get_arity());
     std::set<arity_t> all_idxs(irng.begin(), irng.end());
-    std::set<arity_t> permitted_idxs = moses3::set_difference(all_idxs, idxs);
+    std::set<arity_t> permitted_idxs = opencog::set_difference(all_idxs, idxs);
 
     // Filter orig_table with permitted idxs.
     _wrk_ctable = _orig_ctable.filtered_preserve_idxs(permitted_idxs);
@@ -326,4 +326,4 @@ const CTable& bscore_ctable_base::get_ctable() const
 }
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog

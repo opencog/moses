@@ -54,7 +54,7 @@
 #define TARGET_DISCRETIZED_BINS_NUM 5  // discretize contin type target
                                        // into # bins
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 std::vector<contin_t> discretize_contin_feature(contin_t min, contin_t max);
 
@@ -1508,6 +1508,6 @@ protected:
     mutable vertex_seq bmap;
 };
 
-}} // ~namespaces combo moses3
+}} // ~namespaces combo opencog
 
 #endif // _OPENCOG_TABLE_H

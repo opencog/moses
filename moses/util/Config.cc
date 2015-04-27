@@ -1,5 +1,5 @@
 /*
- * moses3/util/Config.cc
+ * opencog/util/Config.cc
  *
  * Copyright (C) 2008 by OpenCog Foundation
  * All Rights Reserved
@@ -49,14 +49,14 @@
 #include <moses/util/platform.h>
 #include <moses/util/exceptions.h>
 
-using namespace moses3;
+using namespace opencog;
 using namespace std;
 
 const std::string* Config::DEFAULT()
 {
     static const std::string defaultConfig[] = {
         "SERVER_PORT",                  "17001",
-        "LOG_FILE",                     "moses3_server.log",
+        "LOG_FILE",                     "opencog_server.log",
         "LOG_LEVEL",                    "info",
         "BACK_TRACE_LOG_LEVEL",         "error",   // C++ stack trace printing!
         "LOG_TO_STDOUT",                "true",
@@ -68,8 +68,8 @@ const std::string* Config::DEFAULT()
         "LTI_FUNDS_BUFFER",             "10000",
         "MIN_STI",                      "-400",
         "ANSI_ENABLED",                 "false",
-        "PROMPT",                       "moses3> ",
-        "ANSI_PROMPT",                  "moses3> ",
+        "PROMPT",                       "opencog> ",
+        "ANSI_PROMPT",                  "opencog> ",
         "SCM_PROMPT",                   "guile> ",
         "ANSI_SCM_PROMPT",              "guile> ",
         "MODULES",                      "libbuiltinreqs.so",
@@ -116,10 +116,10 @@ void Config::reset()
     }
 }
 
-static const char* DEFAULT_CONFIG_FILENAME = "moses3.conf";
+static const char* DEFAULT_CONFIG_FILENAME = "opencog.conf";
 static const char* DEFAULT_CONFIG_PATHS[] =
 {
-    // A bunch of relative paths, typical for the current moses3 setup.
+    // A bunch of relative paths, typical for the current opencog setup.
     "./",
     "../",
     "../../",
@@ -133,7 +133,7 @@ static const char* DEFAULT_CONFIG_PATHS[] =
     CONFDIR,
     "", // If you don't have this, then absolute paths won't work!
 #ifndef WIN32
-    "/etc/moses3",
+    "/etc/opencog",
     "/etc",
 #endif // !WIN32
     NULL
@@ -328,7 +328,7 @@ std::string Config::to_string() const
 }
 
 // create and return the single instance
-Config& moses3::config(ConfigFactory* factoryFunction,
+Config& opencog::config(ConfigFactory* factoryFunction,
                         bool overwrite)
 {
     static std::unique_ptr<Config> instance((*factoryFunction)());

@@ -32,7 +32,7 @@
 #include "../metapopulation/metapop_params.h"
 #include "deme_params.h"
 
-namespace moses3 {
+namespace opencog {
 namespace moses {
 
 struct deme_expander
@@ -153,6 +153,6 @@ protected:
 };
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif // _OPENCOG_DEME_EXPANDER_H

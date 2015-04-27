@@ -1,5 +1,5 @@
 /*
- * moses3/util/oc_assert.cc
+ * opencog/util/oc_assert.cc
  *
  * Copyright (C) 2002-2007 Novamente LLC
  * All Rights Reserved
@@ -26,7 +26,7 @@
 #include "oc_assert.h"
 #include "exceptions.h"
 
-void moses3::cassert(const char * trace, bool condition, const char *fmt, ...)
+void opencog::cassert(const char * trace, bool condition, const char *fmt, ...)
 {
     if (condition) return;
 
@@ -46,11 +46,11 @@ void moses3::cassert(const char * trace, bool condition, const char *fmt, ...)
     throw ex;
 }
 
-void moses3::cassert(const char* trace, bool condition, const std::string& msg) {
-    moses3::cassert(trace, condition, msg.c_str());
+void opencog::cassert(const char* trace, bool condition, const std::string& msg) {
+    opencog::cassert(trace, condition, msg.c_str());
 }
 
-void moses3::cassert(const char * trace, bool condition)
+void opencog::cassert(const char * trace, bool condition)
 {
 
     if (condition) return;

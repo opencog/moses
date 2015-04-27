@@ -1,5 +1,5 @@
 /*
- * moses3/util/platform.h
+ * opencog/util/platform.h
  *
  * Copyright (C) 2002-2007 Novamente LLC
  * All Rights Reserved
@@ -22,8 +22,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _MOSES3_PLATFORM_H
-#define _MOSES3_PLATFORM_H
+#ifndef _OPENCOG_PLATFORM_H
+#define _OPENCOG_PLATFORM_H
 
 #ifdef WIN32
 
@@ -39,7 +39,7 @@
 #include <string>
 #include <stdint.h>
 
-namespace moses3
+namespace opencog
 {
 /** \addtogroup grp_cogutil
  *  @{
@@ -98,6 +98,6 @@ uint64_t getFreeRAM();
 const char* getUserName();
 
 /** @}*/
-} // namespace moses3
+} // namespace opencog
 
-#endif // _MOSES3_PLATFORM_H
+#endif // _OPENCOG_PLATFORM_H

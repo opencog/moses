@@ -24,7 +24,7 @@
 
 #include "incremental.h"
 
-namespace moses3 {
+namespace opencog {
 
 using namespace std;
 
@@ -61,4 +61,4 @@ feature_set_pop incremental_select_feature_sets(const CTable& ctable,
     return {sfs};
 }
 
-} // ~namespace moses3
+} // ~namespace opencog

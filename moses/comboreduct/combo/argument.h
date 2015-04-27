@@ -27,7 +27,7 @@
 #include <moses/comboreduct/combo/common_def.h>
 #include <boost/operators.hpp>
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 /**
  * class argument
@@ -59,7 +59,7 @@ public:
     }
 
     bool operator<(const argument& rhs) const {
-        static moses3::absolute_value_order<int> comp;
+        static opencog::absolute_value_order<int> comp;
         return comp(idx, rhs.idx);
     }
 
@@ -91,6 +91,6 @@ public:
 };
 
 } // ~namespace combo
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif // _COMBO_ARGUMENT_H

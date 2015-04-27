@@ -48,7 +48,7 @@
 // uncomment that if you want to interpret log(x) as log(abs(x))
 // #define ABS_LOG
 
-namespace moses3 { namespace combo {
+namespace opencog { namespace combo {
 
 class procedure_call_base;
 
@@ -790,17 +790,17 @@ inline bool may_have_side_effects(combo_tree::iterator /*it*/)
 }
 
 } // ~namespace combo
-} // ~namespace moses3
+} // ~namespace opencog
 
 // this is to be able to use std::unordered_map and such
 namespace std
 {
     template<>
-    struct hash<moses3::combo::vertex>
+    struct hash<opencog::combo::vertex>
     {
-        size_t operator()(moses3::combo::vertex v) const
+        size_t operator()(opencog::combo::vertex v) const
         {
-            return moses3::combo::hash_value(v);
+            return opencog::combo::hash_value(v);
         }
     };
 }

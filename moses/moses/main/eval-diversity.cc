@@ -36,7 +36,7 @@
 #include "../metapopulation/metapopulation.h"
 
 using namespace std;
-using namespace moses3;
+using namespace opencog;
 using namespace moses;
 
 void log_output_error_exit(string err_msg) {

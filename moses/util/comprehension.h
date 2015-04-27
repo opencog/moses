@@ -21,15 +21,15 @@
  */
 
 
-#ifndef _MOSES3_COMPREHENSION_H
-#define _MOSES3_COMPREHENSION_H
+#ifndef _OPENCOG_COMPREHENSION_H
+#define _OPENCOG_COMPREHENSION_H
 
 #include <boost/range/algorithm/transform.hpp>
 #include <boost/range/adaptor/filtered.hpp>
 
 #include <moses/util/functional.h>
 
-namespace moses3 {
+namespace opencog {
 /** \addtogroup grp_cogutil
  *  @{
  */
@@ -117,12 +117,12 @@ auto list_comp(const Container& c, const Function& func,
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Really weird for set_comp I'm getting the following error (gcc 4.7.3)                                                  //
 //                                                                                                                        //
-// [ 16%] Building CXX object moses3/comboreduct/CMakeFiles/comboreduct.dir/table/table_io.cc.o                          //
-// In file included from /home/nilg/OpenCog/moses3/moses3/comboreduct/table/table_io.cc:36:0:                           //
-// /home/nilg/OpenCog/moses3/moses3/util/comprehension.h:128:8: error: expected type-specifier                          //
-// /home/nilg/OpenCog/moses3/moses3/util/comprehension.h:128:8: error: expected initializer                             //
-// /home/nilg/OpenCog/moses3/moses3/util/comprehension.h:142:8: error: expected type-specifier                          //
-// /home/nilg/OpenCog/moses3/moses3/util/comprehension.h:142:8: error: expected initializer                             //
+// [ 16%] Building CXX object opencog/comboreduct/CMakeFiles/comboreduct.dir/table/table_io.cc.o                          //
+// In file included from /home/nilg/OpenCog/opencog/opencog/comboreduct/table/table_io.cc:36:0:                           //
+// /home/nilg/OpenCog/opencog/opencog/util/comprehension.h:128:8: error: expected type-specifier                          //
+// /home/nilg/OpenCog/opencog/opencog/util/comprehension.h:128:8: error: expected initializer                             //
+// /home/nilg/OpenCog/opencog/opencog/util/comprehension.h:142:8: error: expected type-specifier                          //
+// /home/nilg/OpenCog/opencog/opencog/util/comprehension.h:142:8: error: expected initializer                             //
 //                                                                                                                        //
 // I might be is due to having table_io.cc use both boost and std namespace...                                            //
 //                                                                                                                        //
@@ -158,5 +158,5 @@ auto list_comp(const Container& c, const Function& func,
 ///@}
 /** @}*/
 
-#endif // _MOSES3_COMPREHENSION_H
+#endif // _OPENCOG_COMPREHENSION_H
 

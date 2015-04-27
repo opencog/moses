@@ -28,7 +28,7 @@
 
 #include "metapopulation.h"
 
-namespace moses3 {
+namespace opencog {
 namespace moses {
 
 using namespace combo;
@@ -258,5 +258,5 @@ std::ostream& metapopulation::ostream_metapop(std::ostream& out, int maxcnt) con
 }
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 

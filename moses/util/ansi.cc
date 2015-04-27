@@ -1,5 +1,5 @@
 /*
- * moses3/util/ansi.cc
+ * opencog/util/ansi.cc
  *
  * Copyright (C) 2010 OpenCog Foundation
  * All Rights Reserved
@@ -25,5 +25,5 @@
 
 #include <string>
 
-namespace moses3 {
+namespace opencog {
 }

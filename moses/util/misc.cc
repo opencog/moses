@@ -27,10 +27,10 @@
 
 #include "misc.h"
 
-using namespace moses3;
+using namespace opencog;
 
 // MIT HAKMEM Count
-unsigned int moses3::bitcount(unsigned long n)
+unsigned int opencog::bitcount(unsigned long n)
 {
     /* works for 32-bit numbers only    */
     /* fix last line for 64-bit numbers */
@@ -42,7 +42,7 @@ unsigned int moses3::bitcount(unsigned long n)
 }
 
 #ifndef WIN32
-std::string moses3::demangle(const std::string& mangled)
+std::string opencog::demangle(const std::string& mangled)
 {
     int status = 0;
     char* demangled_name = abi::__cxa_demangle(mangled.c_str(), 0, 0, &status);

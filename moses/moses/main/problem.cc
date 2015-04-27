@@ -35,7 +35,7 @@
 
 #include "problem.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 // =================================================================
 // Register options
@@ -202,5 +202,5 @@ unsigned alphabet_size(const type_tree& tt, const vertex_set ignore_ops)
 }
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 

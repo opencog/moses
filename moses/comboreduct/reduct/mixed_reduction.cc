@@ -30,7 +30,7 @@
 #include "mixed_rules.h"
 #include <mutex>
 
-namespace moses3 { namespace reduct {
+namespace opencog { namespace reduct {
 
 const rule& mixed_reduction()
 {
@@ -137,5 +137,5 @@ const rule& mixed_reduction()
 }
 
 } // ~namespace reduct
-} // ~namespace moses3
+} // ~namespace opencog
 

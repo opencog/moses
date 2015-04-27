@@ -27,7 +27,7 @@
 #include "ensemble_params.h"
 #include "../moses/types.h"
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 struct diversity_parameters
 {
@@ -237,6 +237,6 @@ struct metapop_parameters
 };
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif // _OPENCOG_METAPOP_PARAMETERS_H

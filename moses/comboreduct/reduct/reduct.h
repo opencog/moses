@@ -28,9 +28,9 @@
 
 #include <moses/comboreduct/combo/vertex.h>
 
-namespace moses3 { namespace reduct {
+namespace opencog { namespace reduct {
 
-using namespace moses3::combo;
+using namespace opencog::combo;
 
 struct rule
 {
@@ -264,6 +264,6 @@ inline void replace_without_changing_it(combo_tree& tr,
 }
 
 } // ~namespace reduct
-} // ~namespace moses3
+} // ~namespace opencog
 
 #endif

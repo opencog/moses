@@ -36,7 +36,7 @@
 #include "complexity.h"
 
 
-namespace moses3 { namespace moses {
+namespace opencog { namespace moses {
 
 using namespace std;
 
@@ -293,4 +293,4 @@ std::istream& istream_scored_combo_trees(std::istream& in,
 }
 
 } // ~namespace moses
-} // ~namespace moses3
+} // ~namespace opencog
