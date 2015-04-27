@@ -1,10 +1,10 @@
 #include <list>
 
-#include <opencog/comboreduct/combo/vertex.h>
-#include <opencog/comboreduct/type_checker/type_tree.h>
-#include <opencog/comboreduct/reduct/reduct.h>
+#include <moses/comboreduct/combo/vertex.h>
+#include <moses/comboreduct/type_checker/type_tree.h>
+#include <moses/comboreduct/reduct/reduct.h>
 
-using namespace opencog;
+using namespace moses;
 
 
 namespace pleasure {

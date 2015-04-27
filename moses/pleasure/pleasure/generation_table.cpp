@@ -2,7 +2,7 @@
 
 namespace pleasure {
 
-using namespace opencog;
+using namespace moses;
 
     bool type_registered(combo::type_tree ttree, generation_table& gtable);
 

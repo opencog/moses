@@ -1,7 +1,7 @@
 #include "population.hpp"
 
 namespace pleasure {
-using namespace opencog;
+using namespace moses;
 
     static int period = 0;
 
@@ -24,7 +24,7 @@ using namespace opencog;
     }
 
     void erase_duplicate(population& pop) {
-        pop.sort(opencog::size_tree_order<combo::vertex>());
+        pop.sort(moses::size_tree_order<combo::vertex>());
         pop.unique();
     }
 }

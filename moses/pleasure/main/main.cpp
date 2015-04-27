@@ -1,5 +1,5 @@
-#include "opencog/comboreduct/combo/procedure_repository.h"
-#include "opencog/comboreduct/ant_combo_vocabulary/ant_combo_vocabulary.h"
+#include "moses/comboreduct/combo/procedure_repository.h"
+#include "moses/comboreduct/ant_combo_vocabulary/ant_combo_vocabulary.h"
 
 #include "../pleasure/population.hpp"
 #include "../pleasure/generation.hpp"
@@ -12,8 +12,8 @@
 
 using namespace std;
 using namespace pleasure;
-using namespace opencog;
-using namespace opencog::combo;
+using namespace moses;
+using namespace moses::combo;
 
 int main(int argc, char* argv[])
 {
