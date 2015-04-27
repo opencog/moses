@@ -1,4 +1,4 @@
-#include <moses/util/iostreamContainer.h>
+#include <opencog/util/iostreamContainer.h>
 #include <moses/comboreduct/interpreter/interpreter.h>
 #include <moses/comboreduct/combo/combo.h>
 

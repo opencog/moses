@@ -26,7 +26,7 @@
 
 #include <boost/range/algorithm/sort.hpp>
 
-#include <moses/util/oc_omp.h>
+#include <opencog/util/oc_omp.h>
 
 #include "metapopulation.h"
 

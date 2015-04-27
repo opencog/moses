@@ -40,9 +40,9 @@
 #include <boost/spirit/include/phoenix_core.hpp>
 #include <boost/spirit/include/phoenix_operator.hpp>
 
-#include <moses/util/numeric.h>
-#include <moses/util/KLD.h>
-#include <moses/util/MannWhitneyU.h>
+#include <opencog/util/numeric.h>
+#include <opencog/util/KLD.h>
+#include <opencog/util/MannWhitneyU.h>
 #include <moses/comboreduct/table/table_io.h>
 
 #include "bscores.h"

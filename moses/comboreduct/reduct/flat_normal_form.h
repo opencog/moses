@@ -31,9 +31,9 @@
 #include <unordered_map>
 #include <boost/bind.hpp>
 
-#include <moses/util/Logger.h>
-#include <moses/util/numeric.h>
-#include <moses/util/tree.h>
+#include <opencog/util/Logger.h>
+#include <opencog/util/numeric.h>
+#include <opencog/util/tree.h>
 
 #include <moses/comboreduct/combo/vertex.h>
 

@@ -22,7 +22,7 @@
  */
 
 #include <cxxtest/TestSuite.h>
-#include <moses/util/Logger.h>
+#include <opencog/util/Logger.h>
 #include <moses/moses/main/moses_exec.h>
 #include <moses/comboreduct/table/table.h>
 #include <moses/comboreduct/table/table_io.h>

@@ -29,7 +29,7 @@
 #include <boost/range/algorithm/find.hpp>
 #include <boost/range/irange.hpp>
 
-#include <moses/util/Logger.h>
+#include <opencog/util/Logger.h>
 
 #include <moses/comboreduct/table/table.h>
 #include <moses/comboreduct/table/table_io.h>

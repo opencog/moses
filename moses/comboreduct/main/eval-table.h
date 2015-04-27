@@ -26,9 +26,9 @@
 
 #include <boost/assign/std/vector.hpp>
 
-#include <moses/util/algorithm.h>
-#include <moses/util/numeric.h>
-#include <moses/util/Logger.h>
+#include <opencog/util/algorithm.h>
+#include <opencog/util/numeric.h>
+#include <opencog/util/Logger.h>
 
 #include "../table/table_io.h"
 #include "../table/table.h"

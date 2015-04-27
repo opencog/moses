@@ -33,9 +33,9 @@
 #include <boost/program_options.hpp>
 #include <boost/format.hpp>
 
-#include <moses/util/iostreamContainer.h>
-#include <moses/util/oc_assert.h>
-#include <moses/util/oc_omp.h>
+#include <opencog/util/iostreamContainer.h>
+#include <opencog/util/oc_assert.h>
+#include <opencog/util/oc_omp.h>
 
 #include <moses/comboreduct/combo/iostream_combo.h>
 #include <moses/comboreduct/table/table_io.h>

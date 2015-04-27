@@ -22,7 +22,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 #include "meta_rules.h"
-#include <moses/util/dorepeat.h>
+#include <opencog/util/dorepeat.h>
 #include <moses/comboreduct/combo/assumption.h>
 
 // uncomment if you want to have a trace of the rules

@@ -23,7 +23,7 @@
 
 #ifdef HAVE_MPI
 #include <mpi.h>
-#include <moses/util/Logger.h>
+#include <opencog/util/Logger.h>
 #include "mpi_moses.h"
 
 namespace opencog { namespace moses {

@@ -24,8 +24,8 @@
 #include <iostream>
 #include <boost/lexical_cast.hpp>
 
-#include <moses/util/selection.h>
-#include <moses/util/mt19937ar.h>
+#include <opencog/util/selection.h>
+#include <opencog/util/mt19937ar.h>
 
 #include "tree_generation.h"
 

@@ -24,7 +24,7 @@
 #ifndef _REDUCT_RULE_H
 #define _REDUCT_RULE_H
 
-#include <moses/util/RandGen.h>
+#include <opencog/util/RandGen.h>
 
 #include <moses/comboreduct/combo/vertex.h>
 

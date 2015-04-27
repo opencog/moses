@@ -45,6 +45,12 @@ few exceptions, most Linux distributions will provide these packages.
 > Currently, opencog requires cxxtest version 3, and is not compatible
   with version 4.
 
+###### cogutil
+> Common OpenCog C++ utilities
+> http://github/opencog/cogutils
+> It uses exactly the same build proceedure as this pakcage. Be sure
+  to `sudo make install` at the end.
+
 Optional Prerequisites
 ----------------------
 The following packages are optional. If they are not installed, some
@@ -59,13 +65,13 @@ the build, will be more precise as to which parts will not be built.
 Building MOSES
 --------------
 Peform the following steps at the shell prompt:
-
+```
     cd to project root dir
     mkdir build
     cd build
     cmake -DCMAKE_BUILD_TYPE=Release ..
     make
-
+```
 Libraries will be built into subdirectories within build, mirroring the
 structure of the source directory root. The flag
 -DCMAKE_BUILD_TYPE=Release
@@ -76,15 +82,21 @@ Unit tests
 ----------
 To build and run the unit tests, from the ./build directory enter (after
 building moses as above):
-
+```
     make test
-
+```
 
 INSTALLATION
 ------------
+Just say `sudo make install`  after finishing the build.
 
 
-PROJECT DIRECTORY
------------------
-example-ant: Santa Fe Trail ant example
-example-progs: other example programs.
+EXAMPLES DIRECTORY
+------------------
+To build the examples, say:
+```
+    make examples
+```
+> example-ant: Santa Fe Trail ant example
+> example-data: Simple data sets on which moses can be run.
+> example-progs: Other example programs.

@@ -24,7 +24,7 @@
 #ifndef _ANT_BUILTIN_ACTION_H
 #define _ANT_BUILTIN_ACTION_H
 
-#include <moses/util/numeric.h>
+#include <opencog/util/numeric.h>
 
 #include <moses/comboreduct/combo/builtin_action.h>
 #include "ant_operator.h"

@@ -2,8 +2,8 @@
 #include <string>
 #include <sstream>
 
-#include <moses/util/tree.h>
-#include <moses/util/mt19937ar.h>
+#include <opencog/util/tree.h>
+#include <opencog/util/mt19937ar.h>
 
 #include <moses/comboreduct/combo/vertex.h>
 #include <moses/comboreduct/interpreter/eval.h>

@@ -24,7 +24,7 @@
 #ifndef _REDUCT_CONTIN_RULES_H
 #define _REDUCT_CONTIN_RULES_H
 
-#include <moses/util/RandGen.h>
+#include <opencog/util/RandGen.h>
 
 #include "reduct.h"
 

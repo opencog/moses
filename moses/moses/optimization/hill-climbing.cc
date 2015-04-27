@@ -31,7 +31,7 @@
 
 #include <boost/algorithm/minmax_element.hpp>
 
-#include <moses/util/oc_omp.h>
+#include <opencog/util/oc_omp.h>
 
 #include "../moses/neighborhood_sampling.h"
 

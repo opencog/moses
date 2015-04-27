@@ -24,7 +24,7 @@
 #ifndef _COMBO_TYPE_TREE_DEF_H
 #define _COMBO_TYPE_TREE_DEF_H
 
-#include <moses/util/tree.h>
+#include <opencog/util/tree.h>
 
 namespace opencog { namespace combo {
 

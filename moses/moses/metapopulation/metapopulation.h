@@ -39,7 +39,7 @@
 #include <boost/logic/tribool.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
-#include <moses/util/boost_ext/accumulators/statistics/geometric_mean_mirror.h>
+#include <opencog/util/boost_ext/accumulators/statistics/geometric_mean_mirror.h>
 
 #include <moses/comboreduct/combo/combo.h>
 #include "../optimization/optimization.h"

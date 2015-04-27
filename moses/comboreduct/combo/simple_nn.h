@@ -32,8 +32,8 @@
 #include <stdlib.h>
 #include <math.h>
 
-#include <moses/util/iostreamContainer.h>
-#include <moses/util/RandGen.h>
+#include <opencog/util/iostreamContainer.h>
+#include <opencog/util/RandGen.h>
 
 #include <moses/comboreduct/combo/vertex.h>
 

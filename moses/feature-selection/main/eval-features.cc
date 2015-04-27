@@ -24,10 +24,10 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/format.hpp>
 
-#include <moses/util/iostreamContainer.h>
-#include <moses/util/mt19937ar.h>
-#include <moses/util/numeric.h>
-#include <moses/util/RandGen.h>
+#include <opencog/util/iostreamContainer.h>
+#include <opencog/util/mt19937ar.h>
+#include <opencog/util/numeric.h>
+#include <opencog/util/RandGen.h>
 
 #include <moses/comboreduct/table/table_io.h>
 

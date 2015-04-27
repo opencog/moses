@@ -28,8 +28,8 @@
 #include <map>
 #include <boost/thread.hpp>
 
-#include <moses/util/lazy_random_selector.h>
-#include <moses/util/oc_omp.h>
+#include <opencog/util/lazy_random_selector.h>
+#include <opencog/util/oc_omp.h>
 
 #include <moses/comboreduct/reduct/reduct.h>
 #include <moses/comboreduct/reduct/meta_rules.h>

@@ -27,8 +27,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include <moses/util/oc_assert.h>
-#include <moses/util/selection.h>
+#include <opencog/util/oc_assert.h>
+#include <opencog/util/selection.h>
 
 #include "../eda/termination.h"
 #include "../eda/replacement.h"

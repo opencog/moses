@@ -27,9 +27,9 @@
 #include <boost/assign/std/vector.hpp>
 #include <boost/range/algorithm/find.hpp>
 
-#include <moses/util/algorithm.h>
-#include <moses/util/iostreamContainer.h>
-#include <moses/util/numeric.h>
+#include <opencog/util/algorithm.h>
+#include <opencog/util/iostreamContainer.h>
+#include <opencog/util/numeric.h>
 
 #include <moses/comboreduct/combo/combo.h>
 #include <moses/comboreduct/table/table.h>

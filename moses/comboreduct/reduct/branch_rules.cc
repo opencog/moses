@@ -24,7 +24,7 @@
  */
 #include "branch_rules.h"
 #include "../type_checker/type_tree.h"
-#include <moses/util/exceptions.h>
+#include <opencog/util/exceptions.h>
 
 namespace opencog { namespace reduct {
 

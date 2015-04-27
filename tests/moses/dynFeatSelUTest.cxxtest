@@ -22,7 +22,7 @@
  */
 
 #include <cxxtest/TestSuite.h>
-#include <moses/util/mt19937ar.h>
+#include <opencog/util/mt19937ar.h>
 #include "moses-framework.h"
 
 using namespace opencog::moses;

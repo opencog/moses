@@ -23,8 +23,8 @@
 
 #include <math.h>
 
-#include <moses/util/oc_omp.h>
-#include <moses/util/selection.h>
+#include <opencog/util/oc_omp.h>
+#include <opencog/util/selection.h>
 
 #include "metapopulation.h"
 

@@ -31,7 +31,7 @@
 #include <boost/accumulators/statistics/min.hpp>
 #include <boost/accumulators/statistics/max.hpp>
 
-#include <moses/util/oc_omp.h>
+#include <opencog/util/oc_omp.h>
 
 #include "metapopulation.h"
 

@@ -27,8 +27,8 @@
 
 #include <mutex>
 
-#include <moses/util/numeric.h>
-#include <moses/util/oc_omp.h>
+#include <opencog/util/numeric.h>
+#include <opencog/util/oc_omp.h>
 
 #include "../main/feature-selection.h"  // needed for feature_set, feature_selection_parameters
 

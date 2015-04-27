@@ -32,7 +32,7 @@
 
 #include <boost/range/irange.hpp>
 
-#include <moses/util/lazy_random_selector.h>
+#include <opencog/util/lazy_random_selector.h>
 
 #include "metapopulation.h"
 

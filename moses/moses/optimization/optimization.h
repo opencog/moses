@@ -29,7 +29,7 @@
 #ifndef _MOSES_OPTIMIZATION_H
 #define _MOSES_OPTIMIZATION_H
 
-#include <moses/util/oc_assert.h>
+#include <opencog/util/oc_assert.h>
 
 #include "../representation/instance_scorer.h"
 #include "../representation/instance_set.h"

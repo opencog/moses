@@ -24,7 +24,7 @@
 #ifndef _OPENCOG_FS_SCORERS_MATRIX_H
 #define _OPENCOG_FS_SCORERS_MATRIX_H
 
-#include <moses/util/numeric.h>
+#include <opencog/util/numeric.h>
 
 #include <moses/comboreduct/table/table.h>
 #include <moses/moses/scoring/precision_bscore.h>

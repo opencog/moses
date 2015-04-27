@@ -23,7 +23,7 @@
  * Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
-#include <moses/util/Logger.h>
+#include <opencog/util/Logger.h>
 
 #include "type_tree.h"
 #include "../combo/descriptions.h"

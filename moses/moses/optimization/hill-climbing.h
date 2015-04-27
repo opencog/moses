@@ -29,7 +29,7 @@
 #ifndef _MOSES_HILL_CLIMBING_H
 #define _MOSES_HILL_CLIMBING_H
 
-#include <moses/util/oc_assert.h>
+#include <opencog/util/oc_assert.h>
 
 #include "../representation/instance_set.h"
 #include "optimization.h"

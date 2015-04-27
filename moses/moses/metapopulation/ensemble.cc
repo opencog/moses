@@ -26,7 +26,7 @@
 #include <algorithm>
 #include <iostream>
 
-#include  <moses/util/oc_assert.h>
+#include  <opencog/util/oc_assert.h>
 #include  <moses/comboreduct/reduct/reduct.h>
 #include  <moses/moses/moses/complexity.h>
 #include "ensemble.h"

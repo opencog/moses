@@ -24,8 +24,8 @@
 #ifndef _EDA_OPTIMIZE_H
 #define _EDA_OPTIMIZE_H
 
-#include <moses/util/Logger.h>
-#include <moses/util/oc_omp.h>
+#include <opencog/util/Logger.h>
+#include <opencog/util/oc_omp.h>
 
 #include "../representation/instance_set.h"
 

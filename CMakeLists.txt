@@ -196,15 +196,15 @@ ELSE (CXXTEST_FOUND)
 ENDIF (CXXTEST_FOUND)
 
 
-# Look for libiberty-dev. Needed for pretty stack printing.
-FIND_PACKAGE(Iberty)
-IF (IBERTY_FOUND)
-	MESSAGE(STATUS "Libiberty found.")
-	ADD_DEFINITIONS(-DHAVE_IBERTY)
-	SET(HAVE_IBERTY 1)
-ELSE (IBERTY_FOUND)
-	MESSAGE(STATUS "Libiberty-dev missing: No pretty stack-trace printing.")
-ENDIF (IBERTY_FOUND)
+# Look for Opencog Utils.
+FIND_PACKAGE(CogUtil)
+IF (COGUTIL_FOUND)
+	MESSAGE(STATUS "CogUtil found.")
+	ADD_DEFINITIONS(-DHAVE_COGUTIL)
+	SET(HAVE_COGUTIL 1)
+ELSE (COGUTIL_FOUND)
+	MESSAGE(STATUS "CogUtil missing: needed to build this package!")
+ENDIF (COGUTIL_FOUND)
 
 # MPI is needed for MOSES on compute clusters.
 FIND_PACKAGE(MPI)
@@ -236,12 +236,11 @@ ENDIF (VALGRIND_FOUND)
 # ==========================================================
 # Decide what to build, based on the packages found.
 
-IF(Boost_FOUND)
-	SET(HAVE_UTIL 1)
+IF(Boost_FOUND AND COGUTIL_FOUND)
 	SET(HAVE_COMBOREDUCT 1)
 	SET(HAVE_MOSES 1)
 	SET(HAVE_FEATURE_SELECTION 1)
-ENDIF(Boost_FOUND)
+ENDIF(Boost_FOUND AND COGUTIL_FOUND)
 
 # ===================================================================
 # global includes
@@ -283,7 +282,7 @@ SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
 ADD_SUBDIRECTORY(moses)
 
-IF (CXXTEST_FOUND)
+IF (CXXTEST_FOUND AND COGUTIL_FOUND)
 	ADD_CUSTOM_TARGET(tests)
 	ADD_SUBDIRECTORY(tests EXCLUDE_FROM_ALL)
 	IF (CMAKE_BUILD_TYPE STREQUAL "Coverage")
@@ -314,7 +313,25 @@ IF (CXXTEST_FOUND)
 			COMMENT "Running tests..."
 		)
 	ENDIF (CMAKE_BUILD_TYPE STREQUAL "Coverage")
-ENDIF (CXXTEST_FOUND)
+ENDIF (CXXTEST_FOUND AND COGUTIL_FOUND)
+
+
+ADD_SUBDIRECTORY(examples EXCLUDE_FROM_ALL)
+
+IF (NOT WIN32)
+	ADD_CUSTOM_TARGET (examples
+		# using CMAKE_BUILD_TOOL results in teh cryptic error message
+		# warning: jobserver unavailable: using -j1.  Add `+' to parent make rule.
+		# This is because make doesn't know how to pass jobserver args to
+		# the submake.  So, instead, just use $(MAKE) (with round parens)
+		# -- that will do the right thing.
+		# COMMAND ${CMAKE_BUILD_TOOL}
+		COMMAND $(MAKE)
+		WORKING_DIRECTORY examples
+		COMMENT "Building examples"
+	)
+ENDIF (NOT WIN32)
+
 
 ADD_CUSTOM_TARGET(cscope
 	COMMAND find moses tests -name '*.cc' -o -name '*.h' -o -name '*.cxxtest' > ${CMAKE_SOURCE_DIR}/cscope.files
@@ -407,7 +424,5 @@ SUMMARY_ADD("Doxygen" "Code documentation" DOXYGEN_FOUND)
 SUMMARY_ADD("Feature selection" "MOSES based feature selection tool" HAVE_FEATURE_SELECTION)
 SUMMARY_ADD("MOSES" "Meta-Optimizing Semantic Evolutionary Search" HAVE_MOSES)
 # SUMMARY_ADD("Python tests" "Python bindings nose tests" HAVE_NOSETESTS)
-SUMMARY_ADD("StackPrint" "Pretty printing of stack traces" HAVE_BFD AND HAVE_IBERTY)
-SUMMARY_ADD("Unit tests" "Unit tests" CXXTEST_FOUND)
-SUMMARY_ADD("Util" "General utility library" HAVE_UTIL)
+SUMMARY_ADD("Unit tests" "Unit tests" CXXTEST_FOUND AND COGUTIL_FOUND)
 SUMMARY_SHOW()

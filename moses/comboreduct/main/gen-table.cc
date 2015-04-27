@@ -26,9 +26,9 @@
 #include <fstream>
 #include <string>
 
-#include <moses/util/mt19937ar.h>
-#include <moses/util/random.h>
-#include <moses/util/log_prog_name.h>
+#include <opencog/util/mt19937ar.h>
+#include <opencog/util/random.h>
+#include <opencog/util/log_prog_name.h>
 
 #include <moses/comboreduct/interpreter/eval.h>
 #include <moses/comboreduct/table/table.h>

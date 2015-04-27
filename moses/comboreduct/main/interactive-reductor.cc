@@ -24,7 +24,7 @@
 #include <iostream>
 #include <boost/assign/list_of.hpp>
 
-#include <moses/util/mt19937ar.h>
+#include <opencog/util/mt19937ar.h>
 
 #include "../reduct/reduct.h"
 #include "../reduct/branch_rules.h"

@@ -31,7 +31,7 @@
 #include <boost/accumulators/statistics/min.hpp>
 #include <boost/accumulators/statistics/max.hpp>
 
-#include <moses/util/iostreamContainer.h>
+#include <opencog/util/iostreamContainer.h>
 
 namespace opencog { namespace moses {
 

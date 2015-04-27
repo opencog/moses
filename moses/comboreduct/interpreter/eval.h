@@ -27,10 +27,10 @@
 
 #include <exception>
 
-#include <moses/util/tree.h>
-#include <moses/util/numeric.h>
-#include <moses/util/exceptions.h>
-#include <moses/util/mt19937ar.h>
+#include <opencog/util/tree.h>
+#include <opencog/util/numeric.h>
+#include <opencog/util/exceptions.h>
+#include <opencog/util/mt19937ar.h>
 
 #include "../combo/vertex.h"
 #include "../combo/variable_unifier.h"

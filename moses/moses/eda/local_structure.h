@@ -26,9 +26,9 @@
 
 #include <vector>
 
-#include <moses/util/digraph.h>
-#include <moses/util/oc_assert.h>
-#include <moses/util/tree.h>
+#include <opencog/util/digraph.h>
+#include <opencog/util/oc_assert.h>
+#include <opencog/util/tree.h>
 
 #include "../representation/field_set.h"
 

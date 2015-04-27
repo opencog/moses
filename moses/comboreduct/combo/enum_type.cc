@@ -22,7 +22,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 #include "enum_type.h"
-#include <moses/util/mt19937ar.h>
+#include <opencog/util/mt19937ar.h>
 
 namespace opencog { namespace combo {
 using namespace std;

@@ -25,7 +25,7 @@
 #define _SCORED_INSTANCE_H
 
 #include "instance.h"
-#include <moses/util/functional.h>
+#include <opencog/util/functional.h>
 
 namespace opencog { 
 namespace moses {

@@ -26,7 +26,7 @@
 #include <boost/range/algorithm/find_if.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 
-#include <moses/util/oc_assert.h>
+#include <opencog/util/oc_assert.h>
 
 #include <moses/comboreduct/combo/vertex.h>
 #include <moses/moses/moses/types.h>

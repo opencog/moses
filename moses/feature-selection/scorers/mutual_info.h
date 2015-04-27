@@ -24,7 +24,7 @@
 #ifndef _OPENCOG_FEATURE_SCORERS_MI_H
 #define _OPENCOG_FEATURE_SCORERS_MI_H
 
-#include <moses/util/numeric.h>
+#include <opencog/util/numeric.h>
 #include <moses/comboreduct/table/table.h>
 #include "fs_scorer_base.h"
 

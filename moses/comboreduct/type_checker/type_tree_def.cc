@@ -22,7 +22,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 #include "type_tree_def.h"
-#include <moses/util/oc_assert.h>
+#include <opencog/util/oc_assert.h>
 
 namespace opencog { namespace combo {
 

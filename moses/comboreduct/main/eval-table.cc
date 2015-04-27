@@ -24,9 +24,9 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/algorithm/string/trim.hpp>
 
-#include <moses/util/iostreamContainer.h>
-#include <moses/util/mt19937ar.h>
-#include <moses/util/numeric.h>
+#include <opencog/util/iostreamContainer.h>
+#include <opencog/util/mt19937ar.h>
+#include <opencog/util/numeric.h>
 
 #include "eval-table.h"
 

@@ -28,8 +28,8 @@
 #include <vector>
 #include <cassert>
 
-#include <moses/util/exceptions.h>
-#include <moses/util/Logger.h>
+#include <opencog/util/exceptions.h>
+#include <opencog/util/Logger.h>
 
 #include <moses/comboreduct/combo/common_def.h>
 #include <moses/comboreduct/combo/operator_base.h>

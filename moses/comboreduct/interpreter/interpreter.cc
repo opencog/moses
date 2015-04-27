@@ -24,9 +24,9 @@
 #include "../combo/iostream_combo.h"
 #include "../crutil/exception.h"
 
-#include <moses/util/numeric.h>
-#include <moses/util/exceptions.h>
-#include <moses/util/mt19937ar.h>
+#include <opencog/util/numeric.h>
+#include <opencog/util/exceptions.h>
+#include <opencog/util/mt19937ar.h>
 
 namespace opencog { namespace combo {
 

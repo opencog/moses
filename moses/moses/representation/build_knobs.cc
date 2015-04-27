@@ -26,12 +26,12 @@
 
 #include <boost/range/irange.hpp>
 
-#include <moses/util/iostreamContainer.h>
-#include <moses/util/lazy_random_selector.h>
-#include <moses/util/exceptions.h>
-#include <moses/util/dorepeat.h>
-#include <moses/util/oc_omp.h>
-#include <moses/util/random.h>
+#include <opencog/util/iostreamContainer.h>
+#include <opencog/util/lazy_random_selector.h>
+#include <opencog/util/exceptions.h>
+#include <opencog/util/dorepeat.h>
+#include <opencog/util/oc_omp.h>
+#include <opencog/util/random.h>
 
 #include <moses/comboreduct/combo/convert_ann_combo.h>
 #include <moses/comboreduct/reduct/meta_rules.h>
