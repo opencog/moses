@@ -282,7 +282,7 @@ SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
 ADD_SUBDIRECTORY(moses)
 
-IF (CXXTEST_FOUND)
+IF (CXXTEST_FOUND AND COGUTIL_FOUND)
 	ADD_CUSTOM_TARGET(tests)
 	ADD_SUBDIRECTORY(tests EXCLUDE_FROM_ALL)
 	IF (CMAKE_BUILD_TYPE STREQUAL "Coverage")
@@ -313,7 +313,7 @@ IF (CXXTEST_FOUND)
 			COMMENT "Running tests..."
 		)
 	ENDIF (CMAKE_BUILD_TYPE STREQUAL "Coverage")
-ENDIF (CXXTEST_FOUND)
+ENDIF (CXXTEST_FOUND AND COGUTIL_FOUND)
 
 ADD_CUSTOM_TARGET(cscope
 	COMMAND find moses tests -name '*.cc' -o -name '*.h' -o -name '*.cxxtest' > ${CMAKE_SOURCE_DIR}/cscope.files
@@ -406,5 +406,5 @@ SUMMARY_ADD("Doxygen" "Code documentation" DOXYGEN_FOUND)
 SUMMARY_ADD("Feature selection" "MOSES based feature selection tool" HAVE_FEATURE_SELECTION)
 SUMMARY_ADD("MOSES" "Meta-Optimizing Semantic Evolutionary Search" HAVE_MOSES)
 # SUMMARY_ADD("Python tests" "Python bindings nose tests" HAVE_NOSETESTS)
-SUMMARY_ADD("Unit tests" "Unit tests" CXXTEST_FOUND)
+SUMMARY_ADD("Unit tests" "Unit tests" CXXTEST_FOUND AND COGUTIL_FOUND)
 SUMMARY_SHOW()
