@@ -30,7 +30,7 @@
 
 using namespace moses3::moses;
 
-const string test_dir = string(PROJECT_SOURCE_DIR) + "/tests/learning/moses/";
+const string test_dir = string(PROJECT_SOURCE_DIR) + "/tests/moses/";
 
 /**
  * Test of the selection scorer

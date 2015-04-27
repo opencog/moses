@@ -26,7 +26,7 @@
 
 using namespace moses3::moses;
 
-const string weightedUTest_dir = string(PROJECT_SOURCE_DIR) + "/tests/learning/moses/";
+const string weightedUTest_dir = string(PROJECT_SOURCE_DIR) + "/tests/moses/";
 
 /**
  * Test learning of problems that require a weieghted score

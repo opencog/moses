@@ -31,7 +31,7 @@ using namespace combo;
 using namespace moses;
 using namespace std;
 
-const string mosesUTest_dir=string(PROJECT_SOURCE_DIR) + "/tests/learning/moses/";
+const string mosesUTest_dir=string(PROJECT_SOURCE_DIR) + "/tests/moses/";
 const string target_feature = "target";
 
 class scoringUTest : public CxxTest::TestSuite

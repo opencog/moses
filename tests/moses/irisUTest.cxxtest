@@ -25,7 +25,7 @@
 
 using namespace moses3::moses;
 
-const string mixedUTest_dir = string(PROJECT_SOURCE_DIR) + "/tests/learning/moses/";
+const string mixedUTest_dir = string(PROJECT_SOURCE_DIR) + "/tests/moses/";
 
 /**
  * Test learning of problems that require a mixture of boolean

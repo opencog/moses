@@ -28,7 +28,7 @@
 
 using namespace moses3::moses;
 
-const string MOSESUTest_dir = string(PROJECT_SOURCE_DIR) + "/tests/learning/moses/";
+const string MOSESUTest_dir = string(PROJECT_SOURCE_DIR) + "/tests/moses/";
 
 /**
  * MOSES test on toy problems

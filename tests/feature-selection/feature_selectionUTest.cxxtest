@@ -32,7 +32,7 @@
 #include <moses/feature-selection/main/feature-selection.h>
 #include <moses/moses/optimization/optimization.h>  // for moses3::hc
 
-#define FEATURE_SELECTION_TEST_DIR PROJECT_SOURCE_DIR"/tests/learning/feature-selection/"
+#define FEATURE_SELECTION_TEST_DIR PROJECT_SOURCE_DIR"/tests/feature-selection/"
 
 using namespace moses3;
 using namespace combo;
