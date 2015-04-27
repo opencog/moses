@@ -1,6 +1,6 @@
 
 # We need to put this in a library, so that MOSESUTest can link to it.
-ADD_LIBRARY (moses_exec
+ADD_LIBRARY (moses_exec SHARED
     demo-problems
     problem
     problem-params

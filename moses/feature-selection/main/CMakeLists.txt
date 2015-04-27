@@ -3,6 +3,8 @@
 ADD_EXECUTABLE (fs-main fs-main.cc)
 TARGET_LINK_LIBRARIES(fs-main
 	feature_selection
+	moses
+	mosesutil
 )
 SET_TARGET_PROPERTIES(fs-main PROPERTIES OUTPUT_NAME "feature-selection")
 

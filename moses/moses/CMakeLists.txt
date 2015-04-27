@@ -30,7 +30,7 @@ ADD_SUBDIRECTORY (example-ant)
 ADD_SUBDIRECTORY (example-progs)
 ADD_SUBDIRECTORY (man)
 
-ADD_LIBRARY (moses SHARED STATIC
+ADD_LIBRARY (moses SHARED
 	deme/deme_expander
 	deme/feature_selector
 
@@ -76,6 +76,7 @@ ADD_LIBRARY (moses SHARED STATIC
 	scoring/select_bscore
 
 )
+
 
 TARGET_LINK_LIBRARIES (moses
 	feature_selection
