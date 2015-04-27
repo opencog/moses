@@ -30,13 +30,14 @@
 
 #include <boost/range/algorithm/max_element.hpp>
 
-#include "feature_selector.h"
 #include <moses/comboreduct/table/table.h>
 #include <moses/comboreduct/table/table_io.h>
 #include <moses/util/oc_omp.h>
 #include <moses/util/random.h>
 #include <moses/util/lazy_random_selector.h>
 #include <moses/util/jaccard_index.h>
+
+#include "feature_selector.h"
 
 // Name given to the feature corresponding to the output of the
 // exemplar
