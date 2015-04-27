@@ -3230,7 +3230,6 @@ std::ostream& operator<<(std::ostream& out, const moses3::tree<T>& tr)
 
 template<typename T>
 std::istream& operator>>(std::istream& in, moses3::tree<T>& tr)
-	throw (moses3::InconsistenceException, std::bad_exception)
 {
     moses3::tree<std::string> tmp;
     in >> tmp;

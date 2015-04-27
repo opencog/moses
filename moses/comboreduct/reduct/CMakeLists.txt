@@ -45,11 +45,10 @@ INSTALL(FILES
 	meta_rules.h
 	mixed_rules.h
 	perception_rules.h
-        fold_rules.h
+	fold_rules.h
 	reduct.h
 
 	DESTINATION
 
-	"include/${PROJECT_NAME}/reduct" 
+	"include/${PROJECT_NAME}/comboreduct/reduct"
 )
-

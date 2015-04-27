@@ -44,6 +44,15 @@ TARGET_LINK_LIBRARIES (eval-candidate-likelihood
 # install moses-exec
 INSTALL(TARGETS moses-exec eval-diversity eval-candidate eval-candidate-likelihood RUNTIME DESTINATION bin)
 
+# Install library
+IF (WIN32)
+	INSTALL(TARGETS moses DESTINATION "lib${LIB_DIR_SUFFIX}/moses3")
+ELSE (WIN32)
+	INSTALL(TARGETS moses_exec
+	        LIBRARY DESTINATION "lib${LIB_DIR_SUFFIX}"    # lib*.so files
+	        ARCHIVE DESTINATION "lib${LIB_DIR_SUFFIX}")   # lib*.a files
+ENDIF (WIN32)
+
 #install header files
 INSTALL(FILES
 	moses_exec.h
