@@ -196,15 +196,15 @@ ELSE (CXXTEST_FOUND)
 ENDIF (CXXTEST_FOUND)
 
 
-# Look for libiberty-dev. Needed for pretty stack printing.
-FIND_PACKAGE(Iberty)
-IF (IBERTY_FOUND)
-	MESSAGE(STATUS "Libiberty found.")
-	ADD_DEFINITIONS(-DHAVE_IBERTY)
-	SET(HAVE_IBERTY 1)
-ELSE (IBERTY_FOUND)
-	MESSAGE(STATUS "Libiberty-dev missing: No pretty stack-trace printing.")
-ENDIF (IBERTY_FOUND)
+# Look for Opencog Utils.
+FIND_PACKAGE(CogUtil)
+IF (COGUTIL_FOUND)
+	MESSAGE(STATUS "CogUtil found.")
+	ADD_DEFINITIONS(-DHAVE_COGUTIL)
+	SET(HAVE_COGUTIL 1)
+ELSE (COGUTIL_FOUND)
+	MESSAGE(STATUS "CogUtil missing: needed to build this package!")
+ENDIF (COGUTIL_FOUND)
 
 # MPI is needed for MOSES on compute clusters.
 FIND_PACKAGE(MPI)
@@ -236,12 +236,11 @@ ENDIF (VALGRIND_FOUND)
 # ==========================================================
 # Decide what to build, based on the packages found.
 
-IF(Boost_FOUND)
-	SET(HAVE_UTIL 1)
+IF(Boost_FOUND AND COGUTIL_FOUND)
 	SET(HAVE_COMBOREDUCT 1)
 	SET(HAVE_MOSES 1)
 	SET(HAVE_FEATURE_SELECTION 1)
-ENDIF(Boost_FOUND)
+ENDIF(Boost_FOUND AND COGUTIL_FOUND)
 
 # ===================================================================
 # global includes
@@ -407,7 +406,5 @@ SUMMARY_ADD("Doxygen" "Code documentation" DOXYGEN_FOUND)
 SUMMARY_ADD("Feature selection" "MOSES based feature selection tool" HAVE_FEATURE_SELECTION)
 SUMMARY_ADD("MOSES" "Meta-Optimizing Semantic Evolutionary Search" HAVE_MOSES)
 # SUMMARY_ADD("Python tests" "Python bindings nose tests" HAVE_NOSETESTS)
-SUMMARY_ADD("StackPrint" "Pretty printing of stack traces" HAVE_BFD AND HAVE_IBERTY)
 SUMMARY_ADD("Unit tests" "Unit tests" CXXTEST_FOUND)
-SUMMARY_ADD("Util" "General utility library" HAVE_UTIL)
 SUMMARY_SHOW()
