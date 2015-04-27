@@ -2,7 +2,7 @@
 #include <moses/comboreduct/interpreter/interpreter.h>
 #include <moses/comboreduct/combo/combo.h>
 
-using namespace moses;
+using namespace moses3;
 using namespace moses3::combo;
 using namespace std;
 

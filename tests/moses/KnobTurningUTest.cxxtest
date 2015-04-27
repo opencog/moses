@@ -29,7 +29,7 @@
 #include <moses/comboreduct/reduct/reduct.h>
 #include <moses/moses/representation/knobs.h>
 
-using namespace moses;
+using namespace moses3;
 using namespace moses;
 using namespace reduct;
 using namespace combo;

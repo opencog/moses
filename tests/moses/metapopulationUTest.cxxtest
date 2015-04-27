@@ -28,7 +28,7 @@
 #include <moses/moses/metapopulation/metapopulation.h>
 #include <moses/moses/scoring/behave_cscore.h>
 
-using namespace moses;
+using namespace moses3;
 using namespace combo;
 using namespace moses;
 

@@ -9,7 +9,7 @@
 #include <moses/moses/moses/neighborhood_sampling.h>
 
 
-using namespace moses;
+using namespace moses3;
 using namespace moses;
 using namespace std;
 

@@ -9,7 +9,7 @@
 
 using namespace reduct;
 using namespace ant_combo;
-using namespace moses;
+using namespace moses3;
 using namespace std;
 
 static MT19937RandGen rng(0);

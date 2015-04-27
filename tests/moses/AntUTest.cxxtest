@@ -33,7 +33,7 @@
 #include <moses/util/Logger.h>
 #include <moses/util/oc_omp.h>
 
-using namespace moses;
+using namespace moses3;
 using namespace moses;
 using namespace reduct;
 using namespace boost;

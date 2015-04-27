@@ -34,7 +34,7 @@
 
 #define FEATURE_SELECTION_TEST_DIR PROJECT_SOURCE_DIR"/tests/learning/feature-selection/"
 
-using namespace moses;
+using namespace moses3;
 using namespace combo;
 using namespace std;
 using boost::counting_iterator;

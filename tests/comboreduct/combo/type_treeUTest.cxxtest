@@ -1,7 +1,7 @@
 #include <moses/comboreduct/combo/combo.h>
 #include <moses/comboreduct/type_checker/type_tree.h>
 
-using namespace moses;
+using namespace moses3;
 using namespace moses3::combo;
 using namespace std;
 
