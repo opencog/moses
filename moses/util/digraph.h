@@ -20,8 +20,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _OPENCOG_DIGRAPH_H
-#define _OPENCOG_DIGRAPH_H
+#ifndef _MOSES3_DIGRAPH_H
+#define _MOSES3_DIGRAPH_H
 
 #include <queue>
 #include <vector>

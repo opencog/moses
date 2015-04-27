@@ -22,8 +22,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _OPENCOG_RAND_GEN_H
-#define _OPENCOG_RAND_GEN_H
+#ifndef _MOSES3_RAND_GEN_H
+#define _MOSES3_RAND_GEN_H
 
 #include <set>
 #include <moses/util/exceptions.h>
@@ -70,4 +70,4 @@ public:
 /** @}*/
 } // ~namespace moses3
 
-#endif // _OPENCOG_RAND_GEN_H
+#endif // _MOSES3_RAND_GEN_H

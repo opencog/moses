@@ -21,8 +21,8 @@
  */
 
 
-#ifndef _OPENCOG_KLD_H
-#define _OPENCOG_KLD_H
+#ifndef _MOSES3_KLD_H
+#define _MOSES3_KLD_H
 
 #include <boost/range/adaptor/map.hpp>
 #include <boost/range/numeric.hpp>
@@ -209,4 +209,4 @@ typename SortedSeq::value_type KLD(const SortedSeq& p, const SortedSeq& q) {
 /** @}*/
 } // ~namespace moses3
 
-#endif // _OPENCOG_KLD_H
+#endif // _MOSES3_KLD_H

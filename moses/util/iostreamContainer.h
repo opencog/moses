@@ -21,8 +21,8 @@
  */
 
 
-#ifndef _OPENCOG_PRINTCONTAINER_H
-#define _OPENCOG_PRINTCONTAINER_H
+#ifndef _MOSES3_PRINTCONTAINER_H
+#define _MOSES3_PRINTCONTAINER_H
 
 #include <iterator>
 #include <algorithm>
@@ -294,4 +294,4 @@ namespace moses3 {
 
 /** @}*/
 } // ~namespace moses3
-#endif // _OPENCOG_PRINTCONTAINER_H
+#endif // _MOSES3_PRINTCONTAINER_H

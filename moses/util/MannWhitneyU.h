@@ -20,8 +20,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _OPENCOG_MANNWHITNEYU_H
-#define _OPENCOG_MANNWHITNEYU_H
+#ifndef _MOSES3_MANNWHITNEYU_H
+#define _MOSES3_MANNWHITNEYU_H
 
 #include <boost/range/numeric.hpp>
 #include <boost/range/adaptor/map.hpp>
@@ -77,4 +77,4 @@ FloatT standardizedMannWhitneyU(const Counter<Key, FloatT>& c1,
 /** @}*/
 } // ~namespace moses3
 
-#endif // _OPENCOG_MANNWHITNEYU_H
+#endif // _MOSES3_MANNWHITNEYU_H

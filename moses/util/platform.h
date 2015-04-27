@@ -22,8 +22,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _OPENCOG_PLATFORM_H
-#define _OPENCOG_PLATFORM_H
+#ifndef _MOSES3_PLATFORM_H
+#define _MOSES3_PLATFORM_H
 
 #ifdef WIN32
 
@@ -100,4 +100,4 @@ const char* getUserName();
 /** @}*/
 } // namespace moses3
 
-#endif // _OPENCOG_PLATFORM_H
+#endif // _MOSES3_PLATFORM_H

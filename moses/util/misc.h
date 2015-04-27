@@ -25,8 +25,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _OPENCOG_MISC_H
-#define _OPENCOG_MISC_H
+#ifndef _MOSES3_MISC_H
+#define _MOSES3_MISC_H
 
 #include <iterator>
 #include <functional>
@@ -85,4 +85,4 @@ std::string demangle(const std::string& mangled);
 /** @}*/
 } // namespace moses3
 
-#endif // _OPENCOG_MISC_H
+#endif // _MOSES3_MISC_H

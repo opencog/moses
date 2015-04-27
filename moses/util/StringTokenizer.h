@@ -22,8 +22,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _OPENCOG_STRING_TOKENIZER_H
-#define _OPENCOG_STRING_TOKENIZER_H
+#ifndef _MOSES3_STRING_TOKENIZER_H
+#define _MOSES3_STRING_TOKENIZER_H
 
 #include <string>
 #include <vector>
@@ -103,4 +103,4 @@ private:
 /** @}*/
 }  // namespace
 
-#endif // _OPENCOG_STRING_TOKENIZER_H
+#endif // _MOSES3_STRING_TOKENIZER_H

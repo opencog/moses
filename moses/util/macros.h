@@ -22,8 +22,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _OPENCOG_MACROS_H
-#define _OPENCOG_MACROS_H
+#ifndef _MOSES3_MACROS_H
+#define _MOSES3_MACROS_H
 
 // needed by CHECK_FREAD
 #include <boost/current_function.hpp>
@@ -51,4 +51,4 @@
 
 
 /** @}*/
-#endif // _OPENCOG_MACROS_H
+#endif // _MOSES3_MACROS_H

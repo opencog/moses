@@ -20,8 +20,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _OPENCOG_LRU_CACHE_H
-#define _OPENCOG_LRU_CACHE_H
+#ifndef _MOSES3_LRU_CACHE_H
+#define _MOSES3_LRU_CACHE_H
 
 #include <list>
 #include <limits>

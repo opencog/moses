@@ -20,8 +20,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _OPENCOG_STRINGMANIPULATOR_H_
-#define _OPENCOG_STRINGMANIPULATOR_H_
+#ifndef _MOSES3_STRINGMANIPULATOR_H_
+#define _MOSES3_STRINGMANIPULATOR_H_
 
 #include <string>
 #include <vector>
@@ -87,4 +87,4 @@ public:
 /** @}*/
 }  // namespace
 
-#endif /*_OPENCOG_STRINGMANIPULATOR_H_*/
+#endif /*_MOSES3_STRINGMANIPULATOR_H_*/

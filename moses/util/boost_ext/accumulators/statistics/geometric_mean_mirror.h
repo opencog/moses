@@ -17,8 +17,8 @@
  * limitations under the License.
  */
 
-#ifndef OPENCOG_UTIL_GEOMETRIC_MEAN_MIRROR
-#define OPENCOG_UTIL_GEOMETRIC_MEAN_MIRROR
+#ifndef MOSES3_UTIL_GEOMETRIC_MEAN_MIRROR
+#define MOSES3_UTIL_GEOMETRIC_MEAN_MIRROR
 
 #include <boost/mpl/placeholders.hpp>
 #include <boost/accumulators/framework/accumulator_base.hpp>

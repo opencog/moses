@@ -20,8 +20,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef OPENCOG_UTILS_TIME_H
-#define OPENCOG_UTILS_TIME_H
+#ifndef MOSES3_UTILS_TIME_H
+#define MOSES3_UTILS_TIME_H
 
 namespace moses3
 {
@@ -43,4 +43,4 @@ unsigned long getElapsedMillis();
 /** @}*/
 } // namespace moses3
 
-#endif //  OPENCOG_UTILS_TIME_H
+#endif //  MOSES3_UTILS_TIME_H

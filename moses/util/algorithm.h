@@ -1,5 +1,5 @@
-#ifndef _OPENCOG_ALGORITHM_H
-#define _OPENCOG_ALGORITHM_H
+#ifndef _MOSES3_ALGORITHM_H
+#define _MOSES3_ALGORITHM_H
 
 #include <algorithm>
 #include <set>

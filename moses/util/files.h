@@ -20,8 +20,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _OPENCOG_FILES_H_
-#define _OPENCOG_FILES_H_
+#ifndef _MOSES3_FILES_H_
+#define _MOSES3_FILES_H_
 
 /**
  * \file files.h
@@ -98,4 +98,4 @@ std::string getExeDir();
 /** @}*/
 } // namespace moses3
 
-#endif //_OPENCOG_FILES_H_
+#endif //_MOSES3_FILES_H_

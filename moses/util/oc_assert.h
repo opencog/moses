@@ -23,8 +23,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _OPENCOG_ASSERT_H
-#define _OPENCOG_ASSERT_H
+#ifndef _MOSES3_ASSERT_H
+#define _MOSES3_ASSERT_H
 
 #include <moses/util/exceptions.h>
 
