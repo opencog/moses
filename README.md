@@ -74,7 +74,7 @@ Peform the following steps at the shell prompt:
 ```
 Libraries will be built into subdirectories within build, mirroring the
 structure of the source directory root. The flag
--DCMAKE_BUILD_TYPE=Release
+`-DCMAKE_BUILD_TYPE=Release`
 results in binaries that are optimized for for performance; ommitting
 this flag will result in faster builds, but slower executables.
 
