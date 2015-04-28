@@ -129,16 +129,6 @@ ENDIF (WIN32)
 # ===================================================================
 # Check for existance of various required, optional packages.
 
-# Look for binutils-dev. Needed for pretty stack printing.
-FIND_PACKAGE(BFD)
-IF (BFD_FOUND)
-	MESSAGE(STATUS "Binutils found.")
-	ADD_DEFINITIONS(-DHAVE_BFD)
-	SET(HAVE_BFD 1)
-ELSE (BFD_FOUND)
-	MESSAGE(STATUS "Binutils-dev missing: No pretty stack-trace printing.")
-ENDIF (BFD_FOUND)
-
 # Check for boost. We need dynamic-linked, threaded libs by default.
 SET(Boost_USE_STATIC_LIBS OFF)
 SET(Boost_USE_MULTITHREADED ON)
