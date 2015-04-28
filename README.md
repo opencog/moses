@@ -1,15 +1,35 @@
 
 MOSES -- Meta-Optimizing Semantic Evolutionary Search
 =====================================================
-                         August, 2012
 
+MOSES is a machine-learning tool; it is an "evolutionary program
+learner". It is capable of learning short programs that capture
+patterns in input datasets.  These programs can be output in either
+the `combo` programming language, or in python.  For a given data
+input, the programs will roughly recreate the dataset on which they
+were trained.
 
-INTRODUCTION
-------------
-MOSES is an evolutionary program learner. It is mostly based on Moshe
-Looks' thesis, "Competent Porgram Evolution", 2006 (Washington 
-University, Missouri) http://metacog.org/main.pdf. Moshe is also one of
-the primary authors of this code.
+MOSES has been used in several commercial applications, including
+the analysis of medical patient and physician clinical data, and
+in several different financial systems.  It is also used by OpenCog
+to learn automated behaviors, movements and actions in response to
+perceptual stimulus of artificial-life virtual agents (i.e. pet-dog
+game avatars). Future plans including using it to learn behavioral
+programs that control real-world robots, via the OpenPsi implementation
+of Psi-theory and ROS nodes running on the OpenCog AtomSpace.
+
+The term "evolutionary" means that MOSES uses genetic programming
+techniques to "evolve" new programs. Each program can be thought
+of as a tree (similar to a "decision tree", but allowing intermediate
+nodes to be any programming-language construct).  Evolution proceeds
+by selecting one exemplar tree from a collection of reasonably fit
+individuals, and then making random alterations to the program tree,
+in an attempt to find an even fitter (more accurate) program.
+
+It is derived from the ideas forumlated in Moshe Looks' thesis,
+"Competent Program Evolution", 2006 (Washington University, Missouri)
+http://metacog.org/main.pdf.  Moshe is also one of the primary authors
+of this code.
 
 
 LICENSE
@@ -19,10 +39,11 @@ MOSES is under double license, Apache 2.0 and GNU AGPL 3.
 
 DOCUMENTATION
 -------------
-Documentation can be found in the docs directory, which includes a 
+Documentation can be found in the `/docs` directory, which includes a
 "QuickStart.pdf" that reviews the algorithms and data structures
-used withie MOSES.  There is alo a considerable amount of information
-int the OpenCog wiki: 
+used within MOSES.  A detailed man-page can be found in
+`/moses/moses/man/moses.1`.  There is also a considerable amount of
+information in the OpenCog wiki:
 http://wiki.opencog.org/w/Meta-Optimizing_Semantic_Evolutionary_Search
 
 Prerequisites
@@ -93,7 +114,12 @@ Just say `sudo make install`  after finishing the build.
 
 EXAMPLES DIRECTORY
 ------------------
-To build the examples, say:
+MOSES can be used in one of two ways: either directly from the command
+line, or by embedding its low-level API into C++ programs. For almost
+all users, the command-line interface is strongly recommended.
+
+For those who absolutely must used the low-level C++ programming API,
+there is the `/examples` directory.  To build the examples, say:
 ```
     make examples
 ```
