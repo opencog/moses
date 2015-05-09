@@ -68,8 +68,8 @@ few exceptions, most Linux distributions will provide these packages.
 
 ###### cogutil
 > Common OpenCog C++ utilities
-> http://github/opencog/cogutils
-> It uses exactly the same build proceedure as this pakcage. Be sure
+> http://github.com/opencog/cogutils
+> It uses exactly the same build procedure as this package. Be sure
   to `sudo make install` at the end.
 
 Optional Prerequisites
@@ -123,6 +123,6 @@ there is the `/examples` directory.  To build the examples, say:
 ```
     make examples
 ```
-> example-ant: Santa Fe Trail ant example
-> example-data: Simple data sets on which moses can be run.
-> example-progs: Other example programs.
+* example-ant: Santa Fe Trail ant example
+* example-data: Simple data sets on which moses can be run.
+* example-progs: Other example programs.
