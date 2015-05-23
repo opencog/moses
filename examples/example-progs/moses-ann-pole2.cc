@@ -1,4 +1,4 @@
-/** moses-ann-pole2.cc --- 
+/** moses-ann-pole2.cc ---
  *
  * Copyright (C) 2010-2011 OpenCog Foundation
  *
@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License as
  * published by the Free Software Foundation; either version 2, or (at
  * your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; see the file COPYING.  If not, write to
  * the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -26,13 +26,13 @@
 
 #include <moses/comboreduct/interpreter/eval.h>
 
-#include "../deme/deme_expander.h"
-#include "../metapopulation/metapopulation.h"
+#include <moses/moses/deme/deme_expander.h>
+#include <moses/moses/metapopulation/metapopulation.h>
 
-#include "../representation/representation.h"
-#include "../optimization/optimization.h"
-#include "../moses/moses_main.h"
-#include "../scoring/scoring_base.h"
+#include <moses/moses/representation/representation.h>
+#include <moses/moses/optimization/optimization.h>
+#include <moses/moses/moses/moses_main.h>
+#include <moses/moses/scoring/scoring_base.h>
 
 #include "pole_scoring.h"
 
@@ -66,10 +66,10 @@ int main(int argc, char** argv)
         cerr << "usage: " << argv[0] << " maxevals seed" << endl;
         exit(1);
     }
-    
+
     // Read in seed tree.
     combo_tree tr;
-    cin >> tr; 
+    cin >> tr;
 
     randGen().seed(seed);
 
@@ -80,8 +80,8 @@ int main(int argc, char** argv)
     const reduct::rule* si = &(ann_reduction());
     if (!reduce)
         si = &(clean_reduction());
-    
-    ann_pole2_bscore p2_bscore; 
+
+    ann_pole2_bscore p2_bscore;
     behave_cscore cscorer(p2_bscore);
 
     univariate_optimization univ;
@@ -93,15 +93,15 @@ int main(int argc, char** argv)
     run_moses(metapop_pole2, dex, pa, st);
 
     //change best combo tree back into ANN
-    tree_transform trans; 
+    tree_transform trans;
     combo_tree best = metapop_pole2.best_tree();
     ann bestnet = trans.decodify_tree(best);
-    
+
     //show best network
     cout << "Best network: " << endl;
     cout << &bestnet << endl;
     //write out in dot format
-    bestnet.write_dot("best_nn.dot"); 
+    bestnet.write_dot("best_nn.dot");
 
     //for parameter sweet
     cout << metapop_pole2.best_score() << endl;

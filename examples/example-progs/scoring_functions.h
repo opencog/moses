@@ -32,7 +32,7 @@
 #include <opencog/util/RandGen.h>
 #include <opencog/util/oc_assert.h>
 
-#include "../representation/field_set.h"
+#include <moses/moses/representation/field_set.h>
 
 using namespace opencog;
 using namespace moses;
