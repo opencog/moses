@@ -66,6 +66,7 @@ double information_theoretic_bits(const field_set& fs);
 static const std::string un("un"); // univariate
 static const std::string sa("sa"); // star-shaped search
 static const std::string hc("hc"); // local search
+static const std::string ps("ps"); // particle swarm
 
 // Parameters used mostly for EDA algorithms but also possibly by
 // other algo
@@ -174,7 +175,7 @@ struct optimizer_base : optim_stats
 {
     optimizer_base(const optim_parameters& op = optim_parameters())
         : opt_params(op) {}
-    
+
     virtual void operator()(deme_t& deme,
                             const iscorer_base& iscorer,
                             unsigned max_evals,
