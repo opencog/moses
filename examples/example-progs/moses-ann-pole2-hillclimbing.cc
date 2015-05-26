@@ -5,12 +5,12 @@
 #include <moses/comboreduct/interpreter/eval.h>
 
 
-#include "../deme/deme_expander.h"
-#include "../metapopulation/metapopulation.h"
+#include <moses/moses/deme/deme_expander.h>
+#include <moses/moses/metapopulation/metapopulation.h>
 
-#include "../moses/moses_main.h"
-#include "../optimization/optimization.h"
-#include "../scoring/scoring_base.h"
+#include <moses/moses/moses/moses_main.h>
+#include <moses/moses/optimization/optimization.h>
+#include <moses/moses/scoring/scoring_base.h>
 
 #include "pole_scoring.h"
 
@@ -29,7 +29,7 @@ int main(int argc, char** argv)
     logger().setPrintErrorLevelStdout();
 
     combo_tree tr;
-    cin >> tr; 
+    cin >> tr;
 
     tree_transform trans;
     ann nn = trans.decodify_tree(tr);
@@ -57,10 +57,10 @@ int main(int argc, char** argv)
 
     combo_tree best = metapop_pole2.best_tree();
     ann bestnet = trans.decodify_tree(best);
-    
+
     cout << "Best network: " << endl;
     cout << &bestnet << endl;
-    bestnet.write_dot("best_nn.dot");    
+    bestnet.write_dot("best_nn.dot");
 
     //for parameter sweet
     cout << metapop_pole2.best_score() << endl;

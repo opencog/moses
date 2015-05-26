@@ -36,6 +36,7 @@
 #include "../optimization/hill-climbing.h"
 #include "../optimization/star-anneal.h"
 #include "../optimization/univariate.h"
+#include "../optimization/particle-swarm.h"
 #include "../scoring/behave_cscore.h"
 #include "../scoring/ss_bscore.h"
 #include "distributed_moses.h"
@@ -277,6 +278,9 @@ void metapop_moses_results_b(const std::vector<combo_tree>& bases,
     }
     else if (opt_params.opt_algo == un) { // univariate
         optimizer = new univariate_optimization(opt_params);
+    }
+    else if (opt_params.opt_algo == ps) { // particle swarm
+        optimizer = new particle_swarm(opt_params, hc_params);
     }
     else {
         std::cerr << "Unknown optimization algo " << opt_params.opt_algo

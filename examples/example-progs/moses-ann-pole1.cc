@@ -1,4 +1,4 @@
-/** moses-ann-pole1.cc --- 
+/** moses-ann-pole1.cc ---
  *
  * Copyright (C) 2010-2011 OpenCog Foundation
  *
@@ -8,12 +8,12 @@
  * it under the terms of the GNU Affero General Public License v3 as
  * published by the Free Software Foundation and including the exceptions
  * at http://opencog.org/wiki/Licenses
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program; if not, write to:
  * Free Software Foundation, Inc.,
@@ -24,12 +24,12 @@
 #include <opencog/util/Logger.h>
 #include <moses/comboreduct/interpreter/eval.h>
 
-#include "../deme/deme_expander.h"
-#include "../metapopulation/metapopulation.h"
-#include "../moses/moses_main.h"
-#include "../representation/representation.h"
-#include "../optimization/optimization.h"
-#include "../scoring/scoring_base.h"
+#include <moses/moses/deme/deme_expander.h>
+#include <moses/moses/metapopulation/metapopulation.h>
+#include <moses/moses/moses/moses_main.h>
+#include <moses/moses/representation/representation.h>
+#include <moses/moses/optimization/optimization.h>
+#include <moses/moses/scoring/scoring_base.h>
 
 #include "pole_scoring.h"
 
@@ -54,7 +54,7 @@ int main(int argc, char** argv)
         //    throw "foo";
         // int max_evals=lexical_cast<int>(argv[1]);
         seed=lexical_cast<int>(argv[2]);
-        
+
         set_stepsize(lexical_cast<double>(argv[3]));
         set_expansion(lexical_cast<double>(argv[4]));
         set_depth(lexical_cast<int>(argv[5]));
@@ -66,22 +66,22 @@ int main(int argc, char** argv)
         cerr << "usage: " << argv[0] << " maxevals seed" << endl;
         exit(1);
     }
-    
+
     // Read seed tree in from stdin.
     combo_tree tr;
-    cin >> tr; 
+    cin >> tr;
 
     randGen().seed(seed);
 
     type_tree tt(id::lambda_type);
     tt.append_children(tt.begin(), id::ann_type, 1);
-    
+
     const reduct::rule* si = &(ann_reduction());
     if(!reduce)
         si = &(clean_reduction());
 
     //SINGLE MARKOVIAN POLE TASK
-    ann_pole_bscore p_bscore; 
+    ann_pole_bscore p_bscore;
     behave_cscore cscorer(p_bscore);
 
     univariate_optimization optim_algo;
@@ -93,17 +93,17 @@ int main(int argc, char** argv)
     run_moses(metapop_pole, dex, pa, st);
 
     //change best tree into ANN
-    tree_transform trans; 
+    tree_transform trans;
     combo_tree best = metapop_pole.best_tree();
     ann bestnet = trans.decodify_tree(best);
-   
+
     //write out the best network
-    cout << "Best network: " << endl; 
+    cout << "Best network: " << endl;
     cout << &bestnet << endl;
 
     //write out in dot format
     bestnet.write_dot("best_nn.dot");
-    
+
     //for parameter sweep
     cout << metapop_pole.best_score() << endl;
 }

@@ -16,7 +16,7 @@
 #include <math.h>
 #include <sstream>
 #include <sys/time.h>
-#include "../main/moses_exec.h"
+#include <moses/moses/main/moses_exec.h>
 
 using namespace std;
 using namespace opencog::moses;
@@ -96,7 +96,7 @@ void measure(vector<string> arguments)
             double max_speed = 1.0 / (1.0-parallel);
             printf("speedup = %f parallelizable fraction = %f max speedup = %f\n",
                 speedup, parallel, max_speed);
-                
+
         }
 #endif
         fflush (stdout);

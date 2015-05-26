@@ -6,13 +6,13 @@
 
 #include <moses/comboreduct/interpreter/eval.h>
 
-#include "../deme/deme_expander.h"
-#include "../metapopulation/metapopulation.h"
+#include <moses/moses/deme/deme_expander.h>
+#include <moses/moses/metapopulation/metapopulation.h>
 
-#include "../moses/moses_main.h"
-#include "../scoring/scoring_base.h"
-#include "../optimization/optimization.h"
-#include "../representation/representation.h"
+#include <moses/moses/moses/moses_main.h>
+#include <moses/moses/scoring/scoring_base.h>
+#include <moses/moses/optimization/optimization.h>
+#include <moses/moses/representation/representation.h>
 
 #include "ann_xor_scoring.h"
 
@@ -46,12 +46,12 @@ int main(int argc, char** argv)
         cerr << "usage: " << argv[0] << " maxevals seed" << endl;
         exit(1);
     }
-    
+
     // read in the seed combo tree from stdin
     // a default seed is provided in file xor_tree
     combo_tree tr;
-    cin >> tr; 
-    
+    cin >> tr;
+
     randGen().seed(seed);
 
     // this will let representation building know that we are dealing
@@ -80,32 +80,32 @@ int main(int argc, char** argv)
     run_moses(metapop, dex, moses_param, st);
 
     //transform the best combo tree into an ANN
-    tree_transform trans; 
+    tree_transform trans;
     combo_tree best = metapop.best_tree();
     ann bestnet = trans.decodify_tree(best);
-    
-    
+
+
     //look at xor outputs
-    double inputs[4][3] = { {0.0, 0.0, 1.0}, 
-                            {0.0, 1.0, 1.0}, 
+    double inputs[4][3] = { {0.0, 0.0, 1.0},
+                            {0.0, 1.0, 1.0},
                             {1.0, 0.0, 1.0},
                             {1.0, 1.0, 1.0}};
-    
+
     int depth = bestnet.feedforward_depth();
-    
+
     for (int pattern = 0;pattern < 4;++pattern) {
         bestnet.load_inputs(inputs[pattern]);
         for (int x = 0;x < depth;++x)
             bestnet.propagate();
         cout << "Input [ " << inputs[pattern][0] << " " << inputs[pattern][1] << " ] : Output " << bestnet.outputs[0]->activation << endl;
-    
+
     }
-   
+
     //save the best network (can be viewed in any dot viewer)
     cout << "Best network: " << endl;
     cout << &bestnet << endl;
     bestnet.write_dot("best_nn.dot");
-       
+
     //write out the best score (to be used in parameter sweep)
     cout << metapop.best_score() << endl;
 }

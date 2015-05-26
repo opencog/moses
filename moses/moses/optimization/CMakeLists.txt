@@ -4,6 +4,7 @@ INSTALL(FILES
 	optimization.h
 	star-anneal.h
 	univariate.h
+	particle-swarm.h
 
 	DESTINATION
 

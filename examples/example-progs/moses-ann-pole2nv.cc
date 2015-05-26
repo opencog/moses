@@ -4,13 +4,13 @@
 #include <opencog/util/Logger.h>
 #include <moses/comboreduct/interpreter/eval.h>
 
-#include "../deme/deme_expander.h"
-#include "../metapopulation/metapopulation.h"
+#include <moses/moses/deme/deme_expander.h>
+#include <moses/moses/metapopulation/metapopulation.h>
 
-#include "../representation/representation.h"
-#include "../moses/moses_main.h"
-#include "../optimization/optimization.h"
-#include "../scoring/scoring_base.h"
+#include <moses/moses/representation/representation.h>
+#include <moses/moses/moses/moses_main.h>
+#include <moses/moses/optimization/optimization.h>
+#include <moses/moses/scoring/scoring_base.h>
 
 #include "pole_scoring.h"
 
@@ -44,10 +44,10 @@ int main(int argc, char** argv)
         cerr << "usage: " << argv[0] << " maxevals seed" << endl;
         exit(1);
     }
-    
+
     //read in seed tree
     combo_tree tr;
-    cin >> tr; 
+    cin >> tr;
 
     randGen().seed(seed);
 
@@ -58,8 +58,8 @@ int main(int argc, char** argv)
     const reduct::rule* si = &(ann_reduction());
     if(!reduce)
         si = &(clean_reduction());
-    
-    ann_pole2nv_bscore p2_bscore; 
+
+    ann_pole2nv_bscore p2_bscore;
     behave_cscore cscorer(p2_bscore);
 
     univariate_optimization univ;
@@ -73,22 +73,22 @@ int main(int argc, char** argv)
     run_moses(metapop_pole2, dex, moses_param, st);
 
     //change best combo tree back into ANN
-    tree_transform trans; 
+    tree_transform trans;
     combo_tree best = metapop_pole2.best_tree();
     ann bestnet = trans.decodify_tree(best);
-    
+
     //show best network
     cout << "Best network: " << endl;
     cout << &bestnet << endl;
     //write out in dot format
-    bestnet.write_dot("best_nn.dot"); 
+    bestnet.write_dot("best_nn.dot");
 
     CartPole *the_cart;
     the_cart = new CartPole(true,false);
     the_cart->nmarkov_long=true;
     the_cart->generalization_test=false;
     double fitness = the_cart->evalNet(&bestnet);
-    delete the_cart; 
+    delete the_cart;
     //for parameter sweep
     cout << fitness << endl;
 }

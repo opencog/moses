@@ -34,12 +34,12 @@
 #include <moses/comboreduct/ant_combo_vocabulary/ant_combo_vocabulary.h>
 #include <moses/comboreduct/reduct/reduct.h>
 
-#include "../deme/deme_expander.h"
-#include "../metapopulation/metapopulation.h"
-#include "../moses/moses_main.h"
-#include "../optimization/optimization.h"
-#include "../scoring/scoring_base.h"
-#include "../scoring/behave_cscore.h"
+#include <moses/moses/deme/deme_expander.h>
+#include <moses/moses/metapopulation/metapopulation.h>
+#include <moses/moses/moses/moses_main.h>
+#include <moses/moses/optimization/optimization.h>
+#include <moses/moses/scoring/scoring_base.h>
+#include <moses/moses/scoring/behave_cscore.h>
 #include "ant_scoring.h"
 
 
