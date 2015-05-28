@@ -35,57 +35,18 @@
 
 namespace opencog { namespace moses {
 
-/// Hill-climbing paramters
-struct ps_parameters
-{
-     // TODO: pso paramters
-
-
-    // Range of scores for which to keep instances.  This *should* be
-    // set to the value given by metapopulation::useful_score_range().
-    // XXX TODO make sure this value is appropriately updated.
-    //
-    // The range of scores is used to keep the size of the deme in check.
-    // The issue is that, for large feature sets, a large number of knobs
-    // get created, which means that instances are huge.  It is easy to
-    // end up with demes in the tens-of-gigabytes in size, and that's bad,
-    // especially when most of the instances have terrible scores.
-    score_t score_range;
-
-    // Maximum allowed size of the deme.
-    // This is used to keep the size of the deme in check.
-    // The issue is that, for large feature sets, a large number of knobs
-    // get created, which means that instances are huge.  It is easy to
-    // end up with demes in the tens-of-gigabytes in size, and that's bad.
-    size_t max_allowed_instances;
-
-    // Flag to allow resizing the deme to keep memory usage under
-    // control. Note, however, since it depends on the size of the
-    // installed RAM, that two different runs of MOSES on two different
-    // machines but otheriwse identical inputs and parameters, may not
-    // behave identically to one-another.
-    bool resize_to_fit_ram;
-
-    // Deme stat name. String to indicate that TAB seperated deme
-    // statistics are logged. By default 'Demes'.
-    std::string prefix_stat_deme;
-};
 
 // TODO: pso description
 // TODO: code pso, hill_climbing for now
 struct particle_swarm : optimizer_base
 {
-    particle_swarm(const optim_parameters& op = optim_parameters(),
-            const hc_parameters& ps = hc_parameters()) //const hc_parameters& ps = ps_parameters())
-        : optimizer_base(op), ps_params(ps), _total_RAM_bytes(getTotalRAM())
+    particle_swarm(const optim_parameters& op = optim_parameters())
+        : optimizer_base(op), _total_RAM_bytes(getTotalRAM())
     {}
 
 protected:
     // log legend for graph stats
     void log_stats_legend();
-
-    bool resize_deme(deme_t& deme, score_t score_cutoff);
-    size_t resize_by_score(deme_t& deme, score_t score_cutoff);
 
 public:
     /**
@@ -119,7 +80,6 @@ public:
     }
 
 protected:
-    const hc_parameters ps_params;
     const uint64_t _total_RAM_bytes;
     size_t _instance_bytes;
 };

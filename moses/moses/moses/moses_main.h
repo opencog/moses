@@ -280,7 +280,7 @@ void metapop_moses_results_b(const std::vector<combo_tree>& bases,
         optimizer = new univariate_optimization(opt_params);
     }
     else if (opt_params.opt_algo == ps) { // particle swarm
-        optimizer = new particle_swarm(opt_params, hc_params);
+        optimizer = new particle_swarm(opt_params);
     }
     else {
         std::cerr << "Unknown optimization algo " << opt_params.opt_algo

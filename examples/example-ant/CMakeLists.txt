@@ -8,7 +8,19 @@ ADD_EXECUTABLE (moses-ant-hillclimbing
 	ant_scoring
 )
 
+ADD_EXECUTABLE (moses-ant-particleswarm
+    moses-ant-particleswarm
+	ant_scoring
+)
+
 TARGET_LINK_LIBRARIES (moses-ant-hillclimbing
+	moses
+	comboreduct
+	comboant
+	cogutil
+)
+
+TARGET_LINK_LIBRARIES (moses-ant-particleswarm
 	moses
 	comboreduct
 	comboant
