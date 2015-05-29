@@ -48,6 +48,8 @@ protected:
     // log legend for graph stats
     void log_stats_legend();
 
+    instance create_random_instance(const field_set& fs);
+
 public:
     /**
      * Perform search of the local neighborhood of an instance.  The

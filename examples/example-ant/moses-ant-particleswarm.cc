@@ -78,7 +78,7 @@ int main(int argc,char** argv)
     setting_omp(jobs[localhost]);
 
     // Logger setting
-    static const string log_file = "moses-ant-hillclimbing.log";
+    static const string log_file = "moses-ant-particleswarm.log";
     remove(log_file.c_str());
     logger().setLevel(Logger::DEBUG);
     logger().setFilename(log_file);

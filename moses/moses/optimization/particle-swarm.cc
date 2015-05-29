@@ -48,19 +48,19 @@ void particle_swarm::operator()(deme_t& deme,
                                unsigned max_evals,
                                time_t max_time)
 {
-    logger().debug("Enter PSO...");
-// TODO: basically everything.
-#define ACCEPTABLE_SIZE 5000
-#define ACCEPTABLE_RAM_FRACTION 0.5
+    logger().debug("PSO...");
 
     log_stats_legend();
 
     // XXX PSO parameters hardcoded just for now.
-    int swarm_size = 20; // Number of particles.
+    //int swarm_size = 20; // Number of particles.
     double cogconst = 0.7, // c1 = Individual learning rate.
     socialconst = 1.43, // c2 = Social parameter.
     inertia_min = 0.4, // wmin = Min of inertia weight.
     inertia_max = 0.9; // wmax = Max of inertia weight.
+
+    // Maintain same name of variables from hill climbing
+    // for better understanding.
 
     // Collect statistics about the run, in struct optim_stats
     nsteps = 0;
@@ -81,11 +81,15 @@ void particle_swarm::operator()(deme_t& deme,
     score_t best_score = very_worst_score;
     score_t best_raw_score = very_worst_score;
 
+    // Swarm size has to be variable, it would be a shame to use a lot of
+    // particles when you don't need (dim == 1);
+    int swarm_size = 1;
+
+    // TODO: create or get particles
+
     while(true){
-       // XXX infinite loop for now
-        current_number_of_evals++; // XXX remove after
-        instance new_inst(fields.packed_width());
-        deme.push_back(new_inst);
+        // TODO: update particles
+        deme.push_back(create_random_instance(fields));
 
         // score all instances in the deme
         OMP_ALGO::transform(deme.begin(), deme.end(), deme.begin_scores(),
@@ -122,14 +126,12 @@ void particle_swarm::operator()(deme_t& deme,
         }
 
         bool has_improved = opt_params.score_improved(best_score, prev_hi);
+        current_number_of_evals += swarm_size;
 
         // Make a copy of the best instance.
         //if (has_improved) {
         //    center_inst = deme[ibest].first;
         //}
-
-        // XXX change it back
-        deme.n_best_evals = current_number_of_evals;
 
         // Collect statistics about the run, in struct optim_stats
         struct timeval stop, elapsed;
@@ -152,11 +154,38 @@ void particle_swarm::operator()(deme_t& deme,
             break;
         }
         max_time -= elapsed.tv_sec; // count-down to zero.
-
     }
+
+    deme.n_best_evals = swarm_size;
     deme.n_evals = current_number_of_evals;
 
 } // ~operator
+
+// XXX for test only
+instance particle_swarm::create_random_instance(const field_set& fs){
+    instance new_inst(fs.packed_width());
+
+    // For each bit
+    if(fs.n_bits() > 0) {
+        for(auto it = fs.begin_bit(new_inst);
+                it != fs.end_bit(new_inst); ++it)
+            *it = randGen().randint(1);
+    }
+    // For each disc
+    if(fs.n_disc_fields() > 0) {
+        for(auto it = fs.begin_disc(new_inst);
+                it != fs.end_disc(new_inst); ++it)
+            *it = randGen().randint(it.multy());
+    }
+    // For each bit
+    if(fs.n_contin_fields() > 0) {
+        for(auto it = fs.begin_contin(new_inst);
+                it != fs.end_contin(new_inst); ++it)
+            *it = randGen().randint();
+    }
+
+    return new_inst;
+}
 
 void particle_swarm::log_stats_legend()
 {
