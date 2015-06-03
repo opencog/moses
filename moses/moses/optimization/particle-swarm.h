@@ -31,13 +31,13 @@
 
 #include "../representation/instance_set.h"
 #include "optimization.h"
-#include "hill-climbing.h"
 
 namespace opencog { namespace moses {
 
+typedef std::vector<double> velocity;
+
 
 // TODO: pso description
-// TODO: code pso, hill_climbing for now
 struct particle_swarm : optimizer_base
 {
     particle_swarm(const optim_parameters& op = optim_parameters())
@@ -48,11 +48,11 @@ protected:
     // log legend for graph stats
     void log_stats_legend();
 
-    instance create_random_instance(const field_set& fs);
+    void create_random_particle(const field_set& fs, instance& new_inst, velocity& vel);
 
 public:
     /**
-     * Perform search of the local neighborhood of an instance.  The
+     * XXX Perform search of the local neighborhood of an instance.  The
      * search is exhaustive if the local neighborhood is small; else
      * the local neighborhood is randomly sampled.
      *
@@ -84,6 +84,29 @@ public:
 protected:
     const uint64_t _total_RAM_bytes;
     size_t _instance_bytes;
+    // velocity bit: [0,1], cont: [-max/2, max/2], disc: [?,?]
+    std::vector<velocity> _velocities;
+    struct check_vel_bounds {
+        // Create bounds
+        // bit: [0,1], disc: [?,?], cont: [-max/2,max/2]
+        // XXX hardcoded for now.
+    protected:
+        void check_bounds(double &val, double max, double min) {
+            if(val < min)
+                val = min;
+            else if(val > max)
+                val = max;
+        }
+
+    public:
+        void bit(double &val) { check_bounds(val, 0, 1);  } // Bit: [0,1]
+        void disc(double &val) { check_bounds(val, -4, 4);  } // XXX Disc: [?,?] Probably [-it.multy(), it.multy()]
+        void cont(double &val) { check_bounds(val, -100, 100);  } // XXX Cont: [-max/2,max/2]
+
+        double gen_vbit() { return randGen().randdouble(); } // Generate between [0,1]
+        double gen_vdisc() { return (randGen().randdouble() * 8) - 4; } // XXX
+        double gen_vcont() { return (randGen().randdouble() * 200 ) - 100; } // XXX Cont: [-max/2,max/2]]() {   }; // XXX Cont: [-max/2,max/2]
+    } _vbounds;
 };
 
 

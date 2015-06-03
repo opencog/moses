@@ -37,7 +37,6 @@
 
 namespace opencog { namespace moses {
 
-
 ////////////////////
 // Particle Swarm //
 ////////////////////
@@ -83,13 +82,26 @@ void particle_swarm::operator()(deme_t& deme,
 
     // Swarm size has to be variable, it would be a shame to use a lot of
     // particles when you don't need (dim == 1);
-    int swarm_size = 1;
+    int swarm_size = 4;
+    int dim_size = fields.dim_size();
 
+    // Update velocity if deme.size() < swarm_size
+    // I don't know yet how can i know what instances were throw away.
+    // inheritance didn't works because it isn't a vector of points.
+    //for(auto inst : deme)
+    //    update_vel(inst._vel);
+
+    // Deme size == particle size
     // TODO: create or get particles
+    dorepeat(swarm_size){
+        instance new_inst(fields.packed_width());
+        velocity new_vel(dim_size);
+        create_random_particle(fields, new_inst, new_vel);
+        deme.push_back(new_inst);
+        _velocities.push_back(new_vel);
+    }
 
     while(true){
-        // TODO: update particles
-        deme.push_back(create_random_instance(fields));
 
         // score all instances in the deme
         OMP_ALGO::transform(deme.begin(), deme.end(), deme.begin_scores(),
@@ -154,6 +166,7 @@ void particle_swarm::operator()(deme_t& deme,
             break;
         }
         max_time -= elapsed.tv_sec; // count-down to zero.
+        // TODO: update particles
     }
 
     deme.n_best_evals = swarm_size;
@@ -162,29 +175,31 @@ void particle_swarm::operator()(deme_t& deme,
 } // ~operator
 
 // XXX for test only
-instance particle_swarm::create_random_instance(const field_set& fs){
-    instance new_inst(fs.packed_width());
-
+void particle_swarm::create_random_particle(const field_set& fs, instance& new_inst, velocity& vel){
     // For each bit
     if(fs.n_bits() > 0) {
         for(auto it = fs.begin_bit(new_inst);
-                it != fs.end_bit(new_inst); ++it)
-            *it = randGen().randint(1);
+                it != fs.end_bit(new_inst); ++it) {
+            *it = randGen().randbool();
+            vel.push_back(_vbounds.gen_vbit());
+        }
     }
     // For each disc
     if(fs.n_disc_fields() > 0) {
         for(auto it = fs.begin_disc(new_inst);
-                it != fs.end_disc(new_inst); ++it)
+                it != fs.end_disc(new_inst); ++it) {
             *it = randGen().randint(it.multy());
+            vel.push_back(_vbounds.gen_vdisc());
+        }
     }
     // For each bit
     if(fs.n_contin_fields() > 0) {
         for(auto it = fs.begin_contin(new_inst);
-                it != fs.end_contin(new_inst); ++it)
+                it != fs.end_contin(new_inst); ++it) {
             *it = randGen().randint();
+            vel.push_back(_vbounds.gen_vcont());
+        }
     }
-
-    return new_inst;
 }
 
 void particle_swarm::log_stats_legend()
