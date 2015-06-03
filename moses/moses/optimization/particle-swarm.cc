@@ -51,16 +51,8 @@ void particle_swarm::operator()(deme_t& deme,
 
     log_stats_legend();
 
-    // XXX PSO parameters hardcoded just for now.
-    //int swarm_size = 20; // Number of particles.
-    double cogconst = 0.7, // c1 = Individual learning rate.
-    socialconst = 1.43, // c2 = Social parameter.
-    inertia_min = 0.4, // wmin = Min of inertia weight.
-    inertia_max = 0.9; // wmax = Max of inertia weight.
-
     // Maintain same name of variables from hill climbing
     // for better understanding.
-
     // Collect statistics about the run, in struct optim_stats
     nsteps = 0;
     demeID = deme.getID();
@@ -69,30 +61,32 @@ void particle_swarm::operator()(deme_t& deme,
     gettimeofday(&start, NULL);
 
     const field_set& fields = deme.fields();
-
     // Track RAM usage. Instances can chew up boat-loads of RAM.
     _instance_bytes = sizeof(instance)
         + sizeof(packed_t) * fields.packed_width();
 
-    size_t current_number_of_evals = 0;
-
-    composite_score best_cscore = worst_composite_score;
-    score_t best_score = very_worst_score;
-    score_t best_raw_score = very_worst_score;
+    // XXX PSO parameters hardcoded just for now.
+    //int swarm_size = 20; // Number of particles.
+    double cogconst = 0.7, // c1 = Individual learning rate.
+    socialconst = 1.43, // c2 = Social parameter.
+    inertia_min = 0.4, // wmin = Min of inertia weight.
+    inertia_max = 0.9; // wmax = Max of inertia weight.
 
     // Swarm size has to be variable, it would be a shame to use a lot of
     // particles when you don't need (dim == 1);
     int swarm_size = 4;
     int dim_size = fields.dim_size();
+    // Inertia calculation
+    double inertia_factor = inertia_max,
+           decinertia_factor = (inertia_max - inertia_min) / (max_evals / swarm_size);
 
-    // Update velocity if deme.size() < swarm_size
+    // TODO: Update velocity if deme.size() < swarm_size
     // I don't know yet how can i know what instances were throw away.
     // inheritance didn't works because it isn't a vector of points.
     //for(auto inst : deme)
     //    update_vel(inst._vel);
 
-    // Deme size == particle size
-    // TODO: create or get particles
+    // Deme size == particle size.
     dorepeat(swarm_size){
         instance new_inst(fields.packed_width());
         velocity new_vel(dim_size);
@@ -101,7 +95,18 @@ void particle_swarm::operator()(deme_t& deme,
         _velocities.push_back(new_vel);
     }
 
+    // Inicialization of particle best and global best, and their scores.
+    auto part_bests = deme;
+    auto best_global = deme[0];
+    // Equal to HC.
+    composite_score best_cscore = worst_composite_score;
+    score_t best_score = very_worst_score;
+    score_t best_raw_score = very_worst_score;
+    size_t current_number_of_evals = 0;
+
+    unsigned iteration = 0;
     while(true){
+        logger().debug("Iteration: %u", ++iteration);
 
         // score all instances in the deme
         OMP_ALGO::transform(deme.begin(), deme.end(), deme.begin_scores(),
@@ -109,23 +114,23 @@ void particle_swarm::operator()(deme_t& deme,
                             // ref instead of by copy
                             boost::bind(boost::cref(iscorer), _1));
 
-        // Check if there is an instance in the deme better than
-        // the best candidate
-        score_t prev_hi = best_score;
-        score_t prev_best_raw = best_raw_score;
-
-        unsigned ibest = 0;
-        for (unsigned i = 0;
-             std::next(deme.begin(), i) != deme.end(); ++i)
-        {
+        // XXX What score do i use?
+        // I'll use best_score for now.
+        bool has_improved = false;
+        for (unsigned i = 0; i < deme.size(); ++i) {
             const composite_score &inst_cscore = deme[i].second;
             score_t iscore = inst_cscore.get_penalized_score();
-            if (iscore >  best_score) {
-                best_cscore = inst_cscore;
-                best_score = iscore;
-                ibest = i;
+            if(iscore > part_bests[i].second.get_penalized_score()){
+                //part_scores[lind] = iscore;
+                part_bests[i] = deme[i];
+                if (iscore >  best_global.second.get_penalized_score()) {
+                    has_improved = true;
+                    best_cscore = inst_cscore;
+                    best_score = iscore;
+                    best_global = deme[i];
+                }
             }
-
+            //lit++;
             // The instance with the best raw score will typically
             // *not* be the same as the the one with the best
             // weighted score.  We need the raw score for the
@@ -137,13 +142,7 @@ void particle_swarm::operator()(deme_t& deme,
             }
         }
 
-        bool has_improved = opt_params.score_improved(best_score, prev_hi);
         current_number_of_evals += swarm_size;
-
-        // Make a copy of the best instance.
-        //if (has_improved) {
-        //    center_inst = deme[ibest].first;
-        //}
 
         // Collect statistics about the run, in struct optim_stats
         struct timeval stop, elapsed;
@@ -166,7 +165,14 @@ void particle_swarm::operator()(deme_t& deme,
             break;
         }
         max_time -= elapsed.tv_sec; // count-down to zero.
-        // TODO: update particles
+
+        /* If we've aleady gotten the best possible score, we are done. */
+        if (opt_params.terminate_if_gte <= best_raw_score) {
+            logger().debug("Terminate Local Search: Found best score");
+            break;
+        }
+
+       // TODO: update particles
     }
 
     deme.n_best_evals = swarm_size;
