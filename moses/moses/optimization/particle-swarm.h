@@ -41,14 +41,14 @@ typedef std::vector<double> velocity;
 struct particle_swarm : optimizer_base
 {
     particle_swarm(const optim_parameters& op = optim_parameters())
-        : optimizer_base(op), _total_RAM_bytes(getTotalRAM())
-    {}
+        : optimizer_base(op), _total_RAM_bytes(getTotalRAM()) {}
 
 protected:
     // log legend for graph stats
     void log_stats_legend();
 
-    void create_random_particle(const field_set& fs, instance& new_inst, velocity& vel);
+    void create_random_particle(const field_set& fs,
+            instance& new_inst, velocity& vel);
 
 public:
     /**
@@ -107,6 +107,14 @@ protected:
         double gen_vdisc() { return (randGen().randdouble() * 8) - 4; } // XXX
         double gen_vcont() { return (randGen().randdouble() * 200 ) - 100; } // XXX Cont: [-max/2,max/2]]() {   }; // XXX Cont: [-max/2,max/2]
     } _vbounds;
+
+    // XXX PSO parameters hardcoded just for now.
+    //int swarm_size = 20; // Number of particles.
+    double cogconst = 0.7, // c1 = Individual learning rate.
+    socialconst = 1.43, // c2 = Social parameter.
+    inertia_min = 0.4, // wmin = Min of inertia weight.
+    inertia_max = 0.9; // wmax = Max of inertia weight.
+
 };
 
 

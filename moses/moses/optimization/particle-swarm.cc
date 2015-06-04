@@ -65,13 +65,6 @@ void particle_swarm::operator()(deme_t& deme,
     _instance_bytes = sizeof(instance)
         + sizeof(packed_t) * fields.packed_width();
 
-    // XXX PSO parameters hardcoded just for now.
-    //int swarm_size = 20; // Number of particles.
-    double cogconst = 0.7, // c1 = Individual learning rate.
-    socialconst = 1.43, // c2 = Social parameter.
-    inertia_min = 0.4, // wmin = Min of inertia weight.
-    inertia_max = 0.9; // wmax = Max of inertia weight.
-
     // Swarm size has to be variable, it would be a shame to use a lot of
     // particles when you don't need (dim == 1);
     int swarm_size = 4;
@@ -96,7 +89,7 @@ void particle_swarm::operator()(deme_t& deme,
     }
 
     // Inicialization of particle best and global best, and their scores.
-    auto part_bests = deme;
+    auto bests_part = deme;
     auto best_global = deme[0];
     // Equal to HC.
     composite_score best_cscore = worst_composite_score;
@@ -120,9 +113,8 @@ void particle_swarm::operator()(deme_t& deme,
         for (unsigned i = 0; i < deme.size(); ++i) {
             const composite_score &inst_cscore = deme[i].second;
             score_t iscore = inst_cscore.get_penalized_score();
-            if(iscore > part_bests[i].second.get_penalized_score()){
-                //part_scores[lind] = iscore;
-                part_bests[i] = deme[i];
+            if(iscore > bests_part[i].second.get_penalized_score()){
+                bests_part[i] = deme[i];
                 if (iscore >  best_global.second.get_penalized_score()) {
                     has_improved = true;
                     best_cscore = inst_cscore;
@@ -130,7 +122,7 @@ void particle_swarm::operator()(deme_t& deme,
                     best_global = deme[i];
                 }
             }
-            //lit++;
+
             // The instance with the best raw score will typically
             // *not* be the same as the the one with the best
             // weighted score.  We need the raw score for the
@@ -172,7 +164,64 @@ void particle_swarm::operator()(deme_t& deme,
             break;
         }
 
-       // TODO: update particles
+        // TODO: update velocities.
+        for(unsigned part = 0; part < swarm_size; ++part){ // Part == particle index
+            unsigned dim = 0; // Dim == dimension index
+
+            // Bit velocity update
+            // XXX IT ISN'T THE ORIGINAL BPSO it's just a test for now
+            for(auto dit = fields.begin_bit(deme[part].first),
+                    lit = fields.begin_bit(bests_part[part].first),
+                    git = fields.begin_bit(best_global);
+                    dit != fields.end_bit(deme[part].first);
+                    ++dit, ++lit, ++git, ++dim){ //Next
+
+                double& vel = _velocities[part][dim];
+                vel = (inertia_factor * vel) + // Maintain velocity
+                    (cogconst * randGen().randdouble() * (*lit - *dit)) + // Go to my best
+                    (socialconst * randGen().randdouble() * (*git - *dit)); // Go to global best
+                _vbounds.bit(vel); // check bounds for bit velocity
+                //*dit = ((*dit + vel) > 0.5) ? true : false;
+                //logger().debug("test: %d", *dit);
+            }
+            // Discrete velocity update
+            // XXX IT ISN'T THE ORIGINAL DPSO it's just a test for now
+            for(auto dit = fields.begin_disc(deme[part].first),
+                    lit = fields.begin_disc(bests_part[part].first),
+                    git = fields.begin_disc(best_global);
+                    dit != fields.end_disc(deme[part].first);
+                    ++dit, ++lit, ++git, ++dim){ //Next
+
+                double& vel = _velocities[part][dim];
+                vel = (inertia_factor * vel) + // Maintain velocity
+                    (cogconst * randGen().randdouble()
+                        * (((disc_t) *lit) - ((disc_t) *dit))) + // Go to my best
+                    (socialconst * randGen().randdouble()
+                        * (((disc_t) *git) - ((disc_t) *dit))); // Go to global best
+                _vbounds.disc(vel); // check bounds for disc velocity
+                //logger().debug("test: %d", (disc_t) *dit);
+                //*dit = ((disc_t) *dit) + std::round(vel);
+                //logger().debug("test2: %d", (disc_t) *dit);
+            }
+            // Continuos velocity update
+            // This is the original one
+            for(auto dit = fields.begin_contin(deme[part].first),
+                    lit = fields.begin_contin(bests_part[part].first),
+                    git = fields.begin_contin(best_global);
+                    dit != fields.end_contin(deme[part].first);
+                    ++dit, ++lit, ++git, ++dim){ //Next
+
+                double& vel = _velocities[part][dim];
+                vel = (inertia_factor * vel) + // Maintain velocity
+                    (cogconst * randGen().randdouble() * (*lit - *dit)) + // Go to my best
+                    (socialconst * randGen().randdouble() * (*git - *dit)); // Go to global best
+                _vbounds.cont(vel); // check bounds for contin velocity
+                //*dit = *dit + vel;
+            }
+        }
+
+        // TODO: update particles
+        inertia_factor -= decinertia_factor;
     }
 
     deme.n_best_evals = swarm_size;
@@ -180,8 +229,8 @@ void particle_swarm::operator()(deme_t& deme,
 
 } // ~operator
 
-// XXX for test only
-void particle_swarm::create_random_particle(const field_set& fs, instance& new_inst, velocity& vel){
+void particle_swarm::create_random_particle (
+        const field_set& fs, instance& new_inst, velocity& vel){
     // For each bit
     if(fs.n_bits() > 0) {
         for(auto it = fs.begin_bit(new_inst);
