@@ -85,7 +85,6 @@ protected:
     const uint64_t _total_RAM_bytes;
     size_t _instance_bytes;
     // velocity bit: [0,1], cont: [-max/2, max/2], disc: [?,?]
-    std::vector<velocity> _velocities;
     struct check_vel_bounds {
         // Create bounds
         // bit: [0,1], disc: [?,?], cont: [-max/2,max/2]

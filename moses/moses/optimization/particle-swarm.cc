@@ -78,14 +78,22 @@ void particle_swarm::operator()(deme_t& deme,
     // inheritance didn't works because it isn't a vector of points.
     //for(auto inst : deme)
     //    update_vel(inst._vel);
-
+    std::vector<velocity> _velocities;
+    dorepeat(deme.size()){
+        velocity vel(dim_size);
+        // Reinicialize new velocities.
+        dorepeat(fields.n_bits()) { vel.push_back(_vbounds.gen_vbit()); }
+        dorepeat(fields.n_disc_fields()) { vel.push_back(_vbounds.gen_vdisc()); }
+        dorepeat(fields.n_contin_fields()) { vel.push_back(_vbounds.gen_vcont()); }
+        _velocities.push_back(vel);
+    }
     // Deme size == particle size.
-    dorepeat(swarm_size){
+    dorepeat(swarm_size - deme.size()){
         instance new_inst(fields.packed_width());
-        velocity new_vel(dim_size);
-        create_random_particle(fields, new_inst, new_vel);
+        velocity vel(dim_size);
+        create_random_particle(fields, new_inst, vel);
         deme.push_back(new_inst);
-        _velocities.push_back(new_vel);
+        _velocities.push_back(vel);
     }
 
     // Inicialization of particle best and global best, and their scores.
@@ -98,6 +106,7 @@ void particle_swarm::operator()(deme_t& deme,
     size_t current_number_of_evals = 0;
 
     unsigned iteration = 0;
+    unsigned not_improving = 0;
     while(true){
         logger().debug("Iteration: %u", ++iteration);
 
@@ -164,6 +173,13 @@ void particle_swarm::operator()(deme_t& deme,
             break;
         }
 
+        // TODO: work in a better way to identify convergence.
+        not_improving = (has_improved) ? 0 : not_improving + 1;
+        if (not_improving > 1) {
+            logger().debug("Terminate Local Search: Convergence.");
+            break;
+        }
+
         // TODO: update velocities.
         for(unsigned part = 0; part < swarm_size; ++part){ // Part == particle index
             unsigned dim = 0; // Dim == dimension index
@@ -195,13 +211,11 @@ void particle_swarm::operator()(deme_t& deme,
                 double& vel = _velocities[part][dim];
                 vel = (inertia_factor * vel) + // Maintain velocity
                     (cogconst * randGen().randdouble()
-                        * (((disc_t) *lit) - ((disc_t) *dit))) + // Go to my best
+                     * (double)(*lit - *dit)) + // Go to my best
                     (socialconst * randGen().randdouble()
-                        * (((disc_t) *git) - ((disc_t) *dit))); // Go to global best
+                     * (double)(*git - *dit)); // Go to global best
                 _vbounds.disc(vel); // check bounds for disc velocity
-                //logger().debug("test: %d", (disc_t) *dit);
-                //*dit = ((disc_t) *dit) + std::round(vel);
-                //logger().debug("test2: %d", (disc_t) *dit);
+                *dit = std::fmin(std::fmax((((double) *dit) + vel), 7), 0);// CONFINAMENT WITHOUT WIND DISPERSION
             }
             // Continuos velocity update
             // This is the original one
