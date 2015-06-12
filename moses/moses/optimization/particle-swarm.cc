@@ -85,6 +85,10 @@ void particle_swarm::operator()(deme_t& best_parts,
         velocities.push_back(vel);
     }
 
+    // XXX Remove, test only
+    logger().debug("Bit: %d, Disc: %d, Contin: %d",
+            fields.n_bits(), fields.n_disc_fields(), fields.n_contin_fields());
+
     // Inicialization of particle best and global best, and their scores.
     auto temp_parts = best_parts;
     auto best_global = best_parts[0];
@@ -169,7 +173,6 @@ void particle_swarm::operator()(deme_t& best_parts,
             break;
         }
 
-        // TODO: update velocities.
         for(unsigned part = 0; part < swarm_size; ++part){ // Part == particle index
             unsigned dim = 0; // Dim == dimension index
 
@@ -238,6 +241,7 @@ void particle_swarm::operator()(deme_t& best_parts,
 
 void particle_swarm::create_random_particle (
         const field_set& fs, instance& new_inst, velocity& vel){
+    // XXX Should i remove the ifs?
     // For each bit
     if(fs.n_bits() > 0) {
         for(auto it = fs.begin_bit(new_inst);
@@ -264,6 +268,9 @@ void particle_swarm::create_random_particle (
     }
 }
 
+//void particle_swarm::update_velocity() {
+//
+//}
 void particle_swarm::log_stats_legend()
 {
     logger().info() << "PSO: # "   /* Legend for graph stats */
