@@ -36,6 +36,115 @@ namespace opencog { namespace moses {
 
 typedef std::vector<double> velocity;
 
+// Half of the things implemented here (about PSO) is based on or citatios of this article:
+// Nouaouria, Nabila, and Mounir Boukadoum. "Improved global-best particle swarm
+// optimization algorithm with mixed-attribute data classification capability."
+// Applied Soft Computing 21 (2014): 554-567.
+
+// Particle Swarm parameters
+struct ps_parameters
+{
+    // There isn't need to set all this parameters, for most
+    // problems it works with the default values.
+    ps_parameters(unsigned max_parts = 20,
+                // Bit parameters
+                double bit_c1 = 0.7,
+                double bit_c2 = 1.43,
+                // Disc parameters
+                double disc_c1 = 0.7,
+                double disc_c2 = 1.43,
+                // Contin parameters
+                double cont_c1 = 0.7,
+                double cont_c2 = 1.43
+                )
+        : max_parts(max_parts),
+          bit_c1(bit_c1),
+          bit_c2(bit_c2),
+          disc_c1(disc_c1),
+          disc_c2(disc_c2),
+          cont_c1(cont_c1),
+          cont_c2(cont_c2),
+          inertia_min(0.4),
+          inertia_max(0.9),
+          bit_min_value(0),
+          bit_max_value(1),
+          disc_min_value(0),
+          disc_max_value(1),
+          cont_min_value(std::numeric_limits<contin_t>::min()),
+          cont_max_value(std::numeric_limits<contin_t>::max()),
+          bit_min_vel(0),
+          bit_max_vel(1),
+          disc_min_vel(-0.5),
+          disc_max_vel(0.5),
+          cont_min_vel(-std::numeric_limits<contin_t>::max()),
+          cont_max_vel(std::numeric_limits<contin_t>::max()) {}
+
+    // Maximum number of particles per deme
+    unsigned max_parts;
+
+    // For continuous problems, 0.7 and 1.43 are good values.
+    // XXX I have to find the best values for bit and disc.
+    // Information from: M. Clerc, L’optimisation par essaim particulaire: versions
+    // paramétriques et adaptatives, Hermes Science Publications, Lavoisier, Paris, 2005.
+    double bit_c1, disc_c1, cont_c1; // c1 = Individual learning rate.
+    double bit_c2, disc_c2, cont_c2; // c2 = Social parameter.
+
+    // For Inertia, i don't know yet what i'll do, but for now i'll maintain
+    // one inertia for all types, with values from here:
+    // A.P. Engelbrecht, Computational Intelligence: An Introduction, John Willey &
+    // Sons Editions, Chichester, 2007.
+    // XXX The values probably are those, but the increment factor don't work the
+    // same way, it will return some demes before the end of the evaluations.
+    double inertia_min, inertia_max; // Min and max inertia weight.
+
+    // Values and Velocity:
+    // For bit:
+    // Use DPSO (original) where the bit have a minimal value of 0 and maximal of 1.
+    // The concept of velocity doesn't exist as in continuous. Now it represents
+    // changes of probabilities that a bit will be in one state or the other.
+    // From here:
+    // J. Kennedy, R. Eberhart, A discrete binary version of the particle swarm
+    // algorithm, IEEE Conf. Syst. Man Cybern. 5 (1997) 4104–4108.
+    //
+    // For discrete:
+    // Use rounding off for now XXX it isn't so effective, but for now is easier
+    // to implement. I'll use MVPSO, JPSO or IMVPSO later.
+    // In the transformation i'll use min value of 0 and 1 for max in the continuous
+    // space mapped from 0 to .multy() in discrete space.
+    // For velocity, i'll use the commom rule [-range/2, range/2].
+    // In this case: [-0.5, 0.5]
+    // For rounding off, i'm using this modification:
+    // H.A. Hassan, I.M. Yassin, A.K. Halim, A. Zabidi, Z.A. Majid, H.Z. Abidin, Logical
+    // effort using a novel discrete particle swarm optimization algorithm, in: 5th
+    // International Colloquium on Signal Processing & Its Applications (CSPA), 2009,
+    // 978-1-4244-4152-5/09.
+    //
+    // For continuous:
+    // Classical PSO from here:
+    // J. Kennedy, R. Eberhart, Particle swarm optimization, in: Proceedings of the 4th
+    // IEEE International Conference on Neural Networks, Perth, Australia, 1995, pp.
+    // 1942–1948.
+    // With two more mechanism: confinement and wind dispersion from:
+    // Confinament:
+    // M. Clerc, L’optimisation par essaim particulaire: versions paramétriques et
+    // adaptatives, Hermes Science Publications, Lavoisier, Paris, 2005.
+    // Wind Dispersion:
+    // K. Chandramouli, E. Izquierdo, Image classification using chaotic particle swarm
+    // optimization, in: Proceedings of the International Conference on Image Pro-
+    // cessing (ICIP ‘06), 2006.
+    // The two combined:
+    // N. Nouaouria, M. Boukadoum, Particle swarm classification for high dimen-
+    // sional data sets, in: Proceedings of 22th International IEEE Conference on Tools
+    // with Artificial Intelligence IEEE-ICTAI, vol. 1, Arras, France, 27–29 October 2010,
+    // 2010, pp. 87–93.
+    // XXX If i have time, i'll put some variation here to get a better global search.
+    double bit_min_value, bit_max_value, // [0,1]
+           disc_min_value, disc_max_value, // [0,1] in rounding off
+           cont_min_value, cont_max_value; // [min contin_t, max contin_t]
+    double bit_min_vel, bit_max_vel, // [0,1]
+           disc_min_vel, disc_max_vel, // [-0.5,0.5] in rounding off
+           cont_min_vel, cont_max_vel; // [min contin_t, max contin_t]
+};
 
 // TODO: pso description
 struct particle_swarm : optimizer_base
