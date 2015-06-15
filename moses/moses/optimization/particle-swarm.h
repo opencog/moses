@@ -42,6 +42,7 @@ typedef std::vector<double> velocity;
 // Applied Soft Computing 21 (2014): 554-567.
 
 // Particle Swarm parameters
+// XXX PSO parameters hardcoded just for now.
 struct ps_parameters
 {
     // There isn't need to set all this parameters, for most
@@ -76,8 +77,8 @@ struct ps_parameters
           bit_max_vel(1),
           disc_min_vel(-0.5),
           disc_max_vel(0.5),
-          cont_min_vel(-std::numeric_limits<contin_t>::max()),
-          cont_max_vel(std::numeric_limits<contin_t>::max()) {}
+          cont_min_vel(-std::numeric_limits<contin_t>::max() / 2),
+          cont_max_vel(std::numeric_limits<contin_t>::max() / 2) {}
 
     // Maximum number of particles per deme
     unsigned max_parts;
@@ -125,7 +126,7 @@ struct ps_parameters
     // IEEE International Conference on Neural Networks, Perth, Australia, 1995, pp.
     // 1942–1948.
     // With two more mechanism: confinement and wind dispersion from:
-    // Confinament:
+    // Confinement:
     // M. Clerc, L’optimisation par essaim particulaire: versions paramétriques et
     // adaptatives, Hermes Science Publications, Lavoisier, Paris, 2005.
     // Wind Dispersion:
@@ -146,6 +147,10 @@ struct ps_parameters
            cont_min_vel, cont_max_vel; // [min contin_t, max contin_t]
 };
 
+////////////////////
+// Particle Swarm //
+////////////////////
+
 // TODO: pso description
 struct particle_swarm : optimizer_base
 {
@@ -153,47 +158,86 @@ struct particle_swarm : optimizer_base
         : optimizer_base(op), _total_RAM_bytes(getTotalRAM()) {}
 
 protected:
+    // Variables:
+    const uint64_t _total_RAM_bytes;
+    size_t _instance_bytes;
+    const ps_parameters ps_params;
+
+    // Functions:
     // log legend for graph stats
     void log_stats_legend();
 
     void create_random_particle(const field_set& fs,
             instance& new_inst, velocity& vel);
 
-public:
-    /**
-     * XXX Perform search of the local neighborhood of an instance.  The
-     * search is exhaustive if the local neighborhood is small; else
-     * the local neighborhood is randomly sampled.
-     *
-     * @param deme      Where to store the candidates searched. The deme
-     *                  is assumed to be empty.  If it is not empty, it
-     *                  will be overwritten.
-     * @prama init_inst Start the seach from this instance.
-     * @param iscorer   the Scoring function.
-     * @param max_evals The maximum number of evaluations to perform.
-     */
-    void operator()(deme_t& deme,
-                    const instance& init_inst,
-                    const iscorer_base& iscorer,
-                    unsigned max_evals,
-                    time_t max_time);
-
-    // Like above but assumes that init_inst is null (backward compatibility)
-    // XXX In fact, all of the current code uses this entry point, no one
-    // bothers to supply an initial instance.
-    void operator()(deme_t& deme,
-                    const iscorer_base& iscorer,
-                    unsigned max_evals,
-                    time_t max_time)
-    {
-        instance init_inst(deme.fields().packed_width());
-        operator()(deme, init_inst, iscorer, max_evals, max_time);
+    // Check the limits of something
+    void check_bounds(double &val, const double& max, const double& min) {
+        if(val < min)
+            val = min;
+        else if(val > max)
+            val = max;
     }
 
-protected:
-    const uint64_t _total_RAM_bytes;
-    size_t _instance_bytes;
-    // velocity bit: [0,1], cont: [-max/2, max/2], disc: [?,?]
+////// Velocity Functions //////
+    //// Check bounds functions:
+    // There's no real bounds check for bit velocity
+    void check_bit_vel(double &vel) { // XXX do sigmoid
+        vel = (1 / (1 + std::exp(-vel))); } // XXX if slow try f(x) = x / (1 + abs(x)) or tanh(x)
+    void check_disc_vel(double &vel) { // Check bounds of a discrete velocity
+        check_bounds(vel, ps_params.disc_min_vel, ps_params.disc_max_vel); }
+    void check_cont_vel(double &vel) { // Check bounds of a continuous velocity
+        check_bounds(vel, ps_params.cont_min_vel, ps_params.cont_max_vel); }
+
+    //// Generate initial random velocity
+    double gen_bit_vel() { // [0,1]
+        return randGen().randdouble(); }
+    double gen_disc_vel() { // [-0.5, 0.5] when mapped
+        return (randGen().randdouble() - ps_params.disc_max_vel); }
+    double gen_cont_vel() { // Change to use the range if you can set the velocity.
+        return (randGen().randdouble() *
+                ps_params.cont_max_value ) - ps_params.cont_max_vel; }
+
+////// Particle values functions //////
+    //// Generate initial random instance knob value
+    double gen_bit_value() { // [0,1]
+        return randGen().randdouble(); }
+    double gen_disc_value() { // [0,1]
+        return randGen().randdouble(); }
+    double gen_cont_value() { // [min, max] of contin_t
+        return (((randGen().randbool()) ? 1 : -1) *
+                randGen().randdouble() * ps_params.cont_max_value); }
+
+    //// Confinament functions:
+    // There isn't confinement for bit values
+    // The update rule already kind of do it.
+    void confinement_disc(double &value) {
+        check_bounds(value, ps_params.disc_min_value, ps_params.disc_max_value); }
+    void confinement_cont(double &value) {
+        // XXX this will not work, check overflow and underflow
+        // before confinement.
+        check_bounds(value, ps_params.cont_min_value, ps_params.cont_max_value); }
+
+////// TODO: Update specific functions //////
+
+    ////// All
+    // Update velocity independently of type.
+    void update_velocity(double& vel, const double& inertia, const double& c1,
+            const double& c2, double&& local_diff, double&& global_diff) {
+        vel = (inertia * vel) +
+            (c1 * randGen().randdouble() * local_diff) +
+            (c2 * randGen().randdouble() * global_diff);
+    }
+    //// Bit
+    //
+    //void update_bit_vel(double& vel, const double& inertia, const ) {
+    //
+    //}
+    //// Discrete
+    //
+    //
+    //// Continuous
+
+////// XXX Remove when new update rules are done.
     struct check_vel_bounds {
         // Create bounds
         // bit: [0,1], disc: [?,?], cont: [-max/2,max/2]
@@ -222,6 +266,38 @@ protected:
     socialconst = 1.43, // c2 = Social parameter.
     inertia_min = 0.4, // wmin = Min of inertia weight.
     inertia_max = 0.9; // wmax = Max of inertia weight.
+
+public:
+    /**
+     * XXX Perform search of the local neighborhood of an instance.  The
+     * search is exhaustive if the local neighborhood is small; else
+     * the local neighborhood is randomly sampled.
+     *
+     * @param deme      Where to store the candidates searched. The deme
+     *                  is assumed to be empty.  If it is not empty, it
+     *                  will be overwritten.
+     * @prama init_inst Start the seach from this instance.
+     * @param iscorer   the Scoring function.
+     * @param max_evals The maximum number of evaluations to perform.
+     */
+    void operator()(deme_t& deme,
+                    const instance& init_inst,
+                    const iscorer_base& iscorer,
+                    unsigned max_evals,
+                    time_t max_time);
+
+    // Like above but assumes that init_inst is null (backward compatibility)
+    // XXX In fact, all of the current code uses this entry point, no one
+    // bothers to supply an initial instance.
+    // This could help PSO if we maintain the best particle.
+    void operator()(deme_t& deme,
+                    const iscorer_base& iscorer,
+                    unsigned max_evals,
+                    time_t max_time)
+    {
+        instance init_inst(deme.fields().packed_width());
+        operator()(deme, init_inst, iscorer, max_evals, max_time);
+    }
 
 };
 
