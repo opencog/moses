@@ -52,8 +52,8 @@ struct ps_parameters
                 double bit_c1 = 0.7,
                 double bit_c2 = 1.43,
                 // Disc parameters
-                double disc_c1 = 0.7,
-                double disc_c2 = 1.43,
+                double disc_c1 = 2.05,
+                double disc_c2 = 2.05,
                 // Contin parameters
                 double cont_c1 = 0.7,
                 double cont_c2 = 1.43
@@ -73,12 +73,18 @@ struct ps_parameters
           disc_max_value(1),
           cont_min_value(std::numeric_limits<contin_t>::min()),
           cont_max_value(std::numeric_limits<contin_t>::max()),
-          bit_min_vel(0),
-          bit_max_vel(1),
-          disc_min_vel(-0.5),
-          disc_max_vel(0.5),
+          bit_min_vel(-6), // 1.8%
+          bit_max_vel(6), // 98.2%
+          disc_min_vel(-disc_max_value/2),
+          disc_max_vel(disc_max_value/2),
           cont_min_vel(-std::numeric_limits<contin_t>::max() / 2),
-          cont_max_vel(std::numeric_limits<contin_t>::max() / 2) {}
+          cont_max_vel(std::numeric_limits<contin_t>::max() / 2),
+          range_bit_vel(bit_max_vel - bit_min_vel),
+          range_cont_vel(cont_max_vel - cont_min_vel)
+    {
+        double fi = disc_c1 + disc_c2; // where c1 + c2 > 4
+        constriction_disc = 2 / (2 - fi - std::sqrt((fi * fi) - (4 * fi)));
+    }
 
     // Maximum number of particles per deme
     unsigned max_parts;
@@ -139,12 +145,20 @@ struct ps_parameters
     // with Artificial Intelligence IEEE-ICTAI, vol. 1, Arras, France, 27–29 October 2010,
     // 2010, pp. 87–93.
     // XXX If i have time, i'll put some variation here to get a better global search.
-    double bit_min_value, bit_max_value, // [0,1]
+    double bit_min_value, bit_max_value, // [0,1] <- XXX these two aren't used yet.
            disc_min_value, disc_max_value, // [0,1] in rounding off
            cont_min_value, cont_max_value; // [min contin_t, max contin_t]
     double bit_min_vel, bit_max_vel, // [0,1]
            disc_min_vel, disc_max_vel, // [-0.5,0.5] in rounding off
            cont_min_vel, cont_max_vel; // [min contin_t, max contin_t]
+    double range_bit_vel, range_cont_vel;
+
+    // From:
+    // H.A. Hassan, I.M. Yassin, A.K. Halim, A. Zabidi, Z.A. Majid, H.Z. Abidin, Logical
+    // effort using a novel discrete particle swarm optimization algorithm, in: 5th
+    // International Colloquium on Signal Processing & Its Applications (CSPA), 2009,
+    // 978-1-4244-4152-5/09
+    double constriction_disc;
 };
 
 ////////////////////
@@ -180,9 +194,9 @@ protected:
 
 ////// Velocity Functions //////
     //// Check bounds functions:
-    // There's no real bounds check for bit velocity
-    void check_bit_vel(double &vel) { // XXX do sigmoid
-        vel = (1 / (1 + std::exp(-vel))); } // XXX if slow try f(x) = x / (1 + abs(x)) or tanh(x)
+    // There's no real bounds check for bit velocity, it's the probability.
+    void check_bit_vel(double &vel) { // Check bounds of bit velocity
+        check_bounds(vel, ps_params.bit_min_vel, ps_params.bit_max_vel); }
     void check_disc_vel(double &vel) { // Check bounds of a discrete velocity
         check_bounds(vel, ps_params.disc_min_vel, ps_params.disc_max_vel); }
     void check_cont_vel(double &vel) { // Check bounds of a continuous velocity
@@ -190,12 +204,13 @@ protected:
 
     //// Generate initial random velocity
     double gen_bit_vel() { // [0,1]
-        return randGen().randdouble(); }
+        return (randGen().randdouble() *
+                ps_params.range_bit_vel) - ps_params.bit_max_vel; }
     double gen_disc_vel() { // [-0.5, 0.5] when mapped
         return (randGen().randdouble() - ps_params.disc_max_vel); }
-    double gen_cont_vel() { // Change to use the range if you can set the velocity.
+    double gen_cont_vel() {
         return (randGen().randdouble() *
-                ps_params.cont_max_value ) - ps_params.cont_max_vel; }
+                ps_params.range_cont_vel ) - ps_params.cont_max_vel; }
 
 ////// Particle values functions //////
     //// Generate initial random instance knob value
@@ -217,25 +232,70 @@ protected:
         // before confinement.
         check_bounds(value, ps_params.cont_min_value, ps_params.cont_max_value); }
 
-////// TODO: Update specific functions //////
+////// Update specific functions //////
 
     ////// All
-    // Update velocity independently of type.
-    void update_velocity(double& vel, const double& inertia, const double& c1,
-            const double& c2, double&& local_diff, double&& global_diff) {
-        vel = (inertia * vel) +
-            (c1 * randGen().randdouble() * local_diff) +
-            (c2 * randGen().randdouble() * global_diff);
-    }
+    void update_particle(instance& temp, const instance& local,
+            const instance& global, velocity& vels, const field_set& fs);
     //// Bit
     //
-    //void update_bit_vel(double& vel, const double& inertia, const ) {
-    //
-    //}
+    void update_bit_vel(double& vel, int&& temp,
+            int&& local, int&& global) { // Bit type is bool
+        // Bool convertion to int: false to 0, true to 1.
+        // Bit vel hasn't inertia.
+        vel += (ps_params.bit_c1 * randGen().randdouble() * (local - temp)) +
+            (ps_params.bit_c2 * randGen().randdouble() * (global - temp));
+        check_bit_vel(vel);
+    }
+
+    // XXX Explanation
+    void update_bit_value(bool& value, const double& vel){
+        value = (randGen().randdouble() < // Sigmoid
+                (1 / (1 + std::exp(-vel)))); // XXX if slow try f(x) = x / (1 + abs(x)) or tanh(x)
+    }
+
+    void update_bit_particle(instance& temp, const instance& local, const instance& global,
+            const velocity::iterator velocity, const field_set& fs);
     //// Discrete
-    //
-    //
+    // Update discrete velocity
+    void update_disc_vel(double& vel, const double& temp,
+            const double& local, const double& global) { // Disc type before conversion is double
+        // Disc vel hasn't inertia, but has Constriction Factor
+        vel += (ps_params.bit_c1 * randGen().randdouble() * (local - temp)) +
+            (ps_params.bit_c2 * randGen().randdouble() * (global - temp));
+        vel = vel * ps_params.constriction_disc; // Constriction part
+        check_disc_vel(vel);
+    }
+
+    disc_t cont2disc(const double& cvalue, const unsigned max_dvalue){
+        // The original formula is dvalue = std::round(
+        // (((max_dvalue - min_dvalue) * (cvalue - min_cvalue))/(max_cvalue - min_cvalue)) + min_dvalue);
+        // But [min_cvalue, max_cvalue] == [0,1] and
+        // min_dvalue == 0 and max_dvalue == it.multy(), so...
+        return (disc_t) std::round(cvalue * max_dvalue); // Return dvalue
+    }
+
+    // Discrete values have to be outside the deme.
+    struct discrete_particles {
+        std::vector<std::vector<double>> temp, best_local;
+        unsigned global_index;
+        discrete_particles(unsigned part_size, unsigned disc_size) :
+            temp(part_size, std::vector<double>(disc_size)),
+            best_local(part_size, std::vector<double>(disc_size)),
+            global_index(0) {}
+    };
+
+    // Update discrete part of the particle
+    void update_disc_particle(instance& temp, const instance& local, const instance& global,
+            const velocity::iterator velocity, const field_set& fs);
+
     //// Continuous
+    // Update contin part of the particle
+    void update_cont_particle(instance& temp, const instance& local, const instance& global,
+            const velocity::iterator velocity, const field_set& fs);
+
+    // TODO: Wind dispersion, but test without first
+    // Make it later is easy.
 
 ////// XXX Remove when new update rules are done.
     struct check_vel_bounds {
