@@ -47,26 +47,15 @@ struct ps_parameters
 {
     // There isn't need to set all this parameters, for most
     // problems it works with the default values.
-    ps_parameters(unsigned max_parts = 20,
-                // Bit parameters
-                double bit_c1 = 0.7,
-                double bit_c2 = 1.43,
-                // Disc parameters
-                double disc_c1 = 2.05,
-                double disc_c2 = 2.05,
-                // Contin parameters
-                double cont_c1 = 0.7,
-                double cont_c2 = 1.43
-                )
-        : max_parts(max_parts),
-          bit_c1(bit_c1),
-          bit_c2(bit_c2),
-          disc_c1(disc_c1),
-          disc_c2(disc_c2),
-          cont_c1(cont_c1),
-          cont_c2(cont_c2),
-          inertia_min(0.4),
-          inertia_max(0.9),
+    ps_parameters(unsigned max_num_parts = 20)
+        : max_parts(max_num_parts),
+          bit_c1(0.7),
+          bit_c2(1.43),
+          disc_c1(2.05),
+          disc_c2(2.05),
+          cont_c1(0.7),
+          cont_c2(1.43),
+          inertia(0.7), // static inertia
           bit_min_value(0),
           bit_max_value(1),
           disc_min_value(0),
@@ -96,13 +85,10 @@ struct ps_parameters
     double bit_c1, disc_c1, cont_c1; // c1 = Individual learning rate.
     double bit_c2, disc_c2, cont_c2; // c2 = Social parameter.
 
-    // For Inertia, i don't know yet what i'll do, but for now i'll maintain
-    // one inertia for all types, with values from here:
-    // A.P. Engelbrecht, Computational Intelligence: An Introduction, John Willey &
-    // Sons Editions, Chichester, 2007.
-    // XXX The values probably are those, but the increment factor don't work the
-    // same way, it will return some demes before the end of the evaluations.
-    double inertia_min, inertia_max; // Min and max inertia weight.
+    // See Inertia Weight Strategies in Particle Swarm Optimization
+    // For better ways than static.
+    // Inertia is just used in continuous for now.
+    double inertia; // Static Inertia for now.
 
     // Values and Velocity:
     // For bit:
@@ -168,8 +154,9 @@ struct ps_parameters
 // TODO: pso description
 struct particle_swarm : optimizer_base
 {
-    particle_swarm(const optim_parameters& op = optim_parameters())
-        : optimizer_base(op), _total_RAM_bytes(getTotalRAM()) {}
+    particle_swarm(const optim_parameters& op = optim_parameters(),
+                    const ps_parameters& ps = ps_parameters())
+        : optimizer_base(op), _total_RAM_bytes(getTotalRAM()), ps_params(ps) {}
 
 protected:
     // Variables:
@@ -177,12 +164,29 @@ protected:
     size_t _instance_bytes;
     const ps_parameters ps_params;
 
-    // Functions:
+    // Structs
+    // Discrete values have to be outside the deme.
+    struct discrete_particles {
+        std::vector<std::vector<double>> temp, best_personal;
+        unsigned global_index;
+        discrete_particles(unsigned part_size, unsigned disc_size) :
+            temp(part_size, std::vector<double>(disc_size)),
+            best_personal(part_size, std::vector<double>(disc_size)),
+            global_index(0) {}
+    };
+
+    // Functions (Better explanation in declaration):
     // log legend for graph stats
     void log_stats_legend();
 
-    void create_random_particle(const field_set& fs,
-            instance& new_inst, velocity& vel);
+    unsigned calc_swarm_size (const field_set& fs);
+
+    void initialize_particles (const unsigned& swarm_size,
+        deme_t& best_parts, std::vector<velocity>& velocities,
+        discrete_particles& disc_parts, const field_set& fields);
+
+    void initialize_random_particle (instance& new_inst, velocity& vel,
+        std::vector<double>& dist_values, const field_set& fs);
 
     // Check the limits of something
     void check_bounds(double &val, const double& max, const double& min) {
@@ -233,17 +237,16 @@ protected:
         check_bounds(value, ps_params.cont_min_value, ps_params.cont_max_value); }
 
 ////// Update specific functions //////
-
     ////// All
-    void update_particle(instance& temp, const instance& local,
+    void update_particle(instance& temp, const instance& personal,
             const instance& global, velocity& vels, const field_set& fs);
     //// Bit
     //
     void update_bit_vel(double& vel, int&& temp,
-            int&& local, int&& global) { // Bit type is bool
+            int&& personal, int&& global) { // Bit type is bool
         // Bool convertion to int: false to 0, true to 1.
         // Bit vel hasn't inertia.
-        vel += (ps_params.bit_c1 * randGen().randdouble() * (local - temp)) +
+        vel += (ps_params.bit_c1 * randGen().randdouble() * (personal - temp)) +
             (ps_params.bit_c2 * randGen().randdouble() * (global - temp));
         check_bit_vel(vel);
     }
@@ -254,14 +257,15 @@ protected:
                 (1 / (1 + std::exp(-vel)))); // XXX if slow try f(x) = x / (1 + abs(x)) or tanh(x)
     }
 
-    void update_bit_particle(instance& temp, const instance& local, const instance& global,
+    void update_bit_particle(instance& temp, const instance& personal, const instance& global,
             const velocity::iterator velocity, const field_set& fs);
+
     //// Discrete
     // Update discrete velocity
     void update_disc_vel(double& vel, const double& temp,
-            const double& local, const double& global) { // Disc type before conversion is double
+            const double& personal, const double& global) { // Disc type before conversion is double
         // Disc vel hasn't inertia, but has Constriction Factor
-        vel += (ps_params.bit_c1 * randGen().randdouble() * (local - temp)) +
+        vel += (ps_params.bit_c1 * randGen().randdouble() * (personal - temp)) +
             (ps_params.bit_c2 * randGen().randdouble() * (global - temp));
         vel = vel * ps_params.constriction_disc; // Constriction part
         check_disc_vel(vel);
@@ -272,26 +276,18 @@ protected:
         // (((max_dvalue - min_dvalue) * (cvalue - min_cvalue))/(max_cvalue - min_cvalue)) + min_dvalue);
         // But [min_cvalue, max_cvalue] == [0,1] and
         // min_dvalue == 0 and max_dvalue == it.multy(), so...
-        return (disc_t) std::round(cvalue * max_dvalue); // Return dvalue
+        return (disc_t) std::round(cvalue * (max_dvalue - 1)); // Return dvalue
     }
 
-    // Discrete values have to be outside the deme.
-    struct discrete_particles {
-        std::vector<std::vector<double>> temp, best_local;
-        unsigned global_index;
-        discrete_particles(unsigned part_size, unsigned disc_size) :
-            temp(part_size, std::vector<double>(disc_size)),
-            best_local(part_size, std::vector<double>(disc_size)),
-            global_index(0) {}
-    };
+    void fill_disc_instance(const std::vector<double>& cvalues, instance& inst);
 
     // Update discrete part of the particle
-    void update_disc_particle(instance& temp, const instance& local, const instance& global,
+    void update_disc_particle(instance& temp, const instance& personal, const instance& global,
             const velocity::iterator velocity, const field_set& fs);
 
     //// Continuous
     // Update contin part of the particle
-    void update_cont_particle(instance& temp, const instance& local, const instance& global,
+    void update_cont_particle(instance& temp, const instance& personal, const instance& global,
             const velocity::iterator velocity, const field_set& fs);
 
     // TODO: Wind dispersion, but test without first

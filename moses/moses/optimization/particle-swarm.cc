@@ -65,33 +65,31 @@ void particle_swarm::operator()(deme_t& best_parts,
     _instance_bytes = sizeof(instance)
         + sizeof(packed_t) * fields.packed_width();
 
-    // Swarm size has to be variable, it would be a shame to use a lot of
-    // particles when you don't need (dim == 1);
-    int swarm_size = 4;
+    unsigned swarm_size = calc_swarm_size(fields);
     int dim_size = fields.dim_size();
-    // Inertia calculation
-    double inertia_factor = inertia_max,
-           decinertia_factor = (inertia_max - inertia_min) / (max_evals / swarm_size);
 
-    // Is deme always empty?
-    // Deme size == particle size.
-    // create new particles
-    std::vector<velocity> velocities;
-    dorepeat(swarm_size){
-        instance new_inst(fields.packed_width());
-        velocity vel;
-        create_random_particle(fields, new_inst, vel);
-        best_parts.push_back(new_inst);
-        velocities.push_back(vel);
-    }
-
-    // XXX Remove, test only
-    logger().debug("Bit: %d, Disc: %d, Contin: %d",
-            fields.n_bits(), fields.n_disc_fields(), fields.n_contin_fields());
-
+////// Particle Inicialization //////
+    // Reserve uninitialized instances to not have to reallocate.
+    // best_parts deme will be the best "personal" (or "local")
+    // particles vector to be returned.
+    best_parts.reserve(swarm_size);
+    // New uninitialized velocity matrix
+    // To update the instances
+    std::vector<velocity> velocities(swarm_size,
+            std::vector<double>(fields.dim_size()));
+    // Discrete values of the instance aren't used for update,
+    // because of that we need a structure similar to the continuous.
+    discrete_particles
+        disc_parts(swarm_size, fields.n_disc_fields());
+    // Get the 3 uninitialized sets above and initialize then with
+    // the instance definition inside fields and ps_params.
+    initialize_particles(swarm_size,
+            best_parts, velocities, disc_parts, fields);
     // Inicialization of particle best and global best, and their scores.
     auto temp_parts = best_parts;
     auto best_global = best_parts[0];
+
+
     // Equal to HC.
     composite_score best_cscore = worst_composite_score;
     score_t best_score = very_worst_score;
@@ -108,6 +106,7 @@ void particle_swarm::operator()(deme_t& best_parts,
                             // using bind cref so that score is passed by
                             // ref instead of by copy
                             boost::bind(boost::cref(iscorer), _1));
+        current_number_of_evals += swarm_size;
 
         // XXX What score do i use?
         // I'll use best_score for now.
@@ -124,7 +123,6 @@ void particle_swarm::operator()(deme_t& best_parts,
                     best_global = temp_parts[i];
                 }
             }
-
             // The instance with the best raw score will typically
             // *not* be the same as the the one with the best
             // weighted score.  We need the raw score for the
@@ -135,8 +133,6 @@ void particle_swarm::operator()(deme_t& best_parts,
                 best_raw_score = rscore;
             }
         }
-
-        current_number_of_evals += swarm_size;
 
         // Collect statistics about the run, in struct optim_stats
         struct timeval stop, elapsed;
@@ -173,6 +169,7 @@ void particle_swarm::operator()(deme_t& best_parts,
             break;
         }
 
+        // TODO: Update Particles
         for(unsigned part = 0; part < swarm_size; ++part){ // Part == particle index
             unsigned dim = 0; // Dim == dimension index
 
@@ -185,7 +182,7 @@ void particle_swarm::operator()(deme_t& best_parts,
                     ++tit, ++lit, ++git, ++dim){ //Next
 
                 double& vel = velocities[part][dim];
-                vel = (inertia_factor * vel) + // Maintain velocity
+                vel = (ps_params.inertia * vel) + // Maintain velocity
                     (cogconst * randGen().randdouble() * (*lit - *tit)) + // Go to my best
                     (socialconst * randGen().randdouble() * (*git - *tit)); // Go to global best
                 _vbounds.bit(vel); // check bounds for bit velocity
@@ -202,7 +199,7 @@ void particle_swarm::operator()(deme_t& best_parts,
 
                 double& vel = velocities[part][dim];
                 logger().debug("vi: %f", vel);
-                vel = (inertia_factor * vel) + // Maintain velocity
+                vel = (ps_params.inertia * vel) + // Maintain velocity
                     (cogconst * randGen().randdouble()
                      * (double)(*lit - *tit)) + // Go to my best
                     (socialconst * randGen().randdouble()
@@ -222,7 +219,7 @@ void particle_swarm::operator()(deme_t& best_parts,
                     ++tit, ++lit, ++git, ++dim){ //Next
 
                 double& vel = velocities[part][dim];
-                vel = (inertia_factor * vel) + // Maintain velocity
+                vel = (ps_params.inertia * vel) + // Maintain velocity
                     (cogconst * randGen().randdouble() * (*lit - *tit)) + // Go to my best
                     (socialconst * randGen().randdouble() * (*git - *tit)); // Go to global best
                 _vbounds.cont(vel); // check bounds for contin velocity
@@ -230,8 +227,6 @@ void particle_swarm::operator()(deme_t& best_parts,
             }
         }
 
-        // TODO: update particles
-        inertia_factor -= decinertia_factor;
     }
 
     best_parts.n_best_evals = swarm_size;
@@ -239,38 +234,8 @@ void particle_swarm::operator()(deme_t& best_parts,
 
 } // ~operator
 
-void particle_swarm::create_random_particle (
-        const field_set& fs, instance& new_inst, velocity& vel){
-    // XXX Should i remove the ifs?
-    // For each bit
-    if(fs.n_bits() > 0) {
-        for(auto it = fs.begin_bit(new_inst);
-                it != fs.end_bit(new_inst); ++it) {
-            *it = randGen().randbool();
-            vel.push_back(_vbounds.gen_vbit());
-        }
-    }
-    // For each disc
-    if(fs.n_disc_fields() > 0) {
-        for(auto it = fs.begin_disc(new_inst);
-                it != fs.end_disc(new_inst); ++it) {
-            *it = randGen().randint(it.multy());
-            vel.push_back(_vbounds.gen_vdisc());
-        }
-    }
-    // For each bit
-    if(fs.n_contin_fields() > 0) {
-        for(auto it = fs.begin_contin(new_inst);
-                it != fs.end_contin(new_inst); ++it) {
-            *it = randGen().randint();
-            vel.push_back(_vbounds.gen_vcont());
-        }
-    }
-}
+////// The functions below are ordered by utilization order inside the function above.
 
-//void particle_swarm::update_velocity() {
-//
-//}
 void particle_swarm::log_stats_legend()
 {
     logger().info() << "PSO: # "   /* Legend for graph stats */
@@ -290,6 +255,68 @@ void particle_swarm::log_stats_legend()
         "delta_raw\t"
         "complexity";
 }
+
+// TODO: Explanation
+// There's no explanation for this, it's just a temporary solution.
+// Maybe use adaptative pso, something like LPSO (Lander).
+unsigned particle_swarm::calc_swarm_size(const field_set& fs) {
+    // For disc i'll the same of bit, for bit i'll use a proportion of disc_t value.
+    const double byte_relation = 3 / 4, // For each 4 bytes i'll let it similar to a cont.
+                cont_relation = 3; // Normally 3x or 4x of the dimension.
+
+    unsigned disc_bit_size = sizeof(instance) -
+            (fs.n_contin_fields() * sizeof(contin_t));
+
+    double total = disc_bit_size * byte_relation +
+                    fs.n_contin_fields() * cont_relation;
+    check_bounds(total, 4, ps_params.max_parts); // 4 For min, less than this is almost useless.
+    return std::round(total); // Round it.
+}
+
+void particle_swarm::initialize_particles (const unsigned& swarm_size,
+        deme_t& best_parts, std::vector<velocity>& velocities,
+        discrete_particles& disc_parts, const field_set& fields) {
+    auto velit = velocities.begin();
+    auto dvit = disc_parts.best_personal.begin();
+    dorepeat(swarm_size){
+        instance new_inst(fields.packed_width());
+        initialize_random_particle(
+            new_inst, *velit, *dvit, fields);
+        velit++; dvit++;
+        best_parts.push_back(new_inst);
+    }
+}
+
+void particle_swarm::initialize_random_particle (instance& new_inst,
+        velocity& vel, std::vector<double>& dist_values, const field_set& fs){
+    auto vit = vel.begin();
+    // For each bit
+    for(auto it = fs.begin_bit(new_inst);
+            it != fs.end_bit(new_inst); ++it, ++vit) {
+        *it = gen_bit_value(); // New bit value in instance
+        *vit = gen_bit_vel(); // New bit velocity
+    }
+    // For each disc
+    auto dit = dist_values.begin();
+    for(auto it = fs.begin_disc(new_inst);
+            it != fs.end_disc(new_inst); ++it, ++vit, ++dit) {
+        *dit = gen_disc_value(); // New cont value for disc
+        *it = cont2disc(*dit, it.multy()); // New disc value in instance
+        *vit = gen_disc_vel(); // New disc velocity
+    }
+    // For each contin
+    for(auto it = fs.begin_contin(new_inst);
+            it != fs.end_contin(new_inst); ++it, ++vit) {
+        *it = gen_cont_value(); // New cont value in instance
+        *vit = gen_cont_vel(); // New cont velocity
+    }
+}
+
+void particle_swarm::fill_disc_instance(
+        const std::vector<double>& cvalues, instance& inst) {
+
+}
+
 
 } // ~namespace moses
 } // ~namespace opencog
