@@ -168,11 +168,9 @@ protected:
     // Discrete values have to be outside the deme.
     struct discrete_particles {
         std::vector<std::vector<double>> temp, best_personal;
-        unsigned global_index;
         discrete_particles(unsigned part_size, unsigned disc_size) :
             temp(part_size, std::vector<double>(disc_size)),
-            best_personal(part_size, std::vector<double>(disc_size)),
-            global_index(0) {}
+            best_personal(part_size, std::vector<double>(disc_size)) {}
     };
 
     // Functions (Better explanation in declaration):
@@ -189,7 +187,7 @@ protected:
         std::vector<double>& dist_values, const field_set& fs);
 
     // Check the limits of something
-    void check_bounds(double &val, const double& max, const double& min) {
+    void check_bounds(double &val, const double& min, const double& max) {
         if(val < min)
             val = min;
         else if(val > max)
@@ -238,8 +236,13 @@ protected:
 
 ////// Update specific functions //////
     ////// All
+    void update_particles(const unsigned& swarm_size,
+        deme_t& best_parts, deme_t& temp_parts, const unsigned& best_global,
+        std::vector<velocity>& velocities, discrete_particles& disc_parts, const field_set& fields);
+
     void update_particle(instance& temp, const instance& personal,
             const instance& global, velocity& vels, const field_set& fs);
+
     //// Bit
     //
     void update_bit_vel(double& vel, int&& temp,
@@ -299,7 +302,7 @@ protected:
         // bit: [0,1], disc: [?,?], cont: [-max/2,max/2]
         // XXX hardcoded for now.
     protected:
-        void check_bounds(double &val, double max, double min) {
+        void check_bounds(double &val, double min, double max) {
             if(val < min)
                 val = min;
             else if(val > max)
