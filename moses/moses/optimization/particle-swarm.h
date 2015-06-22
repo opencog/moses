@@ -227,21 +227,19 @@ protected:
     //// Confinament functions:
     // There isn't confinement for bit values
     // The update rule already kind of do it.
-    void confinement_disc(double &value) {
+    void confinement_disc(double& value) {
         check_bounds(value, ps_params.disc_min_value, ps_params.disc_max_value); }
-    void confinement_cont(double &value) {
+    disc_t confinement_cont(const contin_t& value, const double& vel) {
         // XXX this will not work, check overflow and underflow
         // before confinement.
-        check_bounds(value, ps_params.cont_min_value, ps_params.cont_max_value); }
+        //check_bounds(value, ps_params.cont_min_value, ps_params.cont_max_value);
+        return (contin_t) value + vel;
+    }
 
 ////// Update specific functions //////
-    ////// All
-    void update_particles(const unsigned& swarm_size,
-        deme_t& best_parts, deme_t& temp_parts, const unsigned& best_global,
+    //// All
+    void update_particles(deme_t& temp_parts, const deme_t& best_parts, const int& best_index,
         std::vector<velocity>& velocities, discrete_particles& disc_parts, const field_set& fields);
-
-    void update_particle(instance& temp, const instance& personal,
-            const instance& global, velocity& vels, const field_set& fs);
 
     //// Bit
     //
@@ -255,26 +253,26 @@ protected:
     }
 
     // XXX Explanation
-    void update_bit_value(bool& value, const double& vel){
-        value = (randGen().randdouble() < // Sigmoid
+    bool new_bit_value(const double& vel){
+        return (randGen().randdouble() < // Sigmoid
                 (1 / (1 + std::exp(-vel)))); // XXX if slow try f(x) = x / (1 + abs(x)) or tanh(x)
     }
 
-    void update_bit_particle(instance& temp, const instance& personal, const instance& global,
-            const velocity::iterator velocity, const field_set& fs);
+    void update_bit_particle(instance& temp, const instance& personal,
+        const instance& global, velocity::iterator vel, const field_set& fs);
 
     //// Discrete
     // Update discrete velocity
     void update_disc_vel(double& vel, const double& temp,
             const double& personal, const double& global) { // Disc type before conversion is double
         // Disc vel hasn't inertia, but has Constriction Factor
-        vel += (ps_params.bit_c1 * randGen().randdouble() * (personal - temp)) +
-            (ps_params.bit_c2 * randGen().randdouble() * (global - temp));
+        vel += (ps_params.disc_c1 * randGen().randdouble() * (personal - temp)) +
+            (ps_params.disc_c2 * randGen().randdouble() * (global - temp));
         vel = vel * ps_params.constriction_disc; // Constriction part
         check_disc_vel(vel);
     }
 
-    disc_t cont2disc(const double& cvalue, const unsigned max_dvalue){
+    disc_t cont2disc(double& cvalue, const unsigned max_dvalue){
         // The original formula is dvalue = std::round(
         // (((max_dvalue - min_dvalue) * (cvalue - min_cvalue))/(max_cvalue - min_cvalue)) + min_dvalue);
         // But [min_cvalue, max_cvalue] == [0,1] and
@@ -282,49 +280,42 @@ protected:
         return (disc_t) std::round(cvalue * (max_dvalue - 1)); // Return dvalue
     }
 
-    void fill_disc_instance(const std::vector<double>& cvalues, instance& inst);
+    // XXX Explanation
+    disc_t new_disc_value(double& cvalue,
+            const double& vel, const unsigned max_dvalue){
+        cvalue += vel;
+        confinement_disc(cvalue);
+        return cont2disc(cvalue, max_dvalue);
+    }
 
     // Update discrete part of the particle
-    void update_disc_particle(instance& temp, const instance& personal, const instance& global,
-            const velocity::iterator velocity, const field_set& fs);
+    void update_disc_particle(instance& dtemp, std::vector<double>& temp,
+        const std::vector<double>& personal, const std::vector<double>& global,
+        velocity::iterator vel, const field_set& fs);
 
     //// Continuous
+    // Update continuous velocity
+    void update_cont_vel(double& vel, const double& temp,
+            const double& personal, const double& global) { // Cont type is double
+        vel += ps_params.inertia * ((ps_params.cont_c1 * randGen().randdouble() * (personal - temp)) +
+                (ps_params.cont_c2 * randGen().randdouble() * (global - temp)));
+        check_cont_vel(vel);
+    }
+
+    // XXX Explanation
+   contin_t new_cont_value(const contin_t& value, const double& vel){
+        // Wind dispersion enter here.
+        // Confinament HAS to be done before sum the values
+        // because it has to check for overflow or underflow.
+        return confinement_cont(value, vel);
+    }
+
     // Update contin part of the particle
-    void update_cont_particle(instance& temp, const instance& personal, const instance& global,
-            const velocity::iterator velocity, const field_set& fs);
+    void update_cont_particle(instance& temp, const instance& personal,
+            const instance& global, velocity::iterator vel, const field_set& fs);
 
     // TODO: Wind dispersion, but test without first
     // Make it later is easy.
-
-////// XXX Remove when new update rules are done.
-    struct check_vel_bounds {
-        // Create bounds
-        // bit: [0,1], disc: [?,?], cont: [-max/2,max/2]
-        // XXX hardcoded for now.
-    protected:
-        void check_bounds(double &val, double min, double max) {
-            if(val < min)
-                val = min;
-            else if(val > max)
-                val = max;
-        }
-
-    public:
-        void bit(double &val) { check_bounds(val, 0, 1);  } // Bit: [0,1]
-        void disc(double &val) { check_bounds(val, -4, 4);  } // XXX Disc: [?,?] Probably [-it.multy(), it.multy()]
-        void cont(double &val) { check_bounds(val, -100, 100);  } // XXX Cont: [-max/2,max/2]
-
-        double gen_vbit() { return randGen().randdouble(); } // Generate between [0,1]
-        double gen_vdisc() { return (randGen().randdouble() * 8) - 4; } // XXX
-        double gen_vcont() { return (randGen().randdouble() * 200 ) - 100; } // XXX Cont: [-max/2,max/2]]() {   }; // XXX Cont: [-max/2,max/2]
-    } _vbounds;
-
-    // XXX PSO parameters hardcoded just for now.
-    //int swarm_size = 20; // Number of particles.
-    double cogconst = 0.7, // c1 = Individual learning rate.
-    socialconst = 1.43, // c2 = Social parameter.
-    inertia_min = 0.4, // wmin = Min of inertia weight.
-    inertia_max = 0.9; // wmax = Max of inertia weight.
 
 public:
     /**
@@ -346,9 +337,9 @@ public:
                     time_t max_time);
 
     // Like above but assumes that init_inst is null (backward compatibility)
-    // XXX In fact, all of the current code uses this entry point, no one
+    // In fact, all of the current code uses this entry point, no one
     // bothers to supply an initial instance.
-    // This could help PSO if we maintain the best particle.
+    // XXX This could help PSO if we maintain the best particle.
     void operator()(deme_t& deme,
                     const iscorer_base& iscorer,
                     unsigned max_evals,

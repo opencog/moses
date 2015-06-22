@@ -173,7 +173,7 @@ void particle_swarm::operator()(deme_t& best_parts,
         }
 
         // Update particles
-        update_particles(swarm_size, best_parts, temp_parts,
+        update_particles(temp_parts, best_parts,
                 best_global, velocities, disc_parts, fields);
     }
 
@@ -245,11 +245,11 @@ void particle_swarm::initialize_random_particle (instance& new_inst,
         *vit = gen_bit_vel(); // New bit velocity
     }
     // For each disc
-    auto dit = dist_values.begin();
-    for(auto it = fs.begin_disc(new_inst);
-            it != fs.end_disc(new_inst); ++it, ++vit, ++dit) {
-        *dit = gen_disc_value(); // New cont value for disc
-        *it = cont2disc(*dit, it.multy()); // New disc value in instance
+    auto cit = dist_values.begin();
+    for(auto dit = fs.begin_disc(new_inst);
+            dit != fs.end_disc(new_inst); ++dit, ++vit, ++cit) {
+        *cit = gen_disc_value(); // New cont value for disc
+        *dit = cont2disc(*cit, dit.multy()); // New disc value in instance
         *vit = gen_disc_vel(); // New disc velocity
     }
     // For each contin
@@ -260,72 +260,73 @@ void particle_swarm::initialize_random_particle (instance& new_inst,
     }
 }
 
-void particle_swarm::update_particles(const unsigned& swarm_size,
-        deme_t& best_parts, deme_t& temp_parts, const unsigned& best_global,
+void particle_swarm::update_particles(deme_t& temp_parts, const deme_t& best_parts, const int& best_index,
         std::vector<velocity>& velocities, discrete_particles& disc_parts, const field_set& fields) {
 
-    // TODO: Update Particles
-    for(unsigned part = 0; part < swarm_size; ++part){ // Part == particle index
-        unsigned dim = 0; // Dim == dimension index
+    // Iteration initialization
+    auto temp_it = temp_parts.begin();
+    auto end_temp = temp_parts.end(); // End
+    auto bestp_it = best_parts.begin();
+    auto vels_it = velocities.begin();
+    // Discrete part
+    auto disc_temp_it = disc_parts.temp.begin();
+    auto disc_best_it = disc_parts.best_personal.begin();
 
-        // Bit velocity update
-        // XXX IT ISN'T THE ORIGINAL BPSO it's just a test for now
-        for(auto tit = fields.begin_bit(temp_parts[part].first),
-                lit = fields.begin_bit(best_parts[part].first),
-                git = fields.begin_bit(best_parts[best_global].first);
-                tit != fields.end_bit(temp_parts[part].first);
-                ++tit, ++lit, ++git, ++dim){ //Next
+    // Get best instance from best particles
+    const instance& best_instance = best_parts[best_index].first;
+    const std::vector<double>& disc_best_instance =
+                            disc_parts.best_personal[best_index];
 
-            double& vel = velocities[part][dim];
-            vel = (ps_params.inertia * vel) + // Maintain velocity
-                (cogconst * randGen().randdouble() * (*lit - *tit)) + // Go to my best
-                (socialconst * randGen().randdouble() * (*git - *tit)); // Go to global best
-            check_bit_vel(vel); // check bounds for bit velocity
-            //*tit = ((*tit + vel) > 0.5) ? true : false;
-            //logger().debug("test: %d", *dit);
-        }
-         // Discrete velocity update
-         // XXX IT ISN'T THE ORIGINAL DPSO it's just a test for now
-        for(auto tit = fields.begin_disc(temp_parts[part].first),
-                lit = fields.begin_disc(best_parts[part].first),
-                git = fields.begin_disc(best_parts[best_global].first);
-                tit != fields.end_disc(temp_parts[part].first);
-            ++tit, ++lit, ++git, ++dim){ //Next
+    // Over each instance
+    for(;temp_it != end_temp; temp_it++, bestp_it++,
+            vels_it++, disc_temp_it++, disc_best_it){
+        instance& temp_inst = (*temp_it).first;
+        const instance& bestp_inst = (*bestp_it).first;
+        velocity::iterator vel = (*vels_it).begin();
 
-            double& vel = velocities[part][dim];
-            logger().debug("vi: %f", vel);
-            vel = (ps_params.inertia * vel) + // Maintain velocity
-                (cogconst * randGen().randdouble()
-                 * (double)(*lit - *tit)) + // Go to my best
-                (socialconst * randGen().randdouble()
-                 * (double)(*git - *tit)); // Go to global best
-            check_disc_vel(vel); // check bounds for disc velocity
-            logger().debug("vf: %f", vel);
-            logger().debug("testi: %d", (int) *tit);
-            *tit = std::fmin(std::fmax((((double) *tit) + vel), 0), tit.multy()-1);// CONFINAMENT WITHOUT WIND DISPERSION
-            logger().debug("testf: %d", (int) *tit);
-        }
-        // Continuos velocity update
-        // This is the original one
-        for(auto tit = fields.begin_contin(temp_parts[part].first),
-                lit = fields.begin_contin(best_parts[part].first),
-                git = fields.begin_contin(best_parts[best_global].first);
-                tit != fields.end_contin(temp_parts[part].first);
-            ++tit, ++lit, ++git, ++dim){ //Next
-
-            double& vel = velocities[part][dim];
-            vel = (ps_params.inertia * vel) + // Maintain velocity
-                (cogconst * randGen().randdouble() * (*lit - *tit)) + // Go to my best
-                (socialconst * randGen().randdouble() * (*git - *tit)); // Go to global best
-            check_cont_vel(vel); // check bounds for contin velocity
-            //*dit = *dit + vel;
-        }
+        update_bit_particle(temp_inst, bestp_inst, best_instance, vel, fields);
+        update_disc_particle(temp_inst, *disc_temp_it,
+                *disc_best_it, disc_best_instance, vel, fields);
+        update_cont_particle(temp_inst, bestp_inst, best_instance, vel, fields);
     }
 }
 
-void particle_swarm::fill_disc_instance(
-        const std::vector<double>& cvalues, instance& inst) {
+void particle_swarm::update_bit_particle(instance& temp, const instance& personal,
+        const instance& global, velocity::iterator vel, const field_set& fs) {
+    auto tit = fs.begin_bit(temp); // Iterator for temporary particle
+    auto pit = fs.begin_bit(personal), // Iterator for best personal particle
+         git = fs.begin_bit(global); // Iterator for best instance
+    for(;tit != fs.end_bit(temp); // Comparison
+            ++tit, ++pit, ++git, ++vel){ //Next
+        update_bit_vel(*vel, *tit, *pit, *git);
+        *tit = new_bit_value(*vel);
+    }
+}
 
+void particle_swarm::update_disc_particle(instance& dtemp, std::vector<double>& temp,
+        const std::vector<double>& personal, const std::vector<double>& global,
+        velocity::iterator vel, const field_set& fs) {
+    auto disc_it = fs.begin_disc(dtemp); // Iterator for temporary discrete particle
+    auto tit = temp.begin(); // Iterator for temporary particle
+    auto pit = personal.begin(), // Iterator for best personal particle
+         git = global.begin(); // Iterator for best instance
+    for(;disc_it != fs.end_disc(dtemp); // Comparison
+            disc_it++, ++tit, ++pit, ++git, ++vel){ //Next
+        update_disc_vel(*vel, *tit, *pit, *git);
+        *disc_it = new_disc_value(*tit, *vel, disc_it.multy());
+    }
+}
+
+void particle_swarm::update_cont_particle(instance& temp, const instance& personal,
+        const instance& global, velocity::iterator vel, const field_set& fs) {
+    auto tit = fs.begin_contin(temp); // Iterator for temporary particle
+    auto pit = fs.begin_contin(personal), // Iterator for best personal particle
+         git = fs.begin_contin(global); // Iterator for best instance
+    for(;tit != fs.end_contin(temp); // Comparison
+            ++tit, ++pit, ++git, ++vel){ //Next
+        update_cont_vel(*vel, *tit, *pit, *git);
+        *tit = new_cont_value(*tit, *vel);
+    }
 }
 
 
