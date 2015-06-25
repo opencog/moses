@@ -1,10 +1,10 @@
 #!/bin/sh
-make -C ../../../../build/ moses
+make -j4 -C ../../../../build/
 
 MOSES="../../../../build/moses/moses/main/moses"
 FOLDER="-i ../../../../examples/example-data"
 ALGO="-a ps -l DEBUG"
-GDB="gdb -ex \"break particle-swarm.cc:272\" -ex \"run\" -args "
+GDB="gdb -ex \"break particle-swarm.cc:70\" -ex \"run\" -args "
 
 
 # Disjunction bit+disc

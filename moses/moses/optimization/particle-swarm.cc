@@ -34,6 +34,7 @@
 #include "../moses/neighborhood_sampling.h"
 
 #include "particle-swarm.h"
+#include "hill-climbing.h"
 
 namespace opencog { namespace moses {
 
@@ -91,9 +92,11 @@ void particle_swarm::operator()(deme_t& best_parts,
     // Copy the discrete information too
     disc_parts.temp = disc_parts.best_personal;
 
+    // XXX Remove, test only
+    logger().debug("Bit: %d, Disc: %d, Contin: %d",
+        fields.n_bits(), fields.n_disc_fields(), fields.n_contin_fields());
 
     // Equal to HC.
-    composite_score best_cscore = worst_composite_score;
     score_t best_score = very_worst_score;
     score_t best_raw_score = very_worst_score;
     size_t current_number_of_evals = 0;
@@ -120,8 +123,7 @@ void particle_swarm::operator()(deme_t& best_parts,
                 best_parts[i] = temp_parts[i];
                 disc_parts.best_personal[i] = disc_parts.temp[i]; //For discrete
                 has_improved = true;
-                if (iscore >  best_parts[best_global].second.get_penalized_score()) {
-                    best_cscore = inst_cscore;
+                if (iscore > best_score) {
                     best_score = iscore;
                     best_global = i;
                 }
@@ -176,6 +178,15 @@ void particle_swarm::operator()(deme_t& best_parts,
         update_particles(temp_parts, best_parts,
                 best_global, velocities, disc_parts, fields);
     }
+
+    //const hc_parameters& hc = hc_parameters();
+    //hill_climbing* _opthc =
+    //    new hill_climbing(opt_params, hc);
+    //hill_climbing& _hc = *_opthc;
+    //instance inst(best_parts[best_global].first);
+    //best_parts.clear();
+    //_hc(best_parts,inst, iscorer,
+    //        max_evals, max_time);
 
     best_parts.n_best_evals = swarm_size;
     best_parts.n_evals = current_number_of_evals;

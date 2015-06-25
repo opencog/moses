@@ -11,7 +11,7 @@ GDB="gdb -ex \"break particle-swarm.cc:100\" -ex \"run\" -args "
 
 # Predicates all
 #eval $GDB \
-$MOSES -H it $FOLDER/predicates.csv -W1 -u pred -m100 $ALGO
+$MOSES -H it $FOLDER/predicates.csv -W1 -u pred -m2000 $ALGO
 
 # Iris
 #eval $GDB \

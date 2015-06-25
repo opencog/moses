@@ -216,8 +216,8 @@ protected:
 
 ////// Particle values functions //////
     //// Generate initial random instance knob value
-    double gen_bit_value() { // [0,1]
-        return randGen().randdouble(); }
+    bool gen_bit_value() { // [0,1]
+        return randGen().randbool(); }
     double gen_disc_value() { // [0,1]
         return randGen().randdouble(); }
     double gen_cont_value() { // [min, max] of contin_t
@@ -229,6 +229,7 @@ protected:
     // The update rule already kind of do it.
     void confinement_disc(double& value) {
         check_bounds(value, ps_params.disc_min_value, ps_params.disc_max_value); }
+
     disc_t confinement_cont(const contin_t& value, const double& vel) {
         // XXX this will not work, check overflow and underflow
         // before confinement.
@@ -247,8 +248,8 @@ protected:
             int&& personal, int&& global) { // Bit type is bool
         // Bool convertion to int: false to 0, true to 1.
         // Bit vel hasn't inertia.
-        vel += (ps_params.bit_c1 * randGen().randdouble() * (personal - temp)) +
-            (ps_params.bit_c2 * randGen().randdouble() * (global - temp));
+        vel += (randGen().randdouble() * (personal - temp)) +
+            (randGen().randdouble() * (global - temp));
         check_bit_vel(vel);
     }
 
