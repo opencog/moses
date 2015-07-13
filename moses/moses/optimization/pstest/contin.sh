@@ -1,21 +1,21 @@
 #!/bin/sh
-make -C ../../../../build/ moses
+make -j4 -C ../../../../build/
 
 MOSES="../../../../build/moses/moses/main/moses"
 FOLDER="-i ../../../../examples/example-data"
 ALGO="-a ps -l DEBUG"
-GDB="gdb -ex \"break particle-swarm.cc:100\" -ex \"run\" -args "
+GDB="gdb -ex \"break particle-swarm.cc:111\" -ex \"run\" -args "
 
 # Disjunction
 
 
 # Predicates all
 #eval $GDB \
-$MOSES -H it $FOLDER/predicates.csv -W1 -u pred -m2000 $ALGO
+$MOSES -H it $FOLDER/predicates.csv -W1 -u pred -m1000 $ALGO
 
 # Iris
 #eval $GDB \
-#$MOSES $FOLDER/iris.data -u class -n sin -n log -n exp -n div -m100 $ALGO
+#$MOSES $FOLDER/iris.data -u class -n sin -n log -n exp -n div -m2000 $ALGO
 
 # Wine
 #eval $GDB \

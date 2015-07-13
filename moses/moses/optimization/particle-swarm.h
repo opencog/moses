@@ -60,14 +60,14 @@ struct ps_parameters
           bit_max_value(1),
           disc_min_value(0),
           disc_max_value(1),
-          cont_min_value(std::numeric_limits<contin_t>::min()),
-          cont_max_value(std::numeric_limits<contin_t>::max()),
+          cont_min_value(std::numeric_limits<int>::min()),
+          cont_max_value(std::numeric_limits<int>::max()),
           bit_min_vel(-6), // 1.8%
           bit_max_vel(6), // 98.2%
           disc_min_vel(-disc_max_value/2),
           disc_max_vel(disc_max_value/2),
-          cont_min_vel(-std::numeric_limits<contin_t>::max() / 2),
-          cont_max_vel(std::numeric_limits<contin_t>::max() / 2),
+          cont_min_vel(std::numeric_limits<int>::min() / 2),
+          cont_max_vel(std::numeric_limits<int>::max() / 2),
           range_bit_vel(bit_max_vel - bit_min_vel),
           range_cont_vel(cont_max_vel - cont_min_vel)
     {
@@ -145,6 +145,9 @@ struct ps_parameters
     // International Colloquium on Signal Processing & Its Applications (CSPA), 2009,
     // 978-1-4244-4152-5/09
     double constriction_disc;
+
+    // From Nil and Linas sugestion to test depth.
+    unsigned min_depth;
 };
 
 ////////////////////
@@ -179,6 +182,9 @@ protected:
 
     unsigned calc_swarm_size (const field_set& fs);
 
+//    void brute_force(deme_t deme, const instance& init_inst,
+//        const field_set& fs, const iscorer_base& iscorer);
+
     void initialize_particles (const unsigned& swarm_size,
         deme_t& best_parts, std::vector<velocity>& velocities,
         discrete_particles& disc_parts, const field_set& fields);
@@ -187,6 +193,7 @@ protected:
         std::vector<double>& dist_values, const field_set& fs);
 
     // Check the limits of something
+    // TODO: change check_bounds to use numeric from opencog/util
     void check_bounds(double &val, const double& min, const double& max) {
         if(val < min)
             val = min;
@@ -216,13 +223,12 @@ protected:
 
 ////// Particle values functions //////
     //// Generate initial random instance knob value
-    bool gen_bit_value() { // [0,1]
+    bool gen_bit_value() { // {0,1}
         return randGen().randbool(); }
     double gen_disc_value() { // [0,1]
         return randGen().randdouble(); }
-    double gen_cont_value() { // [min, max] of contin_t
-        return (((randGen().randbool()) ? 1 : -1) *
-                randGen().randdouble() * ps_params.cont_max_value); }
+    double gen_cont_value() { //
+        return (randGen().randdouble() * ps_params.range_cont_vel) + ps_params.cont_min_vel; }
 
     //// Confinament functions:
     // There isn't confinement for bit values
@@ -230,12 +236,8 @@ protected:
     void confinement_disc(double& value) {
         check_bounds(value, ps_params.disc_min_value, ps_params.disc_max_value); }
 
-    disc_t confinement_cont(const contin_t& value, const double& vel) {
-        // XXX this will not work, check overflow and underflow
-        // before confinement.
-        //check_bounds(value, ps_params.cont_min_value, ps_params.cont_max_value);
-        return (contin_t) value + vel;
-    }
+    void confinement_cont(double& value) {
+        check_bounds(value, ps_params.cont_min_value, ps_params.cont_max_value); }
 
 ////// Update specific functions //////
     //// All
@@ -304,11 +306,11 @@ protected:
     }
 
     // XXX Explanation
-   contin_t new_cont_value(const contin_t& value, const double& vel){
+    contin_t new_cont_value(const contin_t& value, const double& vel){
         // Wind dispersion enter here.
-        // Confinament HAS to be done before sum the values
-        // because it has to check for overflow or underflow.
-        return confinement_cont(value, vel);
+        contin_t res = value + vel;
+        confinement_cont(res);
+        return res;
     }
 
     // Update contin part of the particle

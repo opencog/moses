@@ -67,7 +67,14 @@ void particle_swarm::operator()(deme_t& best_parts,
         + sizeof(packed_t) * fields.packed_width();
 
     unsigned swarm_size = calc_swarm_size(fields);
-    int dim_size = fields.dim_size();
+    unsigned dim_size = fields.dim_size();
+
+    // If small enough, try all combinations
+    // It won't work for if it has contin knobs.
+    //if(fields.contin().size() == 0 && swarm_size < ps_params.max_parts){
+    //    brute_force(best_parts, init_inst, fields, iscorer);
+    //    return;
+    //}
 
 ////// Particle Inicialization //////
     // Reserve uninitialized instances to not have to reallocate.
@@ -91,10 +98,6 @@ void particle_swarm::operator()(deme_t& best_parts,
     unsigned best_global = 0; // Any value
     // Copy the discrete information too
     disc_parts.temp = disc_parts.best_personal;
-
-    // XXX Remove, test only
-    logger().debug("Bit: %d, Disc: %d, Contin: %d",
-        fields.n_bits(), fields.n_disc_fields(), fields.n_contin_fields());
 
     // Equal to HC.
     score_t best_score = very_worst_score;
@@ -169,7 +172,7 @@ void particle_swarm::operator()(deme_t& best_parts,
 
         // TODO: work in a better way to identify convergence.
         not_improving = (has_improved) ? 0 : not_improving + 1;
-        if (not_improving > 2) {
+        if (not_improving > 3) {
             logger().debug("Terminate Local Search: Convergence.");
             break;
         }
@@ -178,15 +181,6 @@ void particle_swarm::operator()(deme_t& best_parts,
         update_particles(temp_parts, best_parts,
                 best_global, velocities, disc_parts, fields);
     }
-
-    //const hc_parameters& hc = hc_parameters();
-    //hill_climbing* _opthc =
-    //    new hill_climbing(opt_params, hc);
-    //hill_climbing& _hc = *_opthc;
-    //instance inst(best_parts[best_global].first);
-    //best_parts.clear();
-    //_hc(best_parts,inst, iscorer,
-    //        max_evals, max_time);
 
     best_parts.n_best_evals = swarm_size;
     best_parts.n_evals = current_number_of_evals;
@@ -219,18 +213,34 @@ void particle_swarm::log_stats_legend()
 // There's no explanation for this, it's just a temporary solution.
 // Maybe use adaptative pso, something like LPSO (Lander).
 unsigned particle_swarm::calc_swarm_size(const field_set& fs) {
-    // For disc i'll the same of bit, for bit i'll use a proportion of disc_t value.
-    const double byte_relation = 3.0 / 4.0, // For each 4 bytes i'll let it similar to a cont.
+    // For disc i'll use the same proportion of bit.
+    const double byte_relation = 3.0 / 4.0, // For each 4 bit i'll let it similar to a cont.
                 cont_relation = 3; // Normally 3x or 4x of the dimension.
 
-    unsigned disc_bit_size = sizeof(instance) -
-            (fs.n_contin_fields() * sizeof(contin_t));
+    unsigned disc_bit_size = fs.n_bits();
 
     double total = disc_bit_size * byte_relation +
-                    fs.n_contin_fields() * cont_relation;
+                    fs.contin().size() * cont_relation;
     check_bounds(total, 4, ps_params.max_parts); // 4 For min, less than this is almost useless.
     return std::round(total); // Round it.
 }
+
+//void particle_swarm::brute_force(deme_t deme, const instance& init_inst,
+//        const field_set& fs, const iscorer_base& iscorer){
+//    // Add init_inst
+//    deme.push_back(init_inst);
+//    // Generate all possibilities
+//    generate_all_in_neighborhood(fs, fs.dim_size(),
+//            deme.begin() + 1, //Plus the init_inst
+//            deme.end(), init_inst);
+//
+//    // score all instances in the deme
+//    OMP_ALGO::transform(deme.begin(), deme.end(),
+//            deme.begin_scores(), boost::bind(boost::cref(iscorer), _1));
+//
+//    deme.n_best_evals = deme.size();
+//    deme.n_evals = deme.size();
+//}
 
 void particle_swarm::initialize_particles (const unsigned& swarm_size,
         deme_t& best_parts, std::vector<velocity>& velocities,
