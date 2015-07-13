@@ -192,34 +192,28 @@ protected:
     void initialize_random_particle (instance& new_inst, velocity& vel,
         std::vector<double>& dist_values, const field_set& fs);
 
-    // Check the limits of something
-    // TODO: change check_bounds to use numeric from opencog/util
-    void check_bounds(double &val, const double& min, const double& max) {
-        if(val < min)
-            val = min;
-        else if(val > max)
-            val = max;
-    }
-
 ////// Velocity Functions //////
     //// Check bounds functions:
     // There's no real bounds check for bit velocity, it's the probability.
     void check_bit_vel(double &vel) { // Check bounds of bit velocity
-        check_bounds(vel, ps_params.bit_min_vel, ps_params.bit_max_vel); }
+        vel = bound(vel, ps_params.bit_min_vel, ps_params.bit_max_vel); }
     void check_disc_vel(double &vel) { // Check bounds of a discrete velocity
-        check_bounds(vel, ps_params.disc_min_vel, ps_params.disc_max_vel); }
+        vel = bound(vel, ps_params.disc_min_vel, ps_params.disc_max_vel); }
     void check_cont_vel(double &vel) { // Check bounds of a continuous velocity
-        check_bounds(vel, ps_params.cont_min_vel, ps_params.cont_max_vel); }
+        vel = bound(vel, ps_params.cont_min_vel, ps_params.cont_max_vel); }
 
     //// Generate initial random velocity
     double gen_bit_vel() { // [0,1]
         return (randGen().randdouble() *
-                ps_params.range_bit_vel) - ps_params.bit_max_vel; }
+                ps_params.range_bit_vel) - ps_params.bit_max_vel;
+    }
     double gen_disc_vel() { // [-0.5, 0.5] when mapped
-        return (randGen().randdouble() - ps_params.disc_max_vel); }
+        return (randGen().randdouble() - ps_params.disc_max_vel);
+    }
     double gen_cont_vel() {
         return (randGen().randdouble() *
-                ps_params.range_cont_vel ) - ps_params.cont_max_vel; }
+                ps_params.range_cont_vel ) - ps_params.cont_max_vel;
+    }
 
 ////// Particle values functions //////
     //// Generate initial random instance knob value
@@ -228,16 +222,22 @@ protected:
     double gen_disc_value() { // [0,1]
         return randGen().randdouble(); }
     double gen_cont_value() { //
-        return (randGen().randdouble() * ps_params.range_cont_vel) + ps_params.cont_min_vel; }
+        return (randGen().randdouble() *
+                ps_params.range_cont_vel) + ps_params.cont_min_vel;
+    }
 
     //// Confinament functions:
     // There isn't confinement for bit values
     // The update rule already kind of do it.
     void confinement_disc(double& value) {
-        check_bounds(value, ps_params.disc_min_value, ps_params.disc_max_value); }
+        value = bound(value, ps_params.disc_min_value,
+                ps_params.disc_max_value);
+    }
 
     void confinement_cont(double& value) {
-        check_bounds(value, ps_params.cont_min_value, ps_params.cont_max_value); }
+        value = bound(value, ps_params.cont_min_value,
+                ps_params.cont_max_value);
+    }
 
 ////// Update specific functions //////
     //// All
