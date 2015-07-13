@@ -245,9 +245,9 @@ problem_params::add_options(boost::program_options::options_description& desc)
          po::value<string>(&opt_algo)->default_value(hc),
          str(format("Optimization algorithm, supported algorithms are "
                     "univariate (%s), simulation annealing (%s), "
-                    "hillclimbing (%s). Of these, only hillclimbing "
-                    "works well; the other algos have bit-rotted.\n")
-             % un % sa % hc).c_str())
+                    "hillclimbing (%s) and particle swarm(%s). Of these,"
+                    "only hillclimbing works well; the other algos have bit-rotted.\n")
+             % un % sa % hc % ps).c_str())
 
         (opt_desc_str(max_score_opt).c_str(),
          po::value<score_t>(&max_score)->default_value(very_best_score),
@@ -425,6 +425,25 @@ problem_params::add_options(boost::program_options::options_description& desc)
                     "since it depends on the size of the installed RAM, "
                     "it will possibly introduce indeterminism between "
                     "runs on machines with different amounts of RAM.\n") % hc).c_str())
+
+        // Particle swarm parameters
+        ("ps-max-particles",
+         po::value<unsigned>(&ps_max_particles)->default_value(50),
+         str(format("Particle swarm parameter (%s). Maximum number of "
+                 "particles that is allowed per iteration. For problems "
+                 "with a few dimensions the number of particles will be "
+                 "less than the maximum value. This parameter is used as "
+                 "a limit to how many instances is returned in the deme "
+                 "to the metapopulation. It can be used to limit the amount "
+                 "of RAM spend in each deme (but it depends of the dimension "
+                 "too)\n") % ps).c_str())
+
+        ("ps-contin-depth",
+         po::value<unsigned>(&ps_contin_depth)->default_value(5), //Same as hill climbing
+         str(format("Particle swarm parameter (%s). Depth of the "
+                 "continous representation. This parameter controls "
+                 "the range and the precision of the variable-length "
+                 "sequences of bits. too)\n") % ps).c_str())
 
         // Algorithm tuning options
         ("boost",
@@ -1410,6 +1429,7 @@ void problem_params::parse_options(boost::program_options::variables_map& vm)
 
     // Set optim_parameters.
     opt_params = optim_parameters(opt_algo, pop_size_ratio, max_score, max_dist);
+    // Set hill climbing parameters.
     hc_params.widen_search = hc_widen_search;
     hc_params.single_step = hc_single_step;
     hc_params.crossover = hc_crossover;
@@ -1419,6 +1439,9 @@ void problem_params::parse_options(boost::program_options::variables_map& vm)
     hc_params.fraction_of_nn = hc_frac_of_nn;
     hc_params.resize_to_fit_ram = hc_resize_to_fit_ram;
     hc_params.prefix_stat_deme = "Demes";
+    // Set particle swarm parameters.
+    ps_params.max_parts = ps_max_particles;
+    ps_params.contin_depth = ps_contin_depth;
 
     // Set moses_parameters.
     moses_params = moses_parameters(vm, jobs);

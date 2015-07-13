@@ -47,8 +47,8 @@ struct ps_parameters
 {
     // There isn't need to set all this parameters, for most
     // problems it works with the default values.
-    ps_parameters(unsigned max_num_parts = 20)
-        : max_parts(max_num_parts),
+    ps_parameters()
+        : max_parts(50),
           bit_c1(0.7),
           bit_c2(1.43),
           disc_c1(2.05),
@@ -69,7 +69,8 @@ struct ps_parameters
           cont_min_vel(std::numeric_limits<int>::min() / 2),
           cont_max_vel(std::numeric_limits<int>::max() / 2),
           range_bit_vel(bit_max_vel - bit_min_vel),
-          range_cont_vel(cont_max_vel - cont_min_vel)
+          range_cont_vel(cont_max_vel - cont_min_vel),
+          contin_depth(5)
     {
         double fi = disc_c1 + disc_c2; // where c1 + c2 > 4
         constriction_disc = 2 / (2 - fi - std::sqrt((fi * fi) - (4 * fi)));
@@ -147,7 +148,7 @@ struct ps_parameters
     double constriction_disc;
 
     // From Nil and Linas sugestion to test depth.
-    unsigned min_depth;
+    unsigned contin_depth;
 };
 
 ////////////////////

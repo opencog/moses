@@ -266,7 +266,7 @@ void ip_problem::run(option_base* ob)
     metapop_moses_results(pms.exemplars, tt,
                           *pms.bool_reduct, *pms.bool_reduct_rep,
                           mbcscore,
-                          pms.opt_params, pms.hc_params,
+                          pms.opt_params, pms.hc_params, pms.ps_params,
                           pms.deme_params, pms.filter_params, pms.meta_params,
                           pms.moses_params, pms.mmr_pa);
 
@@ -314,7 +314,7 @@ void ann_table_problem::run(option_base* ob)
     metapop_moses_results(pms.exemplars, tt,
                           reduct::ann_reduction(), reduct::ann_reduction(),
                           cscore,
-                          pms.opt_params, pms.hc_params,
+                          pms.opt_params, pms.hc_params, pms.ps_params,
                           pms.deme_params, pms.filter_params, pms.meta_params,
                           pms.moses_params, pms.mmr_pa);
 }
@@ -350,7 +350,7 @@ void ann_table_problem::run(option_base* ob)
     }                                                                \
     metapop_moses_results(pms.exemplars, cand_type_signature,        \
                       *reduct_cand, *reduct_rep, mbcscore,           \
-                      pms.opt_params, pms.hc_params,                 \
+                      pms.opt_params, pms.hc_params, pms.ps_params,  \
                       pms.deme_params, pms.filter_params, pms.meta_params,              \
                       pms.moses_params, pms.mmr_pa);                 \
 }
@@ -402,7 +402,7 @@ void pre_table_problem::run(option_base* ob)
     metapop_moses_results(pms.exemplars, cand_type_signature,
                           *pms.bool_reduct, *pms.bool_reduct_rep,
                           mbcscore,
-                          pms.opt_params, pms.hc_params,
+                          pms.opt_params, pms.hc_params, pms.ps_params,
                           pms.deme_params, pms.filter_params, pms.meta_params,
                           pms.moses_params, pms.mmr_pa);
 }
@@ -497,8 +497,8 @@ void it_table_problem::run(option_base* ob)
             partial_solver well(ctable,
                                 pms.exemplars, *pms.contin_reduct,
                                 pms.opt_params, pms.hc_params,
-                                pms.deme_params, pms.filter_params,
-                                pms.meta_params,
+                                pms.ps_params, pms.deme_params,
+                                pms.filter_params, pms.meta_params,
                                 pms.moses_params, pms.mmr_pa);
             well.solve();
         } else {

@@ -38,13 +38,14 @@
 #include <moses/moses/moses/moses_params.h>
 #include <moses/moses/optimization/optimization.h>
 #include <moses/moses/optimization/hill-climbing.h>
+#include <moses/moses/optimization/particle-swarm.h>
 
 
 namespace opencog { namespace moses {
 
 // XXX FIXME TODO The structure below should be split into multiple
 // parts, with each sub-part responsible for picking out the argv's
-// that it cares about. Unfortunately, this requires getting rid of 
+// that it cares about. Unfortunately, this requires getting rid of
 // boost::program_options (because boost::program_options does not
 // allow modulariztion in this way; it forces all program options to
 // be specified in a single instance of options_description; if this
@@ -122,7 +123,7 @@ struct problem_params : public option_base
     bool exact_experts;
     double expalpha;
     double bias_scale;
-    
+
     // metapopulation diversity parameters
     score_t diversity_pressure;
     score_t diversity_exponent;
@@ -164,6 +165,10 @@ struct problem_params : public option_base
     unsigned hc_max_nn;
     double   hc_frac_of_nn;
 
+    // ps_param (particle-swarm)
+    unsigned ps_max_particles;
+    unsigned ps_contin_depth;
+
     // classifier parameters
     bool use_well_enough;
 
@@ -196,7 +201,7 @@ struct problem_params : public option_base
     // Subsample fitness params
     unsigned ss_n_subsample_fitnesses;
     float ss_low_dev_pressure;
-    
+
     /// Enable feature selection while selecting exemplar
     /// feature selection happens before each representation building
     bool enable_feature_selection;
@@ -212,6 +217,7 @@ struct problem_params : public option_base
 
     optim_parameters opt_params;
     hc_parameters hc_params;
+    ps_parameters ps_params;
     moses_parameters moses_params;
     deme_parameters deme_params;
     subsample_deme_filter_parameters filter_params;
