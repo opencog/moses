@@ -69,8 +69,7 @@ struct ps_parameters
           cont_min_vel(std::numeric_limits<int>::min() / 2),
           cont_max_vel(std::numeric_limits<int>::max() / 2),
           range_bit_vel(bit_max_vel - bit_min_vel),
-          range_cont_vel(cont_max_vel - cont_min_vel),
-          contin_depth(5)
+          range_cont_vel(cont_max_vel - cont_min_vel)
     {
         double fi = disc_c1 + disc_c2; // where c1 + c2 > 4
         constriction_disc = 2 / (2 - fi - std::sqrt((fi * fi) - (4 * fi)));
@@ -146,9 +145,6 @@ struct ps_parameters
     // International Colloquium on Signal Processing & Its Applications (CSPA), 2009,
     // 978-1-4244-4152-5/09
     double constriction_disc;
-
-    // From Nil and Linas sugestion to test depth.
-    unsigned contin_depth;
 };
 
 ////////////////////

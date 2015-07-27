@@ -438,12 +438,11 @@ problem_params::add_options(boost::program_options::options_description& desc)
                  "of RAM spend in each deme (but it depends of the dimension "
                  "too)\n") % ps).c_str())
 
-        ("ps-contin-depth",
-         po::value<unsigned>(&ps_contin_depth)->default_value(5), //Same as hill climbing
-         str(format("Particle swarm parameter (%s). Depth of the "
-                 "continous representation. This parameter controls "
-                 "the range and the precision of the variable-length "
-                 "sequences of bits. too)\n") % ps).c_str())
+        ("contin-depth",
+         po::value<unsigned>(&contin_depth)->default_value(5),
+         "Depth of the continous representation. This parameter "
+                 "controls the range and the precision of the variable-length "
+                 "sequences of bits.\n")
 
         // Algorithm tuning options
         ("boost",
@@ -1441,7 +1440,8 @@ void problem_params::parse_options(boost::program_options::variables_map& vm)
     hc_params.prefix_stat_deme = "Demes";
     // Set particle swarm parameters.
     ps_params.max_parts = ps_max_particles;
-    ps_params.contin_depth = ps_contin_depth;
+    // Set depth
+    set_depth(contin_depth);
 
     // Set moses_parameters.
     moses_params = moses_parameters(vm, jobs);

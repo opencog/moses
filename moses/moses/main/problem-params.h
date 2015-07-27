@@ -167,8 +167,9 @@ struct problem_params : public option_base
 
     // ps_param (particle-swarm)
     unsigned ps_max_particles;
-    unsigned ps_contin_depth;
 
+    // Depth of contin
+    unsigned contin_depth;
     // classifier parameters
     bool use_well_enough;
 

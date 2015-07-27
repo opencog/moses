@@ -1,5 +1,5 @@
 #!/bin/sh
-make -j4 -C ../../../../build/
+#make -j4 -C ../../../../build/
 
 MOSES="../../../../build/moses/moses/main/moses"
 FOLDER="-i ../../../../examples/example-data"

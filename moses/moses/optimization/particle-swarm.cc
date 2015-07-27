@@ -32,6 +32,7 @@
 #include <opencog/util/oc_omp.h>
 
 #include "../moses/neighborhood_sampling.h"
+#include "../representation/field_set.h"
 
 #include "particle-swarm.h"
 #include "hill-climbing.h"
@@ -69,12 +70,12 @@ void particle_swarm::operator()(deme_t& best_parts,
     unsigned swarm_size = calc_swarm_size(fields);
     unsigned dim_size = fields.dim_size();
 
-    // If small enough, try all combinations
-    // It won't work for if it has contin knobs.
-    //if(fields.contin().size() == 0 && swarm_size < ps_params.max_parts){
-    //    brute_force(best_parts, init_inst, fields, iscorer);
-    //    return;
-    //}
+        //if(swarm_size < ps_params.max_parts){
+        // If small enough, try all combinations
+        // It won't work for if it has contin knobs.
+        //    brute_force(best_parts, init_inst, fields, iscorer);
+        //    return;
+        //}
 
 ////// Particle Inicialization //////
     // Reserve uninitialized instances to not have to reallocate.
@@ -140,6 +141,27 @@ void particle_swarm::operator()(deme_t& best_parts,
             if (rscore >  best_raw_score) {
                 best_raw_score = rscore;
             }
+
+            // Use raw first than penalized score for find bests
+            //const composite_score &inst_cscore = temp_parts[i].second;
+            //score_t rscore = inst_cscore.get_score();
+            //score_t bp_rscore = best_parts[i].second.get_score();
+            //// Comparison
+            //if(!(rscore < bp_rscore)){ // Skip if bad
+            //    // Get penalizes scores
+            //    score_t iscore = inst_cscore.get_penalized_score();
+            //    score_t bp_iscore = best_parts[i].second.get_penalized_score();
+            //    // Compare
+            //    if(rscore != bp_rscore || iscore > bp_iscore){
+            //        best_parts[i] = temp_parts[i];
+            //        disc_parts.best_personal[i] = disc_parts.temp[i]; //For discrete
+            //        has_improved = true;
+            //        if (rscore > best_raw_score) {
+            //            best_raw_score = rscore;
+            //            best_global = i;
+            //        }
+            //    }
+            //}
         }
 
         // Collect statistics about the run, in struct optim_stats
