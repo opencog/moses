@@ -12,9 +12,7 @@ before_install:
     - sudo apt-add-repository -y ppa:boost-latest/ppa
     - sudo apt-add-repository -y ppa:ubuntu-toolchain-r/test
     - sudo apt-get update
-    - wget -O setup.sh \
-      https://raw.githubusercontent.com/opencog/opencog/master/scripts/ocpkg
-
+    - wget -O setup.sh https://raw.githubusercontent.com/opencog/opencog/master/scripts/ocpkg
     - chmod +x setup.sh
     - export CXX="g++-4.9" CC="gcc-4.9"
 
