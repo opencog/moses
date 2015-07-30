@@ -7,6 +7,8 @@ sudo: required
 
 cache: apt
 
+# With the exception of opencog's ppa that is needed for cxxtest package,
+# rest of the ppas are required, because travis vms use Ubuntu 12.04 as os.
 before_install:
     - sudo apt-add-repository -y ppa:opencog-dev/ppa
     - sudo apt-add-repository -y ppa:boost-latest/ppa
