@@ -2,6 +2,8 @@
 MOSES -- Meta-Optimizing Semantic Evolutionary Search
 =====================================================
 
+[![Build Status](https://travis-ci.org/opencog/moses.svg?branch=master)](https://travis-ci.org/opencog/moses)
+
 MOSES is a machine-learning tool; it is an "evolutionary program
 learner". It is capable of learning short programs that capture
 patterns in input datasets.  These programs can be output in either

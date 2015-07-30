@@ -18,7 +18,7 @@ before_install:
 
 install:
     - sudo apt-get install -y boost1.54 cxxtest cmake gcc-4.9 g++-4.9
-    - ./setup.sh -c
+    - sudo ./setup.sh -c
 
 before_script:
     - mkdir build
@@ -27,6 +27,6 @@ before_script:
 
 script:
     - make -j$(nproc)
-    - make -j$(nproc) examples
+    - make examples
     - make tests
     - make test
