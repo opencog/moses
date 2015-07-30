@@ -12,14 +12,15 @@ before_install:
     - sudo apt-add-repository -y ppa:boost-latest/ppa
     - sudo apt-add-repository -y ppa:ubuntu-toolchain-r/test
     - sudo apt-get update
-    - wget \
-      https://raw.githubusercontent.com/opencog/opencog/master/scripts/ocpkg \
-      -O setup.sh && chmod +x setup.sh
+    - wget -O setup.sh \
+      https://raw.githubusercontent.com/opencog/opencog/master/scripts/ocpkg
+
+    - chmod +x setup.sh
     - export CXX="g++-4.9" CC="gcc-4.9"
 
 install:
     - sudo apt-get install -y boost1.54 cxxtest cmake gcc-4.9 g++-4.9
-    - setup.sh -c
+    - ./setup.sh -c
 
 before_script:
     - mkdir build
