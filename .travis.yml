@@ -1,0 +1,43 @@
+os:
+  - linux
+
+# TODO: one day when container infrastructure works better change to
+# sudo: false
+sudo: required
+
+cache: apt
+
+# sets the environment variable and can be use to set build matrix aswell
+# Refer to http://docs.travis-ci.com/user/environment-variables/
+env:
+    global:
+        - CXX="g++-4.9"
+        - CC="gcc-4.9"
+        - OMP_NUM_THREADS=4  # OpenMP number of threads
+
+compiler: gcc
+
+# With the exception of opencog's ppa that is needed for cxxtest package,
+# rest of the ppas are required, because travis vms use Ubuntu 12.04 as os.
+before_install:
+    - sudo apt-add-repository -y ppa:opencog-dev/ppa
+    - sudo apt-add-repository -y ppa:boost-latest/ppa
+    - sudo apt-add-repository -y ppa:ubuntu-toolchain-r/test
+    - sudo apt-get update
+    - wget -O setup.sh https://raw.githubusercontent.com/opencog/opencog/master/scripts/ocpkg
+    - chmod +x setup.sh
+
+install:
+    - sudo apt-get install -y boost1.54 cxxtest cmake gcc-4.9 g++-4.9
+    - sudo ./setup.sh -c
+
+before_script:
+    - mkdir build
+    - cd build
+    - cmake ..
+
+script:
+    - make
+    - make examples
+    - make tests
+    - make test
