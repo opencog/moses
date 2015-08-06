@@ -160,119 +160,15 @@ struct field_set
         }
     };
 
-    /**
-     * The basic idea is to represent continuous quantities,
-     * conceptually, as variable-length sequences of bits, with a
-     * simplicity prior towards shorter sequences. Bit-sequences are
-     * mapped to continuous values using a simple
-     * information-theoretic approach.  (i.e. consider representing a
-     * value in the range (-1,1) with a uniform prior)
-     *
-     * There is a paper about the how to represent continous
-     * quantities , you can find it on
-     * http://code.google.com/p/moses/wiki/ModelingAtomSpaces
-     *
-     * Note that a single contin_spec requires multiple raw fields
-     * to store a value. The number of raw fields needed is given by
-     * the 'depth' member.  Each raw field of a contin spec occupies
-     * two bits, and stores one of three values: L, R or STOP.
-     */
     struct contin_spec
     {
-        contin_spec(contin_t m, contin_t ss, contin_t ex, depth_t d)
-                : mean(m), step_size(ss), expansion(ex), depth(d) { }
-        contin_t mean, step_size, expansion;
-        depth_t depth;
-
-        bool operator<(const contin_spec& rhs) const
-        {
-            // Sort descending by depth.
-            return (depth > rhs.depth
-                    || (depth == rhs.depth
-                        && (expansion > rhs.expansion
-                            || (expansion == rhs.expansion
-                                && (step_size > rhs.step_size
-                                    || (step_size == rhs.step_size
-                                        && mean > rhs.mean))))));
-        }
-        bool operator==(const contin_spec& rhs) const //don't know why this is needed
-        {
-            return (mean == rhs.mean &&
-                    step_size == rhs.step_size &&
-                    expansion == rhs.expansion &&
-                    depth == rhs.depth);
-        }
-
-        // Half the smallest possible difference between two values represented
-        // according to the spec
-        contin_t epsilon() const
-        {
-            return step_size / contin_t(1UL << depth);
-        }
-
-        // XXX should be enum ... 
-        static const disc_t Stop;  // 0
-        static const disc_t Left;  // 1
-        static const disc_t Right; // 2
-        // This method returns Left if lr is Right
-        // and Right if lr is Left
-        // otherwise is raises an assert
-        static disc_t switchLR(disc_t lr)
-        {
-            if (lr == Left)
-                return Right;
-            else if (lr == Right)
-                return Left;
-            else {
-                OC_ASSERT(false);
-                return disc_t(); // to keep the compiler quiet
-            }
+        contin_spec(contin_t c) : val(c) { }
+        contin_t val;
+        bool operator<(const contin_spec& rhs) const { //sort descending by multy
+            return val > rhs.val;
         }
     };
 
-    struct contin_stepper
-    {
-        contin_stepper(const contin_spec& c_)
-                : c(c_), value(c.mean),
-                _all_left(true), _all_right(true), _step_size(c.step_size) { }
-        const contin_spec& c;
-        contin_t value;
-
-        void left()
-        {
-            if (_all_left) {
-                value -= _step_size;
-                _step_size *= c.expansion;
-                _all_right = false;
-            } else {
-                if (_all_right) {
-                    _all_right = false;
-                    _step_size /= (c.expansion * 2);
-                }
-                value -= _step_size;
-                _step_size /= 2;
-            }
-        }
-        void right()
-        {
-            if (_all_right) {
-                value += _step_size;
-                _step_size *= c.expansion;
-                _all_left = false;
-            } else {
-                if (_all_left) {
-                    _all_left = false;
-                    _step_size /= (c.expansion * 2);
-                }
-                value += _step_size;
-                _step_size /= 2;
-            }
-        }
-    protected:
-        bool _all_left;
-        bool _all_right;
-        contin_t _step_size;
-    };
 
     /**
      * Specify a term-algebra-valued variable.
@@ -319,8 +215,8 @@ struct field_set
 
     /// Copy constructor
     field_set(const field_set& x)
-        : _fields(x._fields), _term(x._term), _contin(x._contin),
-          _disc(x._disc), _nbool(x._nbool)
+        : _fields(x._fields), _term(x._term),
+        _disc(x._disc), _nbool(x._nbool), _contin(x._contin)
     {
         compute_starts();
     }
@@ -372,16 +268,15 @@ struct field_set
         size_t sz = sizeof(field_set);
         sz += _fields.size() * sizeof(field);
         sz += _term.size() * sizeof(term_spec);
-        sz += _contin.size() * sizeof(contin_spec);
         sz += _disc.size() * sizeof(disc_spec);
-        sz += _contin_raw_offsets.size() * sizeof(size_t);
+        sz += _contin.size() * sizeof(contin_t);
         return sz;
     }
 
     // Dimension size, number of actual knobs to consider, as term and
     // contin may take several raw knobs
     size_t dim_size() const {
-        return n_bits() + n_disc_fields() + contin().size() + term().size();
+        return n_bits() + n_disc_fields() + _contin.size() + term().size();
     }
 
     // Counts the number of nonzero (raw) settings in an instance.
@@ -397,37 +292,33 @@ struct field_set
     {
         return _disc;
     }
-    const std::vector<contin_spec>& contin() const
-    {
-        return _contin;
-    }
     const std::vector<term_spec>& term() const
     {
         return _term;
     }
 
     // Return the 'idx'th raw field value in the instance.
-    disc_t get_raw(const instance& inst, size_t idx) const
+    disc_t get_raw(const packed_vec& inst, size_t idx) const
     {
         const field& f = _fields[idx];
         return ((inst[f.major_offset] >> f.minor_offset) & ((packed_t(1) << f.width) - 1UL));
     }
 
-    void set_raw(instance& inst, size_t idx, disc_t v) const
+    void set_raw(packed_vec& inst, size_t idx, disc_t v) const
     {
         const field& f = _fields[idx];
         inst[f.major_offset] ^= ((inst[f.major_offset] ^
-                                  (packed_t(v) << f.minor_offset)) &
-                                 (((packed_t(1) << f.width) - 1UL) << f.minor_offset));
+                            (packed_t(v) << f.minor_offset)) &
+                            (((packed_t(1) << f.width) - 1UL) << f.minor_offset));
     }
 
     // returns a reference of the term at idx, idx is relative to
     // term_iterator
-    const term_t& get_term(const instance& inst, size_t idx) const;
+    const term_t& get_term(const packed_vec& inst, size_t idx) const;
 
     // returns the contin at idx, idx is relative to contin_iterator
-    contin_t get_contin(const instance& inst, size_t idx) const;
-    void set_contin(instance& inst, size_t idx, contin_t v) const;
+    contin_t get_contin(const packed_vec& inst, size_t idx) const;
+    void set_contin(packed_vec& inst, size_t idx, contin_t v) const;
 
     // pack the data in [from,from+dof) according to our scheme, copy to out
     template<typename It, typename Out>
@@ -455,11 +346,11 @@ struct field_set
     ///
     /// The intended use of this is to merge two high-scoring instances
     /// into one. Thus, typically, both target and reference will be high
-    /// scorers, and base a previous high scorer. Then the difference 
+    /// scorers, and base a previous high scorer. Then the difference
     /// (reference minus base) are those bits that made reference into
     /// such a great instance -- so copy those fields into the target.
     /// For many simple hill-climbing, this actually works, because high
-    /// scoring knob settings are strongly correlated, even if we don't 
+    /// scoring knob settings are strongly correlated, even if we don't
     /// really know what these are (i.e. have not used an estimation-of-
     /// distribution/Bayesian-optimization algorithm to figure out the
     /// correlations). That is, we just blindly assume a correlation, and
@@ -478,8 +369,9 @@ struct field_set
         {
             if (*bit != *rit) *tit = *rit;
         }
+        target._contin = reference._contin;
     }
-    
+
     // The fields are organized so that term fields come first,
     // followed by the continuous fields, and then the discrete
     // fields. These are then followed by the 1-bit (boolean)
@@ -494,13 +386,6 @@ struct field_set
         return _fields.begin();
     }
     field_iterator end_term_fields() const {
-        return _contin_start;
-    }
-
-    field_iterator begin_contin_fields() const {
-        return _contin_start;
-    }
-    field_iterator end_contin_fields() const {
         return _disc_start;
     }
 
@@ -532,13 +417,6 @@ struct field_set
     }
     size_t end_term_raw_idx() const {
         return _end_term_raw_idx;
-    }
-
-    size_t begin_contin_raw_idx() const {
-        return _begin_contin_raw_idx;
-    }
-    size_t end_contin_raw_idx() const {
-        return _end_contin_raw_idx;
     }
 
     size_t begin_disc_raw_idx() const {
@@ -573,7 +451,7 @@ struct field_set
     //* than there are contin_specs.
     size_t n_contin_fields() const
     {
-        return _n_contin_fields;
+        return _contin.size();
     }
 
     //* number of raw "term algebra" fields.  There are more of
@@ -581,36 +459,6 @@ struct field_set
     size_t n_term_fields() const
     {
         return _n_term_fields;
-    }
-
-    /// Given an index into the contin_spec array, this returns an
-    /// index into the (raw) field array.
-    ///
-    /// Recall that one single contin spec corresponds to many raw
-    /// fields (specificaly, to contin_spec->depth fields).
-    size_t contin_to_raw_idx(size_t spec_idx) const
-    {
-        return _contin_raw_offsets[spec_idx];
-    }
-
-    /// Given an index into the 'raw' field array, this returns an
-    /// index into the corresponding contin_spec array.  As such, this
-    /// is the inverse of the contin_to_raw_idx() method.  If the
-    /// @raw_idx does not correspond to any contin_spec, then an
-    /// OC_ASSERT is raised.
-    size_t raw_to_contin_idx(size_t raw_idx) const
-    {
-        // @todo: compute at the start in _fields - could be faster..
-        size_t begin_contin_idx = begin_contin_raw_idx();
-        size_t end_contin_idx = end_contin_raw_idx();
-        OC_ASSERT(raw_idx >= begin_contin_idx && raw_idx < end_contin_idx);
-        int contin_offset = raw_idx - begin_contin_idx;
-        for (size_t i = 0; i < _contin.size(); ++i) {
-            contin_offset -= _contin[i].depth;
-            if (contin_offset < 0) return i;
-        }
-        OC_ASSERT(false, "Impossible case");
-        return size_t(); // to make the compiler quiet
     }
 
     /// Given an index into the term_spec array, this returns an
@@ -636,44 +484,11 @@ struct field_set
         size_t end_disc_idx = end_disc_raw_idx();
 
         // @todo: compute at the start in _fields - could be faster..
-        OC_ASSERT(raw_idx >= begin_disc_idx && 
+        OC_ASSERT(raw_idx >= begin_disc_idx &&
                   raw_idx < end_disc_idx);
 
         // There's exactly one disc_spec per disc field.
         return raw_idx - begin_disc_idx;
-    }
-
-    /**
-     * Get length, in terms of 'raw fields', of an instance of a 
-     * contin.  A contin variable consists of at most
-     * contin_spec::depth() 'raw fields' or 'pseudo-bits'.  Each
-     * pseudo-bit can take one of three values: L, R or S, which
-     * stand for "move left", "move right" or "stop". The left/right
-     * moves encode the contin value; the stop-bit just terminatees the
-     * string of L's and R's.  This routine simply counts the number of
-     * LR pseudo-bits in the contin string.
-     *
-     * So, for example, consider two contin fields of depth 4. If the
-     * inst holds {LRSSRLLS} then the first contin field (idx=0) is of
-     * length 2 (L followed by R), while the second field is of length
-     * 3 (three letters before the S psuedobit).
-     *
-     * @param inst the instance to look at
-     * @param idx the index of the contin to look at, idx is relative
-     *            to contin_iterator
-     */
-    size_t contin_length(const instance& inst, size_t idx) const
-    {
-        size_t raw_begin = contin_to_raw_idx(idx);
-        size_t raw_end = raw_begin + _contin[idx].depth;
-        size_t current = raw_begin;
-        // Count the number raw fields, up to depth.
-        while (current != raw_end) {
-            if (get_raw(inst, current) != contin_spec::Stop)
-                ++current;
-            else break;
-        }
-        return current - raw_begin;
     }
 
 protected:
@@ -687,7 +502,6 @@ protected:
     //
     // The locations and sizes of these can be gotten using the methods:
     // begin_term_fields() - end_term_fields()
-    // begin_contin_fields() - end_contin_fields()
     // begin_disc_fields() - end_disc_fields()
     // begin_bit_fields() - end_bit_fields()
     std::vector<field> _fields;
@@ -695,10 +509,6 @@ protected:
     std::vector<contin_spec> _contin;
     std::vector<disc_spec> _disc; // Includes bits.
     size_t _nbool; // the number of disc_spec that requires only 1 bit to pack
-
-    // Cache of offsets, meant to improve performance of the
-    // contin_to_raw_idx() lookup in get_contin().
-    std::vector<size_t> _contin_raw_offsets;
 
     // Cached values for start location of the continuous and discrete
     // fields in the _fields array.  We don't need to cache the term
@@ -709,33 +519,24 @@ protected:
     // performance reasons.
     field_iterator _contin_start, _disc_start;
     size_t _end_term_raw_idx;
-    size_t _begin_contin_raw_idx;
-    size_t _end_contin_raw_idx;
     size_t _begin_disc_raw_idx;
     size_t _end_disc_raw_idx;
     size_t _begin_bit_raw_idx;
     size_t _end_bit_raw_idx;
 
     size_t _n_disc_fields;
-    size_t _n_contin_fields;
     size_t _n_term_fields;
 
     // Figure out where, in the field array, the varous different
     // raw field types start. Cache these, as they're handy to have around.
     void compute_starts()
     {
-        _contin_start = _fields.begin();
+        _disc_start = _fields.begin();
         for (const term_spec& o : _term)
-            _contin_start += o.depth; //# of fields
-        _disc_start = _contin_start;
-        for (const contin_spec& c : _contin)
-            _disc_start += c.depth;
+            _disc_start += o.depth;
 
         field_iterator term_start = _fields.begin();
         _end_term_raw_idx     = distance(term_start, end_term_fields());
-
-        _begin_contin_raw_idx = distance(term_start, begin_contin_fields());
-        _end_contin_raw_idx   = distance(term_start, end_contin_fields());
 
         _begin_disc_raw_idx   = distance(term_start, begin_disc_fields());
         _end_disc_raw_idx     = distance(term_start, end_disc_fields());
@@ -744,16 +545,8 @@ protected:
         _end_bit_raw_idx      = distance(term_start, end_bit_fields());
 
         _n_disc_fields   = distance(begin_disc_fields(), end_disc_fields());
-        _n_contin_fields = distance(begin_contin_fields(), end_contin_fields());
         _n_term_fields   = distance(begin_term_fields(), end_term_fields());
 
-        // Cache of raw indexes, to speed up get_contin()
-        _contin_raw_offsets.reserve(_contin.size());
-        size_t raw_idx = begin_contin_raw_idx();
-        for (const contin_spec& c : _contin) {
-            _contin_raw_offsets.push_back(raw_idx);
-            raw_idx += c.depth;
-        }
     }
 
     size_t back_offset() const
@@ -772,9 +565,6 @@ protected:
     // Fill the corresponding field, n times.
     // Add the spec in _term, n times.
     void build_term_spec(const term_spec& os, size_t n);
-
-    // Like above but for contin
-    void build_contin_spec(const contin_spec& cs, size_t n);
 
     // Like above but for disc, and also,
     // increment _nbool by n if ds has multiplicity 2 (i.e. only needs one bit).
@@ -936,13 +726,13 @@ protected:
 public:
     // --------------------------------------------------------
     struct bit_iterator
-        : public bit_iterator_base<bit_iterator, instance::iterator>
+        : public bit_iterator_base<bit_iterator, packed_vec::iterator>
     {
         friend struct field_set;
 
         struct reference
         {
-            reference(instance::iterator it, packed_t mask)
+            reference(packed_vec::iterator it, packed_t mask)
                 : _it(it), _mask(mask) {}
 
             operator bool() const {
@@ -977,7 +767,7 @@ public:
                 if  (x) do_reset(); return *this;
             }
         protected:
-            instance::iterator _it;
+            packed_vec::iterator _it;
             packed_t _mask;
 
             void do_set() {
@@ -1001,13 +791,13 @@ public:
 
         bit_iterator() { }
     protected:
-        bit_iterator(instance::iterator it, width_t offset)
-            : bit_iterator_base<bit_iterator, instance::iterator>(it, offset)
+        bit_iterator(packed_vec::iterator it, width_t offset)
+            : bit_iterator_base<bit_iterator, packed_vec::iterator>(it, offset)
         { }
     };
 
     struct const_bit_iterator
-        : public bit_iterator_base<const_bit_iterator, instance::const_iterator>
+        : public bit_iterator_base<const_bit_iterator, packed_vec::const_iterator>
     {
         friend class field_set;
         bool operator*() const {
@@ -1015,13 +805,13 @@ public:
         }
         const_bit_iterator(const bit_iterator& bi)
             : bit_iterator_base < const_bit_iterator,
-                                  instance::const_iterator > (bi._mask, bi._it) { }
+                                  packed_vec::const_iterator > (bi._mask, bi._it) { }
 
         const_bit_iterator() { }
     protected:
-        const_bit_iterator(instance::const_iterator it, width_t offset)
+        const_bit_iterator(packed_vec::const_iterator it, width_t offset)
             : bit_iterator_base < const_bit_iterator,
-                                  instance::const_iterator > (it, offset) { }
+                                  packed_vec::const_iterator > (it, offset) { }
     };
 
     // --------------------------------------------------------
@@ -1052,9 +842,9 @@ public:
         }
 
     protected:
-        disc_iterator(const field_set& fs, size_t idx, instance& inst)
+        disc_iterator(const field_set& fs, size_t idx, packed_vec& inst)
             : iterator_base<disc_iterator, disc_t>(fs, idx), _inst(&inst) { }
-        instance* _inst;
+        packed_vec* _inst;
     };
 
     struct const_disc_iterator
@@ -1081,9 +871,9 @@ public:
         }
 
     protected:
-        const_disc_iterator(const field_set& fs, size_t idx, const instance& inst)
+        const_disc_iterator(const field_set& fs, size_t idx, const packed_vec& inst)
             : iterator_base<const_disc_iterator, disc_t>(fs, idx), _inst(&inst) { }
-        const instance* _inst;
+        const packed_vec* _inst;
     };
 
     // --------------------------------------------------------
@@ -1101,21 +891,16 @@ public:
         contin_iterator() : _inst(NULL) { }
 
     protected:
-        contin_iterator(const field_set& fs, size_t idx, instance& inst)
+        contin_iterator(const field_set& fs, size_t idx, contin_vec& inst)
             : iterator_base<contin_iterator, contin_t>(fs, idx), _inst(&inst)
         { }
-        instance* _inst;
+        contin_vec* _inst;
     };
 
     struct const_contin_iterator
         : public iterator_base<const_contin_iterator, contin_t>
     {
         friend class field_set;
-
-        contin_t operator*() const
-        {
-            return _fs->get_contin(*_inst, _idx);
-        }
 
         const_contin_iterator(const contin_iterator& bi)
             : iterator_base<const_contin_iterator, contin_t>(*bi._fs, bi._idx),
@@ -1125,10 +910,10 @@ public:
 
     protected:
         const_contin_iterator(const field_set& fs, size_t idx,
-                              const instance& inst)
+                const contin_vec& inst)
             : iterator_base<const_contin_iterator, contin_t>(fs, idx),
               _inst(&inst) { }
-        const instance* _inst;
+        const contin_vec* _inst;
     };
 
     // --------------------------------------------------------
@@ -1148,11 +933,11 @@ public:
         term_iterator() : _inst(NULL) { }
 
     protected:
-        term_iterator(const field_set& fs, size_t idx, instance& inst)
+        term_iterator(const field_set& fs, size_t idx, packed_vec& inst)
             : iterator_base<term_iterator, term_t>(fs, idx),
               _inst(&inst) { }
 
-        instance* _inst;
+        packed_vec* _inst;
     };
 
     struct const_term_iterator
@@ -1173,10 +958,10 @@ public:
 
     protected:
         const_term_iterator(const field_set& fs, size_t idx,
-                            const instance& inst)
+                    const packed_vec& inst)
             : iterator_base<const_term_iterator, term_t>(fs, idx),
-              _inst(&inst) { }
-        const instance* _inst;
+            _inst(&inst) { }
+        const packed_vec* _inst;
     };
 
     // --------------------------------------------------------
@@ -1185,98 +970,98 @@ public:
     const_bit_iterator begin_bit(const instance& inst) const
     {
         return (begin_bit_fields() == _fields.end() ? const_bit_iterator() :
-                const_bit_iterator(inst.begin() + begin_bit_fields()->major_offset,
+                const_bit_iterator(inst._bit_disc.begin() + begin_bit_fields()->major_offset,
                                    begin_bit_fields()->minor_offset));
     }
 
     const_bit_iterator end_bit(const instance& inst) const
     {
         return (begin_bit_fields() == _fields.end() ? const_bit_iterator() :
-                ++const_bit_iterator(--inst.end(), _fields.back().minor_offset));
+                ++const_bit_iterator(--inst._bit_disc.end(), _fields.back().minor_offset));
     }
 
     bit_iterator begin_bit(instance& inst) const
     {
         return (begin_bit_fields() == _fields.end() ? bit_iterator() :
-                bit_iterator(inst.begin() + begin_bit_fields()->major_offset,
+                bit_iterator(inst._bit_disc.begin() + begin_bit_fields()->major_offset,
                              begin_bit_fields()->minor_offset));
     }
 
     bit_iterator end_bit(instance& inst) const
     {
         return (begin_bit_fields() == _fields.end() ? bit_iterator() :
-                ++bit_iterator(--inst.end(), _fields.back().minor_offset));
+                ++bit_iterator(--inst._bit_disc.end(), _fields.back().minor_offset));
     }
 
     // ------------------------------------------------
     // Get the begin, end iterators for the disc fields.
     const_disc_iterator begin_disc(const instance& inst) const
     {
-        return const_disc_iterator(*this, begin_disc_raw_idx(), inst);
+        return const_disc_iterator(*this, begin_disc_raw_idx(), inst._bit_disc);
     }
 
     const_disc_iterator end_disc(const instance& inst) const
     {
-        return const_disc_iterator(*this, end_disc_raw_idx(), inst);
+        return const_disc_iterator(*this, end_disc_raw_idx(), inst._bit_disc);
     }
 
     disc_iterator begin_disc(instance& inst) const {
-        return disc_iterator(*this, begin_disc_raw_idx(), inst);
+        return disc_iterator(*this, begin_disc_raw_idx(), inst._bit_disc);
     }
 
     disc_iterator end_disc(instance& inst) const {
-        return disc_iterator(*this, end_disc_raw_idx(), inst);
+        return disc_iterator(*this, end_disc_raw_idx(), inst._bit_disc);
     }
 
     // --------------------------------------------------
     // Get the begin, end iterators for the contin fields.
     const_contin_iterator begin_contin(const instance& inst) const {
-        return const_contin_iterator(*this, 0, inst);
+        return const_contin_iterator(*this, 0, inst._contin);
     }
 
     const_contin_iterator end_contin(const instance& inst) const {
-        return const_contin_iterator(*this, _contin.size(), inst);
+        return const_contin_iterator(*this, inst._contin.size(), inst._contin);
     }
 
     contin_iterator begin_contin(instance& inst) const {
-        return contin_iterator(*this, 0, inst);
+        return contin_iterator(*this, 0, inst._contin);
     }
 
     contin_iterator end_contin(instance& inst) const {
-        return contin_iterator(*this, _contin.size(), inst);
+        return contin_iterator(*this, _contin.size(), inst._contin);
     }
 
     // ------------------------------------------------
     // Get the begin, end iterators for the term fields.
     const_term_iterator begin_term(const instance& inst) const {
-        return const_term_iterator(*this, 0, inst);
+        return const_term_iterator(*this, 0, inst._bit_disc);
     }
 
     const_term_iterator end_term(const instance& inst) const {
-        return const_term_iterator(*this, _term.size(), inst);
+        return const_term_iterator(*this, _term.size(), inst._bit_disc);
     }
 
     term_iterator begin_term(instance& inst) const {
-        return term_iterator(*this, 0, inst);
+        return term_iterator(*this, 0, inst._bit_disc);
     }
 
     term_iterator end_term(instance& inst) const {
-        return term_iterator(*this, _term.size(), inst);
+        return term_iterator(*this, _term.size(), inst._bit_disc);
     }
 
     // ------------------------------------------------
     // Get the begin, end iterators for all of the raw fields.
     const_disc_iterator begin_raw(const instance& inst) const {
-        return const_disc_iterator(*this, 0, inst);
+        return const_disc_iterator(*this, 0, inst._bit_disc);
     }
     const_disc_iterator end_raw(const instance& inst) const {
-        return const_disc_iterator(*this, _fields.size(), inst);
+        return const_disc_iterator(*this, _fields.size(), inst._bit_disc);
     }
     disc_iterator begin_raw(instance& inst) const {
-        return disc_iterator(*this, 0, inst);
+        return disc_iterator(*this, 0, inst._bit_disc);
     }
     disc_iterator end_raw(instance& inst) const {
-        return disc_iterator(*this, _fields.size(), inst);
+        return disc_iterator(*this, _fields.size(), inst._bit_disc);
     }
 
     // Help print out the field set.
@@ -1301,14 +1086,14 @@ template<>
 inline contin_t field_set::iterator_base < field_set::contin_iterator,
 contin_t >::reference::do_get() const
 {
-    return _it->_fs->get_contin(*_it->_inst, _idx);
+    return _it->_inst->at(_idx);
 }
 
 template<>
 inline void field_set::iterator_base < field_set::contin_iterator,
 contin_t >::reference::do_set(contin_t x)
 {
-    _it->_fs->set_contin(*_it->_inst, _idx, x);
+    _it->_inst->at(_idx) = x;
 }
 
 /// pack the data in [from,from+dof) according to our scheme, copy to out
@@ -1339,17 +1124,6 @@ Out field_set::pack(It from, Out out) const
         if (offset == bits_per_packed_t) {
             offset = 0;
             ++out;
-        }
-    }
-
-    for (const contin_spec& c : _contin) {
-        dorepeat (c.depth) {
-            *out |= packed_t(*from++) << offset;
-            offset += 2;
-            if (offset == bits_per_packed_t) {
-                offset = 0;
-                ++out;
-            }
         }
     }
 

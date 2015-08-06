@@ -25,7 +25,7 @@
 #include "deme_optimize.h"
 
 namespace opencog {
-    
+
 using namespace std;
 
 instance initial_instance(const feature_selection_parameters& fs_params,
@@ -33,10 +33,11 @@ instance initial_instance(const feature_selection_parameters& fs_params,
                           const vector<string>& ilabels)
 {
     feature_set init_features = initial_features(ilabels, fs_params);
-    instance res(fields.packed_width());
+    packed_vec res(fields.packed_width());
+    instance inst(res, fields.n_contin_fields());
     for (size_t idx : init_features)
-        *(fields.begin_bit(res) + idx) = true;
-    return res;
+        *(fields.begin_bit(inst) + idx) = true;
+    return inst;
 }
 
 

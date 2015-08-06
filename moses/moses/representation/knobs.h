@@ -127,9 +127,7 @@ struct disc_knob_base : public knob_base
 
 struct contin_knob : public knob_base
 {
-    contin_knob(combo_tree& tr, combo_tree::iterator tgt,
-                contin_t step_size, contin_t expansion,
-                field_set::width_t depth);
+    contin_knob(combo_tree& tr, combo_tree::iterator tgt);
 
     bool in_exemplar() const;
 

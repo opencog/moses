@@ -1,5 +1,5 @@
 #!/bin/sh
-#make -j4 -C ../../../../build/
+make -j4 -C ../../../../build/
 
 MOSES="../../../../build/moses/moses/main/moses"
 FOLDER="-i ../../../../examples/example-data"
@@ -12,7 +12,7 @@ GDB="gdb -ex \"break particle-swarm.cc:78\" -ex \"run\" -args "
 
 # Predicates all
 #valgrind --tool=callgrind \
-$MOSES -H it $FOLDER/predicates.csv -W1 -u pred -m1000 $ALGO
+time $MOSES -H it $FOLDER/predicates.csv -W1 -u pred -m1000 $ALGO
 
 # Iris
 #$MOSES $FOLDER/iris.data -u class -n sin -n log -n exp -n div -m2000 $ALGO

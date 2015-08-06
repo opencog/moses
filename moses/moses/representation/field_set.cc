@@ -54,7 +54,7 @@ bool field_set::operator==(const field_set& rhs) const
             _term == rhs._term && _nbool == rhs._nbool);
 }
 
-const term_t& field_set::get_term(const instance& inst, size_t idx) const
+const term_t& field_set::get_term(const packed_vec& inst, size_t idx) const
 {
     size_t raw_idx = term_to_raw_idx(idx);
 
@@ -72,7 +72,7 @@ const term_t& field_set::get_term(const instance& inst, size_t idx) const
     return *it;
 }
 
-contin_t field_set::get_contin(const instance& inst, size_t idx) const
+contin_t field_set::get_contin(const packet_vec& inst, size_t idx) const
 {
     size_t raw_idx = contin_to_raw_idx(idx);
 
@@ -95,7 +95,7 @@ contin_t field_set::get_contin(const instance& inst, size_t idx) const
     return stepper.value;
 }
 
-void field_set::set_contin(instance& inst, size_t idx, contin_t target) const
+void field_set::set_contin(packed_vec& inst, size_t idx, contin_t target) const
 {
     size_t raw_idx = contin_to_raw_idx(idx);
     const contin_spec& c = _contin[idx];
