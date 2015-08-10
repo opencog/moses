@@ -54,9 +54,7 @@ struct build_knobs : boost::noncopyable
                 const combo_tree_ns_set* perceptions = NULL,
                 const combo_tree_ns_set* actions = NULL,
                 bool linear_regression = true,
-                contin_t step_size = 1.0,
-                contin_t expansion = 1.0,
-                field_set::width_t depth = 4,
+                field_set::width_t depth = get_depth(),
                 float perm_ratio = 0.0);
 
 protected:
@@ -87,7 +85,6 @@ protected:
     // want linear solutions.
     bool _linear_contin;
 
-    contin_t _step_size, _expansion;
     field_set::width_t _depth;
 
     // perm_ratio ranges from 0 to 1 and defines the number of perms

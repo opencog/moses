@@ -270,7 +270,7 @@ void particle_swarm::initialize_particles (const unsigned& swarm_size,
     auto velit = velocities.begin();
     auto dvit = disc_parts.best_personal.begin();
     dorepeat(swarm_size){
-        instance new_inst(fields.packed_width());
+        instance new_inst(fields.packed_width(), fields.n_contin_fields());
         initialize_random_particle(
             new_inst, *velit, *dvit, fields);
         velit++; dvit++;

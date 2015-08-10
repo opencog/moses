@@ -1,9 +1,9 @@
 #!/bin/sh
-make -j4 -C ../../../../build/
+#make -j4 -C ../../../../build/
 
 MOSES="../../../../build/moses/moses/main/moses"
 FOLDER="-i ../../../../examples/example-data"
-ALGO="-a hc -l DEBUG"
+ALGO="-a ps -l DEBUG"
 GDB="gdb -ex \"break particle-swarm.cc:107\" -ex \"run\" -args "
 
 
@@ -17,7 +17,7 @@ GDB="gdb -ex \"break particle-swarm.cc:107\" -ex \"run\" -args "
 
 # Parity 3 bit+disc
 #eval $GDB \
-$MOSES -Hpa -k3 $ALGO
+time $MOSES -Hpa -k3 $ALGO
 
 # Disjunction 3 bit+disc
 #eval $GDB \

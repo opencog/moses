@@ -53,7 +53,7 @@ void generate_initial_sample(const field_set& fs, int n, Out out, Out end)
 {
     dorepeat(n) {
 
-        instance inst(fs.packed_width());
+        instance inst(fs.packed_width(), fs.n_contin_fields());
 
         randomize(fs, inst);
 
@@ -72,21 +72,6 @@ void generate_initial_sample(const field_set& fs, int n, Out out, Out end)
         *out++ = inst;
     }
 }
-
-// Flip Left and Right
-void flip_LR(field_set::disc_iterator itr);
-
-// Twiddle one contin bit only, according to the following rules
-//
-// 1. If it is Stop then select Left or Right
-//
-// 2. Otherwise if the next one is Stop (or invalid) then select Stop
-// or flip
-//
-// 3. Otherwise just flip
-void twiddle_contin_bit(field_set::disc_iterator itr,
-                        field_set::disc_iterator next_itr,
-                        opencog::RandGen& rng = randGen());
 
 /**
  * This routine modifies the instance 'inst' so that the new instance
@@ -286,68 +271,6 @@ Out vary_n_knobs(const field_set& fs,
                            starting_index + fs.end_term_raw_idx(),
                            out, end);
     }
-    // contin knobs
-    else
-    if ((fs.begin_contin_raw_idx() <= starting_index) &&
-        (starting_index < fs.end_contin_raw_idx()))
-    {
-        // Modify the contin knob pointed by itr, then recurse on
-        // starting_index and dist.
-        field_set::contin_iterator itc = fs.begin_contin(tmp_inst);
-        size_t contin_idx = fs.raw_to_contin_idx(starting_index);
-        itc += contin_idx;
-
-        // The 'depth' is the max possible size of this contin field,
-        // while length is the actual size, for this instance.
-        size_t depth = fs.contin()[itc.idx()].depth;
-        size_t length = fs.contin_length(tmp_inst, contin_idx);
-
-        field_set::disc_iterator itr = fs.begin_raw(tmp_inst);
-        itr += starting_index;
-        size_t relative_raw_idx = starting_index - fs.contin_to_raw_idx(contin_idx);
-
-        // case tmp_inst at itr is Stop
-        if (*itr == field_set::contin_spec::Stop) {
-            // Assume that this is the first stop encountered for this
-            // contin field.  Skip straight to the next contin field.
-            size_t next_contin = starting_index + depth - relative_raw_idx;
-            out = vary_n_knobs(fs, tmp_inst, dist, next_contin, out, end);
-
-            // Turn this stop pseudo-bit to Left, and Right, and recurse
-            // to next.
-            *itr = field_set::contin_spec::Left;
-            out = vary_n_knobs(fs, tmp_inst, dist - 1, starting_index + 1, out, end);
-            *itr = field_set::contin_spec::Right;
-            out = vary_n_knobs(fs, tmp_inst, dist - 1, starting_index + 1, out, end);
-        }
-        // case tmp_inst at itr is Left or Right
-        else
-        {
-            // Recursive call, moved for one position
-            // XXX TODO, unroll the last tail call, just like the single-bit
-            // knob case, below.
-            out = vary_n_knobs(fs, tmp_inst, dist, starting_index + 1, out, end);
-            // Left<->Right
-            *itr = field_set::contin_spec::switchLR(*itr);
-            out = vary_n_knobs(fs, tmp_inst, dist - 1, starting_index + 1, out, end);
-
-            // Set all remaining 'pseudo-bits' in this contin field to Stop,
-            // remRLs is the number of remaining non-Stop pseudo-bits,
-            // including this one.
-            unsigned remRLs = length - relative_raw_idx;
-            if (remRLs <= dist) {
-                for(; relative_raw_idx < length; --length, ++itr) {
-                    // Stop
-                    *itr = field_set::contin_spec::Stop;
-                }
-                // Skip straight to the next contin field.
-                size_t next_contin = starting_index + depth - relative_raw_idx;
-                out = vary_n_knobs(fs, tmp_inst, dist - remRLs, next_contin,
-                                   out, end);
-            }
-        }
-    }
-
     // Discrete knobs
     else
     if ((fs.begin_disc_raw_idx() <= starting_index) &&
@@ -389,7 +312,7 @@ Out vary_n_knobs(const field_set& fs,
         }
 #endif
         // Recursive call, moved for one position.
-        // Note this steps past all the disc knobs, and goes to do the 
+        // Note this steps past all the disc knobs, and goes to do the
         // the single-bit knobs.  Only after returning from that,
         // does it do the disc knobs, below.
         out = vary_n_knobs(fs, tmp_inst, dist, starting_index + 1, out, end);
@@ -442,12 +365,28 @@ Out vary_n_knobs(const field_set& fs,
         // Recursive call, moved for one position.
         out = vary_n_knobs(fs, tmp_inst, dist - 1, starting_index + 1, out, end);
     }
+    //contin knobs
     else
     {
         // The current recursive algo used here will over-run the end
         // of the array by one. This is normal. Do nothing. If 'dist'
         // was zero, the very first statement at top takes care of
         // things for us.
+        field_set::contin_iterator itc = fs.begin_contin(tmp_inst);
+        field_set::contin_iterator itc_end = fs.end_contin(tmp_inst);
+        std::vector<field_set::contin_spec>::iterator itspec = fs.contin_vol().begin();
+        for(;itc != itc_end; ++itc, ++itspec){
+            contin_t tmpc = *itc;
+            auto& spec = *itspec;
+
+            OC_ASSERT(out != end, "Write past end of array!");
+            *itc = tmpc + spec.next_exp();
+            *out++ = tmp_inst;
+            OC_ASSERT(out != end, "Write past end of array!");
+            *itc = tmpc + spec.next_exp();
+            *out++ = tmp_inst;
+            *itc = tmpc;
+        }
     }
     return out;
 }

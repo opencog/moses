@@ -24,33 +24,6 @@
 
 namespace opencog { namespace moses {
 
-// See the header for the function comments
-
-// See header for comment
-void flip_LR(field_set::disc_iterator itr) {
-    bool is_left = (*itr == field_set::contin_spec::Left);
-    *itr = is_left ?
-        field_set::contin_spec::Right:
-        field_set::contin_spec::Left;
-}
-
-// See header for comment
-void twiddle_contin_bit(field_set::disc_iterator itr,
-                        field_set::disc_iterator next_itr,
-                        opencog::RandGen& rng)
-{
-    if (*itr == field_set::contin_spec::Stop) {
-        *itr = rng.randbool() ?
-            field_set::contin_spec::Left
-            : field_set::contin_spec::Right;
-    } else if (itr + 1 != next_itr // next_itr is invalid
-               or *next_itr == field_set::contin_spec::Stop) {
-        if (rng.randbool())
-            *itr = field_set::contin_spec::Stop;
-        else flip_LR(itr);
-    } else flip_LR(itr);
-}
-
 // See header for comment
 void generate_contin_neighbor(const field_set& fs,
                               instance& inst,
@@ -58,31 +31,14 @@ void generate_contin_neighbor(const field_set& fs,
                               unsigned dist,
                               opencog::RandGen& rng)
 {
-    size_t begin = fs.contin_to_raw_idx(it.idx()),
-        depth = fs.contin()[it.idx()].depth,
-        length = fs.contin_length(inst, it.idx()),
-        lowest_low = std::max((int)length - (int)dist, 0),
-        uppest_low = std::min((int)length + 1, (int)depth + 1 - (int)dist);
-
-    if (dist == 0)
-        return;
-
-    OC_ASSERT(dist <= depth);
-
+    if(dist > fs.n_contin_fields())
+        dist = fs.n_contin_fields();
     // Randomly choose the interval to modify, the intervals can be
-    // [length - dist, length) to [length, length + dist), as long as
-    // it is within [0, depth).
-    size_t low = lazy_random_selector(uppest_low, lowest_low, rng)(),
-        up = low + dist;
+    size_t low = lazy_random_selector(0, fs.n_contin_fields(), rng)();
 
-    // Twiddle all pseudo bits in the selected interval
-    for(field_set::disc_iterator itr = fs.begin_raw(inst) + begin + up - 1,
-            next_itr = up == depth ? fs.end_raw(inst) : itr + 1,
-            low_itr = fs.begin_raw(inst) + begin + low;
-        next_itr != low_itr; --itr)
-    {
-        twiddle_contin_bit(itr, next_itr, rng);
-        next_itr = itr;
+    for(;dist > 0; --dist){
+        unsigned idx = low;
+        *(it + idx) = fs.contin_vol()[idx].next_exp();
     }
 }
 
@@ -122,54 +78,6 @@ size_t count_neighborhood_size_from_index(const field_set& fs,
                                                + fs.end_term_raw_idx(),
                                                max_count);
     }
-
-    // contins
-    else
-    if ((fs.begin_contin_raw_idx() <= starting_index) &&
-        (starting_index < fs.end_contin_raw_idx()))
-    {
-        field_set::const_contin_iterator itc = fs.begin_contin(inst);
-
-        size_t contin_idx = fs.raw_to_contin_idx(starting_index);
-        OC_ASSERT(starting_index - fs.contin_to_raw_idx(contin_idx) == 0);
-
-        itc += contin_idx;
-        int depth = fs.contin()[itc.idx()].depth;
-        int length = fs.contin_length(inst, contin_idx);
-
-        // Calculate number_of_instances for each possible distance i
-        // of the current contin.
-        for (int i = 0; i <= std::min((int)dist, depth); ++i) {
-
-            // Number of instances for this contin, at distance i.
-            unsigned cni = 0;
-
-            // Count combinations when Left or Right are switched and
-            // added after Stop, where j represents the number of
-            // Left or Right added after Stop.
-            for (int j = std::max(0, i-length);
-                 j <= std::min(i, depth-length); ++j)
-                cni += (unsigned) boost::math::binomial_coefficient<double>(length, i-j)
-                    * pow2(j);
-
-            // Count combinations when Left or Right are switched and
-            // removed before Stop, where j represents the number of
-            // removed Left or Right before Stop.
-            if (i <= length)
-                for (int j = 1; j <= std::min(i, length); ++j)
-                    cni += (unsigned) boost::math::binomial_coefficient<double>(length-j, i-j);
-
-            // Recursive call.
-            number_of_instances +=
-                cni * count_neighborhood_size_from_index(fs, inst, dist-i,
-                                                       starting_index + depth,
-                                                       max_count);
-            // Stop prematurely if above max_count.
-            if (number_of_instances > max_count)
-                return number_of_instances;
-        }
-    }
-
     // discs
     else
     if ((fs.begin_disc_raw_idx() <= starting_index) &&
@@ -193,7 +101,6 @@ size_t count_neighborhood_size_from_index(const field_set& fs,
             * count_neighborhood_size_from_index(fs, inst, dist - 1,
                                                starting_index + 1, max_count);
     }
-
     // bits
     else
     if ((fs.begin_bit_raw_idx() <= starting_index) &&
@@ -206,10 +113,20 @@ size_t count_neighborhood_size_from_index(const field_set& fs,
         if (dist <= rb)
             number_of_instances = safe_binomial_coefficient(rb, dist);
     }
-    else
+    else //contin
     {
         // Harmless; this recursive algo is desgined to over-run by
         // exactly one.
+
+        int length = fs.n_contin_fields();
+        // Calculate number_of_instances for each possible distance i
+        // of the current contin.
+        int increment_factor = std::min((int) dist, (int) get_depth());
+        for(int idx = 0; idx < length; ++idx){
+            if ((number_of_instances *= pow2(increment_factor))
+                    > max_count)
+                return number_of_instances;
+        }
     }
 
     return number_of_instances;
@@ -229,7 +146,7 @@ size_t count_neighborhood_size(const field_set& fs,
                                unsigned dist,
                                size_t max_count)
 {
-    instance inst(fs.packed_width());
+    instance inst(fs.packed_width(), fs.n_contin_fields());
     return count_neighborhood_size_from_index(fs, inst, dist, 0, max_count);
 }
 

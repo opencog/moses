@@ -49,6 +49,7 @@ public:
     instance(packed_vec& bd, contin_vec& cont) : _bit_disc(bd), _contin(cont) { }
     instance(packed_vec& bd, size_t cont) : _bit_disc(bd) { _contin.resize(cont);}
     instance(size_t bd, size_t cont) : _bit_disc(bd) { _contin.resize(cont);}
+    instance() {}
 
     size_t size() const {
         return _bit_disc.size() + _contin.size();

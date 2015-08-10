@@ -145,7 +145,7 @@ struct simulated_annealing : optimizer_base
                     unsigned max_evals,
                     time_t max_time)
     {
-        const instance init_inst(deme.fields().packed_width());
+        const instance init_inst(deme.fields().packed_width(), deme.fields().n_contin_fields());
         operator()(deme, init_inst, iscorer, max_evals, max_time);
     }
 

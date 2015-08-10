@@ -1,9 +1,9 @@
 #!/bin/sh
-make -j4 -C ../../../../build/
+#make -j4 -C ../../../../build/
 
 MOSES="../../../../build/moses/moses/main/moses"
 FOLDER="-i ../../../../examples/example-data"
-ALGO="-a ps -l DEBUG --contin-depth 5 -B 0 -E 1"
+ALGO="-a hc -l DEBUG --contin-depth 5 -B 0 -E 1"
 GDB="gdb -ex \"break particle-swarm.cc:78\" -ex \"run\" -args "
 
 #eval $GDB \

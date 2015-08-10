@@ -41,8 +41,8 @@ bool local_structure_model::is_uniform_on(iptr_iter l, iptr_iter u, int idx) con
 {
     return (adjacent_find(boost::make_indirect_iterator(l), boost::make_indirect_iterator(u),
                           bind(std::not_equal_to<disc_t>(),
-                               bind(&field_set::get_raw, &_fields, _1, idx),
-                               bind(&field_set::get_raw, &_fields, _2, idx))) ==
+                               bind(&field_set::get_disc_raw, &_fields, _1, idx),
+                               bind(&field_set::get_disc_raw, &_fields, _2, idx))) ==
             boost::make_indirect_iterator(u));
 }
 
@@ -68,7 +68,7 @@ void local_structure_model::rec_split_term(iptr_iter l, iptr_iter u,
         vector<iptr_iter> pivots(raw_arity);
         pivots.back() = u;
         n_way_partition(l, u,
-                        bind(&field_set::get_raw, &_fields,
+                        bind(&field_set::get_disc_raw, &_fields,
                              bind(valueof<const instance>, _1), src_idx),
                         raw_arity, pivots.begin());
 
@@ -86,26 +86,6 @@ void local_structure_model::rec_split_term(iptr_iter l, iptr_iter u,
             ++osib, ++dsib) {
             *dsib = dtree_node(raw_arity + 1, 0);
         }
-    }
-}
-
-void local_structure_model::rec_split_contin(iptr_iter l, iptr_iter u,
-                                             int src_idx, int idx,
-                                             dtree::iterator node)
-{
-    if(is_uniform_on(l, u, idx))
-        return;
-
-    split(src_idx, idx, node);
-
-    if (src_idx < idx - 1) { // important - needs to match contin_spec::Left/Right
-        vector<iptr_iter> pivots(2);
-        n_way_partition(l, u,
-                        bind(&field_set::get_raw, &_fields,
-                             bind(valueof<const instance>, _1), src_idx),
-                        3, pivots.begin());
-        rec_split_contin(pivots[0], pivots[1], src_idx + 1, idx, ++node.begin());
-        rec_split_contin(pivots[1], u, src_idx + 1, idx, node.last_child());
     }
 }
 
@@ -131,9 +111,10 @@ instance local_structure_model::operator()() const
     for (unsigned int idx : _ordering) {
         sample((begin() + idx)->begin(), tmp[idx], tmp);
     }
-    instance res(_instance_length);
-    _fields.pack(tmp.begin(), res.begin());
+    packed_vec bit_disc;
+    _fields.pack(tmp.begin(), bit_disc.begin());
 
+    instance res(bit_disc, _fields.n_contin_fields());
     return res;
 }
 

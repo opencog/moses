@@ -162,13 +162,29 @@ struct field_set
 
     struct contin_spec
     {
-        contin_spec(contin_t c) : val(c) { }
-        contin_t val;
+        contin_spec(contin_t c) : _exp(c) { } // exp == expansion factor
+        contin_t _exp;
         bool operator<(const contin_spec& rhs) const { //sort descending by multy
-            return val > rhs.val;
+            return _exp > rhs._exp;
+        }
+
+        bool operator==(const contin_spec& rhs) const { //don't know why this is needed
+            return _exp == rhs._exp;
+        }
+
+        contin_t get_exp() {
+            return _exp;
+        }
+
+        contin_t next_exp() {
+            contin_t pexp = _exp;
+            if(_exp < 0)
+                _exp /= -2;
+            else
+                _exp = -_exp;
+            return pexp;
         }
     };
-
 
     /**
      * Specify a term-algebra-valued variable.
@@ -296,12 +312,27 @@ struct field_set
     {
         return _term;
     }
+    const std::vector<contin_spec>& contin() const
+    {
+        return _contin;
+    }
+
+    std::vector<contin_spec> contin_vol() const// vol == volatile
+    {
+        return _contin;
+    }
 
     // Return the 'idx'th raw field value in the instance.
     disc_t get_raw(const packed_vec& inst, size_t idx) const
     {
         const field& f = _fields[idx];
         return ((inst[f.major_offset] >> f.minor_offset) & ((packed_t(1) << f.width) - 1UL));
+    }
+
+    // Return the 'idx'th raw field value in the instance.
+    disc_t get_disc_raw(const instance& inst, size_t idx) const
+    {
+        return get_raw(inst._bit_disc, idx);
     }
 
     void set_raw(packed_vec& inst, size_t idx, disc_t v) const
@@ -569,6 +600,8 @@ protected:
     // Like above but for disc, and also,
     // increment _nbool by n if ds has multiplicity 2 (i.e. only needs one bit).
     void build_disc_spec(const disc_spec& ds, size_t n);
+
+    void build_contin_spec(const contin_spec& cs, size_t n);
 
     template<typename Self, typename Iterator>
     struct bit_iterator_base
@@ -901,6 +934,11 @@ public:
         : public iterator_base<const_contin_iterator, contin_t>
     {
         friend class field_set;
+
+        contin_t operator*() const
+        {
+            return _inst->at(_idx);
+        }
 
         const_contin_iterator(const contin_iterator& bi)
             : iterator_base<const_contin_iterator, contin_t>(*bi._fs, bi._idx),
