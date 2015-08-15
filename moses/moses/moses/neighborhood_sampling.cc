@@ -31,14 +31,18 @@ void generate_contin_neighbor(const field_set& fs,
                               unsigned dist,
                               opencog::RandGen& rng)
 {
-    if(dist > fs.n_contin_fields())
-        dist = fs.n_contin_fields();
-    // Randomly choose the interval to modify, the intervals can be
-    size_t low = lazy_random_selector(0, fs.n_contin_fields(), rng)();
+    if(dist < 0)
+        return;
+    contin_t expansion = it.spec().next_exp();
+    *it += expansion;
+    dist--;
 
-    for(;dist > 0; --dist){
-        unsigned idx = low;
-        *(it + idx) = fs.contin_vol()[idx].next_exp();
+    dorepeat(dist){
+        if(expansion > 0)
+            expansion /= 2;
+        else
+            expansion *= -1;
+        *it += expansion;
     }
 }
 
@@ -113,32 +117,44 @@ size_t count_neighborhood_size_from_index(const field_set& fs,
         if (dist <= rb)
             number_of_instances = safe_binomial_coefficient(rb, dist);
     }
-    else //contin
+    else
     {
-        // Harmless; this recursive algo is desgined to over-run by
+        // Harmless; this recursive algo is designed to over-run by
         // exactly one.
-
-        int length = fs.n_contin_fields();
-        // Calculate number_of_instances for each possible distance i
-        // of the current contin.
-        int increment_factor = std::min((int) dist, (int) get_depth());
-        for(int idx = 0; idx < length; ++idx){
-            if ((number_of_instances *= pow2(increment_factor))
-                    > max_count)
-                return number_of_instances;
-        }
     }
 
     return number_of_instances;
 }
 
+size_t count_contin_neighborhood(const field_set& fs,
+                               unsigned dist,
+                               size_t number_of_instances,
+                               size_t max_count) {
+    // Calculate number_of_instances for each possible distance i
+    // of the current contin.
+    size_t length_bits = fs.n_contin_fields() * dist;
+    if(length_bits > 0){
+        double dlogsize = std::log2(max_count) - std::log2(number_of_instances);
+        if(length_bits > dlogsize)
+            return max_count + 1;
+        else
+            return number_of_instances << length_bits;
+    } else
+        return number_of_instances;
+}
 // See header for comment
 size_t count_neighborhood_size(const field_set& fs,
                                const instance& inst,
                                unsigned dist,
                                size_t max_count)
 {
-    return count_neighborhood_size_from_index(fs, inst, dist, 0, max_count);
+    // to avoid overflow
+    size_t number_of_instances =
+        count_neighborhood_size_from_index(fs, inst, dist, 0, max_count);
+    if(number_of_instances > max_count)
+        return number_of_instances;
+    return count_contin_neighborhood(fs, dist, number_of_instances, max_count);
+
 }
 
 // See header for comment
@@ -147,7 +163,7 @@ size_t count_neighborhood_size(const field_set& fs,
                                size_t max_count)
 {
     instance inst(fs.packed_width(), fs.n_contin_fields());
-    return count_neighborhood_size_from_index(fs, inst, dist, 0, max_count);
+    return count_neighborhood_size(fs, inst, dist, max_count);
 }
 
 // See header for comment

@@ -163,7 +163,7 @@ struct field_set
     struct contin_spec
     {
         contin_spec(contin_t c) : _exp(c) { } // exp == expansion factor
-        contin_t _exp;
+        mutable contin_t _exp;
         bool operator<(const contin_spec& rhs) const { //sort descending by multy
             return _exp > rhs._exp;
         }
@@ -172,11 +172,11 @@ struct field_set
             return _exp == rhs._exp;
         }
 
-        contin_t get_exp() {
+        contin_t get_exp() const {
             return _exp;
         }
 
-        contin_t next_exp() {
+        contin_t next_exp() const {
             contin_t pexp = _exp;
             if(_exp < 0)
                 _exp /= -2;
@@ -313,11 +313,6 @@ struct field_set
         return _term;
     }
     const std::vector<contin_spec>& contin() const
-    {
-        return _contin;
-    }
-
-    std::vector<contin_spec> contin_vol() const// vol == volatile
     {
         return _contin;
     }
@@ -921,6 +916,11 @@ public:
             return reference(this, _idx);
         }
 
+        // For convenience.
+        const contin_spec& spec(){
+            return _fs->contin()[_idx];
+        }
+
         contin_iterator() : _inst(NULL) { }
 
     protected:
@@ -938,6 +938,12 @@ public:
         contin_t operator*() const
         {
             return _inst->at(_idx);
+        }
+
+        // For convenience.
+        const contin_spec& spec()
+        {
+            return _fs->contin()[_idx];
         }
 
         const_contin_iterator(const contin_iterator& bi)

@@ -120,7 +120,7 @@ void sample_from_neighborhood(const field_set& fs, unsigned dist,
                               unsigned sample_size, Out out, Out end,
                               const instance & center_inst)
 {
-    OC_ASSERT(center_inst.size() == fs.packed_width(),
+    OC_ASSERT(center_inst._bit_disc.size() == fs.packed_width(),
               "Please make sure that the center_inst"
               " have the same size with the field_set");
 
@@ -130,10 +130,10 @@ void sample_from_neighborhood(const field_set& fs, unsigned dist,
               "the sampling distance %u"
               " cannot be greater than the field dimension %u", dist, dim);
 
+    lazy_random_selector select(dim, randGen());
     dorepeat(sample_size) {
 
         instance new_inst(center_inst);
-        lazy_random_selector select(dim, randGen());
 
         for (unsigned i = 1; i <= dist; ) {
             size_t r = select();
@@ -189,9 +189,9 @@ void generate_all_in_neighborhood(const field_set& fs, unsigned dist,
                                   Out out, Out end,
                                   const instance& center_inst)
 {
-    OC_ASSERT(center_inst.size() == fs.packed_width(),
+    OC_ASSERT(center_inst._bit_disc.size() == fs.packed_width(),
               "the size of center_instance should be equal to the width of fs");
-    vary_n_knobs(fs, center_inst, dist, 0, out, end);
+    vary_n_knobs(fs, center_inst, dist, (fs.n_contin_fields() > 0)?-1:0, out, end);
 }
 
 
@@ -262,6 +262,26 @@ Out vary_n_knobs(const field_set& fs,
 
     instance tmp_inst = inst;
 
+    //contin knobs
+    if(starting_index < 0){
+        out = vary_n_knobs(fs, tmp_inst, dist, starting_index + 1, out, end);
+
+        field_set::contin_iterator itc = fs.begin_contin(tmp_inst);
+        field_set::contin_iterator itc_end = fs.end_contin(tmp_inst);
+        auto itspec = fs.contin().begin();
+        for(;itc != itc_end; ++itc, ++itspec){
+            contin_t tmpc = *itc;
+            auto& spec = *itspec;
+
+            *itc = tmpc + spec.next_exp();
+            out = vary_n_knobs(fs, tmp_inst, dist - 1, starting_index, out, end);
+            *itc = tmpc + spec.next_exp();
+            out = vary_n_knobs(fs, tmp_inst, dist - 1, starting_index, out, end);
+
+            *itc = tmpc;
+        }
+    }
+    else
     // term knobs.
     if ((fs.begin_term_raw_idx() <= starting_index) &&
         (starting_index < fs.end_term_raw_idx()))
@@ -365,28 +385,12 @@ Out vary_n_knobs(const field_set& fs,
         // Recursive call, moved for one position.
         out = vary_n_knobs(fs, tmp_inst, dist - 1, starting_index + 1, out, end);
     }
-    //contin knobs
     else
     {
         // The current recursive algo used here will over-run the end
         // of the array by one. This is normal. Do nothing. If 'dist'
         // was zero, the very first statement at top takes care of
         // things for us.
-        field_set::contin_iterator itc = fs.begin_contin(tmp_inst);
-        field_set::contin_iterator itc_end = fs.end_contin(tmp_inst);
-        std::vector<field_set::contin_spec>::iterator itspec = fs.contin_vol().begin();
-        for(;itc != itc_end; ++itc, ++itspec){
-            contin_t tmpc = *itc;
-            auto& spec = *itspec;
-
-            OC_ASSERT(out != end, "Write past end of array!");
-            *itc = tmpc + spec.next_exp();
-            *out++ = tmp_inst;
-            OC_ASSERT(out != end, "Write past end of array!");
-            *itc = tmpc + spec.next_exp();
-            *out++ = tmp_inst;
-            *itc = tmpc;
-        }
     }
     return out;
 }
@@ -451,6 +455,11 @@ size_t count_neighborhood_size(const field_set& fs,
                                unsigned dist,
                                size_t max_count
                                = numeric_limits<size_t>::max());
+
+size_t count_contin_neighborhood(const field_set& fs,
+                               unsigned dist,
+                               size_t number_of_instances,
+                               size_t max_count);
 
 // For backward compatibility, like above but with null instance
 size_t count_neighborhood_size(const field_set& fs,
