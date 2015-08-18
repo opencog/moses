@@ -317,6 +317,11 @@ struct field_set
         return _contin;
     }
 
+    std::vector<contin_spec>& get_contin()
+    {
+        return _contin;
+    }
+
     // Return the 'idx'th raw field value in the instance.
     disc_t get_raw(const packed_vec& inst, size_t idx) const
     {
