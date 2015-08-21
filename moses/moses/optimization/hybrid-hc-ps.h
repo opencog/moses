@@ -238,7 +238,8 @@ protected:
         confinement_cont(value);
     }
 
-    bool optimize_contin(const complexity_based_scorer& scorer,
+    bool optimize_contin(deme_t& deme, size_t& num_new_inst,
+            size_t distance, const complexity_based_scorer& scorer,
             instance& center_inst, std::vector<particle>& parts, score_t& bscore);
 
 public:

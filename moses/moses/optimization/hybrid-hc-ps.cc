@@ -65,13 +65,14 @@ void hybrid_hc_ps::operator()(deme_t& deme,
     const field_set& fullfs = deme.fields();
     field_set tempfs(fullfs);
     tempfs.get_contin().clear();
-    bool has_contin = fullfs.n_contin_fields() > 0;
+    size_t contin_size = fullfs.n_contin_fields();
+    bool has_contin = contin_size > 0;
     const field_set& fields = (has_contin) ? tempfs : fullfs;
 
     // Particles initialization.
     std::vector<particle> parts;
     if(has_contin)
-        init_particles(fullfs.n_contin_fields(), parts);
+        init_particles(contin_size, parts);
 
     // Track RAM usage. Instances can chew up boat-loads of RAM.
     _instance_bytes = sizeof(instance)
@@ -158,7 +159,6 @@ void hybrid_hc_ps::operator()(deme_t& deme,
             and !already_xover
             and current_number_of_instances >= xover_min_deme
             and (large_nbh || last_chance);
-
         if (xover) {
             // log why crossover is enabled
             std::stringstream why_xover;
@@ -282,12 +282,12 @@ void hybrid_hc_ps::operator()(deme_t& deme,
         // Particle swarm part for contin variables
         if(has_contin) {
             has_improved = has_improved or optimize_contin(
+                deme, number_of_new_instances, distance,
                 (const complexity_based_scorer&) iscorer,
                 center_inst, parts, best_score);
             if (has_improved)
                 already_xover = false;
         }
-
 
 #ifdef GATHER_STATS
         if (iteration > 1) {
@@ -831,7 +831,8 @@ bool hybrid_hc_ps::resize_deme(deme_t& deme, score_t best_score)
     return did_resize;
 }
 // I don't think there's difference between raw and complex score.
-bool hybrid_hc_ps::optimize_contin(const complexity_based_scorer& cb_scorer,
+bool hybrid_hc_ps::optimize_contin(deme_t& deme, size_t& num_new_inst,
+            size_t distance, const complexity_based_scorer& cb_scorer,
             instance& inst, std::vector<particle>& parts, score_t& bscore){
     //
     combo_tree tr = cb_scorer._rep.get_candidate(
@@ -840,25 +841,31 @@ bool hybrid_hc_ps::optimize_contin(const complexity_based_scorer& cb_scorer,
     score_t score;
     bool has_improved = false;
 
-    //
-    for(auto it = parts.begin(); it!= parts.end(); ++it){
-        particle& tmp_part = *it;
-        inst._contin = tmp_part.values;
-        score = cb_scorer._cscorer.
-                    get_cscore(tr).get_score();
+    dorepeat(distance) {
+        for(auto it = parts.begin(); it!= parts.end(); ++it){
+            particle& tmp_part = *it;
+            inst._contin = tmp_part.values;
+            composite_score cscore = cb_scorer._cscorer.
+                    get_cscore(tr);
+            score = cscore.get_penalized_score();
+            deme.push_back(
+                scored_instance<composite_score>(instance(inst), cscore));
+            num_new_inst++;
 
-        if(tmp_part.bscore < score){
-            tmp_part.bscore = score;
-            tmp_part.bvals = tmp_part.values;
+            if(tmp_part.bscore < score){
+                tmp_part.bscore = score;
+                tmp_part.bvals = tmp_part.values;
+            }
+            if(bscore < score){
+                has_improved = true;
+                bscore = score;
+                bglobal = tmp_part.values;
+            }
         }
-        if(bscore < score){
-            bscore = score;
-            bglobal = tmp_part.values;
-        }
+
+        inst._contin = bglobal;
+        update_particles(parts, bglobal);
     }
-    inst._contin = bglobal;
-
-    update_particles(parts, bglobal);
 
     return has_improved;
 }
