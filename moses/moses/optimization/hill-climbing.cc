@@ -75,7 +75,6 @@ void hill_climbing::operator()(deme_t& deme,
     // center_inst is the current location on the hill.
     // Copy it, don't reference it, since sorting will mess up a ref.
     instance center_inst(init_inst);
-    std::fill(center_inst._contin.begin(), center_inst._contin.end(), 2);
     composite_score best_cscore = worst_composite_score;
     score_t best_score = very_worst_score;
     score_t best_raw_score = very_worst_score;

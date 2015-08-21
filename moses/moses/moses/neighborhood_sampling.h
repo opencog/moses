@@ -130,10 +130,10 @@ void sample_from_neighborhood(const field_set& fs, unsigned dist,
               "the sampling distance %u"
               " cannot be greater than the field dimension %u", dist, dim);
 
-    lazy_random_selector select(dim, randGen());
     dorepeat(sample_size) {
 
         instance new_inst(center_inst);
+        lazy_random_selector select(dim, randGen());
 
         for (unsigned i = 1; i <= dist; ) {
             size_t r = select();

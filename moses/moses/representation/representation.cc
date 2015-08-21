@@ -347,7 +347,7 @@ void representation::get_candidate_rec(const instance& inst,
 
     contin_map_cit ccit = find_contin_knob(src);
     if (ccit != contin.end()) {
-        contin_t c = inst._contin[it_contin_idx.find(src)->second];
+        const contin_t& c = inst._contin[it_contin_idx.find(src)->second];
         ccit->second.append_to(candidate, parent_dst, c);
         return;
     }

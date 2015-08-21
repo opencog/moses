@@ -49,7 +49,7 @@ void contin_knob::turn(contin_t x)
 }
 
 void contin_knob::append_to(combo_tree& candidate, combo_tree::iterator parent_dst,
-                            contin_t c) const
+                            const contin_t& c) const
 {
     if (candidate.empty())
         candidate.set_head(c);

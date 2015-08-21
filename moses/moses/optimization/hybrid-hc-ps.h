@@ -36,7 +36,6 @@
 
 namespace opencog { namespace moses {
 
-typedef std::vector<double> velocity;
 
 struct hybrid_hc_ps : optimizer_base
 {
@@ -49,6 +48,19 @@ struct hybrid_hc_ps : optimizer_base
     }
 
 protected:
+    struct particle {
+        contin_vec vels, values, bvals;
+        double score, bscore;
+
+        particle(const contin_vec& init_vals, const contin_vec& random_vels){
+            values = init_vals;
+            bvals = init_vals;
+            vels = random_vels;
+            score = very_worst_score;
+            bscore = very_worst_score;
+        }
+    };
+
     struct hybrid_parameters {
         // From Particle Swarm
         double _min_vel, _max_vel, // Max and min velocities (normally min/2,max/2 values)
@@ -157,18 +169,18 @@ protected:
 
 ////// Velocity Functions //////
     //// Check bounds functions:
-    void check_cont_vel(double &vel) { // Check bounds of a continuous velocity
+    void check_vel(double &vel) { // Check bounds of a continuous velocity
         vel = bound(vel, ps_params._min_vel, ps_params._max_vel); }
 
     //// Generate initial random velocity
-    double gen_cont_vel() {
+    double gen_vel() {
         return (randGen().randdouble() *
                 ps_params._range_vel) - ps_params._max_vel;
     }
 
 ////// Particle values functions //////
     //// Generate initial random instance knob value
-    double gen_cont_value() { //
+    double gen_value() { //
         return (randGen().randdouble() *
                 ps_params._range_value) + ps_params._min_value;
     }
@@ -180,27 +192,54 @@ protected:
     }
 
 ////// Update specific functions //////
-    //// All
-    //void update_particles(deme_t& temp_parts, const deme_t& best_parts, const int& best_index,
-    //    std::vector<velocity>& velocities, discrete_particles& disc_parts, const field_set& fields);
+    void init_particles(size_t size, std::vector<particle>& parts){
+        parts.reserve(size);
+        contin_vec vels(size);
+        contin_vec values(size);
 
-    //// Continuous
+        dorepeat(size) {
+            for(auto vit = vels.begin(); vit != vels.end(); vit++)
+                *vit = gen_vel();
+            for(auto it = values.begin(); it != values.end(); it++)
+                *it = gen_value();
+            parts.push_back(particle(values, vels));
+        }
+    }
+
+    void update_particles(std::vector<particle>& parts,
+                        const contin_vec& bglobal){
+        //
+        for(auto partit = parts.begin(); partit!= parts.end(); ++partit){
+            particle& tpart = *partit;
+            auto vit = tpart.vels.begin();
+            auto tit = tpart.values.begin();
+            auto pit = tpart.bvals.begin();
+            auto git = bglobal.begin();
+            for(; vit != tpart.vels.end(); ++vit){
+                update_vel(*vit, *tit, *pit, *git);
+                new_value(*tit, *vit);
+            }
+        }
+    }
+
     // Update continuous velocity
-    void update_cont_vel(double& vel, const double& temp,
+    void update_vel(double& vel, const double& temp,
             const double& personal, const double& global) { // Cont type is double
         vel += ps_params._inertia * ((ps_params._c1 * randGen().randdouble() * (personal - temp)) +
                 (ps_params._c2 * randGen().randdouble() * (global - temp)));
-        check_cont_vel(vel);
+        check_vel(vel);
     }
 
     // XXX Explanation
-    contin_t new_cont_value(contin_t& value, const double& vel){
+    void new_value(contin_t& value, const double& vel){
         // Wind dispersion enter here.
         // XXX Check overflow
         value += vel;
         confinement_cont(value);
-        return value;
     }
+
+    bool optimize_contin(const complexity_based_scorer& scorer,
+            instance& center_inst, std::vector<particle>& parts, score_t& bscore);
 
 public:
     /**
@@ -231,7 +270,6 @@ public:
                     time_t max_time)
     {
         instance init_inst(deme.fields().packed_width(), deme.fields().n_contin_fields());
-        //XXX randomize
         operator()(deme, init_inst, iscorer, max_evals, max_time);
     }
 

@@ -147,7 +147,7 @@ struct contin_knob : public knob_base
      * @param c          contin constant to be append
      */
     void append_to(combo_tree& candidate, combo_tree::iterator parent_dst,
-                   contin_t c) const;
+                   const contin_t& c) const;
 
     // Return the spec describing the space spanned by the knob
     // Note that this spec is *not* a part of the field set that is

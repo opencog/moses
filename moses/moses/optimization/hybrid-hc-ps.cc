@@ -68,6 +68,11 @@ void hybrid_hc_ps::operator()(deme_t& deme,
     bool has_contin = fullfs.n_contin_fields() > 0;
     const field_set& fields = (has_contin) ? tempfs : fullfs;
 
+    // Particles initialization.
+    std::vector<particle> parts;
+    if(has_contin)
+        init_particles(fullfs.n_contin_fields(), parts);
+
     // Track RAM usage. Instances can chew up boat-loads of RAM.
     _instance_bytes = sizeof(instance)
         + sizeof(packed_t) * fields.packed_width();
@@ -80,7 +85,6 @@ void hybrid_hc_ps::operator()(deme_t& deme,
     // center_inst is the current location on the hill.
     // Copy it, don't reference it, since sorting will mess up a ref.
     instance center_inst(init_inst);
-    std::fill(center_inst._contin.begin(), center_inst._contin.end(), 2);
     composite_score best_cscore = worst_composite_score;
     score_t best_score = very_worst_score;
     score_t best_raw_score = very_worst_score;
@@ -262,7 +266,7 @@ void hybrid_hc_ps::operator()(deme_t& deme,
             // termination condition, as, in the final answer, we
             // want the best raw score, not the best weighted score.
             score_t rscore = inst_cscore.get_score();
-            if (rscore >  best_raw_score) {
+            if (rscore > best_raw_score) {
                 best_raw_score = rscore;
             }
         }
@@ -274,6 +278,16 @@ void hybrid_hc_ps::operator()(deme_t& deme,
             center_inst = deme[ibest].first;
             already_xover = false;
         }
+
+        // Particle swarm part for contin variables
+        if(has_contin) {
+            has_improved = has_improved or optimize_contin(
+                (const complexity_based_scorer&) iscorer,
+                center_inst, parts, best_score);
+            if (has_improved)
+                already_xover = false;
+        }
+
 
 #ifdef GATHER_STATS
         if (iteration > 1) {
@@ -815,6 +829,38 @@ bool hybrid_hc_ps::resize_deme(deme_t& deme, score_t best_score)
         did_resize = true;
     }
     return did_resize;
+}
+// I don't think there's difference between raw and complex score.
+bool hybrid_hc_ps::optimize_contin(const complexity_based_scorer& cb_scorer,
+            instance& inst, std::vector<particle>& parts, score_t& bscore){
+    //
+    combo_tree tr = cb_scorer._rep.get_candidate(
+                inst, cb_scorer._reduce);
+    contin_vec bglobal = inst._contin;
+    score_t score;
+    bool has_improved = false;
+
+    //
+    for(auto it = parts.begin(); it!= parts.end(); ++it){
+        particle& tmp_part = *it;
+        inst._contin = tmp_part.values;
+        score = cb_scorer._cscorer.
+                    get_cscore(tr).get_score();
+
+        if(tmp_part.bscore < score){
+            tmp_part.bscore = score;
+            tmp_part.bvals = tmp_part.values;
+        }
+        if(bscore < score){
+            bscore = score;
+            bglobal = tmp_part.values;
+        }
+    }
+    inst._contin = bglobal;
+
+    update_particles(parts, bglobal);
+
+    return has_improved;
 }
 
 void hybrid_hc_ps::log_stats_legend()
