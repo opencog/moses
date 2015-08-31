@@ -31,6 +31,10 @@
 namespace opencog {
 namespace moses {
 
+const disc_t field_set::contin_spec::Stop = 0;
+const disc_t field_set::contin_spec::Left = 1;
+const disc_t field_set::contin_spec::Right = 2;
+
 const disc_t field_set::term_spec::Stop = 0;
 
 field_set& field_set::operator=(const field_set& rhs)
@@ -50,7 +54,7 @@ bool field_set::operator==(const field_set& rhs) const
             _term == rhs._term && _nbool == rhs._nbool);
 }
 
-const term_t& field_set::get_term(const packed_vec& inst, size_t idx) const
+const term_t& field_set::get_term(const instance& inst, size_t idx) const
 {
     size_t raw_idx = term_to_raw_idx(idx);
 
@@ -67,6 +71,59 @@ const term_t& field_set::get_term(const packed_vec& inst, size_t idx) const
     }
     return *it;
 }
+
+contin_t field_set::get_contin(const instance& inst, size_t idx) const
+{
+    size_t raw_idx = contin_to_raw_idx(idx);
+
+    // Start with the mean, and walk down to the res.
+    const contin_spec& c = _contin[idx];
+    contin_stepper stepper(c);
+    for (size_t i = 0; i < c.depth; ++i) {
+        disc_t direction = get_raw(inst, raw_idx + i);
+
+        if (direction == contin_spec::Left) {
+            stepper.left();
+        } else if (direction == contin_spec::Right) {
+            stepper.right();
+        } else if (direction == contin_spec::Stop) {
+            break;
+        } else {
+            OC_ASSERT(0, "Error: unknown direction in contin spec.");
+        }
+    }
+    return stepper.value;
+}
+
+void field_set::set_contin(instance& inst, size_t idx, contin_t target) const
+{
+    size_t raw_idx = contin_to_raw_idx(idx);
+    const contin_spec& c = _contin[idx];
+
+    // Use binary search to assign to the nearest value.
+    contin_t best_distance = fabs(c.mean - target);
+    size_t best_depth = 0;
+    contin_stepper stepper(c);
+    for (width_t i = 0; i<c.depth && best_distance>c.epsilon(); ++i) {
+        // Take a step in the correct direction.
+        if (target < stepper.value) { //go left
+            stepper.left();
+            set_raw(inst, raw_idx + i, contin_spec::Left);
+        } else { //target>stepper.value - go right
+            stepper.right();
+            set_raw(inst, raw_idx + i, contin_spec::Right);
+        }
+        if (fabs(stepper.value - target) < best_distance) {
+            best_distance = fabs(stepper.value - target);
+            best_depth = i + 1;
+        }
+    }
+
+    // Backtrack up to the best depth.
+    for (size_t i = best_depth; i < c.depth; ++i)
+        set_raw(inst, raw_idx + i, contin_spec::Stop);
+}
+
 
 std::string field_set::to_string(const instance& inst) const
 {
@@ -118,6 +175,13 @@ void field_set::build_contin_spec(const contin_spec& cs, size_t n)
     // All raw contin fields have a multiplicity of 3 (left, right, or
     // stop) and hence are 2 bits wide.  One 'cooked' contin field
     // consists of contin_spec::depth raw fields.
+    size_t width = 2;
+    size_t base = back_offset();
+    dorepeat (n * cs.depth) {
+        _fields.push_back(field(width, base / bits_per_packed_t,
+                                base % bits_per_packed_t));
+        base += width;
+    }
     _contin.insert(_contin.end(), n, cs);
 }
 
@@ -173,7 +237,10 @@ std::ostream& field_set::ostream_field_set(std::ostream& out) const
     {
         out << "\t{ idx=" << idx
             << "; type=contin"
-            << "; expansion=" << cit->_exp
+            << "; depth=" << cit->depth
+            << "; mean=" << cit->mean
+            << "; step_size=" << cit->step_size
+            << "; expansion=" << cit->expansion
             << "; }," << endl;
     }
 

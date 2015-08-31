@@ -128,7 +128,8 @@ struct disc_knob_base : public knob_base
 struct contin_knob : public knob_base
 {
     contin_knob(combo_tree& tr, combo_tree::iterator tgt,
-                contin_t expansion);
+                contin_t step_size, contin_t expansion,
+                field_set::width_t depth);
 
     bool in_exemplar() const;
 
@@ -147,7 +148,7 @@ struct contin_knob : public knob_base
      * @param c          contin constant to be append
      */
     void append_to(combo_tree& candidate, combo_tree::iterator parent_dst,
-                   const contin_t& c) const;
+                   contin_t c) const;
 
     // Return the spec describing the space spanned by the knob
     // Note that this spec is *not* a part of the field set that is

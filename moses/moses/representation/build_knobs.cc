@@ -53,12 +53,15 @@ build_knobs::build_knobs(combo_tree& exemplar,
                          const combo_tree_ns_set* perceptions,
                          const combo_tree_ns_set* actions,
                          bool linear_regression,
+                         contin_t step_size,
+                         contin_t expansion,
                          field_set::width_t depth,
                          float perm_ratio)
     : _exemplar(exemplar), _rep(rep), _skip_disc_probe(true),
       _arity(tt.begin().number_of_children() - 1), _signature(tt),
       _linear_contin(linear_regression),
-      _depth(depth), _perm_ratio(perm_ratio),
+      _step_size(step_size), _expansion(expansion), _depth(depth),
+      _perm_ratio(perm_ratio),
       _ignore_ops(ignore_ops), _perceptions(perceptions), _actions(actions)
 {
     type_tree ot = get_signature_output(_signature);
@@ -780,7 +783,7 @@ void build_knobs::build_contin(pre_it it)
             // field spec for the knob. This field spec is not yet a
             // part of any field set; this happens later, when the
             // representation is built.
-            contin_knob kb(_exemplar, it, pow2(_depth - 1));
+            contin_knob kb(_exemplar, it, _step_size, _expansion, _depth);
             _rep.contin.insert(make_pair(kb.spec(), kb));
         }
     }
@@ -962,7 +965,7 @@ void build_knobs::append_linear_combination(pre_it it)
     if (*it == id::times)
         return;
 
-    // If its not times, and not plus, then its probably sin, exp, log, etc.
+    // If its not times, and not plus, then its probably sin, exp, log, etc. 
     if (*it != id::plus)
         it = _exemplar.append_child(it, id::plus);
 
@@ -1276,7 +1279,7 @@ static void enumerate_nodes(sib_it it, vector<ann_type>& nodes)
 }
 
 // XXX TODO this below is clearly unfinished, broken, etc.
-// and can't possibly work ...
+// and can't possibly work ... 
 void build_knobs::ann_canonize(pre_it it)
 {
     using namespace std;

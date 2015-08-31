@@ -282,8 +282,7 @@ public:
                     unsigned max_evals,
                     time_t max_time)
     {
-        instance init_inst(deme.fields().packed_width(),
-                deme.fields().n_contin_fields());
+        instance init_inst(deme.fields().packed_width());
         operator()(deme, init_inst, iscorer, max_evals, max_time);
     }
 

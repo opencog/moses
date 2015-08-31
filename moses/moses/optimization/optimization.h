@@ -67,7 +67,6 @@ static const std::string un("un"); // univariate
 static const std::string sa("sa"); // star-shaped search
 static const std::string hc("hc"); // local search
 static const std::string ps("ps"); // particle swarm
-static const std::string hb("hb"); // hybrid hc + ps
 
 // Parameters used mostly for EDA algorithms but also possibly by
 // other algo

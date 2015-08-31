@@ -35,13 +35,12 @@ namespace opencog { namespace moses {
 void set_stepsize(double new_ss);
 void set_expansion(double new_ex);
 void set_depth(int new_depth);
-unsigned get_depth();
 
 /**
  * determine the initial exemplar given its output type
  */
 combo_tree type_to_exemplar(type_node type);
-
+        
 /**
  * Do the representation-building, create a field_set
  */
@@ -95,7 +94,7 @@ struct representation : public knob_mapper, boost::noncopyable
      * should be removed eventually.
      */
     combo_tree get_candidate_lock(const instance& inst, bool reduce);
-
+    
     /**
      * Like get_candidate but without lock
      */
@@ -106,7 +105,7 @@ struct representation : public knob_mapper, boost::noncopyable
                            combo_tree::iterator src,
                            combo_tree::iterator parent_dst,
                            combo_tree& candidate) const;
-
+    
     //* return _simplify_candidate
     const reduct::rule* get_simplify_candidate() const {
         return _simplify_candidate;

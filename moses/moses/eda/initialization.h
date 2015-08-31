@@ -25,10 +25,9 @@
 #define _EDA_INITIALIZATION_H
 
 #include "../representation/field_set.h"
-#include "../representation/representation.h"
 
 //various routines for initializing instances
-namespace opencog {
+namespace opencog { 
 namespace moses {
 
 // Occam randomize a particular contin or term field. Note that it is

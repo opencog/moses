@@ -132,7 +132,7 @@ struct univariate
 
 /*
  * XXX implement this. "bde" is "bayesian distribution estimation"
- * I think.
+ * I think. 
   struct bde_local_structure_learning {
   typedef local_structure_model model_type;
 
@@ -197,7 +197,7 @@ local_structure_model::local_structure_model(const field_set& fs,
     // term variables.  So, to get that, we need to take a look
     // at each field in each instance, pull out the value (which is a
     // tree) and then recusively walk this tree, adding a dtree for
-    // each node found. Err, something like that ...
+    // each node found. Err, something like that ... 
     if (!_fields.contin().empty() || !_fields.term().empty())
     {
         iptr_seq iptrs(make_transform_iterator(from, addressof<const instance>),
@@ -231,7 +231,21 @@ local_structure_model::local_structure_model(const field_set& fs,
         // Iterate over all contin-valued fields
         for (const field_set::contin_spec& c : _fields.contin())
         {
+            int idx_base = distance(begin(), dtr);
             make_dtree(dtr++, 3); // contin arity is 3=2+1
+            for (field_set::width_t i = 1;i < c.depth;++i, ++dtr)
+            {
+                make_dtree(dtr, 3);
+                _initial_deps.insert(idx_base + i - 1, idx_base + i); //add dep to parent
+
+                // recursively split on gggparent, ... , gparent, parent
+                /*rec_split_contin(iptrs.begin(),iptrs.end(),
+                  idx_base,idx_base+i,dtr->begin());*/
+
+                // Alternatively, only split on parent.
+                rec_split_contin(iptrs.begin(), iptrs.end(),
+                                 idx_base + i - 1, idx_base + i, dtr->begin());
+            }
         }
     }
 
@@ -244,7 +258,7 @@ local_structure_model::local_structure_model(const field_set& fs,
 
     // Now that we have created all of the dtrees, construct a
     // feasible order that respects the initial dependencies
-    // XXX ??? Huh? More details, please...
+    // XXX ??? Huh? More details, please... 
     randomized_topological_sort(_initial_deps, _ordering.begin());
 }
 
@@ -287,8 +301,8 @@ void local_structure_probs_learning::rec_learn(const field_set& fs,
     {
         while (from != to)
         {
-            OC_ASSERT(fs.get_disc_raw(*from, idx) < dtr->size() - 1);
-            ++(*dtr)[fs.get_disc_raw(*from++, idx)];
+            OC_ASSERT(fs.get_raw(*from, idx) < dtr->size() - 1);
+            ++(*dtr)[fs.get_raw(*from++, idx)];
         }
         dtr->back() = accumulate(dtr->begin(), --(dtr->end()), 0);
     }
@@ -299,7 +313,7 @@ void local_structure_probs_learning::rec_learn(const field_set& fs,
         pivots.front() = from;
         pivots.back() = to;
         n_way_partition(from, to,
-                        bind(&field_set::get_disc_raw, &fs, _1, dtr->front()),
+                        bind(&field_set::get_raw, &fs, _1, dtr->front()),
                         raw_arity, ++pivots.begin());
         for_each(pivots.begin(), --pivots.end(), ++pivots.begin(),
                  make_counting_iterator(dtr.begin()),

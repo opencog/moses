@@ -45,17 +45,39 @@
 
 namespace opencog { namespace moses {
 
-// 2^27 = +- 134217728
-static unsigned depth = 27;
+// Stepsize should be roughly the standard-deviation of the expected
+// distribution of the contin variables.
+//
+// XXX TODO: One might think that varying the stepsize, i.e. shrinking
+// it, as the optimizers tune into a specific value, would be a good
+// thing (so that the optimizer could tune to a more precise value).
+// Unfortunately, a simple experiment in tuning (see below, surrounded
+// by "#if 0") didn't work; it didn't find better answers, and it
+// lengthened running time.
+static contin_t stepsize = 1.0;
+
+// Expansion factor should be 1 or greater; it should never be less
+// than one. Optimal values are probably 1.5 to 2.0.
+static contin_t expansion = 2.0;
+
+// By default, contin knobs will have 5 "pseudo-bits" of binary
+// precision. Roughly speaking, they can hold 2^5 = 32 different
+// values, or just a little better than one decimal place of precision.
+static int depth = 5;
+
+void set_stepsize(double new_ss)
+{
+    stepsize = new_ss;
+}
+
+void set_expansion(double new_ex)
+{
+    expansion = new_ex;
+}
 
 void set_depth(int new_depth)
 {
     depth = new_depth;
-}
-
-unsigned get_depth()
-{
-    return depth;
 }
 
 combo_tree type_to_exemplar(type_node type)
@@ -108,7 +130,7 @@ representation::representation(const reduct::rule& simplify_candidate,
     // Build the knobs.
     build_knobs(_exemplar, tt, *this, ignore_ops,
                 perceptions, actions, linear_contin,
-                depth, perm_ratio);
+                stepsize, expansion, depth, perm_ratio);
 
     logger().info() << "After knob building, rep size="
                     << _exemplar.size()
@@ -182,7 +204,8 @@ representation::representation(const reduct::rule& simplify_candidate,
         pre_it pit = v.second.get_loc();
         it_contin_knob[pit] = cit;
         // size_t offset = distance(contin.cbegin(), cit); per comments above.
-        it_contin_idx[pit] = offset++;
+        it_contin_idx[pit] = _fields.begin_contin_raw_idx() + offset;
+        offset++;
     }
     logger().info() << "Number of contin knobs mapped: " << contin.size();
     logger().info() << "Field set, in bytes: " << _fields.byte_size();
@@ -266,7 +289,7 @@ void representation::clean_combo_tree(combo_tree &tr,
             (*get_simplify_knob_building())(tr);
         else
             (*get_simplify_candidate())(tr);
-#ifdef __FINE_LOG_CND_REDUCED
+#ifdef __FINE_LOG_CND_REDUCED 
         if (logger().isFineEnabled()) {
             logger().fine() << "Reduced candidate: " << tr;
         }
@@ -338,7 +361,7 @@ void representation::get_candidate_rec(const instance& inst,
     // Find the knob associated to src (if any)
     disc_map_cit dcit = find_disc_knob(src);
     if (dcit != disc.end()) {
-        int d = _fields.get_disc_raw(inst, it_disc_idx.find(src)->second);
+        int d = _fields.get_raw(inst, it_disc_idx.find(src)->second);
         pre_it new_src = dcit->second->append_to(candidate, parent_dst, d);
         if (_exemplar.is_valid(new_src))
             recursive_call(parent_dst, new_src);
@@ -347,9 +370,9 @@ void representation::get_candidate_rec(const instance& inst,
 
     contin_map_cit ccit = find_contin_knob(src);
     if (ccit != contin.end()) {
-        const contin_t& c = inst._contin[it_contin_idx.find(src)->second];
-        ccit->second.append_to(candidate, parent_dst, c);
-        return;
+         contin_t c = _fields.get_contin(inst, it_contin_idx.find(src)->second);
+         ccit->second.append_to(candidate, parent_dst, c);
+         return;
     }
 
     // append v to parent_dst's children. If candidate is empty then

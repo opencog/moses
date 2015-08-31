@@ -24,7 +24,7 @@
 #include "initialization.h"
 #include "../moses/neighborhood_sampling.h"
 
-namespace opencog {
+namespace opencog { 
 namespace moses {
 
 using namespace std;
@@ -33,7 +33,7 @@ void occam_randomize_contin(const field_set& fs, instance& inst,
                             field_set::contin_iterator it,
                             opencog::RandGen& rng)
 {
-    unsigned int n = rng.randint(get_depth());
+    unsigned int n = rng.randint(fs.contin()[it.idx()].depth);
     moses::generate_contin_neighbor(fs, inst, it, n, rng);
 }
 
@@ -53,12 +53,12 @@ void occam_randomize_term(const field_set& fs, instance& inst,
 
     for (;begin != middle && !node.is_childless();++begin) {
         int child_idx = rng.randint(node.number_of_children());
-        fs.set_raw(inst._bit_disc, begin,
+        fs.set_raw(inst, begin,
                    field_set::term_spec::from_child_idx(child_idx));
         node = tr.child(node, child_idx);
     }
     for (;begin != end;++begin)
-        fs.set_raw(inst._bit_disc, begin, field_set::term_spec::Stop);
+        fs.set_raw(inst, begin, field_set::term_spec::Stop);
 }
 
 void occam_randomize_term(const field_set& fs, instance& inst,

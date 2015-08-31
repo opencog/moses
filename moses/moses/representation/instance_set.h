@@ -72,7 +72,7 @@ struct instance_set : public std::vector<scored_instance<ScoreT> >
 
     // Create a deme initialized with n null instances.
     instance_set(unsigned int n, MAYBE_CONST field_set& fs)
-        : super(n, instance(fs.packed_width(), fs.n_contin_fields())), _fields(fs),
+        : super(n, instance(fs.packed_width())), _fields(fs),
           n_evals(0), n_best_evals(0) {}
     // Create a deme initialized with n instances of inst.
     instance_set(unsigned int n, const instance& inst, MAYBE_CONST field_set& fs)
@@ -96,7 +96,7 @@ struct instance_set : public std::vector<scored_instance<ScoreT> >
     // Insert or erase instances so that the size becomes n.
     // In case of insertions, it will insert null instances.
     void resize(unsigned int n) {
-        super::resize(n, instance(_fields.packed_width(), _fields.n_contin_fields()));
+        super::resize(n, instance(_fields.packed_width()));
     }
 
     const field_set& fields() const {

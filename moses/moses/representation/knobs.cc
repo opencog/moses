@@ -33,8 +33,10 @@ namespace opencog { namespace moses {
 /////////////////
 
 contin_knob::contin_knob(combo_tree& tr, combo_tree::iterator tgt,
-                            contin_t expansion)
-    : knob_base(tr, tgt), _spec(expansion) { }
+                         contin_t step_size, contin_t expansion,
+                         field_set::width_t depth)
+    : knob_base(tr, tgt), _spec(combo::get_contin(*tgt),
+                                step_size, expansion, depth) { }
 
 bool contin_knob::in_exemplar() const
 {
@@ -49,7 +51,7 @@ void contin_knob::turn(contin_t x)
 }
 
 void contin_knob::append_to(combo_tree& candidate, combo_tree::iterator parent_dst,
-                            const contin_t& c) const
+                            contin_t c) const
 {
     if (candidate.empty())
         candidate.set_head(c);
@@ -282,10 +284,10 @@ void action_subtree_knob::turn(int idx)
 {
     idx = map_idx(idx);
     OC_ASSERT(idx <= (int)_perms.size(), "Index too big.");
-
+    
     if (idx == _current) //already set, nothing to
         return;
-
+    
     if (idx == 0) {
         if (_current != 0) {
             combo_tree t(id::null_vertex);

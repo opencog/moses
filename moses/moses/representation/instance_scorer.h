@@ -97,6 +97,7 @@ struct complexity_based_scorer : public iscorer_base
         return worst_composite_score;
     }
 
+protected:
     behave_cscore& _cscorer;
     representation& _rep;
     bool _reduce; // whether the exemplar should be reduced before being
