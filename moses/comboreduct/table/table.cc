@@ -909,7 +909,6 @@ void subsampleCTable(float ratio, CTable& ctable)
     dorepeat(nremove)
         rm_row_idxs.insert(rm_selector());
     ctable.remove_rows(rm_row_idxs);
-    subsampleCTable(ratio * ctable.uncompressed_size(), ctable);
 }
 
 ////////////////////////
