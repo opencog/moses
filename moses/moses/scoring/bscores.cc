@@ -286,8 +286,10 @@ behavioral_score ctruth_table_bscore::operator()(const combo_tree& tr) const
         bs.push_back(-sc);
     }
 
-    // Report the score only relative to the best-possible score.
-    bs -= _best_possible_score;
+	if (_return_weighted_score) { // if boosting
+        // Report the score only relative to the best-possible score.
+        bs -= _best_possible_score;
+    }
 
     log_candidate_bscore(tr, bs);
 
@@ -337,8 +339,11 @@ behavioral_score ctruth_table_bscore::operator()(const scored_combo_tree_set& en
         i++;
     }
 
-    // Report the score only relative to the best-possible score.
-    bs -= _best_possible_score;
+	if (_return_weighted_score) { // if boosting
+        // Report the score only relative to the best-possible score.
+        bs -= _best_possible_score;
+    }
+
     return bs;
 }
 
@@ -370,10 +375,13 @@ void ctruth_table_bscore::set_best_possible_bscore()
 
 behavioral_score ctruth_table_bscore::best_possible_bscore() const
 {
-    // The returned best score will always be zero, because the actual
-    // best score is subtracted; this is required to get boosting to
-    // work.
-    return behavioral_score(_size, 0.0);
+	if (_return_weighted_score) {
+        // The returned best score will always be zero, because the actual
+        // best score is subtracted; this is required to get boosting to
+        // work.
+        return behavioral_score(_size, 0.0);
+    }
+    return _best_possible_score;
 }
 
 behavioral_score ctruth_table_bscore::worst_possible_bscore() const
