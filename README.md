@@ -1,6 +1,8 @@
 
 MOSES -- Meta-Optimizing Semantic Evolutionary Search
 =====================================================
+[![Build Status](
+https://circleci.com/gh/opencog/moses/tree/master.png?circle-token=:circle-token)](https://circleci.com/gh/opencog/moses/tree/master)
 
 MOSES is a machine-learning tool; it is an "evolutionary program
 learner". It is capable of learning short programs that capture
@@ -63,8 +65,6 @@ few exceptions, most Linux distributions will provide these packages.
 > Test framework
 > http://cxxtest.sourceforge.net/ |
 > https://launchpad.net/~opencog-dev/+archive/ppa
-> Currently, opencog requires cxxtest version 3, and is not compatible
-  with version 4.
 
 ###### cogutil
 > Common OpenCog C++ utilities
