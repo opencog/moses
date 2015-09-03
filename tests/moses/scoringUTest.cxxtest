@@ -23,6 +23,7 @@
 #include <cxxtest/TestSuite.h>
 
 #include <moses/moses/scoring/precision_bscore.h>
+#include <moses/moses/scoring/bscores.h>
 #include <moses/comboreduct/table/table.h>
 #include <moses/comboreduct/table/table_io.h>
 
@@ -55,6 +56,19 @@ public:
         TS_ASSERT_EQUALS(bsc.front(), precision + act_penalty);
     }
 
+	void test_ctruth_table_bscore_best_possible_bscore() {
+        Table tt = loadTable(mosesUTest_dir + "precision.csv", target_feature);
+        CTable ct = tt.compressed();
+
+        ctruth_table_bscore ctbsc(ct);
+
+        behavioral_score bsc = ctbsc.best_possible_bscore(),
+            expected_bsc = {0.0, 0.0, -2.0};
+        std::cout << "bsc = " << bsc << std::endl
+                  << "expected_bsc = " << expected_bsc << std::endl;
+        TS_ASSERT_EQUALS(bsc, expected_bsc);
+    }
+	
     // disabled till we fix best_possible_bscore
     // void test_precision2_bscore_best_possible_bscore() {
     //     CTable ct = loadCTable(mosesUTest_dir + "precision2.ctable");

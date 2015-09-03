@@ -357,22 +357,12 @@ private:
  * Note that, since p<1, that log(p) is negative, and so the second
  * term is negative.  It can be understood as a "complexity penalty".
  */
-struct ctruth_table_bscore : public bscore_base
+struct ctruth_table_bscore : public bscore_ctable_base
 {
-    template<typename Func>
-    ctruth_table_bscore(const Func& func,
-                        arity_t arity,
-                        int nsamples = -1)
-        : _ctable(func, arity, nsamples)
+    ctruth_table_bscore(const CTable& ctt)
+        : bscore_ctable_base(ctt)
     {
-        _size = _ctable.size();
-        reset_weights();
-        set_best_possible_bscore();
-    }
-
-    ctruth_table_bscore(const CTable& ctt) : _ctable(ctt)
-    {
-        _size = _ctable.size();
+        _size = _wrk_ctable.size();
         reset_weights();
         set_best_possible_bscore();
     }
@@ -388,9 +378,8 @@ struct ctruth_table_bscore : public bscore_base
     score_t min_improv() const;
 
 protected:
-    CTable _ctable;
-    behavioral_score _best_possible_score;
-    void set_best_possible_bscore();
+    mutable behavioral_score _best_possible_score;
+    void set_best_possible_bscore() const;
 };
 
 /**
