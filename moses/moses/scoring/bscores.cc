@@ -280,7 +280,7 @@ behavioral_score ctruth_table_bscore::operator()(const combo_tree& tr) const
     interpreter_visitor iv(tr);
     auto interpret_tr = boost::apply_visitor(iv);
     // Evaluate the bscore components for all rows of the ctable
-    for (const CTable::value_type& vct : _ctable) {
+    for (const CTable::value_type& vct : _wrk_ctable) {
         const CTable::counter_t& c = vct.second;
         score_t sc = c.get(negate_vertex(interpret_tr(vct.first.get_variant())));
         bs.push_back(-sc);
@@ -302,7 +302,7 @@ behavioral_score ctruth_table_bscore::operator()(const combo_tree& tr) const
 /// compared to the desired output.
 behavioral_score ctruth_table_bscore::operator()(const scored_combo_tree_set& ensemble) const
 {
-    size_t sz = _ctable.size();
+    size_t sz = _wrk_ctable.size();
 
     // Step 1: accumulate the weighted prediction of each tree in
     // the ensemble.
@@ -315,7 +315,7 @@ behavioral_score ctruth_table_bscore::operator()(const scored_combo_tree_set& en
 
         // Evaluate the tree for all rows of the ctable
         size_t i=0;
-        for (const CTable::value_type& vct : _ctable) {
+        for (const CTable::value_type& vct : _wrk_ctable) {
             // Add +1 if prediction is up and -1 if prediction is down.
             vertex prediction(interpret_tr(vct.first.get_variant()));
             hypoth[i] += (id::logical_true == prediction)? weight : -weight;
@@ -331,7 +331,7 @@ behavioral_score ctruth_table_bscore::operator()(const scored_combo_tree_set& en
     // the count of the iverted prediction.
     behavioral_score bs(sz);
     size_t i =0;
-    for (const CTable::value_type& vct : _ctable) {
+    for (const CTable::value_type& vct : _wrk_ctable) {
         const CTable::counter_t& cnt = vct.second;
         vertex inverted_prediction = (hypoth[i] > 0.0) ? 
             id::logical_false : id::logical_true;
@@ -347,9 +347,10 @@ behavioral_score ctruth_table_bscore::operator()(const scored_combo_tree_set& en
     return bs;
 }
 
-void ctruth_table_bscore::set_best_possible_bscore()
+void ctruth_table_bscore::set_best_possible_bscore() const
 {
-    transform(_ctable | map_values,
+    _best_possible_score.clear();
+    transform(_wrk_ctable | map_values,
               back_inserter(_best_possible_score),
               [](const CTable::counter_t& c) {
                   // OK, this looks like magic, but here's what it does:
@@ -381,13 +382,14 @@ behavioral_score ctruth_table_bscore::best_possible_bscore() const
         // work.
         return behavioral_score(_size, 0.0);
     }
+    set_best_possible_bscore();
     return _best_possible_score;
 }
 
 behavioral_score ctruth_table_bscore::worst_possible_bscore() const
 {
     behavioral_score bs;
-    for (const CTable::value_type& vct : _ctable) {
+    for (const CTable::value_type& vct : _wrk_ctable) {
         const CTable::counter_t& cnt = vct.second;
 
         // The most that the score can improve is to flip true to false,
@@ -409,7 +411,7 @@ score_t ctruth_table_bscore::min_improv() const
     // return 0.5;
 
     score_t min_weight = FLT_MAX;
-    for (const CTable::value_type& vct : _ctable) {
+    for (const CTable::value_type& vct : _wrk_ctable) {
         const CTable::counter_t& cnt = vct.second;
 
         // The most that the score can improve is to flip
