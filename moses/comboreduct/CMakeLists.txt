@@ -34,8 +34,8 @@ ADD_LIBRARY(comboreduct SHARED
 	table/table
 	table/table_io
 
-	interpreter/eval
 	interpreter/interpreter
+    interpreter/eval
 
 	type_checker/type_tree_def
 	type_checker/type_tree

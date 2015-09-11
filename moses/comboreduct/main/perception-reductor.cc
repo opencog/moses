@@ -27,7 +27,6 @@
 
 #include "../combo/vertex.h"
 #include "../reduct/reduct.h"
-#include "../interpreter/eval.h"
 #include "../table/table.h"
 #include "../table/table_io.h"
 #include "../type_checker/type_tree.h"

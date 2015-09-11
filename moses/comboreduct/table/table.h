@@ -42,7 +42,7 @@
 #include <opencog/util/exceptions.h>
 #include <opencog/util/KLD.h>
 
-#include "../interpreter/eval.h"   /* Needed for binding map, and then obsolete */
+#include "../type_checker/type_tree.h"
 #include "../interpreter/interpreter.h"
 #include "../combo/vertex.h"
 #include "../combo/common_def.h"
@@ -1452,7 +1452,7 @@ public:
     template<typename T>
     complete_truth_table(const tree<T>& tr)
     {
-        _arity = arity(tr);
+        _arity = infer_arity(tr);
         this->resize(pow2(_arity));
         populate(tr);
     }
@@ -1471,9 +1471,9 @@ public:
 
     /*
       this operator allows to access quickly to the results of a
-      complete_truth_table. [from, to) points toward a chain of boolean describing
-      the inputs of the function coded into the complete_truth_table and
-      the operator returns the results.
+      complete_truth_table. [from, to) points toward a chain of
+      boolean describing the inputs of the function coded into the
+      complete_truth_table and the operator returns the results.
     */
     template<typename It>
     bool operator()(It from, It to) {
@@ -1496,16 +1496,16 @@ protected:
     template<typename T>
     void populate(const tree<T>& tr)
     {
-        bmap.resize(_arity);
+        inputs.resize(_arity);
         iterator it = begin();
         for (int i = 0; it != end(); ++i, ++it) {
             for (int j = 0; j < _arity; ++j)
-                bmap[j] = bool_to_vertex((i >> j) % 2);  // j'th bit of i
-            *it = (eval_binding(bmap, tr) == id::logical_true);
+                inputs[j] = bool_to_vertex((i >> j) % 2);  // j'th bit of i
+            *it = (mixed_interpreter(inputs)(tr) == id::logical_true);
         }
     }
     arity_t _arity;
-    mutable vertex_seq bmap;
+    mutable vertex_seq inputs;
 };
 
 }} // ~namespaces combo opencog
