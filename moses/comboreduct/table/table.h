@@ -43,6 +43,7 @@
 #include <opencog/util/KLD.h>
 
 #include "../type_checker/type_tree.h"
+#include "../interpreter/eval.h"
 #include "../interpreter/interpreter.h"
 #include "../combo/vertex.h"
 #include "../combo/common_def.h"
@@ -1413,10 +1414,6 @@ void subsampleTable(ITable& it, unsigned nsamples);
 // Truth table //
 /////////////////
 
-//////////////////////////////
-// probably soon deprecated //  ??? Why deprecated ??? Because its used for demo problems only ???
-//////////////////////////////
-
 /**
  * complete truth table, it contains only the outputs, the inputs are
  * assumed to be ordered in the conventional way, for instance if
@@ -1434,11 +1431,11 @@ void subsampleTable(ITable& it, unsigned nsamples);
  * |complete_truth_table[3]|T |T |
  * +-----------------------+--+--+
  */
-typedef std::vector<bool> bool_vector;
-class complete_truth_table : public bool_vector
+typedef std::vector<bool> bool_seq;
+class complete_truth_table : public bool_seq
 {
 public:
-    typedef bool_vector super;
+    typedef bool_seq super;
 
     complete_truth_table() {}
     template<typename It>
@@ -1462,7 +1459,7 @@ public:
         : super(pow2(arity)), _arity(arity) {
         iterator it = begin();
         for (int i = 0; it != end(); ++i, ++it) {
-            bool_vector v(_arity);
+            bool_seq v(_arity);
             for (arity_t j = 0;j < _arity; ++j)
                 v[j] = (i >> j) % 2;  // j'th bit of i
             (*it) = f(v.begin(), v.end());
@@ -1500,12 +1497,12 @@ protected:
         iterator it = begin();
         for (int i = 0; it != end(); ++i, ++it) {
             for (int j = 0; j < _arity; ++j)
-                inputs[j] = bool_to_vertex((i >> j) % 2);  // j'th bit of i
-            *it = (mixed_interpreter(inputs)(tr) == id::logical_true);
+	            inputs[j] = bool_to_builtin((i >> j) % 2);  // j'th bit of i
+            *it = builtin_to_bool(boolean_interpreter(inputs)(tr));
         }
     }
     arity_t _arity;
-    mutable vertex_seq inputs;
+    mutable builtin_seq inputs;
 };
 
 }} // ~namespaces combo opencog
