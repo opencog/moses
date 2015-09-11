@@ -22,7 +22,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 #include "general_rules.h"
-#include "../interpreter/interpreter.h"
+#include "../interpreter/eval.h"
 #include <moses/comboreduct/combo/assumption.h>
 #include "../crutil/exception.h"
 
@@ -48,9 +48,11 @@ void level::operator()(combo_tree& tr, combo_tree::iterator it) const
 void eval_constants::operator()(combo_tree& tr, combo_tree::iterator it) const
 {
     if (it.is_childless()) {
-	    OC_ASSERT(!is_indefinite_object(*it),
-	              "The interpreter should be upgraded to support "
-	              "indefinitely object");
+        if (is_indefinite_object(*it)) {
+            // not sure we want that when indefinite_object is random
+            vertex_seq empty;
+            *it = eval_throws_binding(empty, it);
+        }
         return;
     }
 
@@ -87,8 +89,9 @@ void eval_constants::operator()(combo_tree& tr, combo_tree::iterator it) const
     // propagate it along.  (later on, there may be a divde-by-inf
     // or maybe a 0<(-inf) predicate, etc. all of which can be legally
     // evaluated to return valid results.
+    vertex_seq empty;
     try {
-	    *it = mixed_interpreter()(it);
+        *it = eval_throws_binding(empty, it);
     } catch (OverflowException& e) {
         *it = e.get_vertex();
     };

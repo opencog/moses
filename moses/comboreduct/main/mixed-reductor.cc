@@ -26,7 +26,6 @@
 #include <opencog/util/mt19937ar.h>
 
 #include "../reduct/reduct.h"
-#include "../interpreter/interpreter.h"
 #include "../table/table.h"
 #include "../table/table_io.h"
 #include "../type_checker/type_tree.h"
