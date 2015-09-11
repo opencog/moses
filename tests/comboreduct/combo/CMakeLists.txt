@@ -32,13 +32,6 @@ TARGET_LINK_LIBRARIES(annUTest
 	cogutil
 )
 
-ADD_CXXTEST(variable_unifierUTest)
-TARGET_LINK_LIBRARIES(variable_unifierUTest
-	comboreduct
-	comboant
-	cogutil
-)
-
 ADD_CXXTEST(procedure_callUTest)
 TARGET_LINK_LIBRARIES(procedure_callUTest
 	comboreduct

@@ -28,7 +28,6 @@ ADD_LIBRARY(comboreduct SHARED
 	combo/procedure_repository
 	combo/similarity
 	combo/simple_nn
-	combo/variable_unifier
 	combo/vertex
 
 	table/table

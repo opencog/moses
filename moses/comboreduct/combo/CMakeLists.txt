@@ -20,7 +20,6 @@ INSTALL(FILES
 	procedure_call.h
 	procedure_repository.h
 	simple_nn.h
-	variable_unifier.h	
 	vertex.h
 
 	DESTINATION
