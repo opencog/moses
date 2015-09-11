@@ -24,6 +24,7 @@
 #include "general_rules.h"
 #include "../interpreter/eval.h"
 #include <moses/comboreduct/combo/assumption.h>
+#include "../crutil/exception.h"
 
 namespace opencog { namespace reduct {
 typedef combo_tree::sibling_iterator sib_it;
@@ -48,7 +49,7 @@ void eval_constants::operator()(combo_tree& tr, combo_tree::iterator it) const
 {
     if (it.is_childless()) {
         if (is_indefinite_object(*it)) {
-            //not sure we want that when indefinite_object is random
+            // not sure we want that when indefinite_object is random
             vertex_seq empty;
             *it = eval_throws_binding(empty, it);
         }

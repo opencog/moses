@@ -1245,14 +1245,15 @@ arity_t infer_arity(const combo_tree& tr)
 
     arity_t a = 0;
 
-    for (leaf_it l_it = tr.begin_leaf(); l_it != tr.end_leaf(); ++l_it) {
-        arity_t va = get_arity(*l_it);
-        if (va > 0)
-            a += va;
-        else if (va < 0) {
-            return va -a;
-        }
-    }
+     for (leaf_it l_it = tr.begin_leaf(); l_it != tr.end_leaf(); ++l_it) {
+         arity_t va = get_arity(*l_it);
+         if (va > 0)
+             a += va;
+         else if (va < 0) {
+             return va -a;
+         }
+     }
+
     return a;
 }
 

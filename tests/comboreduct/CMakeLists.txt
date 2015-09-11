@@ -1,3 +1,4 @@
 ADD_SUBDIRECTORY (combo)
 ADD_SUBDIRECTORY (reduct)
 ADD_SUBDIRECTORY (table)
+ADD_SUBDIRECTORY (type_checker)

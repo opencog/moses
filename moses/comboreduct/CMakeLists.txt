@@ -28,14 +28,13 @@ ADD_LIBRARY(comboreduct SHARED
 	combo/procedure_repository
 	combo/similarity
 	combo/simple_nn
-	combo/variable_unifier
 	combo/vertex
 
 	table/table
 	table/table_io
 
-	interpreter/eval
 	interpreter/interpreter
+    interpreter/eval
 
 	type_checker/type_tree_def
 	type_checker/type_tree

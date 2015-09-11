@@ -26,23 +26,9 @@ TARGET_LINK_LIBRARIES(similarityUTest
 	cogutil
 )
 
-ADD_CXXTEST(type_treeUTest)
-TARGET_LINK_LIBRARIES(type_treeUTest
-	comboreduct
-	comboant
-	cogutil
-)
-
 ADD_CXXTEST(annUTest)
 TARGET_LINK_LIBRARIES(annUTest
 	comboreduct
-	cogutil
-)
-
-ADD_CXXTEST(variable_unifierUTest)
-TARGET_LINK_LIBRARIES(variable_unifierUTest
-	comboreduct
-	comboant
 	cogutil
 )
 

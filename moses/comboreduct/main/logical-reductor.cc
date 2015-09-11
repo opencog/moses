@@ -27,7 +27,6 @@
 #include <opencog/util/Logger.h>
 
 #include "../reduct/reduct.h"
-#include "../interpreter/eval.h"
 #include "../table/table.h"
 #include "../table/table_io.h"
 

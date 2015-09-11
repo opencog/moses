@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 
-#include "../interpreter/eval.h"
+#include "../interpreter/interpreter.h"
 #include "../combo/procedure_repository.h"
 #include "../ant_combo_vocabulary/ant_combo_vocabulary.h"
 
@@ -29,14 +29,11 @@ int main()
         if (!cin.good())
             break;
 
-        //ProcedureEvaluator* pe = new ProcedureEvaluator(tr);
-
         combo_tree trv;
         try {
             combo_tree::pre_order_iterator it = tr.begin();
             repo.instantiate_procedure_calls(tr, true);
-            //pe->
-            trv = eval_throws_tree(empty, it);
+            trv = combo_tree(mixed_interpreter(empty)(it));
         }
         catch (StandardException& e) {
             cout << "Exception: " << e.what() << endl;
