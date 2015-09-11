@@ -1452,7 +1452,7 @@ public:
     template<typename T>
     complete_truth_table(const tree<T>& tr)
     {
-        _arity = infer_arity(tr);
+        _arity = arity(tr);
         this->resize(pow2(_arity));
         populate(tr);
     }
