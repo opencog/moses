@@ -95,7 +95,7 @@ protected:
     bool _use_contin_inputs;
     const std::vector<vertex>& _mixed_inputs;
 };            
-
+		
 }} // ~namespaces combo opencog
         
 #endif // _OPENCOG_INTERPRETER_H

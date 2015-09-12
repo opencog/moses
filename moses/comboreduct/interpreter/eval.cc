@@ -573,7 +573,6 @@ combo_tree eval_throws_tree(const vertex_seq& bmap,
         if (it.begin() == it.end()) // For correct foldr behaviour
             return combo_tree(it);
 
-        //return pe->eval_procedure(it, combo::variable_unifier::DEFAULT_VU());
         return eval_procedure_tree(bmap, it);
     }
 

@@ -1,7 +1,6 @@
 #install header files
 INSTALL(FILES
 
-	eval.h
 	interpreter.h
 
 	DESTINATION

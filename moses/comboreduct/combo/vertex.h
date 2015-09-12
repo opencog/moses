@@ -688,9 +688,13 @@ definite_object get_definite_object(const vertex& v);
 // -------------------------------------------------------
 // Boolean utility functions
 
-inline vertex bool_to_vertex(bool b)
+inline builtin bool_to_builtin(bool b)
 {
     return (b ? id::logical_true : id::logical_false);
+}
+inline vertex bool_to_vertex(bool b)
+{
+    return bool_to_builtin(b);
 }
 inline bool vertex_to_bool(const vertex& v)
 {
