@@ -286,7 +286,8 @@ void metapop_moses_results_b(const std::vector<combo_tree>& bases,
     else {
         std::cerr << "Unknown optimization algo " << opt_params.opt_algo
                   << ". Supported algorithms are un (for univariate),"
-                  << " sa (for star-shaped search) and hc (for local search)"
+                  << " sa (for star-shaped search), hc (for local search)"
+                  << " and ps (for particle swarm)"
                   << std::endl;
         exit(1);
     }
