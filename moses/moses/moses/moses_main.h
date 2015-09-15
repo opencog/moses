@@ -261,6 +261,7 @@ void metapop_moses_results_b(const std::vector<combo_tree>& bases,
                              behave_cscore& sc,
                              const optim_parameters& opt_params,
                              const hc_parameters& hc_params,
+                             const ps_parameters& ps_params,
                              const deme_parameters& deme_params,
                              const subsample_deme_filter_parameters& filter_params,
                              const metapop_parameters& meta_params,
@@ -280,7 +281,7 @@ void metapop_moses_results_b(const std::vector<combo_tree>& bases,
         optimizer = new univariate_optimization(opt_params);
     }
     else if (opt_params.opt_algo == ps) { // particle swarm
-        optimizer = new particle_swarm(opt_params, hc_params);
+        optimizer = new particle_swarm(opt_params, ps_params);
     }
     else {
         std::cerr << "Unknown optimization algo " << opt_params.opt_algo
@@ -325,6 +326,7 @@ void metapop_moses_results(const std::vector<combo_tree>& bases,
                            behave_cscore& c_scorer,
                            optim_parameters opt_params,
                            hc_parameters hc_params,
+                           ps_parameters ps_params,
                            const deme_parameters& deme_params,
                            const subsample_deme_filter_parameters& filter_params,
                            const metapop_parameters& meta_params,
@@ -345,13 +347,13 @@ void metapop_moses_results(const std::vector<combo_tree>& bases,
         behave_cscore ss_cscorer(ss_bscorer);
         metapop_moses_results_b(bases, type_sig, si_ca, si_kb,
                                 ss_cscorer,
-                                opt_params, hc_params,
+                                opt_params, hc_params, ps_params,
                                 deme_params, filter_params, meta_params,
                                 moses_params, printer);
     } else {
         metapop_moses_results_b(bases, type_sig, si_ca, si_kb,
                                 c_scorer,
-                                opt_params, hc_params,
+                                opt_params, hc_params, ps_params,
                                 deme_params, filter_params, meta_params,
                                 moses_params, printer);
     }
