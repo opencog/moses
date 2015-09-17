@@ -46,6 +46,7 @@ class partial_solver
                        const rule& reduct,
                        const optim_parameters& opt_params,
                        const hc_parameters& hc_params,
+                       const ps_parameters& ps_params,
                        const deme_parameters& deme_params,
                        const subsample_deme_filter_parameters&,
                        const metapop_parameters& meta_params,
@@ -117,6 +118,7 @@ class partial_solver
         const rule& _reduct;
         optim_parameters _opt_params;
         hc_parameters _hc_params;
+        ps_parameters _ps_params;
         deme_parameters _deme_params;
         subsample_deme_filter_parameters _filter_params;
         metapop_parameters _meta_params;

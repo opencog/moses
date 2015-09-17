@@ -116,7 +116,7 @@ void bool_problem_base::run(option_base* ob)
     metapop_moses_results(pms.exemplars, sig,
                           *pms.bool_reduct, *pms.bool_reduct_rep,
                           cscore,
-                          pms.opt_params, pms.hc_params,
+                          pms.opt_params, pms.hc_params, pms.ps_params,
                           pms.deme_params, pms.filter_params, pms.meta_params,
                           pms.moses_params, pms.mmr_pa);
 }
@@ -279,7 +279,7 @@ void polynomial_problem::run(option_base* ob)
     metapop_moses_results(pms.exemplars, tt,
                           *pms.contin_reduct, *pms.contin_reduct,
                           cscore,
-                          pms.opt_params, pms.hc_params,
+                          pms.opt_params, pms.hc_params, pms.ps_params,
                           pms.deme_params, pms.filter_params, pms.meta_params,
                           pms.moses_params, pms.mmr_pa);
 }
@@ -394,7 +394,7 @@ void combo_problem::run(option_base* ob)
         metapop_moses_results(pms.exemplars, tt,
                               *pms.bool_reduct, *pms.bool_reduct_rep,
                               cscore,
-                              pms.opt_params, pms.hc_params,
+                              pms.opt_params, pms.hc_params, pms.ps_params,
                               pms.deme_params, pms.filter_params, pms.meta_params,
                               pms.moses_params, pms.mmr_pa);
     }
@@ -437,7 +437,7 @@ void combo_problem::run(option_base* ob)
         metapop_moses_results(pms.exemplars, tt,
                               *pms.contin_reduct, *pms.contin_reduct,
                               cscore,
-                              pms.opt_params, pms.hc_params,
+                              pms.opt_params, pms.hc_params, pms.ps_params,
                               pms.deme_params, pms.filter_params, pms.meta_params,
                               pms.moses_params, pms.mmr_pa);
     } else {
@@ -490,7 +490,7 @@ void ann_combo_problem::run(option_base* ob)
     metapop_moses_results(pms.exemplars, tt,
                           *pms.contin_reduct, *pms.contin_reduct,
                           cscore,
-                          pms.opt_params, pms.hc_params,
+                          pms.opt_params, pms.hc_params, pms.ps_params,
                           pms.deme_params, pms.filter_params, pms.meta_params,
                           pms.moses_params, pms.mmr_pa);
 }

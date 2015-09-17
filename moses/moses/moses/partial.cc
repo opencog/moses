@@ -36,6 +36,7 @@ partial_solver::partial_solver(const CTable &ctable,
                                const rule& reduct,
                                const optim_parameters& opt_params,
                                const hc_parameters& hc_params,
+                               const ps_parameters& ps_params,
                                const deme_parameters& deme_params,
                                const subsample_deme_filter_parameters& filter_params,
                                const metapop_parameters& meta_params,
@@ -50,14 +51,15 @@ partial_solver::partial_solver(const CTable &ctable,
      _reduct(reduct),
      _opt_params(opt_params),
      _hc_params(hc_params),
+     _ps_params(ps_params),
      _deme_params(deme_params),
      _filter_params(filter_params),
      _meta_params(meta_params),
      _moses_params(moses_params), _printer(mmr_pa),
-     _bscore(NULL), 
-     _cscore(NULL), 
-     _straight_bscore(NULL), 
-     _straight_cscore(NULL), 
+     _bscore(NULL),
+     _cscore(NULL),
+     _straight_bscore(NULL),
+     _straight_cscore(NULL),
      _num_evals(0), _num_gens(0),
      _done(false),
      _most_good(0)
@@ -83,14 +85,14 @@ void partial_solver::solve()
 
     _meta_params.merge_callback = check_candidates;
     _meta_params.callback_user_data = (void *) this;
-    
+
     unsigned loop_count = 0;
     while(1) {
         OC_ASSERT(_moses_params.max_evals > _num_evals,
             "well-enough: I'm confused. What happened?");
 
         _moses_params.max_evals -= _num_evals;
-        
+
         // XXX TODO: we need to get the actual number of gens run, back
         // from moses, and subtract it here.  But there's no easy way
         // to get this number ...
@@ -103,7 +105,7 @@ void partial_solver::solve()
 
         metapop_moses_results(_exemplars, _table_type_signature,
                               _reduct, _reduct, *_cscore,
-                              _opt_params, _hc_params, 
+                              _opt_params, _hc_params, _ps_params,
                               _deme_params, _filter_params,
                               _meta_params, _moses_params,
                               *this);
@@ -119,7 +121,7 @@ void partial_solver::solve()
             logger().info() << "well-enough DONE!";
             metapop_moses_results(_exemplars, _table_type_signature,
                                   _reduct, _reduct, *_straight_cscore,
-                                  _opt_params, _hc_params, 
+                                  _opt_params, _hc_params, _ps_params,
                                   _deme_params, _filter_params,
                                   _meta_params, _moses_params,
                                   _printer);
@@ -148,7 +150,7 @@ bool partial_solver::eval_candidates(const scored_combo_tree_set& cands)
 
     // Make note of the best one found, and restart the metapop.
     record_prefix();
-    return true;   
+    return true;
 }
 
 /// Final cleanup, before termination.
