@@ -5,10 +5,13 @@ machine:
 dependencies:
     override:
         - docker info
-        - docker pull opencog/opencog-deps
-        - docker images opencog/opencog-deps
+        - docker pull opencog/cogutils
+        - docker images opencog/cogutils
 
 test:
     override:
-        - docker run -v $PWD:/moses -it opencog/opencog-deps /bin/sh -c "cd /moses && /tmp/octool -cbet":
-            parallel: true
+        - docker run -v $PWD:/moses -it opencog/cogutils /bin/sh -c "cd /moses && /tmp/octool -bet"
+
+general:
+  artifacts:
+    - "~/moses/build/tests/Testing/Temporary" # Test logs
