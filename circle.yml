@@ -10,7 +10,7 @@ dependencies:
 
 test:
     override:
-        - docker run -v $PWD:/moses -it opencog/cogutils /bin/sh -c "cd /moses && /tmp/octool -bet"
+        - docker run -v $PWD:/moses -it opencog/cogutils /bin/sh -c "cd /moses && /tmp/octool -beti"
 
 general:
   artifacts:
