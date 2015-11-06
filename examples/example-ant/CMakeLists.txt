@@ -17,12 +17,12 @@ TARGET_LINK_LIBRARIES (moses-ant-hillclimbing
 	moses
 	comboreduct
 	comboant
-	cogutil
+	${COGUTIL_LIBRARY}
 )
 
 TARGET_LINK_LIBRARIES (moses-ant-particleswarm
 	moses
 	comboreduct
 	comboant
-	cogutil
+	${COGUTIL_LIBRARY}
 )
