@@ -4,7 +4,7 @@ ADD_EXECUTABLE (fs-main fs-main.cc)
 TARGET_LINK_LIBRARIES(fs-main
 	feature_selection
 	moses
-	cogutil
+	${COGUTIL_LIBRARY}
 )
 SET_TARGET_PROPERTIES(fs-main PROPERTIES OUTPUT_NAME "feature-selection")
 
@@ -12,7 +12,7 @@ ADD_EXECUTABLE (eval-features eval-features.cc)
 TARGET_LINK_LIBRARIES(eval-features
 	comboreduct
 	comboant
-	cogutil
+	${COGUTIL_LIBRARY}
 	${Boost_PROGRAM_OPTIONS_LIBRARY} 
 )
 

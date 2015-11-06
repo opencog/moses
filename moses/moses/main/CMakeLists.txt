@@ -21,7 +21,7 @@ ADD_EXECUTABLE (eval-diversity eval-diversity)
 TARGET_LINK_LIBRARIES (eval-diversity
 	moses
 	comboant
-	cogutil
+	${COGUTIL_LIBRARY}
 	${Boost_PROGRAM_OPTIONS_LIBRARY} 
 )
 
@@ -29,7 +29,7 @@ ADD_EXECUTABLE (eval-candidate eval-candidate)
 TARGET_LINK_LIBRARIES (eval-candidate
 	moses
 	comboant
-	cogutil
+	${COGUTIL_LIBRARY}
 	${Boost_PROGRAM_OPTIONS_LIBRARY}
 )
 
@@ -37,7 +37,7 @@ ADD_EXECUTABLE (eval-candidate-likelihood eval-candidate-likelihood)
 TARGET_LINK_LIBRARIES (eval-candidate-likelihood
 	moses
 	comboant
-	cogutil
+	${COGUTIL_LIBRARY}
 	${Boost_PROGRAM_OPTIONS_LIBRARY}
 )
 
