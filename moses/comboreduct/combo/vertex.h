@@ -411,6 +411,7 @@ inline bool operator!=(action_symbol i, const vertex& v)
 }
 // -------------------------------------------------------
 
+#if BOOST_VERSION < 105800
 // don't know why this is needed *in namespace boost*, but it is, for
 // e.g. calling a generic stl function that compares vertices for
 // inequality XXX Huh? but its not in namespace boost !?
@@ -418,6 +419,7 @@ inline bool operator!=(const vertex& v1, const vertex& v2)
 {
     return !(v1 == v2);
 }
+#endif
 
 inline size_t hash_value(const message& m)
 {
