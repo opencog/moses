@@ -1,7 +1,6 @@
-ADD_SUBDIRECTORY (moses)
+ADD_SUBDIRECTORY (opencog)
 
 # direct file and path creation for stuff that doesn't need to be compiled
-file(MAKE_DIRECTORY moses)
+file(MAKE_DIRECTORY opencog)
 # module init
-file(COPY moses/__init__.py DESTINATION moses)
-##
+file(COPY opencog/__init__.py DESTINATION opencog)
