@@ -223,6 +223,44 @@ ELSE (VALGRIND_FOUND)
 	MESSAGE(STATUS "VALGRIND missing: needed for thread debugging.")
 ENDIF (VALGRIND_FOUND)
 
+# Python bindings using Cython
+# Cython is used to generate bindings
+FIND_PACKAGE(PythonLibs 2.7)
+IF(PYTHONLIBS_FOUND)
+	MESSAGE(STATUS "Python libs found.")
+ELSE(PYTHONLIBS_FOUND)
+	MESSAGE(STATUS "Python libs NOT found.")
+ENDIF(PYTHONLIBS_FOUND)
+
+FIND_PACKAGE(Cython 0.19.0)
+IF (CYTHON_FOUND AND PYTHONLIBS_FOUND)
+	# find python destination dir for python bindings
+	ADD_DEFINITIONS(-DHAVE_CYTHON)
+	SET(HAVE_CYTHON 1)
+	EXECUTE_PROCESS(
+		COMMAND ${PYTHON_EXECUTABLE} -c "from distutils.sysconfig import *;print(get_python_lib())"
+		OUTPUT_VARIABLE PYTHON_DEST
+	)
+
+	# replace new line at end
+	STRING(REPLACE "\n" "" PYTHON_DEST "${PYTHON_DEST}")
+	IF ("${PYTHON_DEST}" STREQUAL "")
+		MESSAGE(FATAL_ERROR "Python destination dir not found")
+	ELSE ("${PYTHON_DEST}" STREQUAL "")
+		MESSAGE(STATUS "Python destination dir found: ${PYTHON_DEST}" )
+	ENDIF ("${PYTHON_DEST}" STREQUAL "")
+ELSE (CYTHON_FOUND AND PYTHONLIBS_FOUND)
+	IF(NOT CYTHON_FOUND)
+		MESSAGE(STATUS "Cython executable not found.")
+	ENDIF(NOT CYTHON_FOUND)
+ENDIF (CYTHON_FOUND AND PYTHONLIBS_FOUND)
+
+# Nosetests will find and automatically run python tests.
+FIND_PROGRAM(NOSETESTS_EXECUTABLE nosetests)
+IF (NOSETESTS_EXECUTABLE AND CYTHON_FOUND AND PYTHONLIBS_FOUND)
+	SET(HAVE_NOSETESTS 1)
+ENDIF (NOSETESTS_EXECUTABLE AND CYTHON_FOUND AND PYTHONLIBS_FOUND)
+
 # ==========================================================
 # Decide what to build, based on the packages found.
 
@@ -414,6 +452,7 @@ SUMMARY_ADD("ComboReduct" "Library for reduction of combo program trees" HAVE_CO
 SUMMARY_ADD("Doxygen" "Code documentation" DOXYGEN_FOUND)
 SUMMARY_ADD("Feature selection" "MOSES based feature selection tool" HAVE_FEATURE_SELECTION)
 SUMMARY_ADD("MOSES" "Meta-Optimizing Semantic Evolutionary Search" HAVE_MOSES)
-# SUMMARY_ADD("Python tests" "Python bindings nose tests" HAVE_NOSETESTS)
+SUMMARY_ADD("Python bindings" "Python (cython) bindings" HAVE_CYTHON)
+SUMMARY_ADD("Python tests" "Python bindings nose tests" HAVE_NOSETESTS)
 SUMMARY_ADD("Unit tests" "Unit tests" CXXTEST_FOUND AND COGUTIL_FOUND)
 SUMMARY_SHOW()
