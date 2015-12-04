@@ -60,5 +60,5 @@ INSTALL(FILES
 
 	DESTINATION
 
-	"include/${PROJECT_NAME}/moses/main" 
+	"include/${PROJECT_NAME}/moses/main"
 )

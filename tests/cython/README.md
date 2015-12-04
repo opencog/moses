@@ -3,13 +3,10 @@ HOWTO run these tests by hand:
 ------------------------------
 
 You need to set up the PYTHON path:
-export PYTHONPATH=${PROJECT_BINARY_DIR}/opencog/cython
-
-For example:
 export PYTHONPATH=build/moses/cython
 
 You also need to specify the library path:
-export LD_LIBRARY_PATH=build/opencog/cython
+export LD_LIBRARY_PATH=build/moses/cython/opencog
 
 Then, from the project root directory:
 

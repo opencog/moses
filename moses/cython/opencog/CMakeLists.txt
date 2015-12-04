@@ -47,12 +47,12 @@ IF (HAVE_MOSES)
 		pymoses.cpp
 	)
 
+	# Don't reverse the order of moses_exec and moses, if reversed will give
+	# undefined symbol: _ZNK5boost15program_options22error_with_option_name4whatEv
+	# XXX Why???
 	TARGET_LINK_LIBRARIES(moses_cython
-		${MOSES_LIBRARIES}
-		${COGUTIL_LIBRARY}
-		${PYTHON_LIBRARIES}
-		${Boost_PROGRAM_OPTIONS_LIBRARY}
-		${Boost_THREAD_LIBRARY}
+		moses_exec
+		moses
 	)
 
 	IF (HAVE_MPI)
