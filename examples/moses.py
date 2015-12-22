@@ -11,7 +11,7 @@ and learns a program representation of the XOR operation.
 
 For complete documentation on how to pass additional parameters to
 MOSES, refer to the documentation at the following link:
-https://github.com/opencog/opencog/blob/master/opencog/cython/opencog/pymoses.pyx
+https://github.com/opencog/moses/blob/master/moses/cython/opencog/pymoses.pyx
 
 MOSES Details:
 http://wiki.opencog.org/w/Meta-Optimizing_Semantic_Evolutionary_Search
