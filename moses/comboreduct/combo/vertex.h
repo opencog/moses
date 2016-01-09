@@ -98,7 +98,7 @@ enum __attribute__ ((packed)) builtin
     lambda,
     apply,
 
-    // XXX This should be obsoleted by cond, at some point. 
+    // XXX This should be obsoleted by cond, at some point.
     // Maybe action_boolean_if too, I guess?
     contin_if,
 

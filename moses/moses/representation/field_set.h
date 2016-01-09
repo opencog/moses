@@ -210,7 +210,7 @@ struct field_set
             return step_size / contin_t(1UL << depth);
         }
 
-        // XXX should be enum ... 
+        // XXX should be enum ...
         static const disc_t Stop;  // 0
         static const disc_t Left;  // 1
         static const disc_t Right; // 2
@@ -455,11 +455,11 @@ struct field_set
     ///
     /// The intended use of this is to merge two high-scoring instances
     /// into one. Thus, typically, both target and reference will be high
-    /// scorers, and base a previous high scorer. Then the difference 
+    /// scorers, and base a previous high scorer. Then the difference
     /// (reference minus base) are those bits that made reference into
     /// such a great instance -- so copy those fields into the target.
     /// For many simple hill-climbing, this actually works, because high
-    /// scoring knob settings are strongly correlated, even if we don't 
+    /// scoring knob settings are strongly correlated, even if we don't
     /// really know what these are (i.e. have not used an estimation-of-
     /// distribution/Bayesian-optimization algorithm to figure out the
     /// correlations). That is, we just blindly assume a correlation, and
@@ -479,7 +479,7 @@ struct field_set
             if (*bit != *rit) *tit = *rit;
         }
     }
-    
+
     // The fields are organized so that term fields come first,
     // followed by the continuous fields, and then the discrete
     // fields. These are then followed by the 1-bit (boolean)
@@ -636,7 +636,7 @@ struct field_set
         size_t end_disc_idx = end_disc_raw_idx();
 
         // @todo: compute at the start in _fields - could be faster..
-        OC_ASSERT(raw_idx >= begin_disc_idx && 
+        OC_ASSERT(raw_idx >= begin_disc_idx &&
                   raw_idx < end_disc_idx);
 
         // There's exactly one disc_spec per disc field.
@@ -644,7 +644,7 @@ struct field_set
     }
 
     /**
-     * Get length, in terms of 'raw fields', of an instance of a 
+     * Get length, in terms of 'raw fields', of an instance of a
      * contin.  A contin variable consists of at most
      * contin_spec::depth() 'raw fields' or 'pseudo-bits'.  Each
      * pseudo-bit can take one of three values: L, R or S, which
@@ -798,7 +798,7 @@ protected:
 
         Self& operator--()
         {
-            static const packed_t reset = packed_t(1 << (bits_per_packed_t - 1));
+            static const packed_t reset = packed_t(1UL << (bits_per_packed_t - 1));
             _mask >>= 1;
             if (!_mask) {
                 _mask = reset;

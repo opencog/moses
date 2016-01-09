@@ -34,10 +34,12 @@ namespace opencog { namespace combo {
 class action_symbol_base : public operator_base {
 public:
     virtual ~action_symbol_base() {}
+
+    static const action_symbol_base* get_instance(const std::string& name);
 };
 
 typedef const action_symbol_base* action_symbol;
-  
+
 std::ostream& operator<<(std::ostream&, combo::action_symbol);
 
 } // ~namespace combo

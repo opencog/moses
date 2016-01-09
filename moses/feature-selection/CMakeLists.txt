@@ -1,4 +1,10 @@
-ADD_LIBRARY(feature_selection SHARED
+FIND_LIBRARY( MOSES_LIB moses  )
+
+ADD_SUBDIRECTORY(scorers)
+ADD_SUBDIRECTORY(main)
+ADD_SUBDIRECTORY(man)
+
+ADD_LIBRARY(feature_selection STATIC
 	algo/deme_optimize
 	algo/incremental
 	algo/random
@@ -9,13 +15,10 @@ ADD_LIBRARY(feature_selection SHARED
 )
 
 TARGET_LINK_LIBRARIES(feature_selection
+    moses
 	${COGUTIL_LIBRARY}
 	${Boost_PROGRAM_OPTIONS_LIBRARY} 
 )
-
-ADD_SUBDIRECTORY(scorers)
-ADD_SUBDIRECTORY(main)
-ADD_SUBDIRECTORY(man)
 
 # Install library
 IF (WIN32)

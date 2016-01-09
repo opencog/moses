@@ -26,10 +26,14 @@
 
 namespace opencog { namespace combo {
 
-std::ostream& operator<<(std::ostream& out, action_symbol as) {
-    OC_ASSERT(as);
-    return out << as->get_name();
-}
+    action_symbol action_symbol_base::get_instance(const std::string& name){
+        return NULL;
+    }
+
+    std::ostream& operator<<(std::ostream& out, action_symbol as) {
+        OC_ASSERT(as);
+        return out << as->get_name();
+    }
 
 } // ~namespace combo
 } // ~namespace opencog
