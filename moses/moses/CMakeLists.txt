@@ -28,7 +28,7 @@ ADD_SUBDIRECTORY (eda)
 ADD_SUBDIRECTORY (main)
 ADD_SUBDIRECTORY (man)
 
-ADD_LIBRARY (moses STATIC
+ADD_LIBRARY (moses SHARED
 	deme/deme_expander
 	deme/feature_selector
 

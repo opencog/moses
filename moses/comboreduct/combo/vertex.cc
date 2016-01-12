@@ -33,19 +33,12 @@ bool operator<(const combo_tree& lt, const combo_tree& rt) {
     return size_tree_order<vertex>()(lt, rt);
 }
 
-std::istream& operator>>(std::istream& in, vertex& v) {
-    return stream_to_vertex<builtin_action_base,
-                            perception_base,
-                            action_symbol_base,
-                            indefinite_object_base>(in, v);
-}
-
-std::istream& operator>>(std::istream& in, combo_tree& tr) {
-    return stream_to_combo_tree<builtin_action_base,
-                            perception_base,
-                            action_symbol_base,
-                            indefinite_object_base>(in, tr);
-}
+//std::istream& operator>>(std::istream& in, combo_tree& tr) {
+    //return stream_to_combo_tree<builtin_action_base,
+                            //perception_base,
+                            //action_symbol_base,
+                            //indefinite_object_base>(in, tr);
+//}
 
 bool is_procedure_call(const vertex& v)
 {
@@ -277,3 +270,12 @@ void copy_without_null_vertices(combo_tree::iterator src,
 }
 
 }} // ~namespaces combo opencog
+
+namespace std {
+    std::istream& operator>>(std::istream& in, opencog::combo::vertex& v) {
+        return opencog::combo::stream_to_vertex<opencog::combo::builtin_action_base,
+                                opencog::combo::perception_base,
+                                opencog::combo::action_symbol_base,
+                                opencog::combo::indefinite_object_base>(in, v);
+    }
+} // ~namespace std

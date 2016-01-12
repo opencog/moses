@@ -1,10 +1,8 @@
-FIND_LIBRARY( MOSES_LIB moses  )
-
 ADD_SUBDIRECTORY(scorers)
 ADD_SUBDIRECTORY(main)
 ADD_SUBDIRECTORY(man)
 
-ADD_LIBRARY(feature_selection STATIC
+ADD_LIBRARY(feature_selection SHARED
 	algo/deme_optimize
 	algo/incremental
 	algo/random
@@ -15,7 +13,7 @@ ADD_LIBRARY(feature_selection STATIC
 )
 
 TARGET_LINK_LIBRARIES(feature_selection
-    moses
+    INTERFACE moses
 	${COGUTIL_LIBRARY}
 	${Boost_PROGRAM_OPTIONS_LIBRARY} 
 )
