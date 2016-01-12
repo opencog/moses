@@ -64,7 +64,7 @@ few exceptions, most Linux distributions will provide these packages.
 ###### cxxtest
 > Test framework
 > http://cxxtest.sourceforge.net/ |
-> https://launchpad.net/~opencog-dev/+archive/ppa
+> https://launchpad.net/~opencog-dev/+archive/ppa | cxxtest
 
 ###### cogutil
 > Common OpenCog C++ utilities
@@ -81,7 +81,8 @@ the build, will be more precise as to which parts will not be built.
 ###### MPI
 > Message Passing Interface
 > Required for compute-cluster version of MOSES
-> Use either MPICHV2 or OpenMPI
+> Use either MPICHV2 or OpenMPI |
+> http://www.open-mpi.org/ | libopenmpi-dev
 
 Building MOSES
 --------------
