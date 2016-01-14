@@ -26,10 +26,10 @@
 
 namespace opencog { namespace combo {
 
-std::ostream& operator<<(std::ostream& out, combo::builtin_action a) {
-    OC_ASSERT(a);
-    return out << a->get_name();
-}
+    std::ostream& operator<<(std::ostream& out, combo::builtin_action a) {
+        OC_ASSERT(a);
+        return out << a->get_name();
+    }
 
 } // ~namespace combo
 } // ~namespace opencog

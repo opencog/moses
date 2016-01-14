@@ -48,6 +48,10 @@ namespace opencog { namespace combo {
     virtual type_tree get_output_type_tree() const = 0;
     //return the type tree of the input argument of index i
     virtual const type_tree& get_input_type_tree(arity_t i) const = 0;
+
+    // Default behavior for convert the string to operator_base type.
+    static const operator_base* get_instance(const std::string& name);
+
   };
 
 }} // ~namespace combo opencog

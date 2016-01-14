@@ -26,9 +26,9 @@
 
 namespace opencog { namespace combo {
 
-std::ostream& operator<<(std::ostream& out, indefinite_object i) {
-  return out << i->get_name();
-}
+    std::ostream& operator<<(std::ostream& out, indefinite_object i) {
+        return out << i->get_name();
+    }
 
 } // ~namespace combo
 } // ~namespace opencog

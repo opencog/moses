@@ -32,7 +32,14 @@ namespace opencog { namespace combo {
 bool operator<(const combo_tree& lt, const combo_tree& rt) {
     return size_tree_order<vertex>()(lt, rt);
 }
-        
+
+std::istream& operator>>(std::istream& in, vertex& v) {
+    return stream_to_vertex<builtin_action_base,
+                            perception_base,
+                            action_symbol_base,
+                            indefinite_object_base>(in, v);
+}
+
 bool is_procedure_call(const vertex& v)
 {
     return (boost::get<procedure_call>(&v));
@@ -206,7 +213,7 @@ contin_t cast_contin(const vertex& v)
         return 0;
     }
 }
-        
+
 bool operator==(const vertex& v, procedure_call h)
 {
     if (const procedure_call* vh = boost::get<procedure_call>(&v))
@@ -252,7 +259,7 @@ vertex swap_and_or(const vertex& v)
     OC_ASSERT(v == id::logical_or || v == id::logical_and);
     return v == id::logical_and ? id::logical_or : id::logical_and;
 }
-        
+
 void copy_without_null_vertices(combo_tree::iterator src,
                                 combo_tree& dst_tr, combo_tree::iterator dst)
 {

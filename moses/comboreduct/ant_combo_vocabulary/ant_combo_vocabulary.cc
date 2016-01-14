@@ -103,14 +103,10 @@ bool operator!=(ant_indefinite_object_enum e, indefinite_object i) {
 }//~namespace ant_combo
 
 namespace opencog { namespace combo {
-  
-std::istream& operator>>(std::istream& in, vertex& v) {
-    return stream_to_vertex<ant_builtin_action, ant_perception, ant_action_symbol, ant_indefinite_object>(in, v);
-}
-
-std::istream& operator>>(std::istream& in, combo_tree& tr) {
-    return stream_to_combo_tree<ant_builtin_action, ant_perception, ant_action_symbol, ant_indefinite_object>(in, tr);
-}  
-  
-} // ~namespace combo
-} // ~namespace opencog
+    std::istream& operator>>(std::istream& in, vertex& v) {
+        return stream_to_vertex<ant_builtin_action,
+                                ant_perception,
+                                ant_action_symbol,
+                                ant_indefinite_object>(in, v);
+    }
+}} // ~namespace combo opencog

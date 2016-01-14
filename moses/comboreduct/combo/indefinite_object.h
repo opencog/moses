@@ -30,12 +30,16 @@
 #include <moses/comboreduct/combo/operator_base.h>
 
 namespace opencog { namespace combo {
-  
+
 //indefinite_object inherits from operator_base
 //without additional properties
 class indefinite_object_base : public operator_base {
 public:
     virtual ~indefinite_object_base() {}
+
+    static const indefinite_object_base* get_instance(const std::string& name) {
+        return NULL;
+    }
 };
 
 typedef const indefinite_object_base* indefinite_object;

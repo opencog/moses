@@ -1,4 +1,4 @@
-/** iostream_combo.h --- 
+/** iostream_combo.h ---
  *
  * Copyright (C) 2012 OpenCog Foundation
  *
@@ -9,12 +9,12 @@
  * it under the terms of the GNU Affero General Public License v3 as
  * published by the Free Software Foundation and including the exceptions
  * at http://opencog.org/wiki/Licenses
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program; if not, write to:
  * Free Software Foundation, Inc.,
@@ -157,7 +157,7 @@ void str_to_vertex(const std::string& str, vertex& v)
     }
     // should be definite object then
     else {
-        // Any word character (alphanumeric characters plus the 
+        // Any word character (alphanumeric characters plus the
         // underscore). If you find this too constraining, feel free to
         // relax.
         static const boost::regex e("[\\w-]+");
@@ -274,7 +274,7 @@ std::ostream& operator<<(std::ostream&, const ann_type&);
 std::ostream& operator<<(std::ostream&, const builtin&);
 std::ostream& operator<<(std::ostream&, const wild_card&);
 std::ostream& operator<<(std::ostream&, const argument&);
-// output argument $n when positive, !$n when negative 
+// output argument $n when positive, !$n when negative
 std::ostream& ostream_abbreviate_literal(std::ostream&, const argument&,
                                          const std::vector<std::string>& labels =
                                          std::vector<std::string>());

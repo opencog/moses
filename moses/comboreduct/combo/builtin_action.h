@@ -34,7 +34,7 @@
 #include <moses/comboreduct/combo/operator_base.h>
 
 //if the user wants to use the reduct engine it is recommended to
-//enable the following macro in order to allow the compiler to detect 
+//enable the following macro in order to allow the compiler to detect
 //action property methods which have not been implemented
 #define NO_DEFAULT_ACTION_PROPERTY_METHODS
 
@@ -59,6 +59,10 @@ namespace opencog { namespace combo {
 class builtin_action_base : public operator_base {
 public:
     virtual ~builtin_action_base() {}
+
+    static const builtin_action_base* get_instance(const std::string& name) {
+        return NULL;
+    }
 
     //action properties required for reduction
 #ifdef NO_DEFAULT_ACTION_PROPERTY_METHODS
@@ -112,6 +116,7 @@ public:
         static const std::set<const builtin_action_base*> tmp;
         return tmp;
     }
+
 #endif
 };
 

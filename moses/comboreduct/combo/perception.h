@@ -30,7 +30,7 @@
 #include <moses/comboreduct/combo/operator_base.h>
 
 //if the user wants to use the reduct engine it is recommended to
-//enable the following macro in order to allow the compiler to detect 
+//enable the following macro in order to allow the compiler to detect
 //perception property methods which have not been implemented
 #define NO_DEFAULT_PERCEPTION_PROPERTY_METHODS
 
@@ -57,7 +57,11 @@ namespace opencog { namespace combo {
 class perception_base : public operator_base {
 public:
     virtual ~perception_base() {}
-  
+
+    static const perception_base* get_instance(const std::string& name) {
+        return NULL;
+    }
+
     //action properties required for reduction
 #ifdef NO_DEFAULT_ACTION_PROPERTY_METHODS
     virtual bool is_ultrametric() const = 0;

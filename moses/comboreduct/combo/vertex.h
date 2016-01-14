@@ -98,7 +98,7 @@ enum __attribute__ ((packed)) builtin
     lambda,
     apply,
 
-    // XXX This should be obsoleted by cond, at some point. 
+    // XXX This should be obsoleted by cond, at some point.
     // Maybe action_boolean_if too, I guess?
     contin_if,
 
@@ -538,7 +538,7 @@ typedef combo_tree_ns_set::const_iterator combo_tree_ns_set_const_it;
 bool operator<(const combo_tree& lt, const combo_tree& rt);
 
 // Disambiguate stream operator; use the one declared in util/tree.h
-std::istream& operator>>(std::istream& in, combo::combo_tree& tr);
+//std::istream& operator>>(std::istream& in, combo::combo_tree& tr);
 
 // -------------------------------------------------------
 // Algebraic properties
