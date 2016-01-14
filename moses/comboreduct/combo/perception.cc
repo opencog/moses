@@ -26,10 +26,6 @@
 
 namespace opencog { namespace combo {
 
-    perception perception_base::get_instance(const std::string& name){
-        return NULL;
-    }
-
     std::ostream& operator<<(std::ostream& out, perception p) {
         OC_ASSERT(p);
         return out << p->get_name();

@@ -35,7 +35,9 @@ class action_symbol_base : public operator_base {
 public:
     virtual ~action_symbol_base() {}
 
-    static const action_symbol_base* get_instance(const std::string& name);
+    static const action_symbol_base* get_instance(const std::string& name) {
+         return NULL;
+    }
 };
 
 typedef const action_symbol_base* action_symbol;

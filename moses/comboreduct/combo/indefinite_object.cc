@@ -26,10 +26,6 @@
 
 namespace opencog { namespace combo {
 
-    indefinite_object indefinite_object_base::get_instance(const std::string& name){
-        return NULL;
-    }
-
     std::ostream& operator<<(std::ostream& out, indefinite_object i) {
         return out << i->get_name();
     }

@@ -159,6 +159,8 @@ typedef std::vector<argument_list> argument_list_list;
 typedef argument_list_list::iterator argument_list_list_it;
 typedef argument_list_list::const_iterator argument_list_list_const_it;
 
+// Disambiguate stream operator; use the one declared in util/tree.h
+std::istream& operator>>(std::istream& in, combo::vertex& v);
 
 // -------------------------------------------------------
 // contin_t == vertex
@@ -807,9 +809,6 @@ namespace std
             return opencog::combo::hash_value(v);
         }
     };
-
-    // Disambiguate stream operator; use the one declared in util/tree.h
-    std::istream& operator>>(std::istream& in, opencog::combo::vertex& v);
 }
 
 #endif

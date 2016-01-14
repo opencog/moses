@@ -26,10 +26,6 @@
 
 namespace opencog { namespace combo {
 
-    builtin_action builtin_action_base::get_instance(const std::string& name){
-        return NULL;
-    }
-
     std::ostream& operator<<(std::ostream& out, combo::builtin_action a) {
         OC_ASSERT(a);
         return out << a->get_name();

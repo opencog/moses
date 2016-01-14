@@ -60,7 +60,9 @@ class builtin_action_base : public operator_base {
 public:
     virtual ~builtin_action_base() {}
 
-    static const builtin_action_base* get_instance(const std::string& name);
+    static const builtin_action_base* get_instance(const std::string& name) {
+        return NULL;
+    }
 
     //action properties required for reduction
 #ifdef NO_DEFAULT_ACTION_PROPERTY_METHODS
