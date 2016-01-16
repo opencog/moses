@@ -32,16 +32,23 @@ int main(int argc, char** argv)
     int seed;
     bool reduce=true;
     try {
-       // if (argc!=3)
-        //    throw "foo";
+        if(argc < 4){
+            cerr << "Not enough arguments." << endl;
+            throw std::length_error("Missing arguments.");
+        }
         max_evals=lexical_cast<int>(argv[1]);
         seed=lexical_cast<int>(argv[2]);
         set_stepsize(1.25); //lexical_cast<double>(argv[3]));
         set_expansion(1.5); //lexical_cast<double>(argv[4]));
         set_depth(4) ; //exical_cast<int>(argv[5]));
-        reduce = lexical_cast<int>(argv[3]);
+        reduce = lexical_cast<bool>(argv[3]);
     } catch (...) {
-        cerr << "usage: " << argv[0] << " maxevals seed" << endl;
+        cerr << "Usage: " << argv[0] << " max_evals seed reduce?{0,1}" << endl <<
+            "ann_combo_tree" << endl <<
+            "Example:" << endl <<
+            "- Arguments: 100 1 1" << endl <<
+            "- Ann Combo Tree: ann($N1($I2 $I3 $I4 $I5 0.5 0.5 0.5 0.5) $N6($I2 $I3 $I4 $I5 0.5 0.5 0.5 0.5))" << endl <<
+            "It uses 1.25 as step_size, 1.5 as expansion and 4 as depth." << endl;
         exit(1);
     }
 
