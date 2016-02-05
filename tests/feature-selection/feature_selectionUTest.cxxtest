@@ -56,8 +56,8 @@ public:
           timestamp_table_path(FEATURE_SELECTION_TEST_DIR"timestamp-dataset.csv"),
           sparse_table_path(FEATURE_SELECTION_TEST_DIR"contin-sparse.data")
     {
-        logger().setPrintToStdoutFlag(true);
-        logger().setLevel(Logger::FINE);
+        logger().set_print_to_stdout_flag(true);
+        logger().set_level(Logger::FINE);
 
         // Load big table
         big_table = loadTable(big_table_path);
@@ -240,7 +240,7 @@ private:
         set<arity_t> selected_features =
             incremental_selection(features, fs, 0.1, 1, false);
 
-        ostreamContainer(cout, selected_features);
+        ostream_container(cout, selected_features);
         cout << endl;
 
         TS_ASSERT_EQUALS(selected_features.size(), 6);
@@ -255,13 +255,13 @@ private:
         {
             std::set<arity_t> features{1, 2};
             std::set<arity_t> redundant = redundant_features(features, fs, 0.2);
-            ostreamContainer(cout, redundant) << endl;;
+            ostream_container(cout, redundant) << endl;;
             TS_ASSERT_EQUALS(redundant, std::set<arity_t>{1});
         }
         {
             std::set<arity_t> features{0, 1};
             std::set<arity_t> redundant = redundant_features(features, fs, 1.1);
-            ostreamContainer(cout, redundant) << endl;;
+            ostream_container(cout, redundant) << endl;;
             TS_ASSERT_EQUALS(redundant, std::set<arity_t>{1});
         }
     }
@@ -275,13 +275,13 @@ private:
         {
             set<arity_t> features{1, 2};
             set<arity_t> redundant = redundant_features(features, fs, 0.2);
-            ostreamContainer(cout, redundant) << endl;;
+            ostream_container(cout, redundant) << endl;;
             TS_ASSERT_EQUALS(redundant, set<arity_t>{2});
         }
         {
             set<arity_t> features{0, 1};
             set<arity_t> redundant = redundant_features(features, fs, 0.2);
-            ostreamContainer(cout, redundant) << endl;;
+            ostream_container(cout, redundant) << endl;;
             TS_ASSERT_EQUALS(redundant, set<arity_t>{0});
         }
     }
@@ -294,7 +294,7 @@ private:
         set<arity_t> features{3, 4, 10, 17};
         set<arity_t> redundant = redundant_features(features, fs, 0.001);
 
-        ostreamContainer(cout, redundant);
+        ostream_container(cout, redundant);
         cout << endl;
 
         TS_ASSERT_EQUALS(redundant.size(), 2);

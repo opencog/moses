@@ -1332,7 +1332,7 @@ void saveTable(const string& file_name, const Table& table)
 
 ostream& ostreamCTableHeader(ostream& out, const CTable& ct)
 {
-    return ostreamlnContainer(out, ct.get_labels(), ",");
+    return ostreamln_container(out, ct.get_labels(), ",");
 }
 
 ostream& ostreamCTableRow(ostream& out, const CTable::value_type& ctv)
@@ -1353,7 +1353,7 @@ ostream& ostreamCTableRow(ostream& out, const CTable::value_type& ctv)
     }
     out << "},";
     // print inputs
-    return ostreamlnContainer(out, ats(ctv.first.get_variant()), ",");
+    return ostreamln_container(out, ats(ctv.first.get_variant()), ",");
 }
 
 ostream& ostreamCTable(ostream& out, const CTable& ct)
@@ -1403,12 +1403,12 @@ ostream& ostreamCTableTime(ostream& out, const CTableTime& ctt)
 
 ostream& operator<<(ostream& out, const ITable& it)
 {
-    ostreamlnContainer(out, it.get_labels(), ",");
-    ostreamlnContainer(out, it.get_types(), ",");
+    ostreamln_container(out, it.get_labels(), ",");
+    ostreamln_container(out, it.get_types(), ",");
     to_strings_visitor tsv;
     for (const auto& row : it) {
         vector<string> row_str = boost::apply_visitor(tsv, row.get_variant());
-        ostreamlnContainer(out, row_str, ",");
+        ostreamln_container(out, row_str, ",");
     }
     return out;
 }
@@ -1430,7 +1430,7 @@ ostream& operator<<(ostream& out, const Table& table)
 
 ostream& operator<<(ostream& out, const complete_truth_table& tt)
 {
-    return ostreamContainer(out, tt);
+    return ostream_container(out, tt);
 }
 
 ostream& operator<<(ostream& out, const CTable& ct)

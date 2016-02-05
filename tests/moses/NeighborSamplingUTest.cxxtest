@@ -17,8 +17,8 @@ class NeighborSamplingUTest : public CxxTest::TestSuite {
     opencog::RandGen& rng;
 public:
     NeighborSamplingUTest() : rng(randGen()) {
-        logger().setPrintToStdoutFlag(true);
-        logger().setLevel(Logger::DEBUG);
+        logger().set_print_to_stdout_flag(true);
+        logger().set_level(Logger::DEBUG);
 
         int rand_seed = clock();
         rng.seed(rand_seed);

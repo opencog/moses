@@ -46,7 +46,7 @@ using namespace reduct;
 int main(int argc, char** argv)
 {
     // Set flag to print only cassert and other ERROR level logs on stdout.
-    opencog::logger().setPrintErrorLevelStdout();
+    opencog::logger().set_print_error_level_stdout();
     // Read maximum evaluations and RNG seed from command line.
     int seed;
     bool reduce=true;

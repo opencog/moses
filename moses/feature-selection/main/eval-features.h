@@ -76,10 +76,10 @@ struct eval_features_parameters
 void output_results(const eval_features_parameters& pa,
                     const vector<double>& qs) {
     if(pa.output_file.empty())
-        ostreamContainer(cout, qs, " ", "", "\n");
+        ostream_container(cout, qs, " ", "", "\n");
     else {
         ofstream of(pa.output_file.c_str(), ios_base::app);
-        ostreamContainer(of, qs, " ", "", "\n");
+        ostream_container(of, qs, " ", "", "\n");
     }
 }
 

@@ -224,11 +224,11 @@ void bscore_ctable_base::ignore_cols(const std::set<arity_t>& idxs) const
     // just confuse the mechanisn.
     if (_return_weighted_score) return;
 
-    if (logger().isDebugEnabled())
+    if (logger().is_debug_enabled())
     {
         std::stringstream ss;
         ss << "Compress CTable for optimization by ignoring features: ";
-        ostreamContainer(ss, idxs, ",");
+        ostream_container(ss, idxs, ",");
         logger().debug(ss.str());
     }
 
@@ -247,7 +247,7 @@ void bscore_ctable_base::ignore_cols(const std::set<arity_t>& idxs) const
     logger().debug("Original CTable size = %u", _orig_ctable.size());
     logger().debug("Working CTable size = %u", _wrk_ctable.size());
 
-    if (logger().isFineEnabled()) {
+    if (logger().is_fine_enabled()) {
         std::stringstream ss;
         ss << "Contents of _wrk_ctable =" << std::endl;
         ostreamCTable(ss, _wrk_ctable);

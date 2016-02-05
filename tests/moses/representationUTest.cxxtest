@@ -50,8 +50,8 @@ private:
 public:
     representationUTest() : rng(1)
     {
-        logger().setPrintToStdoutFlag(true);
-        logger().setLevel(Logger::DEBUG);
+        logger().set_print_to_stdout_flag(true);
+        logger().set_level(Logger::DEBUG);
     }
 
     // these tests are just here to check that the representation

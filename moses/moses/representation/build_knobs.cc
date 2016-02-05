@@ -503,7 +503,7 @@ void build_knobs::sample_logical_perms(pre_it it, vector<combo_tree>& perms)
         if (ps < n_pairs) n_pairs = 0;  // Avoid accidental rounding to MAX_UINT
     }
 
-    if (logger().isDebugEnabled()) {
+    if (logger().is_debug_enabled()) {
         logger().debug() << "perms.size: " << ps
                          << " max_pairs: " << max_pairs
                          << " logical knob pairs to create: "<< n_pairs;
@@ -539,8 +539,8 @@ void build_knobs::sample_logical_perms(pre_it it, vector<combo_tree>& perms)
         perms.push_back(perm);
     }
 
-    if (logger().isFineEnabled())
-        ostreamContainer(logger().fine() << "Perms:" << std::endl, perms, "\n");
+    if (logger().is_fine_enabled())
+        ostream_container(logger().fine() << "Perms:" << std::endl, perms, "\n");
 }
 
 /**
@@ -558,11 +558,11 @@ void build_knobs::add_logical_knobs(pre_it subtree,
     if (!is_logical_operator(*it))
        return;
 
-    if (logger().isDebugEnabled()) {
+    if (logger().is_debug_enabled()) {
         logger().debug() << "Adding logical knobs to subtree of size="
                          << combo_tree(subtree).size()
                          << " at location of size=" << combo_tree(it).size();
-        if (logger().isFineEnabled()) {
+        if (logger().is_fine_enabled()) {
             logger().fine() << "subtree = " << combo_tree(subtree);
             logger().fine() << "it = " << combo_tree(it);
         }
@@ -585,7 +585,7 @@ void build_knobs::add_logical_knobs(pre_it subtree,
     int maxth = num_threads();
     if (nthr > maxth) nthr = maxth;
 
-    if (logger().isDebugEnabled()) {
+    if (logger().is_debug_enabled()) {
         logger().debug("Created %d logical knob subtrees", np);
         logger().debug("will use %d threads for probing tree of size %d",
             nthr, combo_tree(subtree).size());
@@ -1200,8 +1200,8 @@ void build_knobs::sample_action_perms(pre_it it, vector<combo_tree>& perms)
         perms.push_back(v);
     }
 
-    if (logger().isFineEnabled())
-        ostreamContainer(logger().fine() << "Perms:" << std::endl, perms, "\n");
+    if (logger().is_fine_enabled())
+        ostream_container(logger().fine() << "Perms:" << std::endl, perms, "\n");
 }
 
 

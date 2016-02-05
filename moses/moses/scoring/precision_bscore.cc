@@ -144,7 +144,7 @@ precision_bscore::precision_bscore(const CTable& ctable_,
     OC_ASSERT(output_type == id::boolean_type,
               "Error: Precision scorer: output type must be boolean!");
 
-    if (logger().getLevel() != Logger::DEBUG or !_disable_debug_log) {
+    if (logger().get_level() != Logger::DEBUG or !_disable_debug_log) {
         logger().debug("Precision scorer, "
                        "total table weight = %f, "
                        "activation_pressure = %f, "
@@ -326,7 +326,7 @@ behavioral_score precision_bscore::do_score(std::function<bool(const multi_type_
         score_t activation_penalty = get_activation_penalty(activation);
         bs.push_back(activation_penalty);
 
-        if (logger().isFineEnabled()) {
+        if (logger().is_fine_enabled()) {
             score_t precision = 0.0;
             if (0 < active) {
                 // See above for explanation for the extra 0.5
@@ -595,7 +595,7 @@ behavioral_score precision_bscore::best_possible_bscore() const
             break;
     }
 
-    if (logger().getLevel() != Logger::DEBUG or !_disable_debug_log) {
+    if (logger().get_level() != Logger::DEBUG or !_disable_debug_log) {
         logger().debug("Precision scorer, best score = %f", best_sc);
         logger().debug("precision at best score = %f", best_precision);
         logger().debug("activation at best score = %f", best_activation);
@@ -815,7 +815,7 @@ behavioral_score precision_conj_bscore::operator()(const combo_tree& tr) const
     score_t conj_n_penalty = hardness * (-1.0 / (1.0 + conj_n));
     bs.push_back(conj_n_penalty);
 
-    if (logger().isFineEnabled())
+    if (logger().is_fine_enabled())
         logger().fine("precision = %f  conj_n=%u  conj_n penalty=%e",
                      precision, conj_n, conj_n_penalty);
 

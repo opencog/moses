@@ -111,18 +111,18 @@ pgrParameters parse_program_args(int argc, char** argv)
 	// Remove old log_file before setting the new one.
 	const string log_filename = "combo-fmt-converter.log";
 	remove(log_filename.c_str());
-	logger().setFilename(log_filename);
+	logger().set_filename(log_filename);
 	trim(pa.log_level);
-	Logger::Level level = logger().getLevelFromString(pa.log_level);
+	Logger::Level level = logger().get_level_from_string(pa.log_level);
 	if (level != Logger::BAD_LEVEL)
-		logger().setLevel(level);
+		logger().set_level(level);
 	else {
 		cerr << "Error: Log level " << pa.log_level
 		     << " is incorrect (see --help)." << endl;
 		exit(1);
 	}
-	logger().setBackTraceLevel(Logger::ERROR);
-	logger().setPrintErrorLevelStdout();
+	logger().set_backtrace_level(Logger::ERROR);
+	logger().set_print_error_level_stdout();
 
 	return pa;
 }

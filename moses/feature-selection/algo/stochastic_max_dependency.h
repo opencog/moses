@@ -86,7 +86,7 @@ feature_set_pop stochastic_max_dependency_selection(const feature_set& features,
                                                     double threshold = 0.0,
                                                     unsigned top_size = 100)
 {
-    if (logger().isDebugEnabled()) {
+    if (logger().is_debug_enabled()) {
         logger().debug() << "Call stochastic_max_dependency_selection(num_features="
                          << num_features
                          << ", threshold=" << threshold
@@ -145,10 +145,10 @@ feature_set_pop stochastic_max_dependency_selection(const feature_set& features,
                                        // score it
                                        double sc = scorer(prod);
 
-                                       if (logger().isFineEnabled())
-                                           ostreamContainer(logger().fine()
-                                                            << "feature set ",
-                                                            prod, ",", "{", "}")
+                                       if (logger().is_fine_enabled())
+                                           ostream_container(logger().fine()
+                                                             << "feature set ",
+                                                             prod, ",", "{", "}")
                                                << " is scored " << sc;
 
                                        // insert it in ranks
@@ -183,10 +183,10 @@ feature_set_pop stochastic_max_dependency_selection(const feature_set& features,
 
     OC_ASSERT(!tops.empty(), "top is empty, there must be a bug");
 
-    if (logger().isDebugEnabled()) {
+    if (logger().is_debug_enabled()) {
         std::stringstream ss;
         ss << "Exit stochastic_max_dependency_selection(), selected: ";
-        ostreamContainer(ss, ranks.begin()->second);
+        ostream_container(ss, ranks.begin()->second);
         ss << " Score = " << ranks.begin()->first;
         logger().debug() << ss.str();
     }

@@ -27,7 +27,7 @@ int main(int argc, char** argv)
 {
 
     //set flag to print only cassert and other ERROR level logs on stdout
-    opencog::logger().setPrintErrorLevelStdout();
+    opencog::logger().set_print_error_level_stdout();
 
     //read in maximum evaluations and RNG seed from command line
     int max_evals;

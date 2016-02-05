@@ -72,10 +72,10 @@ void deme_expander::log_selected_feature_sets(const feature_set_pop& sf_pop,
                         << " are already in the exemplar, and " << new_sf.size()
                         << " are new.";
 
-        ostreamContainer(logger().info() << "Selected features which are in the exemplar: ",
-                         fs_to_names(xmplr_sf, ilabels), ",");
-        ostreamContainer(logger().info() << "Selected features which are new: ",
-                         fs_to_names(new_sf, ilabels), ",");
+        ostream_container(logger().info() << "Selected features which are in the exemplar: ",
+                          fs_to_names(xmplr_sf, ilabels), ",");
+        ostream_container(logger().info() << "Selected features which are new: ",
+                          fs_to_names(new_sf, ilabels), ",");
         sfi++;
     }
 }
@@ -220,11 +220,11 @@ bool deme_expander::create_representations(const combo_tree& exemplar)
                     logger().debug() << "No feature to prune in the "
                                      << "exemplar for deme " << _demeIDs[sfi];
                 else {
-                    ostreamContainer(logger().debug() <<
-                                     "Prune the exemplar from non-selected "
-                                     "features for deme " << _demeIDs[sfi]
-                                     << ": ",
-                                     fs_to_names(xmplr_nsf, ilabels));
+                    ostream_container(logger().debug() <<
+                                      "Prune the exemplar from non-selected "
+                                      "features for deme " << _demeIDs[sfi]
+                                      << ": ",
+                                      fs_to_names(xmplr_nsf, ilabels));
                 }
                 xmplr_seq.push_back(prune_xmplr(exemplar, selected_feats.second));
             }
@@ -273,13 +273,13 @@ bool deme_expander::create_representations(const combo_tree& exemplar)
     }
 
     for (unsigned i = 0; i < xmplr_seq.size(); i++) {
-        if (logger().isDebugEnabled()) {
+        if (logger().is_debug_enabled()) {
             logger().debug() << "Attempt to build rep from exemplar "
                              << "for deme " << _demeIDs[i]
                              << " : " << xmplr_seq[i];
             if (!considered_args_seq.empty())
-                ostreamContainer(logger().debug() << "Using arguments: ",
-                                 considered_args_seq[i]);
+                ostream_container(logger().debug() << "Using arguments: ",
+                                  considered_args_seq[i]);
         }
 
         // Build a representation by adding knobs to the exemplar,
@@ -422,7 +422,7 @@ void deme_expander::optimize_demes(int max_evals, time_t max_time)
 
         for (unsigned j = 0; j < n_ss_demes; j++)
         {
-            if (logger().isDebugEnabled()) {
+            if (logger().is_debug_enabled()) {
                 std::stringstream ss;
                 ss << "Optimize deme " << _demes[i][j].getID() << "; "
                    << "max evaluations allowed: " << max_evals_per_deme;

@@ -117,8 +117,8 @@ void eval_output_results(const evalTableParameters& pa,
 
 void read_eval_output_results(evalTableParameters& pa)
 {
-    ostreamContainer(logger().info() << "Ignore the following features: ",
-                     pa.ignore_features_str);
+    ostream_container(logger().info() << "Ignore the following features: ",
+                      pa.ignore_features_str);
     OC_ASSERT(std::find(pa.ignore_features_str.begin(),
               pa.ignore_features_str.end(),
               pa.target_feature_str)
@@ -311,16 +311,16 @@ evalTableParameters eval_table_program_args(int argc, char** argv)
 
     // Remove old log_file before setting the new one.
     remove(pa.log_file.c_str());
-    logger().setFilename(pa.log_file);
+    logger().set_filename(pa.log_file);
     trim(pa.log_level);
-    Logger::Level level = logger().getLevelFromString(pa.log_level);
+    Logger::Level level = logger().get_level_from_string(pa.log_level);
     if (level != Logger::BAD_LEVEL)
-        logger().setLevel(level);
+        logger().set_level(level);
     else {
         cerr << "Error: Log level " << pa.log_level << " is incorrect (see --help)." << endl;
         exit(1);
     }
-    logger().setBackTraceLevel(Logger::ERROR);
+    logger().set_backtrace_level(Logger::ERROR);
 
     // init random generator
     randGen().seed(rand_seed);

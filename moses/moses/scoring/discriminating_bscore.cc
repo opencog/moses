@@ -143,7 +143,7 @@ discriminator::d_counts discriminator::count(const combo_tree& tr) const
         }
     }
 
-    if (logger().isFineEnabled()) {
+    if (logger().is_fine_enabled()) {
         logger().fine("counter: tp = %f  fp = %f  tp+fp = %f pos = %f",
                       ctr.true_positive_sum, ctr.false_positive_sum,
                       ctr.true_positive_sum + ctr.false_positive_sum,
@@ -435,7 +435,7 @@ behavioral_score recall_bscore::operator()(const combo_tree& tr) const
 
     score_t precision_penalty = get_threshold_penalty(precision);
     bs.push_back(precision_penalty);
-    if (logger().isFineEnabled()) {
+    if (logger().is_fine_enabled()) {
         logger().fine("recall_bcore: precision = %f  recall=%f  precision penalty=%e",
                      precision, recall, precision_penalty);
     }
@@ -551,7 +551,7 @@ behavioral_score prerec_bscore::operator()(const combo_tree& tr) const
     bs.push_back(recall_penalty);
 
     // Log precision, recall and penalty
-    if (logger().isFineEnabled())
+    if (logger().is_fine_enabled())
         logger().fine("prerec_bscore: precision = %f  "
                       "recall = %f  recall penalty = %f",
                       precision, recall, recall_penalty);
@@ -606,7 +606,7 @@ behavioral_score bep_bscore::operator()(const combo_tree& tr) const
     score_t bep_diff = fabs(precision - recall);
     score_t bep_penalty = get_threshold_penalty(bep_diff);
     bs.push_back(bep_penalty);
-    if (logger().isFineEnabled())
+    if (logger().is_fine_enabled())
         logger().fine("bep = %f  diff=%f  bep penalty=%e",
                      bep, bep_diff, bep_penalty);
 
@@ -666,7 +666,7 @@ behavioral_score f_one_bscore::operator()(const combo_tree& tr) const
     behavioral_score bs;
     bs.push_back(f_one);
 
-    if (logger().isFineEnabled())
+    if (logger().is_fine_enabled())
         logger().fine("f_one_bscore: precision = %f recall = %f f_one=%f",
                      precision, recall, f_one);
 

@@ -129,10 +129,10 @@ std::string field_set::to_string(const instance& inst) const
 {
     std::stringstream ss;
     ss << "[";
-    ostreamContainer(ss, begin_term(inst), end_term(inst), "#", "#", "", false);
-    ostreamContainer(ss, begin_contin(inst), end_contin(inst), "|", "|", "", false);
-    ostreamContainer(ss, begin_disc(inst), end_disc(inst), " ", " ", "", false);
-    ostreamContainer(ss, begin_bit(inst), end_bit(inst), "", "", "", false);
+    ostream_container(ss, begin_term(inst), end_term(inst), "#", "#", "", false);
+    ostream_container(ss, begin_contin(inst), end_contin(inst), "|", "|", "", false);
+    ostream_container(ss, begin_disc(inst), end_disc(inst), " ", " ", "", false);
+    ostream_container(ss, begin_bit(inst), end_bit(inst), "", "", "", false);
     ss << "]";
     return ss.str();
 }
@@ -140,7 +140,7 @@ std::string field_set::to_string(const instance& inst) const
 std::string field_set::to_string_raw(const instance& inst) const
 {
     std::stringstream ss;
-    ostreamContainer(ss, begin_raw(inst), end_raw(inst), "", "[", "]");
+    ostream_container(ss, begin_raw(inst), end_raw(inst), "", "[", "]");
     return ss.str();
 }
 

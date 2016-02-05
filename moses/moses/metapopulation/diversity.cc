@@ -117,7 +117,7 @@ void metapopulation::set_diversity()
                 bsct.get_composite_score().multiply_diversity = true;
             bsct.get_composite_score().set_diversity_penalty(adp);
 
-            if (logger().isFineEnabled()) {
+            if (logger().is_fine_enabled()) {
                 stringstream ss;
                 ss << "Diversity for candidate: " << bsct.get_tree()
                    << ", last_dst = " << last_dst
@@ -167,7 +167,7 @@ void metapopulation::set_diversity()
     // Replace the existing metapopulation with the new one.
     _scored_trees.swap(pool);
 
-    if (logger().isFineEnabled()) {
+    if (logger().is_fine_enabled()) {
         stringstream ss;
         ss << "Metapopulation after setting diversity:" << std::endl;
         ostream_metapop(ss);

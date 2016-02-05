@@ -39,7 +39,7 @@ namespace moses {
         template<typename It>
         void operator()(It from, It to, const field_set& fs, int gen) const
         {
-            if (!logger().isDebugEnabled())
+            if (!logger().is_debug_enabled())
                 return;
 
             if (from == to)

@@ -187,7 +187,7 @@ struct metapop_printer
         }
 
         // Also log the thing, if logging is enabled.
-        if (logger().isInfoEnabled()) {
+        if (logger().is_info_enabled()) {
             if (output_ensemble) {
                 stringstream ssb;
                 for (const auto& cand : metapop.get_ensemble().get_ensemble()) {

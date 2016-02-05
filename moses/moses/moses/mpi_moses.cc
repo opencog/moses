@@ -320,7 +320,7 @@ void mpi_moses_worker(metapopulation& mp,
         mompi.send_deme(mp, total_evals);
 
         // Print timing stats and counts for this work unit.
-        if (logger().isInfoEnabled()) {
+        if (logger().is_info_enabled()) {
             gettimeofday(&stop, NULL);
             timersub(&stop, &start, &elapsed);
 
@@ -639,7 +639,7 @@ void mpi_moses(metapopulation& mp,
         // XXX this is kind-of buggy, since the following data is not
         // updated and collected atomically... other threads may be
         // merging and updating as this print happens. Yuck. Oh well.
-        if (logger().isInfoEnabled()) {
+        if (logger().is_info_enabled()) {
             std::stringstream ss;
             ss << "Stats: " << stats.n_expansions;
             ss << "\t" << stats.n_evals;    // number of evaluations so far

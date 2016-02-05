@@ -193,7 +193,7 @@ Out& ostreamTableHeader(Out& out, const Table& table)
     }
 
     // Write the header
-    ostreamContainer(out, header, ",") << std::endl;
+    ostream_container(out, header, ",") << std::endl;
     return out;
 }
 
@@ -226,7 +226,7 @@ Out& ostreamTable(Out& out, const Table& table)
         }
 
         // Write content row
-        ostreamContainer(out, content, ",") << std::endl;
+        ostream_container(out, content, ",") << std::endl;
     }
     return out;
 }

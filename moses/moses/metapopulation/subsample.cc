@@ -49,20 +49,20 @@ void metapopulation::recompute_scores_over_whole_dataset(
 
         for (unsigned i = 0; i < all_demes.size(); ++i) {
             for(deme_t& ss_deme : all_demes[i]) {
-                if (logger().isFineEnabled())
+                if (logger().is_fine_enabled())
                     logger().fine() << "SS-Deme: " << ss_deme.getID();
 
                 for(auto& sc_inst : ss_deme) {
                     combo_tree tr = reps[i].get_candidate(sc_inst, true);
 
-                    if (logger().isFineEnabled())
+                    if (logger().is_fine_enabled())
                         logger().fine() << "Re-evaluate candidate: " << tr;
 
                     // Evaluate the candidate over the whole dataset
                     // (normally restored by now)
                     composite_score sc = _cscorer.get_cscore(tr);
 
-                    if (logger().isFineEnabled())
+                    if (logger().is_fine_enabled())
                         logger().fine() << "Composite score = " << sc;
 
                     // Overwrite the deme scored instance with the new
@@ -183,7 +183,7 @@ bool metapopulation::ss_score_dev_filter(const representation& rep,
     stat_acc_t mean_std_acc;    // accumulator for mean standard deviation
 
     for (unsigned i_tuple = 0; i_tuple < sample_tuples; ++i_tuple) {
-        if (logger().isFineEnabled())
+        if (logger().is_fine_enabled())
             logger().fine() << "Tuple iteration: " << i_tuple;
 
         // Pick up a tuple
@@ -207,7 +207,7 @@ bool metapopulation::ss_score_dev_filter(const representation& rep,
             var_score_acc(inst_csc.get_penalized_score());
         }
 
-        if (logger().isFineEnabled())
+        if (logger().is_fine_enabled())
             logger().fine() << "Variance for tuple " << i_tuple << ": "
                             << boost::accumulators::variance(var_score_acc);
 
@@ -217,7 +217,7 @@ bool metapopulation::ss_score_dev_filter(const representation& rep,
     float mean_std = boost::accumulators::mean(mean_std_acc);
     bool pass = mean_std < _filter_params.std_dev_threshold;
 
-    if (logger().isDebugEnabled())
+    if (logger().is_debug_enabled())
     {
         std::stringstream ss;
         ss << "SS Filter: mean score standard deviation = " << mean_std
@@ -259,7 +259,7 @@ float metapopulation::ss_average_agreement(const representation& rep,
     float total_agreement = 0;
 
     for (unsigned i_tuple = 0; i_tuple < sample_tuples; ++i_tuple) {
-        if (logger().isFineEnabled())
+        if (logger().is_fine_enabled())
             logger().fine() << "Tuple iteration: " << i_tuple;
 
         // Pick up a tuple
@@ -284,7 +284,7 @@ float metapopulation::ss_average_agreement(const representation& rep,
             combo_tree tr = rep.get_candidate(inst, true);
             trs.push_back(tr);
 
-            if (logger().isFineEnabled())
+            if (logger().is_fine_enabled())
                 logger().fine() << "SS-Deme: " << deme.getID()
                                 << " candidate = " << tr;
         }
@@ -393,7 +393,7 @@ void metapopulation::ss_tanimoto_stats(const representation& rep,
     lazy_random_selector selector(n_possible_tuples);
 
     for (unsigned i_tuple = 0; i_tuple < sample_tuples; ++i_tuple) {
-        if (logger().isFineEnabled())
+        if (logger().is_fine_enabled())
             logger().fine() << "Tuple iteration: " << i_tuple;
 
         // Pick up a tuple
@@ -418,7 +418,7 @@ void metapopulation::ss_tanimoto_stats(const representation& rep,
             combo_tree tr = rep.get_candidate(inst, true);
             trs.push_back(tr);
 
-            if (logger().isFineEnabled())
+            if (logger().is_fine_enabled())
                 logger().fine() << "SS-Deme: " << deme.getID()
                                 << " candidate = " << tr;
         }
@@ -446,7 +446,7 @@ bool metapopulation::ss_tanimoto_filter(const representation& rep,
         max_pass = tanimoto_max < _filter_params.tanimoto_max_threshold;
 
     // Debug log
-    if (logger().isDebugEnabled())
+    if (logger().is_debug_enabled())
     {
         {
             std::stringstream ss;

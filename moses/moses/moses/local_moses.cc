@@ -81,7 +81,7 @@ static bool expand_deme(metapopulation& mp,
 
     bool done = mp.merge_demes(dex._demes, dex._reps);
 
-    if (logger().isInfoEnabled()) {
+    if (logger().is_info_enabled()) {
         logger().info() << "Expansion " << stats.n_expansions << " done";
         logger().info() << "Total number of evaluations so far: " << stats.n_evals;
         mp.log_best_candidates();
@@ -152,7 +152,7 @@ void local_moses(metapopulation& mp,
 
         // Print stats in a way that makes them easy to graph.
         // (columns of tab-seprated numbers)
-        if (logger().isInfoEnabled()) {
+        if (logger().is_info_enabled()) {
 
             composite_score best(mp.best_composite_score());
             std::stringstream ss;
@@ -190,7 +190,7 @@ void local_moses(metapopulation& mp,
 
         // I find this particularly useful for studying diversity but
         // it could be relaxed and printed whatever
-        if (logger().isDebugEnabled() and mp.diversity_enabled()) {
+        if (logger().is_debug_enabled() and mp.diversity_enabled()) {
             std::stringstream ss;
             ss << pa.max_cnd_output << " best candidates of the metapopulation (with scores and visited status):" << std::endl;
             mp.ostream_metapop(ss, pa.max_cnd_output);

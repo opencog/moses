@@ -122,7 +122,7 @@ representation::representation(const reduct::rule& simplify_candidate,
                     << _exemplar.size()
                     << " complexity="
                     << tree_complexity(_exemplar);
-    if (logger().isDebugEnabled()) {
+    if (logger().is_debug_enabled()) {
         logger().debug() << "Building representation from exemplar: "
                          << _exemplar;
     }
@@ -136,7 +136,7 @@ representation::representation(const reduct::rule& simplify_candidate,
                     << _exemplar.size()
                     << " complexity="
                     << tree_complexity(_exemplar);
-    if (logger().isFineEnabled()) {
+    if (logger().is_fine_enabled()) {
         logger().fine() << "Rep, after knob building: " << _exemplar;
     }
 #if 0
@@ -212,7 +212,7 @@ representation::representation(const reduct::rule& simplify_candidate,
     size_t is = sizeof(instance) + sizeof(packed_t) * _fields.packed_width();
     logger().info() << "One instance, in bytes: " << is;
 
-    if (logger().isDebugEnabled()) {
+    if (logger().is_debug_enabled()) {
         std::stringstream ss;
         ostream_prototype(ss << "Created prototype: ");
         logger().debug(ss.str());

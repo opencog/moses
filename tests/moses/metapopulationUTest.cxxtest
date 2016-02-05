@@ -65,8 +65,8 @@ public:
         : _dbsc(), _csc(_dbsc),
           _metapopulation(combo_tree(), _csc)
     {
-        logger().setPrintToStdoutFlag(true);
-        logger().setLevel(Logger::FINE);
+        logger().set_print_to_stdout_flag(true);
+        logger().set_level(Logger::FINE);
         randGen().seed(1);
     }
 
