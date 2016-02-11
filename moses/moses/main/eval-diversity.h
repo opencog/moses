@@ -69,7 +69,7 @@ Out& ostream_results(Out& out, const eval_diversity_params& edp,
                      const std::vector<score_t>& dsts)
 {
     if (edp.display_values)
-        ostreamContainer(out, dsts, "\n") << std::endl;
+        ostream_container(out, dsts, "\n") << std::endl;
 
     if (edp.display_stats) {
         // compute the statistics

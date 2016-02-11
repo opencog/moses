@@ -26,7 +26,7 @@ int main(int argc, char** argv)
 {
 
     //set flag to print only cassert and other ERROR level logs on stdout
-    logger().setPrintErrorLevelStdout();
+    logger().set_print_error_level_stdout();
 
     combo_tree tr;
     cin >> tr;

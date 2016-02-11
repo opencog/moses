@@ -141,9 +141,9 @@ static void not_recognized_dst2dp(const string& diversity_dst2dp)
 {
     stringstream ss;
     vector<string> valid_dsts = {auto_str, inverse_str, complement_str, power_str};
-    ostreamContainer(ss << diversity_dst2dp
-                     << " is not recognized. Valid distances to penalty are ",
-                     valid_dsts, ", ");
+    ostream_container(ss << diversity_dst2dp
+                      << " is not recognized. Valid distances to penalty are ",
+                      valid_dsts, ", ");
     log_output_error_exit(ss.str());
 }
 
@@ -1166,16 +1166,16 @@ void problem_params::parse_options(boost::program_options::variables_map& vm)
 
     // Remove old log_file before setting the new one.
     remove(log_file.c_str());
-    logger().setFilename(log_file);
+    logger().set_filename(log_file);
     boost::trim(log_level);
-    Logger::Level level = logger().getLevelFromString(log_level);
+    Logger::Level level = logger().get_level_from_string(log_level);
     if (level != Logger::BAD_LEVEL)
-        logger().setLevel(level);
+        logger().set_level(level);
     else {
         cerr << "Error: Log level " << log_level << " is incorrect (see --help)." << endl;
         exit(1);
     }
-    logger().setBackTraceLevel(Logger::ERROR);
+    logger().set_backtrace_level(Logger::ERROR);
 
     // Dump the stack every time SIGHUP is received.
     // void prt_stack(int sig) { logger().error("Caught SIGHUP"); };

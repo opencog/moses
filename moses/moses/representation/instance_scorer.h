@@ -53,7 +53,7 @@ struct distance_based_scorer : public iscorer_base
     {
         score_t sc = -fs.hamming_distance(target_inst, inst);
         // Logger
-        if (logger().isFineEnabled()) {
+        if (logger().is_fine_enabled()) {
             logger().fine() << "distance_based_scorer - Evaluate instance: "
                             << fs.to_string(inst) << "\n"
                             << "Score = " << sc << std::endl;
@@ -75,7 +75,7 @@ struct complexity_based_scorer : public iscorer_base
 
     composite_score operator()(const instance& inst) const
     {
-        if (logger().isFineEnabled()) {
+        if (logger().is_fine_enabled()) {
             logger().fine() << "complexity_based_scorer - Evaluate instance: "
                             << _rep.fields().to_string(inst);
         }

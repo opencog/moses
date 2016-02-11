@@ -172,10 +172,10 @@ FeatureSet incremental_selection(const FeatureSet& features,
     }
 
     // Log what it is that we actually got.
-    if (logger().isInfoEnabled()) {
+    if (logger().is_info_enabled()) {
         std::stringstream ss;
         ss << "Exit incremental_selection(), selected: ";
-        ostreamContainer(ss, res);
+        ostream_container(ss, res);
         // Do not print score.  Why?
         // 1) Its totally misleading, since this computes the score of
         //    all of the terms, interacting together.
@@ -224,7 +224,7 @@ FeatureSet adaptive_incremental_selection(const FeatureSet& features,
                                           double epsilon = 0.001)
 {
     double mean = (min+max)/2;
-    if (logger().isDebugEnabled()) {
+    if (logger().is_debug_enabled()) {
         logger().debug() << "Call adaptive_incremental_selection(size="
                          << features_size_target
                          << ", terms=" << max_interaction_terms

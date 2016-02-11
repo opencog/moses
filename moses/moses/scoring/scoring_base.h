@@ -339,7 +339,7 @@ protected:
 static inline void log_candidate_bscore(const combo_tree& tr,
                                         const behavioral_score& bs)
 {
-    if (logger().isFineEnabled())
+    if (logger().is_fine_enabled())
         logger().fine() << "Evaluate candidate: " << tr << "\n"
                         << "\tBScore size=" << bs.size()
                         << " bscore: " << bs;

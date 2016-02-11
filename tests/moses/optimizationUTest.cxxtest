@@ -41,8 +41,8 @@ class optimizationUTest : public CxxTest::TestSuite {
 
 public:
     optimizationUTest() {
-        logger().setPrintToStdoutFlag(true);
-        logger().setLevel(Logger::FINE);
+        logger().set_print_to_stdout_flag(true);
+        logger().set_level(Logger::FINE);
         randGen().seed(10000);
     }
     /**

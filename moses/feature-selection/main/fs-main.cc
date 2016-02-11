@@ -392,16 +392,16 @@ int main(int argc, char** argv)
 
     // Remove any existing log files.
     remove(log_file.c_str());
-    logger().setFilename(log_file);
+    logger().set_filename(log_file);
     trim(log_level);
-    Logger::Level level = logger().getLevelFromString(log_level);
+    Logger::Level level = logger().get_level_from_string(log_level);
     if (level == Logger::BAD_LEVEL) {
         cerr << "Fatal Error: Log level " << log_level
              << " is incorrect (see --help)." << endl;
         exit(1);
     }
-    logger().setLevel(level);
-    logger().setBackTraceLevel(Logger::ERROR);
+    logger().set_level(level);
+    logger().set_backtrace_level(Logger::ERROR);
 
     // Log command-line args
     logger().info() << "feature-selection version "

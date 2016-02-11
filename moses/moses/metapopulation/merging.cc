@@ -58,7 +58,7 @@ void metapopulation::trim_down_deme(deme_t& deme) const
     if (_min_pool_size >= deme.size())
         return;
 
-    if (logger().isDebugEnabled())
+    if (logger().is_debug_enabled())
     {
         std::stringstream ss;
         ss << "Trim down deme " << deme.getID()
@@ -77,7 +77,7 @@ void metapopulation::trim_down_deme(deme_t& deme) const
         }
     }
 
-    if (logger().isDebugEnabled())
+    if (logger().is_debug_enabled())
     {
         std::stringstream ss;
         ss << "Deme trimmed down, new size: " << deme.size();
@@ -116,7 +116,7 @@ void metapopulation::deme_to_trees(deme_t& deme,
         pot_candidates.insert(sct);
     };
 
-    if (logger().isDebugEnabled()) {
+    if (logger().is_debug_enabled()) {
         logger().debug() << "Select " << deme.size()
                          << " candidates from deme " << deme.getID();
     }
@@ -150,10 +150,10 @@ void metapopulation::rescore()
 /// final, actual merge.
 void metapopulation::merge_candidates(scored_combo_tree_set& candidates)
 {
-    if (logger().isDebugEnabled()) {
+    if (logger().is_debug_enabled()) {
         logger().debug("Going to merge %u candidates with the metapopulation",
                        candidates.size());
-        if (logger().isFineEnabled()) {
+        if (logger().is_fine_enabled()) {
             std::stringstream ss;
             ss << "Candidates to merge with the metapopulation:" << std::endl;
             for (const auto& cnd : candidates)
@@ -298,7 +298,7 @@ bool metapopulation::merge_demes(std::vector<std::vector<deme_t>>& all_demes,
         // remove the dominated trees; what we do here is to trim down
         // the deme some more, so that the final merge can go faster.
         logger().debug("Remove dominated candidates");
-        if (logger().isFineEnabled()) {
+        if (logger().is_fine_enabled()) {
             std::stringstream ss;
             ss << "Candidates with their bscores before"
                 " removing the dominated candidates" << std::endl;
@@ -312,7 +312,7 @@ bool metapopulation::merge_demes(std::vector<std::vector<deme_t>>& all_demes,
 
         logger().debug("Removed %u dominated candidates out of %u",
                        old_size - candidates.size(), old_size);
-        if (logger().isFineEnabled()) {
+        if (logger().is_fine_enabled()) {
             std::stringstream ss;
             ss << "Candidates with their bscores after"
                 " removing the dominated candidates" << std::endl;
@@ -433,12 +433,12 @@ void metapopulation::resize_metapop()
     std::sort(ptr_seq.begin(), ptr_seq.end());
     _cached_dst.erase_ptr_seq(ptr_seq);
 
-    if (logger().isDebugEnabled()) {
+    if (logger().is_debug_enabled()) {
         logger().debug("Removed %u candidates from the metapopulation",
                        old_size - size());
 
         logger().debug("Metapopulation size is %u", size());
-        if (logger().isFineEnabled()) {
+        if (logger().is_fine_enabled()) {
             std::stringstream ss;
             ss << "Metapopulation:" << std::endl;
             ostream_metapop(ss);
@@ -524,7 +524,7 @@ void metapopulation::keep_top_unique_candidates(
                 top_cnd = std::min(top_cnd,
                                    _filter_params.n_top_candidates);
 
-            if (logger().isDebugEnabled())
+            if (logger().is_debug_enabled())
             {
                 std::stringstream ss;
                 ss << "Keep " << top_cnd
@@ -556,7 +556,7 @@ void metapopulation::keep_top_unique_candidates(
             // Remove the bottom
             deme.erase(deme.begin() + top_cnd, deme.end());
 
-            if (logger().isDebugEnabled())
+            if (logger().is_debug_enabled())
             {
                 std::stringstream ss;
                 ss << "Kept unique top candidates, new size: " << deme.size();
@@ -609,7 +609,7 @@ void metapopulation::update_best_candidates(const scored_combo_tree_set& candida
 // log the best candidates
 void metapopulation::log_best_candidates() const
 {
-    if (!logger().isInfoEnabled())
+    if (!logger().is_info_enabled())
         return;
 
     if (best_candidates().empty())
@@ -627,7 +627,7 @@ void metapopulation::log_best_candidates() const
                << "Ensemble has " << _ensemble.get_ensemble().size()
                << " members, and a score of "
                << best_composite_score();
-            if (logger().isDebugEnabled()) {
+            if (logger().is_debug_enabled()) {
                 logger().debug() << "The ensemble is " << std::endl;
                 for (const auto& cand : _ensemble.get_ensemble()) {
                     logger().debug() << cand.get_weight() << " " << cand.get_tree();

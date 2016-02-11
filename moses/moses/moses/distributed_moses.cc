@@ -259,7 +259,7 @@ void parse_result(istream& in, scored_combo_tree_set& candidates, int& evals)
             if (0 != bpenalty) {
                 OC_ASSERT(bpenalty == complexity_penalty,
                           "Behavioural score is mangled!");
-                istreamContainer(in, std::back_inserter(bscore), "[", "]");
+                istream_container(in, std::back_inserter(bscore), "[", "]");
             } else {
                 // Discard remaining characters till end-of-line.
                 in.ignore(4123123, '\n');
@@ -270,7 +270,7 @@ void parse_result(istream& in, scored_combo_tree_set& candidates, int& evals)
                   scored_combo_tree(tr, demeID_t(), cs, bscore);
             candidates.insert(candidate);
 
-            if (logger().isFineEnabled()) {
+            if (logger().is_fine_enabled()) {
                 logger().fine("Parsed candidate:");
                 logger().fine() << candidate;
             }

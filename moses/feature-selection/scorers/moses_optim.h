@@ -64,7 +64,7 @@ struct deme_based_scorer : public iscorer_base
         std::set<arity_t> fs = get_feature_set(_fields, inst);
         composite_score csc(_fs_scorer(fs), fs.size(), 0);
         // Logger
-        if (logger().isFineEnabled()) {
+        if (logger().is_fine_enabled()) {
             logger().fine()
                << "moses_based_scorer - Evaluate instance: " 
                << _fields.to_string(inst) << " " << csc;

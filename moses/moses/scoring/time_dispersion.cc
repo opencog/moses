@@ -76,7 +76,7 @@ TTable::value_type bscore_ctable_time_dispersion::get_timestamp_class(const TTab
 float bscore_ctable_time_dispersion::get_time_dispersion_penalty(const CTableTime& ctt) const
 {
     // Log the ctabletime
-    if (logger().isFineEnabled())
+    if (logger().is_fine_enabled())
         ostreamCTableTime(logger().fine() << "bscore_ctable_time_dispersion:"
                           ":get_time_dispersion_penalty ctabletime\n", ctt);
 
@@ -105,7 +105,7 @@ float bscore_ctable_time_dispersion::get_time_dispersion_penalty(const CTableTim
         scaled_distorted_penalty = _pressure * distorted_penalty;
 
     // Log entropies and penalty
-    if (logger().isFineEnabled())
+    if (logger().is_fine_enabled())
         logger().fine() << "H = " << H
                         << ", time_dispersion_penalty = "
                         << scaled_distorted_penalty;

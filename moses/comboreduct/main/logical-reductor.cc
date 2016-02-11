@@ -36,7 +36,7 @@ using namespace reduct;
 
 int main()
 {
-    logger().setPrintErrorLevelStdout();
+    logger().set_print_error_level_stdout();
 
     opencog::combo::vertex_set ignore_ops;
 

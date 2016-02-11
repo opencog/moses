@@ -166,7 +166,7 @@ std::ostream& ostream_behavioral_score(std::ostream& out,
                                        const behavioral_score& bs)
 {
     out << behavioral_score_prefix_str << " ";
-    return ostreamContainer(out, bs, " ", "[", "]");
+    return ostream_container(out, bs, " ", "[", "]");
 }
 
 std::ostream& ostream_scored_combo_tree(std::ostream& out,
@@ -278,7 +278,7 @@ scored_combo_tree string_to_scored_combo_tree(const std::string& line)
     behavioral_score bs;
     if (sct_match[15].length() > 0) {
         istringstream iss(sct_match[15].str());
-        istreamContainer(iss, back_inserter(bs), "[", "]");
+        istream_container(iss, back_inserter(bs), "[", "]");
     }
 
     return scored_combo_tree(tr, demeID, cs, bs);

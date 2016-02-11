@@ -141,8 +141,8 @@ CTable feature_selector::build_fs_ctable(const combo_tree& xmplr) const
 
     // define visitor to initialize the features to ignore
     if (!params.ignored_features.empty())
-        ostreamContainer(logger().debug() << "Ignore features: ",
-                         params.ignored_features);
+	    ostream_container(logger().debug() << "Ignore features: ",
+	                      params.ignored_features);
     std::vector<init_at_visitor> iavs(params.ignored_features.begin(),
                                       params.ignored_features.end());
 
@@ -175,7 +175,7 @@ CTable feature_selector::build_fs_ctable(const combo_tree& xmplr) const
             // could be relaxed.
             //
             const TimedCounter& tc = vct.second;
-            vertex actual_out = tc.most_frequent();
+            vertex actual_out = tc.mode();
             consider_row = predicted_out != actual_out;
         }
 
@@ -271,7 +271,7 @@ void feature_selector::log_stats_top_feature_sets(const feature_set_pop& top_fs)
         score_acc(i_it->first);
         for (auto j_it = top_fs.cbegin(); j_it != i_it; ++j_it) {
             float sim = params.diversity_jaccard ?
-                jaccardIndex(i_it->second, j_it->second)
+                jaccard_index(i_it->second, j_it->second)
                 : mi(i_it->second, j_it->second);
             diversity_acc(sim);
         }
@@ -383,7 +383,7 @@ csc_feature_set_pop feature_selector::rank_feature_sets(const feature_set_pop& f
 
                 // feature set similarity measure
                 float sim = params.diversity_jaccard ?
-                    jaccardIndex(last_fs_cit->second, csc_fs.second)
+                    jaccard_index(last_fs_cit->second, csc_fs.second)
                     : mi(last_fs_cit->second, csc_fs.second);
                 float last_dp = sim_to_penalty(sim);
 
@@ -421,9 +421,9 @@ csc_feature_set_pop feature_selector::rank_feature_sets(const feature_set_pop& f
 
     logger().info() << "Feature sets ranked";
 
-    if (logger().isFineEnabled()) {
+    if (logger().is_fine_enabled()) {
         for (const csc_feature_set& cfs : res) {
-            ostreamContainer(logger().fine() << "Feature set: ", cfs.second);
+            ostream_container(logger().fine() << "Feature set: ", cfs.second);
             logger().fine() << "With composite score: " << cfs.first;
         }
     }
@@ -461,9 +461,9 @@ feature_set feature_selector::sample_enforced_features() const {
         }
     }
 
-    if (logger().isDebugEnabled()) {
+    if (logger().is_debug_enabled()) {
         std::stringstream ss;
-        ostreamContainer(ss << "Enforce features: ", sampled_features);
+        ostream_container(ss << "Enforce features: ", sampled_features);
         logger().debug() << ss.str();
     }
 

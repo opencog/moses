@@ -127,7 +127,7 @@ feature_set initial_features(const vector<string>& ilabels,
     else {
         stringstream ss;
         ss << "The search will start with the following feature set: ";
-        ostreamContainer(ss, vif, ",");
+        ostream_container(ss, vif, ",");
         logger().info(ss.str());
     }
     // ~Logger

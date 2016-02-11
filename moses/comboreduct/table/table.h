@@ -115,7 +115,7 @@ struct push_back_visitor : public boost::static_visitor<>
     template<typename Seq> void operator()(Seq& seq) const {
         std::stringstream ss;
         ss << "You can't push_back " << _value << " in container ";
-        ostreamContainer(ss, seq);
+        ostream_container(ss, seq);
         OC_ASSERT(false, ss.str());
     }
     const T& _value;
@@ -205,7 +205,7 @@ struct insert_at_visitor : public boost::static_visitor<>
     template<typename Seq> void operator()(Seq& seq) const {
         std::stringstream ss;
         ss << "You can't insert " << _v << " at " << _pos << " in container ";
-        ostreamContainer(ss, seq);
+        ostream_container(ss, seq);
         OC_ASSERT(false, ss.str());
     }
     int _pos;
@@ -501,9 +501,9 @@ struct TimedCounter : public Counter<TimedValue, count_t> {
     // Return a counter without timestamps
     Counter<vertex, count_t> untimedCounter() const;
 
-    // Overload most_frequent() so that it returns the most frequent
+    // Overload mode() so that it returns the most frequent
     // vertex over all timestamps.
-    vertex most_frequent() const;
+    vertex mode() const;
 };
 
 /**

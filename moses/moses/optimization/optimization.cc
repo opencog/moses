@@ -142,7 +142,7 @@ void print_stats_header(optim_stats *os, bool diversity)
     using std::stringstream;
 
     // Print legend for the columns of the stats.
-    if (logger().isInfoEnabled()) {
+    if (logger().is_info_enabled()) {
         stringstream ss;
         ss << "Stats: # \n"
            << "Stats: # Stats are tab-separated, ready for graphing.\n"

@@ -141,8 +141,8 @@ int main(int argc, char** argv)
     // stdout. This will let us watch what the optimizer is doing.
     // Set to Logger::WARN to show only warnings and errors.
     logger() = Logger("demo.log");
-    logger().setLevel(Logger::FINE);
-    logger().setPrintToStdoutFlag(true);
+    logger().set_level(Logger::FINE);
+    logger().set_print_to_stdout_flag(true);
 
     // We also need to declare a specific logger for the aglo.
     // This one uses the same system logger() above, and writes all

@@ -43,7 +43,7 @@ int main(int argc, char** argv)
 {
 
     // Set flag to print only cassert and other ERROR level logs on stdout.
-    logger().setPrintErrorLevelStdout();
+    logger().set_print_error_level_stdout();
 
     // Read in maximum evaluations and RNG seed from command line.
     int seed;

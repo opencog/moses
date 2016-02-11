@@ -75,7 +75,7 @@ composite_score behave_cscore::get_cscore_nocache(const combo_tree& tr)
         // because this happens very often when learning continuous
         // functions, and it clogs up the log when logged at a
         // higher level.
-        if (logger().isFineEnabled()) {
+        if (logger().is_fine_enabled()) {
             logger().fine()
                << "The following candidate: " << tr << "\n"
                << "has failed to be evaluated, "
@@ -88,7 +88,7 @@ composite_score behave_cscore::get_cscore_nocache(const combo_tree& tr)
 
     complexity_t cpxy = _bscorer.get_complexity(tr);
     score_t cpxy_coef = _bscorer.get_complexity_coef();
-    if (logger().isFineEnabled()) {
+    if (logger().is_fine_enabled()) {
         logger().fine() << "behave_cscore: " << res
                         << " complexity: " << cpxy
                         << " cpxy_coeff: " << cpxy_coef;
@@ -111,7 +111,7 @@ composite_score behave_cscore::get_cscore(const scored_combo_tree_set& ensemble)
 
     complexity_t cpxy = _bscorer.get_complexity(ensemble);
     score_t cpxy_coef = _bscorer.get_complexity_coef();
-    if (logger().isFineEnabled()) {
+    if (logger().is_fine_enabled()) {
         logger().fine() << "ensemble behave_cscore: " << res
                         << " complexity: " << cpxy
                         << " cpxy_coeff: " << cpxy_coef;

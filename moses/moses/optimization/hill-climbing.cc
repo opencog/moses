@@ -205,7 +205,7 @@ void hill_climbing::operator()(deme_t& deme,
                                     current_number_of_instances);
 
         // log neighborhood distance
-        if (logger().isDebugEnabled()) {
+        if (logger().is_debug_enabled()) {
             std::stringstream nbh_dst;
             nbh_dst << "Evaluate " << number_of_new_instances << " neighbors";
             if (number_of_new_instances > 0) {
@@ -341,9 +341,9 @@ void hill_climbing::operator()(deme_t& deme,
             distance = 1;
             deme.n_best_evals = current_number_of_instances;
 
-            if (logger().isDebugEnabled()) {
+            if (logger().is_debug_enabled()) {
                 logger().debug() << "Best score: " << best_cscore;
-                if (logger().isFineEnabled()) {
+                if (logger().is_fine_enabled()) {
                     logger().fine() << "Best instance: "
                                     << fields.to_string(center_inst);
                 }
@@ -363,7 +363,7 @@ void hill_climbing::operator()(deme_t& deme,
         unsigned usec = 1000000 * elapsed.tv_sec + elapsed.tv_usec;
 
         // Deme statistics, for performance graphing.
-        if (logger().isInfoEnabled()) {
+        if (logger().is_info_enabled()) {
             double ram_usage = current_number_of_instances;
             ram_usage *= _instance_bytes;
             ram_usage /= 1024 * 1024;

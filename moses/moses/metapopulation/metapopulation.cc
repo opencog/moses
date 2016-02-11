@@ -96,7 +96,7 @@ bool metapopulation::has_been_visited(const scored_combo_tree& tr) const
 
 void metapopulation::log_selected_exemplar(scored_combo_tree_ptr_set::const_iterator exemplar_it)
 {
-    if (not logger().isDebugEnabled()) return;
+    if (not logger().is_debug_enabled()) return;
 
     if (exemplar_it == _scored_trees.cend()) {
         logger().debug() << "No exemplar found";
@@ -183,11 +183,11 @@ scored_combo_tree_ptr_set::const_iterator metapopulation::select_exemplar()
     }
 
     // log the distribution probs
-    if (logger().isFineEnabled())
+    if (logger().is_fine_enabled())
     {
         std::stringstream ss;
         ss << "Non-normalized probability distribution of candidate selection: ";
-        ostreamContainer(ss, probs);
+        ostream_container(ss, probs);
         logger().fine() << ss.str();
     }
 

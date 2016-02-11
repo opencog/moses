@@ -381,16 +381,16 @@ int main(int argc, char** argv)
     }
 
     // Set logger
-    logger().setFilename(log_file);
+    logger().set_filename(log_file);
     trim(log_level);
-    Logger::Level level = logger().getLevelFromString(log_level);
+    Logger::Level level = logger().get_level_from_string(log_level);
     if (level != Logger::BAD_LEVEL)
-        logger().setLevel(level);
+        logger().set_level(level);
     else {
         cerr << "Error: Log level " << log_level << " is incorrect (see --help)." << endl;
         exit(1);
     }
-    logger().setBackTraceLevel(Logger::ERROR);
+    logger().set_backtrace_level(Logger::ERROR);
 
     // init random generator
     randGen().seed(rand_seed);
@@ -412,7 +412,7 @@ int main(int argc, char** argv)
     vector<combo_tree> trs;
     for (const string& tr_str : all_combo_tree_str) {
         combo_tree tr = str2combo_tree_label(tr_str, it.get_labels());
-        if (logger().isFineEnabled()) {
+        if (logger().is_fine_enabled()) {
             logger().fine() << "Combo str: " << tr_str;
             logger().fine() << "Parsed combo: " << tr;
         }
@@ -433,9 +433,9 @@ int main(int argc, char** argv)
 
     // Output the values
     if(ecp.output_file.empty())
-        ostreamlnContainer(cout, ls, "\n");
+        ostreamln_container(cout, ls, "\n");
     else {
         ofstream of(ecp.output_file.c_str());
-        ostreamlnContainer(of, ls, "\n");
+        ostreamln_container(of, ls, "\n");
     }
 }

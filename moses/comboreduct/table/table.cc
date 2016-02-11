@@ -622,8 +622,8 @@ Counter<vertex, count_t> TimedCounter::untimedCounter() const {
     return vc;
 }
 
-vertex TimedCounter::most_frequent() const {
-    return untimedCounter().most_frequent();
+vertex TimedCounter::mode() const {
+    return untimedCounter().mode();
 }
 
 ////////////

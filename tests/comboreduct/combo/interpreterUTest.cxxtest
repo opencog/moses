@@ -35,7 +35,7 @@ public:
         for (const io_t& ir : irs) {
             output_t res = boolean_interpreter(ir.first)(tr);
             TS_ASSERT_EQUALS(res, ir.second);
-            ostreamContainer(cout << "inputs = ", ir.first)
+            ostream_container(cout << "inputs = ", ir.first)
                 << ", expected output = " << ir.second
                 << ", returned output = " << res << endl;
         }
@@ -74,7 +74,7 @@ public:
         for (const io_t& ir : irs) {
             output_t res = contin_interpreter(ir.first)(tr);
             TS_ASSERT_EQUALS(res, ir.second);
-            ostreamContainer(cout << "inputs = ", ir.first)
+            ostream_container(cout << "inputs = ", ir.first)
                 << ", expected output = " << ir.second
                 << ", returned output = " << res << endl;
         }
@@ -104,7 +104,7 @@ public:
         for (const io_t& ir : irs) {
             output_t res = mixed_interpreter(ir.first)(tr);
             TS_ASSERT_EQUALS(res, ir.second);
-            ostreamContainer(cout << "inputs = ", ir.first)
+            ostream_container(cout << "inputs = ", ir.first)
                 << ", expected output = " << ir.second
                 << ", returned output = " << res << endl;
         }
