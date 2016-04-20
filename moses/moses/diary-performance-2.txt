@@ -1140,3 +1140,42 @@ The penalty for missing activation is severe -- but there is no penalty
 for imperfect precision. How would the non-boosted scorer fare, if there
 was a penalty for poor precision?
 
+=================================================================
+
+Diversuty!
+AKA forehead-slap: but of course!
+---------------------------------
+This blog post:
+https://johncarlosbaez.wordpress.com/2016/04/18/statistical-laws-of-darwinian-evolution
+points out a result from Ronald Fisher from 1930:
+https://en.wikipedia.org/wiki/Fisher%27s_fundamental_theorem_of_natural_selection
+which states that the rate at which a popluation improves in fitness is
+exactly equal to the variance of the fitness of the population.
+
+I beleive that Fisher made a grevious error: he conflated the "variance
+of the fitness" with the "genetic diversity of the population".  The
+correct statement should be "the rate at which a popluation improves in
+fitness is proportional to the variance of the genetic diversity of the
+population".
+
+This restatement is borne out by the year-long experiments cataloged in
+this diary.  Initialliy, I discovered that, by enlarging the size of
+pool, and allowing less-than-maximally-fit individuals to continue to
+exist, that the rate of learning was vastly improved -- by orders of
+magnitude.
+
+Later, I saw that fitness increased with a curve resemmbling "punctuated
+equilibrium", "flight of the swallow" or "learning curve", as its variously
+callled.  This shape was independent of the variance of the fitness of the
+population.
+
+Next, I observed that, when the rate of fitness improvement was stagnant,
+that corresponded to a very homogenous population, lacking in diversity.
+Improving the diversity of the population seemed to help the rate of
+improvement.
+
+In this way, we come to the corrected statement of Fisher's 85-year-old
+formula: "The rate at which a population improves in fitness is
+proportional to the variance of the genetic diversity of the population".
+
+But ah-ha!  Of course!
