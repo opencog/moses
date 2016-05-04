@@ -213,13 +213,14 @@ cdef class moses:
 
         return candidates
    
+    
     def write_scheme(self, candidates=[]):
-    '''
-    writes out programs with the best scores 
-    on a separate scheme file so it can be used for other purposes 
-    (ie - it can be loaded into opencog atomspace)
+        '''
+        writes out programs with the best scores 
+        on a separate scheme file so it can be used for other purposes 
+        (ie - it can be loaded into opencog atomspace)
 
-    '''
+        '''
         #if self.program_type == "python":
             #raise MosesException('Error: eval method is not defined for '
                                  #'candidates with program_type of python.')
@@ -227,10 +228,14 @@ cdef class moses:
             raise MosesException('Error: write_scheme method requires a list of input '
                                  'values.')
         else:
-            output_file = "moses_result.scm"
-            of=open(output_file,"w")
+            best_score = candidates[0].score
             for candidate in candidates:
-                if candidate.score == 0:
+                if candidate.score > best_score:
+                    best_score = candidate.score
+            output_file = "moses_result.scm"
+            of = open(output_file,"w")
+            for candidate in candidates:
+                if candidate.score == best_score:
                     of.write(candidate.program + "\n")
 
 
