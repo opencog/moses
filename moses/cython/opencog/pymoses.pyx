@@ -39,6 +39,12 @@ output = moses.run(args="-i /path/to/input.txt -c 1")
 combo_program = output[0].program
 print combo_program  # Prints: and(or(!$1 !$2) or($1 $2))
 
+Example usage of write_scheme:
+
+input_data = [[0, 0, 0], [1, 1, 0], [1, 0, 1], [0, 1, 1]]
+output = moses.run(input=input_data, scheme=True)
+write_scheme(output) # writes the moses results in an output file (moses_result.scm)
+
 Example usage of run_manually:
 
 moses.run_manually("-i input.txt -o output.txt")
@@ -53,6 +59,7 @@ from libc.stdlib cimport malloc, free
 import shlex
 import tempfile
 import csv
+import sys
 
 class MosesException(Exception):
     pass
@@ -76,7 +83,7 @@ class MosesCandidate(object):
         return namespace.get('moses_eval')(arglist)
 
 cdef class moses:
-    def run(self, input = None, args = "", python = False):
+    def run(self, input = None, args = "", python = False , scheme = False):
         """
         Invokes MOSES in supervised learning mode to learn candidate solutions
         for a given training set.
@@ -120,8 +127,11 @@ cdef class moses:
 
         if input is not None:
             _args_list.extend(['-i', input_file.name])
-        if python:
+        if python and not scheme :
             _args_list.extend(['--output-format', 'python'])
+        if scheme and not python :
+            _args_list.extend(['--output-format', 'scheme'])
+
 
         _args_list.extend(['-o', output_file.name])
         _args_list.extend(shlex.split(args))
@@ -162,7 +172,27 @@ cdef class moses:
                                                  program = program,
                                                  program_type = "python"))
 
-        # Combo output
+        
+
+
+       # Scheme output
+        elif output.splitlines()[0].startswith("("):
+            output_list = [element for element in output.splitlines()]
+
+            for candidate in output_list:
+               
+                score = int(candidate.partition(' ')[0])
+                rest = candidate.partition(' ')[2]
+                # weight = int(rest.partition(' ')[0])
+                # rest = rest.partition(' ')[2]
+                program = rest.partition('[')[0]
+                candidates.append(MosesCandidate(score = score,
+                                                 program = program,
+                                                 program_type = "scheme"))
+
+        
+
+       # Combo output
         else:
             output_list = [element for element in output.splitlines()]
 
@@ -182,6 +212,34 @@ cdef class moses:
                                                  program_type = "combo"))
 
         return candidates
+   
+    
+    def write_scheme(self, candidates=[]):
+        '''
+        writes out programs with the best scores 
+        on a separate scheme file so it can be used for other purposes 
+        (ie - it can be loaded into opencog atomspace)
+
+        '''
+        #if self.program_type == "python":
+            #raise MosesException('Error: eval method is not defined for '
+                                 #'candidates with program_type of python.')
+        if len(candidates) == 0:
+            raise MosesException('Error: write_scheme method requires a list of input '
+                                 'values.')
+        else:
+            best_score = candidates[0].score
+            for candidate in candidates:
+                if candidate.score > best_score:
+                    best_score = candidate.score
+            output_file = "moses_result.scm"
+            of = open(output_file,"w")
+            for candidate in candidates:
+                if candidate.score == best_score:
+                    of.write(candidate.program + "\n")
+
+
+
 
     def run_manually(self, args=""):
         """
