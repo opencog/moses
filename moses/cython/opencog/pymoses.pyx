@@ -1,57 +1,3 @@
-"""
-Wrapper for MOSES. Uses the C++ moses_exec function to access MOSES
-functionality.
-
-Options for using the pymoses wrapper:
-1. Within the CogServer, from an embedded MindAgent
-2. Within the CogServer, from the interactive Python shell
-3. In your Python IDE or interpreter. You need to ensure that
-   your path includes '{PROJECT_BINARY_DIR}/opencog/cython'
-
-Loading the module:
-
-from opencog.pymoses import moses
-moses = moses()
-
-Example usage of run:
-
-Example #1: XOR example with Python output and Python input
-
-input_data = [[0, 0, 0], [1, 1, 0], [1, 0, 1], [0, 1, 1]]
-output = moses.run(input=input_data, python=True)
-print output[0].score # Prints: 0
-model = output[0].eval
-model([0, 1])  # Returns: True
-model([1, 1])  # Returns: False
-
-Example #2: Run the majority demo problem, return only one candidate, and use
-Python output
-
-output = moses.run(args="-H maj -c 1", python=True)
-model = output[0].eval
-model([0, 1, 0, 1, 0])  # Returns: False
-model([1, 1, 0, 1, 0])  # Returns: True
-
-Example #3: Load the XOR input data from a file, return only one candidate,
-and use Combo output
-
-output = moses.run(args="-i /path/to/input.txt -c 1")
-combo_program = output[0].program
-print combo_program  # Prints: and(or(!$1 !$2) or($1 $2))
-
-Example usage of write_scheme:
-
-input_data = [[0, 0, 0], [1, 1, 0], [1, 0, 1], [0, 1, 1]]
-output = moses.run(input=input_data, scheme=True)
-write_scheme(output) # writes the moses results in an output file (moses_result.scm)
-
-Example usage of run_manually:
-
-moses.run_manually("-i input.txt -o output.txt")
-
-@todo Implement an option to use a Python function as the MOSES scoring
-function
-"""
 
 __author__ = 'Cosmo Harrigan'
 
@@ -174,25 +120,9 @@ cdef class moses:
 
         
 
-
-       # Scheme output
-        elif output.splitlines()[0].startswith("("):
-            output_list = [element for element in output.splitlines()]
-
-            for candidate in output_list:
-               
-                score = int(candidate.partition(' ')[0])
-                rest = candidate.partition(' ')[2]
-                # weight = int(rest.partition(' ')[0])
-                # rest = rest.partition(' ')[2]
-                program = rest.partition('[')[0]
-                candidates.append(MosesCandidate(score = score,
-                                                 program = program,
-                                                 program_type = "scheme"))
-
         
 
-       # Combo output
+       # Combo or scheme output
         else:
             output_list = [element for element in output.splitlines()]
 
@@ -207,9 +137,16 @@ cdef class moses:
                 # weight = int(rest.partition(' ')[0])
                 # rest = rest.partition(' ')[2]
                 program = rest.partition('[')[0]
-                candidates.append(MosesCandidate(score = score,
-                                                 program = program,
-                                                 program_type = "combo"))
+                if scheme :
+
+                    candidates.append(MosesCandidate(score = score,
+                                                    program = program,
+                                                    program_type = "scheme"))
+                else :
+
+                    candidates.append(MosesCandidate(score = score,
+                                                    program = program,
+                                                    program_type = "combo"))
 
         return candidates
    
@@ -221,12 +158,13 @@ cdef class moses:
         (ie - it can be loaded into opencog atomspace)
 
         '''
-        #if self.program_type == "python":
-            #raise MosesException('Error: eval method is not defined for '
-                                 #'candidates with program_type of python.')
+        
         if len(candidates) == 0:
             raise MosesException('Error: write_scheme method requires a list of input '
                                  'values.')
+        if candidates[0].program_type != "scheme":
+            raise MosesException('Error: eval method is not defined for '
+                                 'candidates with program_type other than scheme.')
         else:
             best_score = candidates[0].score
             for candidate in candidates:
