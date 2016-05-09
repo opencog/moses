@@ -1,4 +1,3 @@
-
 __author__ = 'Cosmo Harrigan'
 
 from libc.stdlib cimport malloc, free
