@@ -1,7 +1,9 @@
 
 MOSES -- Meta-Optimizing Semantic Evolutionary Search
 =====================================================
-[![Build Status](http://61.92.69.39:8080/buildStatus/icon?job=ci-moses)](http://61.92.69.39:8080/job/ci-moses/)
+
+[![Build Status](http://61.92.69.39:8080/buildStatus/icon?job=ci-moses-master)](http://61.92.69.39:8080/job/ci-moses-master)
+
 
 MOSES is a machine-learning tool; it is an "evolutionary program
 learner". It is capable of learning short programs that capture
