@@ -83,7 +83,7 @@ namespace opencog { namespace trees {
 	try {
 	  combo::infer_type_tree(vtr);
 	}
-	catch(TypeCheckException) {
+	catch(const opencog::TypeCheckException&) {
 	  well_typed = false;
 	}
       }
