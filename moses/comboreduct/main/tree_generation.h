@@ -34,12 +34,14 @@ namespace opencog { namespace trees {
   using namespace opencog::combo;
 
   template<int MIN_ARITY>
-  class Generator {
+  class Generator
+  {
   public:
 
     template<typename Selector>
     tree<typename Selector::value_type> operator()(const Selector& sel,
-							 int dp) const {
+							 int dp) const
+    {
       typename Selector::value_type tmp;
       tree<typename Selector::value_type> tr(tmp);
       build(sel,dp,tr,tr.begin());
@@ -47,12 +49,13 @@ namespace opencog { namespace trees {
     }
 
     template<typename Selector,typename T,typename iterator>
-    void build(const Selector& sel,int dp,tree<T>& tr,iterator it) const {
-        if (dp==1) {
+    void build(const Selector& sel,int dp,tree<T>& tr,iterator it) const
+    {
+        if (dp == 1) {
             tr.replace(it,sel.select(0));
         } else {
             int arity(sel.select_arity(MIN_ARITY));
-            it=tr.replace(it,sel.select(arity));
+            it = tr.replace(it,sel.select(arity));
             --dp;
             for (int i=0;i<arity;++i)
                 build(sel,dp,tr,tr.append_child(it));
@@ -65,35 +68,37 @@ namespace opencog { namespace trees {
 
   template<typename It,typename Selector>
   void ramped_half_and_half(It from,It to,const Selector& sel,
-			    int minDp,int maxDp,bool type_check_enabled) {
+			    int minDp,int maxDp,bool type_check_enabled)
+  {
     GrowGenerator gg;
     FullGenerator fg;
     bool gg_turn = true;
     bool well_typed;
-    float ratio=((float)(maxDp-minDp+1))/(float)distance(from,to);
-    for (It tr=from;tr!=to;) {
-      (*tr)=(gg_turn?gg(sel,minDp+(int)(distance(from,tr)*ratio))
-	     :fg(sel,minDp+(int)(distance(from,tr)*ratio)));
+    double ratio = ((double) (maxDp-minDp + 1)) / (double) distance(from,to);
+    for (It tr = from; tr != to; )
+    {
+      (*tr) = (gg_turn ? gg(sel,minDp + (int)(distance(from, tr) * ratio))
+             : fg(sel, minDp + (int)(distance(from, tr) * ratio)));
       well_typed = true;
-      if(type_check_enabled) {
-	std::stringstream strs;
-    combo::combo_tree vtr;
-	strs << (*tr);
-	strs >> vtr;
-	try {
-	  combo::infer_type_tree(vtr);
-	}
-	catch(const opencog::TypeCheckException&) {
-	  well_typed = false;
-	}
+      if (type_check_enabled)
+      {
+        std::stringstream strs;
+        combo::combo_tree vtr;
+        strs << (*tr);
+        strs >> vtr;
+        try {
+          combo::infer_type_tree(vtr);
+        }
+        catch(const opencog::TypeCheckException&) {
+          well_typed = false;
+        }
       }
-      if(well_typed) {
-	++tr;
-	gg_turn = !gg_turn;
+      if (well_typed) {
+        ++tr;
+        gg_turn = !gg_turn;
       }
     }
   }
-
 }} // ~namespaces trees opencog
 
 #endif
