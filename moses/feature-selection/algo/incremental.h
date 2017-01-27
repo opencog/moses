@@ -241,7 +241,7 @@ FeatureSet adaptive_incremental_selection(const FeatureSet& features,
     // Logger
     logger().debug("Selected %d features", rsize);
     // ~Logger
-    if (isWithin(min, max, epsilon) || rsize == features_size_target)
+    if (is_within(min, max, epsilon) || rsize == features_size_target)
         return res;
     else {
         double nmin = rsize < features_size_target? min : mean;

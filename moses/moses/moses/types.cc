@@ -153,11 +153,11 @@ bool composite_score::operator==(const composite_score &r) const
 {
     // Note: this check is used in iostream_bscored_combo_treeUTest
     // and a simple equality test will fail on some cpu/os combos.
-    return isApproxEq(score, r.get_score())
-        and isApproxEq(complexity, r.get_complexity())
-        and isApproxEq(complexity_penalty, r.get_complexity_penalty())
-        and isApproxEq(diversity_penalty, r.get_diversity_penalty())
-        and isApproxEq(penalized_score, r.get_penalized_score());
+    return is_approx_eq(score, r.get_score())
+        and is_approx_eq(complexity, r.get_complexity())
+        and is_approx_eq(complexity_penalty, r.get_complexity_penalty())
+        and is_approx_eq(diversity_penalty, r.get_diversity_penalty())
+        and is_approx_eq(penalized_score, r.get_penalized_score());
 }
 
 static const std::string behavioral_score_prefix_str = "behavioral score:";
