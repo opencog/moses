@@ -539,7 +539,7 @@ void metapopulation::keep_top_unique_candidates(
                  it != deme.begin() + top_cnd;) {
                 score_t sc = (select_tag()(*it)).get_penalized_score(),
                     prev_sc = (select_tag()(*prev_it)).get_penalized_score();
-                if (isApproxEq(prev_sc, sc)) { // they might be identical
+                if (is_approx_eq(prev_sc, sc)) { // they might be identical
                     combo_tree tr = rep.get_candidate(*it, true),
                         prev_tr = rep.get_candidate(*prev_it, true);
                     if (prev_tr == tr) { // they actually are identical

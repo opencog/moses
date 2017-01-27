@@ -393,7 +393,7 @@ bool OTable::operator==(const OTable& rhs) const
     const static contin_t epsilon = 1e-12;
     for (auto lit = begin(), rit = rhs.begin(); lit != end(); ++lit, ++rit) {
         if (is_contin(*lit) && is_contin(*rit)) {
-            if (!isApproxEq(get_contin(*lit), get_contin(*rit), epsilon))
+            if (!is_approx_eq(get_contin(*lit), get_contin(*rit), epsilon))
                 return false;
         }
         else if (*lit != *rit)
