@@ -158,6 +158,12 @@ struct metapop_printer
                     // Python boilerplate
                     ss << "#!/usr/bin/env python\n"
                        << "#score: " << sct.get_score() << std::endl
+                       << "import operator as op\n"
+                       << "from functools import reduce\n"
+                       << "def l0(i): return 0 < i\n"
+                       << "def adds(*args): return sum(args)\n"
+                       << "def muls(*args): return reduce(op.mul, args)\n"
+                       << "def pdiv(a, b): return a / (b + 0.000001)\n"
                        << "def moses_eval(i):\n"
                        << "    return ";
                     ostream_combo_tree(ss, sct.get_tree(),
