@@ -160,6 +160,7 @@ struct metapop_printer
                        << "#score: " << sct.get_score() << std::endl
                        << "import operator as op\n"
                        << "from functools import reduce\n"
+                       << "from math import log, exp, sin\n"
                        << "def l0(i): return 0 < i\n"
                        << "def adds(*args): return sum(args)\n"
                        << "def muls(*args): return reduce(op.mul, args)\n"
