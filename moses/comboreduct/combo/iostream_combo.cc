@@ -337,8 +337,22 @@ ostream& ostream_builtin(ostream& out, const builtin& h, output_format f)
             return out << "True";
         case id::logical_false:
             return out << "False";
+        case id::plus:
+            return out << "adds";
+        case id::times:
+            return out << "muls";
+        case id::div:
+            return out << "pdiv";
+        case id::greater_than_zero:
+            return out << "l0";
+        case id::log:
+            return out << "log";
+        case id::exp:
+            return out << "exp";
+        case id::sin:
+            return out << "sin";
         default:
-            return out << "Builtin: " << (unsigned) h << " unknown";
+            return out << "Builtin " << (unsigned) h << " unknown";
         }
     case output_format::scheme:
         switch (h) {
