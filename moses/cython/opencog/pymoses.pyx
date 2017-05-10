@@ -157,11 +157,6 @@ cdef class moses:
 
             for candidate in output_list:
                 program = candidate
-                # @todo Fix moses/comboreduct/combo/iostream_combo.h
-                # (ostream_combo_it) to remove the unneeded trailing comma
-                # that is inserted by the Python formatter
-                if ',' in program:
-                    program = program.rpartition(',')[0]
                 if "#score: " in program:
                     score = int(program.split("#score: ")[1].splitlines()[0])
                 else:
