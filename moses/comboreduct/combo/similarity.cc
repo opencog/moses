@@ -217,7 +217,7 @@ size_t tree_similarity(const tree_branch_vector& av,
 		catch (const std::out_of_range& oor)
 		{}
 
-		dist += abs(acnt - bcnt);
+		dist += fabs(acnt - bcnt);
 	}
 
 	// Add anything in bv that was not in av.
