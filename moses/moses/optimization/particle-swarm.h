@@ -193,11 +193,11 @@ protected:
     //// Check bounds functions:
     // There's no real bounds check for bit velocity, it's the probability.
     void check_bit_vel(double &vel) { // Check bounds of bit velocity
-        vel = bound(vel, ps_params.bit_min_vel, ps_params.bit_max_vel); }
+        vel = clamp(vel, ps_params.bit_min_vel, ps_params.bit_max_vel); }
     void check_disc_vel(double &vel) { // Check bounds of a discrete velocity
-        vel = bound(vel, ps_params.disc_min_vel, ps_params.disc_max_vel); }
+        vel = clamp(vel, ps_params.disc_min_vel, ps_params.disc_max_vel); }
     void check_cont_vel(double &vel) { // Check bounds of a continuous velocity
-        vel = bound(vel, ps_params.cont_min_vel, ps_params.cont_max_vel); }
+        vel = clamp(vel, ps_params.cont_min_vel, ps_params.cont_max_vel); }
 
     //// Generate initial random velocity
     double gen_bit_vel() { // [0,1]
@@ -227,13 +227,11 @@ protected:
     // There isn't confinement for bit values
     // The update rule already kind of do it.
     void confinement_disc(double& value) {
-        value = bound(value, ps_params.disc_min_value,
-                ps_params.disc_max_value);
+        value = clamp(value, ps_params.disc_min_value, ps_params.disc_max_value);
     }
 
     void confinement_cont(double& value) {
-        value = bound(value, ps_params.cont_min_value,
-                ps_params.cont_max_value);
+        value = clamp(value, ps_params.cont_min_value, ps_params.cont_max_value);
     }
 
 ////// Update specific functions //////

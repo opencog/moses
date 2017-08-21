@@ -243,7 +243,7 @@ unsigned particle_swarm::calc_swarm_size(const field_set& fs) {
 
     double total = disc_bit_size * byte_relation +
                     fs.contin().size() * cont_relation;
-    total = bound(total, 4.0, (double) ps_params.max_parts); // 4 For min, less than this is almost useless.
+    total = clamp(total, 4.0, (double) ps_params.max_parts); // 4 For min, less than this is almost useless.
     return std::round(total); // Round it.
 }
 
