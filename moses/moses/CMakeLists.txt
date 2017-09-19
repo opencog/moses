@@ -56,7 +56,7 @@ ADD_LIBRARY (moses SHARED
 	optimization/optimization
 	optimization/star-anneal
 	optimization/univariate
-    optimization/particle-swarm
+	optimization/particle-swarm
 
 	representation/build_knobs
 	representation/field_set
