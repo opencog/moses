@@ -24,39 +24,35 @@
   
   \section{Installation}
   
-  For compiling MOSES you need
+  Comboreduct is compiled and installed alongside MOSES. For compiling
+  MOSES you need
   \begin{itemize}
   \item a recent gcc (4.8 or above)
   \item the boost libaries (\url{http://www.boost.org})
   \item the CMake package (\url{http://www.cmake.org/HTML/Index.html})
-  \item the CogUtil library (TODO : place the urls)
+  \item the CogUtil library (\url{https://github.com/opencog/cogutil})
   \end{itemize}
   
-  For compiling Comboreduct, create a directory \verb|bin|
-  (from the root folder of the ComboReduct distribution), go under it
-  and run \verb|"cmake .."|. This will create 
-  the needed build files. Then, make the project using "\verb|make|" (again 
-  from the directory \verb|bin|). Then \verb|make install| (you may need the
-  root provilege) to install it.
+  Create a build directory \verb|build| from MOSES' root folder, go
+  under it and run \verb|"cmake .."|. This will create the needed
+  build files. Then, make the project using "\verb|make|" (again from
+  the directory \verb|build|). Then \verb|make install| (you may need
+  the root provilege) to install it.
   
   More detailed information about the intallation can be found in INSTALL text
   file in the root directory.
 
   \section{Folder overview}
 
-  In this section we give a bief explanation of the project directory tree.
-  At the root we have:
+  In this section we give a bief explanation of the directories
+  related to comboreduct. At the root we have:
   \begin{itemize}
-  \item \verb|doc| containing that manual
-  \item \verb|sample| containing a few files with thousands of combo
-    expressions used to test the reduct engin
-  \item \verb|scripts| containing a script \verb|run_utest.sh| 
-    to run test units
-  \item \verb|src| containing the source code of the library
-  \item \verb|test| containing the test unit code
+  \item \verb|doc/comboreduct| containing that manual
+  \item \verb|moses/comboreduct| containing the source code of the library
+  \item \verb|tests/comboreduct| containing the test unit code
   \end{itemize}
   
-  Under \verb|src/ComboReduct| the code is organized in the following
+  Under \verb|moses/comboreduct| the code is organized in the following
   folders:
   \begin{itemize}
   \item \verb|ant_combo_vocabulary| containing an example of the use of
@@ -67,6 +63,7 @@
   \item \verb|main| containing a bunch of executable to test ComboReduct
     functionalities
   \item \verb|reduct| containing the code of the Reduct engine
+  \item \verb|interpreter| containing code for interpreting combo programs
   \end{itemize}
 
   Now we will go through each component of ComboReduct. The programatic language Combo, its type checker and the Reduct engine.
