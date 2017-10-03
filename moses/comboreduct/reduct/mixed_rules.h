@@ -249,7 +249,16 @@ protected:
     const rule* _reduction;
 };
 
-
+//0<c*x+d -> 0<x+d/c       if 0<c -> true
+//0<c*x+d -> 0<-x+d/abs(c) if c<0 -> true
+//0<c*x+d -> true  if c==0 -> true && 0<d -> true
+//0<c*x+d -> false if c==0 -> true && d<0 -> true
+struct reduce_gt_division_of_constants : public crule<reduce_gt_division_of_constants> {
+    reduce_gt_division_of_constants(const rule& r) : crule<reduce_gt_division_of_constants>::crule("reduce_gt_division_of_constants"), _reduction(&r) { }
+    void operator()(combo_tree& tr,combo_tree::iterator it) const;
+protected:
+    const rule* _reduction;
+};
   
 //reduce inequality from assumptions :
 //try to see if an inequality is a positive linear conbination of any
