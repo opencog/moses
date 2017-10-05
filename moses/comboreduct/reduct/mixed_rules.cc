@@ -1259,11 +1259,8 @@ void reduce_gt_division_of_constants::operator()(combo_tree &tr, combo_tree::ite
               "combo_tree node should have exactly one child (reduce_gt_division_of_constants).");
 
     pre_it it_child = it.begin();
-    if (*it_child != id::plus)
+    if (*it_child != id::plus || it_child.number_of_children() != 2)
         return;
-
-    OC_ASSERT(it_child.number_of_children() == 2,
-              "combo_tree node should have exactly 2 children (reduce_gt_division_of_constants).");
 
     pre_it left_argument = tr.child(it_child, 0);
     pre_it right_argument = tr.child(it_child, 1);
