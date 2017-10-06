@@ -125,6 +125,7 @@ const rule& mixed_reduction()
                              downwards(reduce_gt_zero_div(r)),
                              downwards(reduce_gt_zero_sum_sin(r)),
                              downwards(reduce_gt_zero_sin(r)),
+                             downwards(reduce_gt_division_of_constants(r)),
                              downwards(reduce_and_assumptions(r))//,
                              // The following is commented because
                              // there are no boolean rules here.

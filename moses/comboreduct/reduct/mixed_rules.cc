@@ -457,9 +457,9 @@ void reduce_op_contin_if::operator()(combo_tree& tr,combo_tree::iterator it) con
         pre_it denum = tr.child(it, 1);
         if(*num==id::contin_if && *denum==id::contin_if) {
             OC_ASSERT(tr.number_of_children(num)==3,
-                      "combo_tree node should have exactly two children (reduce_op_contin_if - num).");
+                      "combo_tree node should have exactly three children (reduce_op_contin_if - num).");
             OC_ASSERT(tr.number_of_children(denum)==3,
-                      "combo_tree node should have exactly two children (reduce_op_contin_if - denum).");
+                      "combo_tree node should have exactly three children (reduce_op_contin_if - denum).");
             pre_it num_cond = tr.child(num, 0);
             pre_it denum_cond = tr.child(denum, 0);
             if(tr.equal_subtree(num_cond, denum_cond)) {
@@ -478,7 +478,7 @@ void reduce_op_contin_if::operator()(combo_tree& tr,combo_tree::iterator it) con
         for(sib_it sib = it.begin(); sib != it.end(); ) {
             if(*sib==id::contin_if) {
                 OC_ASSERT(tr.number_of_children(sib)==3,
-                          "combo_tree sibling node should have exactly two children (reduce_op_contin_if).");
+                          "combo_tree sibling node should have exactly three children (reduce_op_contin_if).");
                 pre_it sib_cond = tr.child(sib, 0);
                 subtree_quotient_const_it sqi = sq.find(sib_cond);
                 if(sqi==sq.end()) {
@@ -1246,7 +1246,58 @@ void reduce_gt_zero_sin::operator()(combo_tree& tr,combo_tree::iterator it) cons
     }
 }
 
-  
+//0<c*x+d -> 0<x+d/c       if 0<c -> true
+//0<c*x+d -> 0<-x+d/abs(c) if c<0 -> true
+//0<c*x+d -> true  if c==0 -> true && 0<d -> true
+//0<c*x+d -> false if c==0 -> true && d<=0 -> true
+void reduce_gt_division_of_constants::operator()(combo_tree &tr, combo_tree::iterator it) const
+{
+    if (*it != id::greater_than_zero)
+        return;
+
+    OC_ASSERT(it.has_one_child(),
+              "combo_tree node should have exactly one child (reduce_gt_division_of_constants).");
+
+    pre_it it_child = it.begin();
+    if (*it_child != id::plus || it_child.number_of_children() != 2)
+        return;
+
+    pre_it left_argument = tr.child(it_child, 0);
+    pre_it right_argument = tr.child(it_child, 1);
+    pre_it contin_child, times_child;
+
+    //get the constant and multiplication nodes.
+    if (*left_argument == id::times && is_contin(*right_argument)) {
+        contin_child = right_argument;
+        times_child = left_argument;
+    }
+    else if (is_contin(*left_argument) && *right_argument == id::times) {
+        contin_child = left_argument;
+        times_child = right_argument;
+    }
+    else return;
+
+    for (sib_it sib = times_child.begin(); sib != times_child.end();) {
+        if (is_contin(*sib)) {
+            if (get_contin(*sib) < 0) {
+                *contin_child = get_contin(*contin_child) / (-1 * get_contin(*sib));
+                *sib = -1.0;
+            }
+            else if (get_contin(*sib) > 0) {
+                *contin_child = get_contin(*contin_child) / get_contin(*sib);
+                sib = tr.erase(sib);
+            }
+            else { // c is zero.
+                *it = get_contin(*contin_child) > 0 ? id::logical_true : id::logical_false;
+                tr.erase_children(it);
+                break;
+            }
+        }
+        ++sib;
+    }
+}
+ 
+
 contin_t reduce_inequality_from_assumptions::splitCoefExpression(combo_tree& tr, combo_tree::iterator& it) const
 {
     contin_t coef = 1.0;

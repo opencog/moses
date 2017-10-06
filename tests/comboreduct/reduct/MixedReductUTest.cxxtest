@@ -1,3 +1,4 @@
+#include <cxxtest/TestSuite.h>
 #include <opencog/util/tree.h>
 #include <opencog/util/mt19937ar.h>
 
@@ -177,6 +178,16 @@ public:
     // and(not(0<(+(*(7 $1) *(3 $2) 6))) 0<(+(*(-2 $1) -2)) not(0<(+($1 $2 1)))) -> and(0<(+(*(-2 $1) -2)) not(0<(+($1 $2 1))))
     void test_simplify15() {
         string tree_str="and(not(0<(+(*(7 $1) *(3 $2) 6))) 0<(+(*(-2 $1) -2)) not(0<(+($1 $2 1))))";
+        base_test(__FUNCTION__, tree_str);
+    }
+
+    // test_simplify16 :
+    // 0<c*x+d -> 0<x+d/c       if 0<c -> true
+    // 0<c*x+d -> 0<-x+d/abs(c) if c<0 -> true
+    // 0<c*x+d -> true  if c==0 -> true && 0<d -> true
+    // 0<c*x+d -> false if c==0 -> true && d<=0 -> true
+    void test_simplify16() {
+        string tree_str="and(0<(+(*(3 $1) 2)) 0<(+(*(-2 $2) 4)) 0<(+(*(-2 $3) -4)) 0<(+(*(0 $4) 2)) 0<(+(*(0 $5) -2)))";
         base_test(__FUNCTION__, tree_str);
     }
 };
