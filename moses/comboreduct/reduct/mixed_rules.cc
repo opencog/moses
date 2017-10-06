@@ -457,9 +457,9 @@ void reduce_op_contin_if::operator()(combo_tree& tr,combo_tree::iterator it) con
         pre_it denum = tr.child(it, 1);
         if(*num==id::contin_if && *denum==id::contin_if) {
             OC_ASSERT(tr.number_of_children(num)==3,
-                      "combo_tree node should have exactly two children (reduce_op_contin_if - num).");
+                      "combo_tree node should have exactly three children (reduce_op_contin_if - num).");
             OC_ASSERT(tr.number_of_children(denum)==3,
-                      "combo_tree node should have exactly two children (reduce_op_contin_if - denum).");
+                      "combo_tree node should have exactly three children (reduce_op_contin_if - denum).");
             pre_it num_cond = tr.child(num, 0);
             pre_it denum_cond = tr.child(denum, 0);
             if(tr.equal_subtree(num_cond, denum_cond)) {
@@ -478,7 +478,7 @@ void reduce_op_contin_if::operator()(combo_tree& tr,combo_tree::iterator it) con
         for(sib_it sib = it.begin(); sib != it.end(); ) {
             if(*sib==id::contin_if) {
                 OC_ASSERT(tr.number_of_children(sib)==3,
-                          "combo_tree sibling node should have exactly two children (reduce_op_contin_if).");
+                          "combo_tree sibling node should have exactly three children (reduce_op_contin_if).");
                 pre_it sib_cond = tr.child(sib, 0);
                 subtree_quotient_const_it sqi = sq.find(sib_cond);
                 if(sqi==sq.end()) {
@@ -1249,7 +1249,7 @@ void reduce_gt_zero_sin::operator()(combo_tree& tr,combo_tree::iterator it) cons
 //0<c*x+d -> 0<x+d/c       if 0<c -> true
 //0<c*x+d -> 0<-x+d/abs(c) if c<0 -> true
 //0<c*x+d -> true  if c==0 -> true && 0<d -> true
-//0<c*x+d -> false if c==0 -> true && d<0 -> true
+//0<c*x+d -> false if c==0 -> true && d<=0 -> true
 void reduce_gt_division_of_constants::operator()(combo_tree &tr, combo_tree::iterator it) const
 {
     if (*it != id::greater_than_zero)
