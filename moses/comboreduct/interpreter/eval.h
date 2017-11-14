@@ -48,37 +48,25 @@ combo_tree eval_procedure_tree(const vertex_seq& bmap, combo_tree::iterator it);
 /// This proceedure does not do any type-checking; the static type-checker
 /// should be used for this purpose.
 vertex eval_throws_binding(const vertex_seq& bmap,
-                           combo_tree::iterator it)
-    throw(OverflowException, EvalException, ComboException,
-          AssertionException, std::bad_exception);
+                           combo_tree::iterator it);
 
 vertex eval_throws_vertex(const vertex_seq& bmap,
-                           combo_tree::iterator it)
-    throw(OverflowException, EvalException, ComboException,
-          AssertionException, std::bad_exception);
+                          combo_tree::iterator it);
 
-vertex eval_throws_binding(const vertex_seq& bmap, const combo_tree& tr)
-     throw(OverflowException, EvalException, ComboException, AssertionException,
-           std::bad_exception);
+vertex eval_throws_binding(const vertex_seq& bmap, const combo_tree& tr);
 
 // As above, but returns combo tree instead ov vertex.  The above,
 // non-tree variants cannot be used when using lists, since the only
 // way to represent a list is as a tree.
-combo_tree eval_throws_tree(const vertex_seq& bmap, const combo_tree& tr)
-     throw(OverflowException, EvalException, ComboException, AssertionException,
-           std::bad_exception);
+combo_tree eval_throws_tree(const vertex_seq& bmap, const combo_tree& tr);
 
 combo_tree eval_throws_tree(const vertex_seq& bmap,
-                           combo_tree::iterator it)
-     throw(OverflowException, EvalException, ComboException, AssertionException,
-           std::bad_exception);
+                            combo_tree::iterator it);
 
 // As above, but EvalException is never thrown.
-vertex eval_binding(const vertex_seq& bmap, combo_tree::iterator it)
-    throw(ComboException, AssertionException, std::bad_exception);
+vertex eval_binding(const vertex_seq& bmap, combo_tree::iterator it);
 
-vertex eval_binding(const vertex_seq& bmap, const combo_tree& tr)
-    throw(StandardException, std::bad_exception);
+vertex eval_binding(const vertex_seq& bmap, const combo_tree& tr);
 
 // return the arity of a tree
 template<typename T>

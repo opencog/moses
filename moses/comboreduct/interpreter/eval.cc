@@ -88,8 +88,6 @@ combo_tree eval_procedure_tree(const vertex_seq& bmap,
 /// should be used for this purpose.
 vertex eval_throws_binding(const vertex_seq& bmap,
                            combo_tree::iterator it)
-    throw(OverflowException, EvalException, ComboException,
-          AssertionException, std::bad_exception)
 {
     // {
     //     stringstream ss;
@@ -114,8 +112,6 @@ vertex eval_throws_binding(const vertex_seq& bmap,
 
 vertex eval_throws_vertex(const vertex_seq& bmap,
                            combo_tree::iterator it)
-    throw(OverflowException, EvalException, ComboException,
-          AssertionException, std::bad_exception)
 {
     typedef combo_tree::sibling_iterator sib_it;
     const vertex& v = *it;
@@ -287,13 +283,11 @@ vertex eval_throws_vertex(const vertex_seq& bmap,
 }
 
 vertex eval_throws_binding(const vertex_seq& bmap, const combo_tree& tr)
-    throw (OverflowException, EvalException, ComboException, AssertionException, std::bad_exception)
 {
     return eval_throws_binding(bmap, tr.begin());
 }
 
 vertex eval_binding(const vertex_seq& bmap, combo_tree::iterator it)
-    throw (ComboException, AssertionException, std::bad_exception)
 {
     try {
         return eval_throws_binding(bmap, it);
@@ -305,15 +299,12 @@ vertex eval_binding(const vertex_seq& bmap, combo_tree::iterator it)
 }
 
 vertex eval_binding(const vertex_seq& bmap, const combo_tree& tr)
-    throw (StandardException, std::bad_exception)
 {
     return eval_binding(bmap, tr.begin());
 }
 
 combo_tree eval_throws_tree(const vertex_seq& bmap,
                            combo_tree::iterator it)
-    throw(OverflowException, EvalException, ComboException,
-          AssertionException, std::bad_exception)
 {
     typedef combo_tree::sibling_iterator sib_it;
     typedef combo_tree::iterator pre_it;
@@ -594,7 +585,6 @@ combo_tree eval_throws_tree(const vertex_seq& bmap,
 }
 
 combo_tree eval_throws_tree(const vertex_seq& bmap, const combo_tree& tr)
-    throw (OverflowException, EvalException, ComboException, AssertionException, std::bad_exception)
 {
     return eval_throws_tree(bmap, tr.begin());
 }

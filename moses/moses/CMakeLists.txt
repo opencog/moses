@@ -75,13 +75,13 @@ ADD_LIBRARY (moses SHARED
 	scoring/select_bscore
 )
 
-
 TARGET_LINK_LIBRARIES (moses
 	feature_selection
 	comboreduct
 	comboant
 	${COGUTIL_LIBRARY}
 	${Boost_PROGRAM_OPTIONS_LIBRARY}
+	${Boost_REGEX_LIBRARY}
 )
 
 IF (HAVE_MPI)
