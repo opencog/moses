@@ -742,8 +742,8 @@ public:
     typedef std::vector<std::string> string_seq;
     typedef std::vector<type_node> type_seq;
     ITable();
-    ITable(const type_seq& ts, const string_seq& il = string_seq());
-    ITable(const super& mat, const string_seq& il = string_seq());
+    ITable(const type_seq& ts, const string_seq& il=string_seq());
+    ITable(const super& mat, const string_seq& il=string_seq());
     ITable(const OTable&);
     /**
      * generate an input table according to the signature tt.
@@ -757,8 +757,8 @@ public:
      * It only works for contin-boolean signatures
      */
     // min_contin and max_contin are used in case tt has contin inputs
-    ITable(const type_tree& tt, int nsamples = -1,
-           contin_t min_contin = -1.0, contin_t max_contin = 1.0);
+    ITable(const type_tree& tt, int nsamples=-1,
+           contin_t min_contin=-1.0, contin_t max_contin=1.0);
 
     arity_t get_arity() const {
         return super::front().size();
@@ -868,22 +868,22 @@ class OTable : public vertex_seq
 public:
     typedef vertex value_type;
 
-    OTable(const std::string& ol = default_output_label);
-    OTable(const super& ot, const std::string& ol = default_output_label);
+    OTable(const std::string& ol=default_output_label);
+    OTable(const super& ot, const std::string& ol=default_output_label);
 
     /// Construct the OTable by evaluating the combo tree @tr for each
     /// row in the input ITable.
     OTable(const combo_tree& tr, const ITable& itable,
-           const std::string& ol = default_output_label);
+           const std::string& ol=default_output_label);
 
     /// Construct the OTable by evaluating the combo tree @tr for each
     /// row in the input CTable.
     OTable(const combo_tree& tr, const CTable& ctable,
-           const std::string& ol = default_output_label);
+           const std::string& ol=default_output_label);
 
     template<typename Func>
     OTable(const Func& f, const ITable& it,
-           const std::string& ol = default_output_label)
+           const std::string& ol=default_output_label)
         : label(ol)
     {
         for (const multi_type_seq& vs : it)
@@ -924,13 +924,13 @@ struct Table : public boost::equality_comparable<Table>
     Table(const OTable& otable_, const ITable& itable_);
 
     template<typename Func>
-    Table(const Func& func, arity_t a, int nsamples = -1) :
+    Table(const Func& func, arity_t a, int nsamples=-1) :
         itable(gen_signature(type_node_of<bool>(),
                              type_node_of<bool>(), a)),
         otable(func, itable), target_pos(0), timestamp_pos(0) {}
 
-    Table(const combo_tree& tr, int nsamples = -1,
-          contin_t min_contin = -1.0, contin_t max_contin = 1.0);
+    Table(const combo_tree& tr, int nsamples=-1,
+          contin_t min_contin=-1.0, contin_t max_contin=1.0);
 
     size_t size() const { return itable.size(); }
 
@@ -1001,7 +1001,7 @@ struct Table : public boost::equality_comparable<Table>
     /// Return the corresponding compressed table.
     /// The named column, if not empty, will be used to provide weights
     /// for each row, during compression.
-    CTable compressed(const std::string = "") const;
+    CTable compressed(const std::string="") const;
 
     ITable itable;
     OTable otable;

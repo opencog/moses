@@ -68,12 +68,6 @@ vertex token_to_vertex(const type_node &tipe, const std::string& token);
 
 // ===========================================================
 
-static const std::vector<unsigned> empty_unsigned_vec =
-    std::vector<unsigned>();
-static const std::vector<std::string> empty_string_vec =
-    std::vector<std::string>();
-
-
 typedef boost::tokenizer<boost::escaped_list_separator<char>> table_tokenizer;
 
 /**
@@ -87,9 +81,9 @@ table_tokenizer get_row_tokenizer(const std::string& line);
  * Used by istreamTable.
  */
 template<typename T>
-static std::vector<T> tokenizeRow(const std::string& line,
-                           const std::vector<unsigned>& ignored_indices =
-                           empty_unsigned_vec)
+static std::vector<T> tokenizeRow(
+    const std::string& line,
+    const std::vector<unsigned>& ignored_indices=std::vector<unsigned>())
 {
     table_tokenizer tok = get_row_tokenizer(line);
     std::vector<T> res;
@@ -142,23 +136,23 @@ OTable loadOTable(const std::string& file_name,
 
 // TODO: reimplement loadITable with the same model of loadTable and
 // remove loadITable_optimized
-ITable loadITable(const std::string& file_name,
-                  const std::vector<std::string>& ignore_features
-                  = empty_string_vec);
+ITable loadITable(
+    const std::string& file_name,
+    const std::vector<std::string>& ignore_features=std::vector<std::string>());
 
-ITable loadITable_optimized(const std::string& file_name,
-                            const std::vector<std::string>& ignore_features
-                            = empty_string_vec);
+ITable loadITable_optimized(
+    const std::string& file_name,
+    const std::vector<std::string>& ignore_features=std::vector<std::string>());
 
 /**
  * If target_feature is empty then, in case there is no header, it is
  * assumed to be the first feature.
  */
-Table loadTable(const std::string& file_name,
-                const std::string& target_feature = std::string(),
-                const std::string& timestamp_feature = std::string(),
-                const std::vector<std::string>& ignore_features
-                = empty_string_vec);
+Table loadTable(
+    const std::string& file_name,
+    const std::string& target_feature=std::string(),
+    const std::string& timestamp_feature=std::string(),
+    const std::vector<std::string>& ignore_features=std::vector<std::string>());
 
 std::istream& istreamDenseTable(std::istream& in, Table& tab,
                                 const std::string& target_feature,

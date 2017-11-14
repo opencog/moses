@@ -1067,9 +1067,10 @@ istream& istreamTable(istream& in, Table& tab,
  */
 template<typename T>
 std::pair<std::vector<T>, T>
-tokenizeRowIO(const std::string& line,
-              const std::vector<unsigned>& ignored_indices = empty_unsigned_vec,
-              unsigned target_idx = 0)
+tokenizeRowIO(
+    const std::string& line,
+    const std::vector<unsigned>& ignored_indices=std::vector<unsigned>(),
+    unsigned target_idx=0)
 {
     std::pair<std::vector<T>, T> res;
     table_tokenizer toker = get_row_tokenizer(line);
