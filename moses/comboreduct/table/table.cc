@@ -272,7 +272,6 @@ vertex_seq ITable::get_column_data(const std::string& name) const
 }
 
 string ITable::delete_column(const string& name)
-    throw(IndexErrorException)
 {
     int off = get_column_offset(name);
     if (-1 == off)
@@ -298,7 +297,6 @@ string ITable::delete_column(const string& name)
 
 
 void ITable::delete_columns(const vector<string>& ignore_features)
-    throw(IndexErrorException)
 {
     for (const string& feat : ignore_features)
         delete_column(feat);

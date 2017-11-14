@@ -789,15 +789,15 @@ public:
      */
     void insert_col(const std::string& clab,
                     const vertex_seq& col,
-                    int off = -1);
+                    int off=-1);
 
     /**
      * Delete the named feature from the input table.
      * If the feature is the empty string, then column zero is deleted.
      * The returned value is the name of the column.
      */
-    std::string delete_column(const std::string& feature) throw(IndexErrorException);
-    void delete_columns(const string_seq& ignore_features) throw(IndexErrorException);
+    std::string delete_column(const std::string& feature);
+    void delete_columns(const string_seq& ignore_features);
 
     /**
      * Get the column, given its offset or label

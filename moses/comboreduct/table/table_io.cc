@@ -332,7 +332,6 @@ vertex token_to_vertex(const type_node &tipe, const string& token)
  */
 istream& istreamRawITable(istream& in, ITable& tab,
                           const vector<unsigned>& ignored_indices)
-    throw(std::exception)
 {
     streampos beg = in.tellg();
 

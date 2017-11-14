@@ -119,10 +119,9 @@ static std::vector<T> tokenizeRow(const std::string& line,
 // some hacky function to get the header of a DSV file (assuming there is one)
 std::vector<std::string> get_header(const std::string& input_file);
         
-std::istream& istreamRawITable(std::istream& in, ITable& tab,
-                               const std::vector<unsigned>& ignored_indices =
-                               empty_unsigned_vec)
-    throw(std::exception);
+std::istream& istreamRawITable(
+    std::istream& in, ITable& tab,
+    const std::vector<unsigned>& ignored_indices=std::vector<unsigned>());
 
 std::istream& istreamITable(std::istream& in, ITable& tab,
                            const std::vector<std::string>& ignore_features);
