@@ -50,7 +50,7 @@ namespace opencog{namespace combo{
         Type atomese_argument(Handle&, const argument&, const id::procidure_types&);
 
         /**
-         * Convert a combo argument to atomese.
+         * Convert a combo builtin to atomese.
          *
          * @param const builtin&       a builtin ref containing the combo builtin to be converted to atom
          * @param procidure_type&     set procidure type from the Link to be created
