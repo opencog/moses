@@ -28,6 +28,12 @@
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/algorithm/string/trim.hpp>
 
+#include <opencog/atoms/base/Handle.h>
+#include <opencog/atoms/base/Atom.h>
+#include <moses/comboreduct/combo/combo_atomese.h>
+#include <opencog/atoms/base/Link.h>
+#include <opencog/atoms/base/Node.h>
+
 #include "../combo/iostream_combo.h"
 #include "../type_checker/type_tree.h"
 
@@ -151,7 +157,10 @@ vector<string> get_all_combo_tree_str(const pgrParameters& pa)
 
     return res;
 }
-
+// Convert a Combo_tree
+Handle convert(const combo_tree &tr){
+    return atomese_combo(tr);
+}
 // Convert a single combo program gotten from istream
 void convert(istream& in, ostream& out,
              const pgrParameters& pa,
@@ -182,7 +191,7 @@ int main(int argc, char** argv)
 	// Parse output format
 	combo::output_format fmt = parse_output_format(pa.output_format_str);
 
-	// read combo program strings given by an alternative way than
+    // read combo program strings given by an alternative way than
 	// stdin
 	vector<string> combo_trees_str = get_all_combo_tree_str(pa);
 
