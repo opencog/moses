@@ -98,6 +98,7 @@ TARGET_LINK_LIBRARIES(combo-fmt-converter
 	comboant
 	${COGUTIL_LIBRARY}
 	${Boost_PROGRAM_OPTIONS_LIBRARY}
+	${ATOMSPACE_LIBRARIES}
 )
 
 # install eval-table

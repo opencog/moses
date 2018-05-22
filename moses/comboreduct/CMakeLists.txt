@@ -59,7 +59,7 @@ ADD_LIBRARY(comboreduct SHARED
 	reduct/perception_reduction
 	reduct/perception_rules
 	reduct/reduct
-)
+        combo/combo_atomese.h combo/combo_atomese.cc)
 
 TARGET_LINK_LIBRARIES (comboreduct
 	${COGUTIL_LIBRARY}
