@@ -8,7 +8,6 @@
 # -- configure various config files.
 # -- print pretty summary
 #
-include(lib/Summary.cmake)
 
 # Seems to work fine with cmake-2.6
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
@@ -16,6 +15,24 @@ IF (COMMAND CMAKE_POLICY)
 	CMAKE_POLICY(SET CMP0003 NEW)
 	CMAKE_POLICY(SET CMP0005 OLD)
 ENDIF (COMMAND CMAKE_POLICY)
+
+# add the 'lib' dir to cmake's module search path
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/lib/")
+
+# Cogutil
+FIND_PACKAGE(CogUtil CONFIG)
+IF (COGUTIL_FOUND)
+        MESSAGE(STATUS "CogUtil found.")
+        ADD_DEFINITIONS(-DHAVE_COGUTIL)
+    SET(HAVE_COGUTIL 1)
+ELSE (COGUTIL_FOUND)
+        MESSAGE(FATAL_ERROR "CogUtil missing: it is needed for everything!")
+ENDIF (COGUTIL_FOUND)
+
+# add the 'cmake' directory from cogutil to search path
+list(APPEND CMAKE_MODULE_PATH  ${COGUTIL_DATA_DIR}/cmake)
+
+include(${COGUTIL_DATA_DIR}/cmake/Summary.cmake)
 
 PROJECT(moses)
 
@@ -47,9 +64,6 @@ MESSAGE(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
 
 ADD_DEFINITIONS(-DPROJECT_SOURCE_DIR=\\"${CMAKE_SOURCE_DIR}\\"
                 -DPROJECT_BINARY_DIR=\\"${CMAKE_BINARY_DIR}\\")
-
-# add the 'lib' dir to cmake's module search path
-SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/lib/")
 
 # ===============================================================
 # Detect different compilers and OS'es, tweak flags as necessary.
@@ -184,17 +198,6 @@ IF (CXXTEST_FOUND)
 ELSE (CXXTEST_FOUND)
 	MESSAGE(STATUS "CxxTest missing: needed for unit tests.")
 ENDIF (CXXTEST_FOUND)
-
-
-# Look for Opencog Utils.
-FIND_PACKAGE(CogUtil)
-IF (COGUTIL_FOUND)
-	MESSAGE(STATUS "CogUtil found.")
-	ADD_DEFINITIONS(-DHAVE_COGUTIL)
-	SET(HAVE_COGUTIL 1)
-ELSE (COGUTIL_FOUND)
-	MESSAGE(FATAL_ERROR "CogUtil missing: it is needed to build this package!")
-ENDIF (COGUTIL_FOUND)
 
 # MPI is needed for MOSES on compute clusters.
 FIND_PACKAGE(MPI)
