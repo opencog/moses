@@ -1,0 +1,31 @@
+@PACKAGE_INIT@
+
+include("@CMAKE_INSTALL_PREFIX@/lib/cmake/Moses/MosesTargets.cmake")
+
+set(MOSES_LIBRARY moses)
+set(MOSES_EXEC_LIBRARY moses_exec)
+set(COMBOANT_LIBRARY comboant)
+set(COMBOREDUCT_LIBRARY comboreduct)
+set(FEATURE_SELECTION_LIBRARY feature_selection)
+
+# Copy the results to the output variables.
+IF (MOSES_LIBRARY)
+        SET(MOSES_FOUND 1)
+        SET(MOSES_LIBRARIES ${MOSES_LIBRARY} ${MOSES_EXEC_LIBRARY}
+                ${COMBOANT_LIBRARY} ${COMBOREDUCT_LIBRARY}
+                ${FEATURE_SELECTION_LIBRARY})
+        MESSAGE(STATUS "Found MOSES library: ${MOSES_LIBRARIES}")
+ELSE (MOSES_LIBRARY)
+        SET(MOSES_FOUND 0)
+        SET(MOSES_LIBRARIES)
+ENDIF (MOSES_LIBRARY)
+
+MARK_AS_ADVANCED(
+    MOSES_LIBRARIES
+)
+
+set(MOSES_INCLUDE_DIR "@CMAKE_INSTALL_PREFIX@/include/")
+set(MOSES_VERSION "@MOSES_VERSION@")
+set(MOSES_FOUND 1)
+
+

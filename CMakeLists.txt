@@ -9,6 +9,12 @@
 # -- print pretty summary
 #
 
+# MOSES' version, must be updated manually
+SET (MOSES_VERSION_MAJOR 3)
+SET (MOSES_VERSION_MINOR 6)
+SET (MOSES_VERSION_PATCH 10)
+SET (MOSES_VERSION "${MOSES_VERSION_MAJOR}.${MOSES_VERSION_MINOR}.${MOSES_VERSION_PATCH}")
+
 # Seems to work fine with cmake-2.6
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 IF (COMMAND CMAKE_POLICY)
@@ -449,6 +455,7 @@ INCLUDE(CPack)
 # documentation
 FIND_PACKAGE(Doxygen)
 ADD_SUBDIRECTORY(doc EXCLUDE_FROM_ALL)
+ADD_SUBDIRECTORY(lib)
 
 # Show a summary of what we got
 SUMMARY_ADD("ComboReduct" "Library for reduction of combo program trees" HAVE_COMBOREDUCT)
