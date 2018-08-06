@@ -68,6 +68,7 @@ IF (HAVE_MOSES)
 		OUTPUT_NAME pymoses)
 
 	INSTALL (TARGETS moses_cython
+                 EXPORT MosesTargets
 	DESTINATION "${DATADIR}/python/moses")
 ENDIF (HAVE_MOSES)
 

@@ -8,7 +8,12 @@
 # -- configure various config files.
 # -- print pretty summary
 #
-include(lib/Summary.cmake)
+
+# MOSES' version, must be updated manually
+SET (MOSES_VERSION_MAJOR 3)
+SET (MOSES_VERSION_MINOR 6)
+SET (MOSES_VERSION_PATCH 10)
+SET (MOSES_VERSION "${MOSES_VERSION_MAJOR}.${MOSES_VERSION_MINOR}.${MOSES_VERSION_PATCH}")
 
 # Seems to work fine with cmake-2.6
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
@@ -18,6 +23,23 @@ IF (COMMAND CMAKE_POLICY)
 ENDIF (COMMAND CMAKE_POLICY)
 
 PROJECT(moses)
+# add the 'lib' dir to cmake's module search path
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/lib/")
+
+# Cogutil
+FIND_PACKAGE(CogUtil CONFIG)
+IF (COGUTIL_FOUND)
+        MESSAGE(STATUS "CogUtil found.")
+        ADD_DEFINITIONS(-DHAVE_COGUTIL)
+    SET(HAVE_COGUTIL 1)
+ELSE (COGUTIL_FOUND)
+        MESSAGE(FATAL_ERROR "CogUtil missing: it is needed for everything!")
+ENDIF (COGUTIL_FOUND)
+
+# add the 'cmake' directory from cogutil to search path
+list(APPEND CMAKE_MODULE_PATH  ${COGUTIL_DATA_DIR}/cmake)
+
+include(${COGUTIL_DATA_DIR}/cmake/Summary.cmake)
 
 # To supress Cygwin warning "CMake no longer defines WIN32 on Cygwin!"
 # Remove when CMake >= 2.8.4 is required to build the project
@@ -47,9 +69,6 @@ MESSAGE(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
 
 ADD_DEFINITIONS(-DPROJECT_SOURCE_DIR=\\"${CMAKE_SOURCE_DIR}\\"
                 -DPROJECT_BINARY_DIR=\\"${CMAKE_BINARY_DIR}\\")
-
-# add the 'lib' dir to cmake's module search path
-SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/lib/")
 
 # ===============================================================
 # Detect different compilers and OS'es, tweak flags as necessary.
@@ -184,17 +203,6 @@ IF (CXXTEST_FOUND)
 ELSE (CXXTEST_FOUND)
 	MESSAGE(STATUS "CxxTest missing: needed for unit tests.")
 ENDIF (CXXTEST_FOUND)
-
-
-# Look for Opencog Utils.
-FIND_PACKAGE(CogUtil)
-IF (COGUTIL_FOUND)
-	MESSAGE(STATUS "CogUtil found.")
-	ADD_DEFINITIONS(-DHAVE_COGUTIL)
-	SET(HAVE_COGUTIL 1)
-ELSE (COGUTIL_FOUND)
-	MESSAGE(FATAL_ERROR "CogUtil missing: it is needed to build this package!")
-ENDIF (COGUTIL_FOUND)
 
 # MPI is needed for MOSES on compute clusters.
 FIND_PACKAGE(MPI)
@@ -446,6 +454,7 @@ INCLUDE(CPack)
 # documentation
 FIND_PACKAGE(Doxygen)
 ADD_SUBDIRECTORY(doc EXCLUDE_FROM_ALL)
+ADD_SUBDIRECTORY(lib)
 
 # Show a summary of what we got
 SUMMARY_ADD("ComboReduct" "Library for reduction of combo program trees" HAVE_COMBOREDUCT)
