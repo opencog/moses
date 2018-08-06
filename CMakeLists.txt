@@ -22,6 +22,7 @@ IF (COMMAND CMAKE_POLICY)
 	CMAKE_POLICY(SET CMP0005 OLD)
 ENDIF (COMMAND CMAKE_POLICY)
 
+PROJECT(moses)
 # add the 'lib' dir to cmake's module search path
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/lib/")
 
@@ -39,8 +40,6 @@ ENDIF (COGUTIL_FOUND)
 list(APPEND CMAKE_MODULE_PATH  ${COGUTIL_DATA_DIR}/cmake)
 
 include(${COGUTIL_DATA_DIR}/cmake/Summary.cmake)
-
-PROJECT(moses)
 
 # To supress Cygwin warning "CMake no longer defines WIN32 on Cygwin!"
 # Remove when CMake >= 2.8.4 is required to build the project
