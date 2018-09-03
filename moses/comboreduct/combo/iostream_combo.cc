@@ -540,7 +540,7 @@ std::string l2ph(const std::string& ce,
                 auto found_it = std::find(labels.begin(), labels.end(), match);
                 OC_ASSERT(found_it != labels.end(), "No label %s matching",
                           match.c_str());
-                arity_t idx = distance(labels.begin(), found_it) + 1;
+                arity_t idx = std::distance(labels.begin(), found_it) + 1;
                 res += lexical_cast<string>(idx) + c;
                 match.clear();
                 matching = false;
@@ -553,7 +553,7 @@ std::string l2ph(const std::string& ce,
         auto found_it = std::find(labels.begin(), labels.end(), match);
         OC_ASSERT(found_it != labels.end(), "No label %s matching",
                   match.c_str());
-        arity_t idx = distance(labels.begin(), found_it) + 1;
+        arity_t idx = std::distance(labels.begin(), found_it) + 1;
         res += lexical_cast<string>(idx);
     }
     return res;
