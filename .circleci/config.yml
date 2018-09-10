@@ -35,6 +35,9 @@ jobs:
           name: Build
           command: cd build && make -j4
       - run:
+          name: Build examples
+          command: cd build && make -j4 examples
+      - run:
           name: Build tests
           command: cd build && make -j4 tests
       - run:
