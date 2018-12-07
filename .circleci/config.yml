@@ -8,8 +8,6 @@ jobs:
         environment:
           CCACHE_DIR: /ws/ccache
     working_directory: /ws/moses
-    environment:
-      ORG: singnet
     steps:
       - attach_workspace:
           at: /ws
@@ -23,7 +21,7 @@ jobs:
       - run:
           name: Install cogutil
           command: |
-            git clone --depth 1 https://github.com/$ORG/cogutil /ws/cogutil
+            git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/cogutil /ws/cogutil
             mkdir -p /ws/cogutil/build
             cd /ws/cogutil/build && cmake .. && make -j2 && make -j2 install
             ldconfig
