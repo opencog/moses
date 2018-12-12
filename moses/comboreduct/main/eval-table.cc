@@ -91,6 +91,14 @@ void output_results(const evalTableParameters& pa,
     }
 }
 
+// Return the number of digits (in base 10) of an integer
+template<typename Int> Int ndigits(Int x)
+{
+    Int nd = 0;
+    while (x != 0) { x /= 10; nd++; }
+    return nd;
+}
+
 void eval_output_results(const evalTableParameters& pa,
                          const Table& table, const vector<combo_tree>& trs)
 {
