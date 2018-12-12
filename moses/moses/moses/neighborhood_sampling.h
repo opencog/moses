@@ -488,7 +488,7 @@ size_t count_neighborhood_size_from_index(const field_set& fs,
                                           unsigned dist,
                                           unsigned starting_index,
                                           size_t max_count
-                                          = numeric_limits<size_t>::max());
+                                          = std::numeric_limits<size_t>::max());
 
 /**
  * Count the number of neighbors surrounding instance 'inst', at a
@@ -511,13 +511,13 @@ size_t count_neighborhood_size(const field_set& fs,
                                const instance& inst,
                                unsigned dist,
                                size_t max_count
-                               = numeric_limits<size_t>::max());
+                               = std::numeric_limits<size_t>::max());
 
 // For backward compatibility, like above but with null instance
 size_t count_neighborhood_size(const field_set& fs,
                                unsigned dist,
                                size_t max_count
-                               = numeric_limits<size_t>::max());
+                               = std::numeric_limits<size_t>::max());
 
 /// Fill the deme with at most number_of_new_instances, at distance
 /// dist.  Return the actual number of new instances created (this
