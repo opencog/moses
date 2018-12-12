@@ -37,7 +37,7 @@ namespace opencog { namespace moses {
 double
 information_theoretic_bits(const field_set& fs)
 {
-    static double log_five = log2<double>(5.0);
+    static double log_five = std::log2(5.0);
 
     double res = 0;
 
@@ -45,14 +45,14 @@ information_theoretic_bits(const field_set& fs)
     std::vector<field_set::disc_spec>::const_iterator it = fs.disc_and_bit().begin();
     for (size_t cnt=0; cnt < n_disc_fields; ++cnt, ++it) {
         const field_set::disc_spec& d = *it;
-        res += log2<double>(d.multy);
+        res += std::log2(d.multy);
     }
 
     res += fs.n_bits();  // log_2(2)==1
     res += fs.contin().size() * log_five;
 
     for (const field_set::term_spec& o : fs.term())
-        res += log2<double>(o.branching) * double(o.depth);
+        res += std::log2(o.branching) * double(o.depth);
 
     return res;
 }
