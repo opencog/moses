@@ -24,6 +24,7 @@
 #ifndef _EXAMPLE_SCORING_FUNCTIONS_H
 #define _EXAMPLE_SCORING_FUNCTIONS_H
 
+#include <bitset>
 #include <cmath>
 #include <boost/lexical_cast.hpp>
 
@@ -49,10 +50,15 @@ using namespace moses;
 // that encode a set of knob settings; an instance may encode discrete,
 // continuous, or string variables.
 //
-// Recall that the C++ std::unary_fuinction<> template is jus a trick
+// Recall that the C++ std::unary_fuinction<> template is just a trick
 // to make a C++ class behave as if it were a function, so that it can
 // be used anywhere a function is used.
 
+unsigned int count_bitz(packed_t pack)
+{
+	std::bitset<sizeof(packed_t)> bits(pack);
+	return bits.count();
+}
 
 // Return, as the score, the total number of bits set in the instance.
 struct one_max : public unary_function<instance, int>
@@ -68,9 +74,9 @@ struct one_max : public unary_function<instance, int>
         // make_transform_iterator is kind-of-like a "monad functor".
         return accumulate
                (make_transform_iterator(inst.begin(),
-                                        count_bits<packed_t>),
+                                        count_bitz),
                 make_transform_iterator(inst.end(),
-                                        count_bits<packed_t>), 0);
+                                        count_bitz), 0);
     }
 };
 
