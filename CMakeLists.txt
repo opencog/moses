@@ -135,7 +135,27 @@ ENDIF (WIN32)
 # ===================================================================
 # Check for existance of various required, optional packages.
 # Listed in alphabetical order, more or less.
+# Except that CogUtil must come first, because it supplies the
+# various FindXXX macros.
 
+# ----------------------------------------------------------
+# Cogutil
+FIND_PACKAGE(CogUtil CONFIG)
+IF (COGUTIL_FOUND)
+	MESSAGE(STATUS "CogUtil found.")
+	ADD_DEFINITIONS(-DHAVE_COGUTIL)
+	SET(HAVE_COGUTIL 1)
+ELSE (COGUTIL_FOUND)
+	MESSAGE(FATAL_ERROR "CogUtil missing: it is needed!")
+ENDIF (COGUTIL_FOUND)
+
+# Add the 'cmake' directory that cogutil provides, to the
+# cmake module search path. (For the FindXXX macros).
+list(APPEND CMAKE_MODULE_PATH  ${COGUTIL_DATA_DIR}/cmake)
+
+include(${COGUTIL_DATA_DIR}/cmake/Summary.cmake)
+
+# ----------------------------------------------------------
 # Check for boost. We need dynamic-linked, threaded libs by default.
 SET(Boost_USE_STATIC_LIBS OFF)
 SET(Boost_USE_MULTITHREADED ON)
@@ -179,22 +199,6 @@ IF(Boost_MATH_C99_FOUND)
 ELSE(Boost_MATH_C99_FOUND)
 	MESSAGE(STATUS "Boost math missing: needed to run combo learning tests.")
 ENDIF(Boost_MATH_C99_FOUND)
-
-# ----------------------------------------------------------
-# Cogutil
-FIND_PACKAGE(CogUtil CONFIG)
-IF (COGUTIL_FOUND)
-	MESSAGE(STATUS "CogUtil found.")
-	ADD_DEFINITIONS(-DHAVE_COGUTIL)
-	SET(HAVE_COGUTIL 1)
-ELSE (COGUTIL_FOUND)
-	MESSAGE(FATAL_ERROR "CogUtil missing: it is needed!")
-ENDIF (COGUTIL_FOUND)
-
-# add the 'cmake' directory from cogutil to search path
-list(APPEND CMAKE_MODULE_PATH  ${COGUTIL_DATA_DIR}/cmake)
-
-include(${COGUTIL_DATA_DIR}/cmake/Summary.cmake)
 
 # ----------------------------------------------------------
 FIND_PACKAGE(Cxxtest)
