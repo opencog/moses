@@ -183,7 +183,7 @@ contin_t contin_interpreter::contin_eval(combo_tree::iterator it) const
             contin_t res = exp(contin_eval(it.begin()));
             // This may happen when the argument is too large, then
             // exp will be infty
-            if (isinf(res)) throw OverflowException(vertex(res));
+            if (std::isinf(res)) throw OverflowException(vertex(res));
             return res;
         }
 
