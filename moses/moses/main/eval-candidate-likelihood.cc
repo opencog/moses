@@ -25,6 +25,8 @@
  * be used for instance in model combination to weight each candidate.
  */
 
+#include <ext/numeric>  // needed for __gnu_cxx::power
+
 #include <boost/math/special_functions/binomial.hpp>
 #include <boost/range/algorithm_ext/for_each.hpp>
 #include <boost/algorithm/string/trim.hpp>

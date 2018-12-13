@@ -991,7 +991,7 @@ void reduce_sin::operator()(combo_tree& tr, combo_tree::iterator it) const
     else if (is_contin(*sin_child))
         c_it = sin_child;
 
-    // Put the constant term into the range (-PI, PI]
+    // Put the constant term into the range (-M_PI, M_PI]
     if (c_it != tr.end()) {
         OC_ASSERT(is_contin(*c_it),
                   "sin_child isn't of type contin (reduce_sin).");
@@ -1001,8 +1001,8 @@ void reduce_sin::operator()(combo_tree& tr, combo_tree::iterator it) const
             *it = FP_NAN;
             return;
         }
-        if (c <= -PI || c > PI)
-            *c_it = fmod((c+PI), 2.0*PI) - PI;
+        if (c <= -M_PI || c > M_PI)
+            *c_it = fmod((c+M_PI), 2.0*M_PI) - M_PI;
     }
 }
 

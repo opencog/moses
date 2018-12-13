@@ -849,7 +849,7 @@ private:
     {
         if (contin_arity == 0)
             return 1;
-        else return COEF_SAMPLE_COUNT*log(contin_arity + EXPONENTIAL);
+        else return COEF_SAMPLE_COUNT*log(contin_arity + M_E);
     }
 
 };

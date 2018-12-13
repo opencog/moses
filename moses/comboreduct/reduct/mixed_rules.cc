@@ -1217,7 +1217,7 @@ void reduce_gt_zero_sin::operator()(combo_tree& tr,combo_tree::iterator it) cons
                 *sin1_it = id::times;
                 copy1_tr.append_child(sin1_it, -1.0);
                 pre_it new_plus = copy1_tr.wrap(sin1_it, id::plus);
-                copy1_tr.append_child(new_plus, (contin_t)PI);
+                copy1_tr.append_child(new_plus, (contin_t)M_PI);
                 (*_reduction)(copy1_tr);
                 if(*copy1_tr.begin()==id::logical_true) {
                     *it = id::logical_true;
@@ -1234,7 +1234,7 @@ void reduce_gt_zero_sin::operator()(combo_tree& tr,combo_tree::iterator it) cons
                 //copy old assumptions, end
                 pre_it sin2_it = copy2_tr.begin().begin();
                 *sin2_it = id::plus;
-                copy2_tr.append_child(sin2_it, (contin_t)PI);
+                copy2_tr.append_child(sin2_it, (contin_t)M_PI);
                 copy2_tr.append_child(copy2_tr.wrap(sin2_it, id::times), -1.0);
                 (*_reduction)(copy2_tr);
                 if(*copy2_tr.begin()==id::logical_false) {
