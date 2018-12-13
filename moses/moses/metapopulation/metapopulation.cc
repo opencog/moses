@@ -146,7 +146,7 @@ scored_combo_tree_ptr_set::const_iterator metapopulation::select_exemplar()
         score_t sc = bsct.get_penalized_score();
 
         // Skip exemplars that have been visited enough
-        if (isfinite(sc) and 
+        if (std::isfinite(sc) and
             ((_params.revisit < 0) or
             (_params.revisit + 1 > (int)_visited_exemplars[bsct])))
         {
@@ -174,7 +174,7 @@ scored_combo_tree_ptr_set::const_iterator metapopulation::select_exemplar()
     for (score_t& p : probs) {
         // If p is invalid (or already visited, because it has nan)
         // then it is skipped, i.e. assigned probability of 0.0f
-        if (isfinite(p))
+        if (std::isfinite(p))
             p = expf((p - highest_score) * inv_temp);
         else
             p = 0.0;

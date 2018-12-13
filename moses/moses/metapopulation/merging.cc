@@ -103,7 +103,7 @@ void metapopulation::deme_to_trees(deme_t& deme,
         const composite_score& inst_csc = inst.second;
         score_t inst_sc = inst_csc.get_score();
         // If score is really bad, don't bother.
-        if (inst_sc <= very_worst_score || !isfinite(inst_sc))
+        if (inst_sc <= very_worst_score or not std::isfinite(inst_sc))
             return;
 
         // Get the combo_tree associated to inst, cleaned and reduced.
