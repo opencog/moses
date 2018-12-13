@@ -15,52 +15,39 @@ SET (MOSES_VERSION_MINOR 6)
 SET (MOSES_VERSION_PATCH 10)
 SET (MOSES_VERSION "${MOSES_VERSION_MAJOR}.${MOSES_VERSION_MINOR}.${MOSES_VERSION_PATCH}")
 
-# Seems to work fine with cmake-2.6
-CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+# Need to have cmake-2.8.8 in order to be able to check the
+# compiler version.
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8.8)
 IF (COMMAND CMAKE_POLICY)
 	CMAKE_POLICY(SET CMP0003 NEW)
 	CMAKE_POLICY(SET CMP0005 OLD)
 ENDIF (COMMAND CMAKE_POLICY)
 
+IF(CMAKE_VERSION VERSION_GREATER 3.0.2)
+	CMAKE_POLICY(SET CMP0037 OLD)   # In order to allow "make test"
+ENDIF(CMAKE_VERSION VERSION_GREATER 3.0.2)
+
 PROJECT(moses)
-# add the 'lib' dir to cmake's module search path
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/lib/")
 
-# Cogutil
-FIND_PACKAGE(CogUtil CONFIG)
-IF (COGUTIL_FOUND)
-        MESSAGE(STATUS "CogUtil found.")
-        ADD_DEFINITIONS(-DHAVE_COGUTIL)
-    SET(HAVE_COGUTIL 1)
-ELSE (COGUTIL_FOUND)
-        MESSAGE(FATAL_ERROR "CogUtil missing: it is needed for everything!")
-ENDIF (COGUTIL_FOUND)
-
-# add the 'cmake' directory from cogutil to search path
-list(APPEND CMAKE_MODULE_PATH  ${COGUTIL_DATA_DIR}/cmake)
-
-include(${COGUTIL_DATA_DIR}/cmake/Summary.cmake)
-
-# To supress Cygwin warning "CMake no longer defines WIN32 on Cygwin!"
-# Remove when CMake >= 2.8.4 is required to build the project
-set(CMAKE_LEGACY_CYGWIN_WIN32 0)
-
-# uncomment to be in Release mode [default]
+# ----------------------------------------------------------
+# User-modifiable options. Feel free to change these!
+#
+# Uncomment to be in Release mode [default].
 # SET(CMAKE_BUILD_TYPE Release)
 
-# uncomment to build in debug mode
+# Uncomment to build in debug mode.
 # SET(CMAKE_BUILD_TYPE Debug)
 
-# uncomment to be in coverage testing mode
+# Uncomment to be in coverage testing mode.
 # SET(CMAKE_BUILD_TYPE Coverage)
 
-# uncomment to build in profile mode
+# Uncomment to build in profile mode.
 # SET(CMAKE_BUILD_TYPE Profile)
 
 # uncomment to build in release mode with debug information
 # SET(CMAKE_BUILD_TYPE RelWithDebInfo)
 
-# default build type
+# Default build type
 IF (CMAKE_BUILD_TYPE STREQUAL "")
 	SET(CMAKE_BUILD_TYPE Release)
 ENDIF (CMAKE_BUILD_TYPE STREQUAL "")
@@ -70,15 +57,16 @@ MESSAGE(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
 ADD_DEFINITIONS(-DPROJECT_SOURCE_DIR=\\"${CMAKE_SOURCE_DIR}\\"
                 -DPROJECT_BINARY_DIR=\\"${CMAKE_BINARY_DIR}\\")
 
+# Add the 'lib' dir to cmake's module search path
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/lib/")
+
 # ===============================================================
 # Detect different compilers and OS'es, tweak flags as necessary.
 
 IF (CMAKE_COMPILER_IS_GNUCXX)
-	# aiiee cmake version 2.8.8 or newer is needed for below to
-	# work...
-	# IF (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 4.6.4)
-	#	MESSAGE(FATAL_ERROR "GCC version must be at least 4.6.4!")
-	# ENDIF (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 4.6.4)
+	IF (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 4.6.4)
+		MESSAGE(FATAL_ERROR "GCC version must be at least 4.6.4!")
+	ENDIF (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 4.6.4)
 
 	IF (APPLE)
 		SET(CMAKE_C_FLAGS "-Wall -Wno-long-long -Wno-conversion")
@@ -123,11 +111,10 @@ IF (WIN32)
 	ADD_DEFINITIONS(-DWIN32)
 	IF (CYGWIN)
 		ADD_DEFINITIONS(-DCYGWIN)
-	#   SET(WIN32 1)
 	ENDIF (CYGWIN)
 
 	# It is "not unix" when the code is compiled under windows but not
-	# under cygwin
+	# under cygwin.
 	IF (NOT UNIX)
 		ADD_DEFINITIONS(-DWIN32_NOT_UNIX)
 		FIND_PACKAGE(PThreads REQUIRED)
@@ -147,6 +134,7 @@ ENDIF (WIN32)
 
 # ===================================================================
 # Check for existance of various required, optional packages.
+# Listed in alphabetical order, more or less.
 
 # Check for boost. We need dynamic-linked, threaded libs by default.
 SET(Boost_USE_STATIC_LIBS OFF)
@@ -169,11 +157,6 @@ ELSE(Boost_FOUND)
 	MESSAGE(FATAL_ERROR "Boost 1.46 or newer is needed to build OpenCog!")
 ENDIF(Boost_FOUND)
 
-# Opencog won't compile with Boost 1.51, some kind of conflict with
-# hash functions, see github bugs 1 and 36
-IF(105100 EQUAL ${Boost_VERSION})
-	MESSAGE(FATAL_ERROR "Boost version 1.51 will not work with OpenCog.  Please use a different version.")
-ENDIF(105100 EQUAL ${Boost_VERSION})
 MESSAGE(STATUS "Boost version ${Boost_VERSION} found.")
 
 # Optional boost packages; can build without these.
@@ -197,6 +180,23 @@ ELSE(Boost_MATH_C99_FOUND)
 	MESSAGE(STATUS "Boost math missing: needed to run combo learning tests.")
 ENDIF(Boost_MATH_C99_FOUND)
 
+# ----------------------------------------------------------
+# Cogutil
+FIND_PACKAGE(CogUtil CONFIG)
+IF (COGUTIL_FOUND)
+	MESSAGE(STATUS "CogUtil found.")
+	ADD_DEFINITIONS(-DHAVE_COGUTIL)
+	SET(HAVE_COGUTIL 1)
+ELSE (COGUTIL_FOUND)
+	MESSAGE(FATAL_ERROR "CogUtil missing: it is needed!")
+ENDIF (COGUTIL_FOUND)
+
+# add the 'cmake' directory from cogutil to search path
+list(APPEND CMAKE_MODULE_PATH  ${COGUTIL_DATA_DIR}/cmake)
+
+include(${COGUTIL_DATA_DIR}/cmake/Summary.cmake)
+
+# ----------------------------------------------------------
 FIND_PACKAGE(Cxxtest)
 IF (CXXTEST_FOUND)
 	MESSAGE(STATUS "Found CxxTest.")
@@ -204,6 +204,7 @@ ELSE (CXXTEST_FOUND)
 	MESSAGE(STATUS "CxxTest missing: needed for unit tests.")
 ENDIF (CXXTEST_FOUND)
 
+# ----------------------------------------------------------
 # MPI is needed for MOSES on compute clusters.
 FIND_PACKAGE(MPI)
 
@@ -216,21 +217,7 @@ ELSE (MPI_FOUND)
 	MESSAGE(STATUS "MPI missing: needed for MPI-MOSES.")
 ENDIF (MPI_FOUND)
 
-
-# Optional, currently needed only to hush up DRD in util/Logger.cc
-FIND_PACKAGE(VALGRIND)
-IF (VALGRIND_FOUND)
-	MESSAGE(STATUS "VALGRIND was found.")
-	IF (VALGRIND_INCLUDE_DIR)
-		MESSAGE(STATUS "VALGRIND devel headers found.")
-		ADD_DEFINITIONS(-DHAVE_VALGRIND)
-	ELSE (VALGRIND_INCLUDE_DIR)
-		MESSAGE(STATUS "VALGRIND devel headers NOT FOUND: needed for thread debugging.")
-	ENDIF (VALGRIND_INCLUDE_DIR)
-ELSE (VALGRIND_FOUND)
-	MESSAGE(STATUS "VALGRIND missing: needed for thread debugging.")
-ENDIF (VALGRIND_FOUND)
-
+# ----------------------------------------------------------
 # Python bindings using Cython
 # Cython is used to generate bindings
 FIND_PACKAGE(PythonLibs 2.7)
@@ -265,9 +252,32 @@ ENDIF (CYTHON_FOUND AND PYTHONLIBS_FOUND)
 
 # Nosetests will find and automatically run python tests.
 FIND_PROGRAM(NOSETESTS_EXECUTABLE nosetests)
-IF (NOSETESTS_EXECUTABLE AND CYTHON_FOUND AND PYTHONLIBS_FOUND)
-	SET(HAVE_NOSETESTS 1)
-ENDIF (NOSETESTS_EXECUTABLE AND CYTHON_FOUND AND PYTHONLIBS_FOUND)
+FIND_PROGRAM(NOSETESTS3_EXECUTABLE nosetests3)
+IF (CYTHON_FOUND AND PYTHONLIBS_FOUND)
+	IF (NOSETESTS_EXECUTABLE)
+		SET(HAVE_NOSETESTS 1)
+	ENDIF (NOSETESTS_EXECUTABLE)
+
+	IF (NOSETESTS3_EXECUTABLE)
+		SET(HAVE_NOSETESTS 1)
+		SET(NOSETESTS_EXECUTABLE ${NOSETESTS3_EXECUTABLE})
+	ENDIF (NOSETESTS3_EXECUTABLE)
+ENDIF (CYTHON_FOUND AND PYTHONLIBS_FOUND)
+
+# ----------------------------------------------------------
+# Optional, currently needed only to hush up DRD in util/Logger.cc
+FIND_PACKAGE(VALGRIND)
+IF (VALGRIND_FOUND)
+	MESSAGE(STATUS "VALGRIND was found.")
+	IF (VALGRIND_INCLUDE_DIR)
+		MESSAGE(STATUS "VALGRIND devel headers found.")
+		ADD_DEFINITIONS(-DHAVE_VALGRIND)
+	ELSE (VALGRIND_INCLUDE_DIR)
+		MESSAGE(STATUS "VALGRIND devel headers NOT FOUND: needed for thread debugging.")
+	ENDIF (VALGRIND_INCLUDE_DIR)
+ELSE (VALGRIND_FOUND)
+	MESSAGE(STATUS "VALGRIND missing: needed for thread debugging.")
+ENDIF (VALGRIND_FOUND)
 
 # ==========================================================
 # Decide what to build, based on the packages found.
