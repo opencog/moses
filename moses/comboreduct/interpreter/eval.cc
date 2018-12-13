@@ -215,7 +215,7 @@ vertex eval_throws_vertex(const vertex_seq& bmap,
             vertex vy = eval_throws_binding(bmap, sib);
             y = get_contin(vy);
             contin_t res = x / y;
-            if (isnan(res) || isinf(res))
+            if (std::isnan(res) || std::isinf(res))
                 throw OverflowException(vertex(res));
             return res;
         }
@@ -227,7 +227,7 @@ vertex eval_throws_vertex(const vertex_seq& bmap,
 #else
             contin_t res = log(get_contin(vx));
 #endif
-            if (isnan(res) || isinf(res))
+            if (std::isnan(res) || std::isinf(res))
                 throw OverflowException(vertex(res));
             return res;
         }
@@ -237,7 +237,7 @@ vertex eval_throws_vertex(const vertex_seq& bmap,
             contin_t res = exp(get_contin(vx));
             // this may happen in case the argument is too high, then
             // exp will be infty
-            if (isinf(res)) throw OverflowException(vertex(res));
+            if (std::isinf(res)) throw OverflowException(vertex(res));
             return res;
         }
 
@@ -263,7 +263,7 @@ vertex eval_throws_vertex(const vertex_seq& bmap,
 
     // contin constant
     else if (const contin_t* c = boost::get<contin_t>(&v)) {
-        if (isnan(*c) || isinf(*c))
+        if (std::isnan(*c) || std::isinf(*c))
             throw OverflowException(vertex(*c));
         return v;
     }
