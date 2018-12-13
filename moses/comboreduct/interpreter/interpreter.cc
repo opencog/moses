@@ -162,7 +162,7 @@ contin_t contin_interpreter::contin_eval(combo_tree::iterator it) const
             ++sib;
             y = contin_eval(sib);
             contin_t res = x / y;
-            if (isnan(res) || isinf(res))
+            if (std::isnan(res) || std::isinf(res))
                 throw OverflowException(vertex(res));
             return res;
         }
@@ -174,7 +174,7 @@ contin_t contin_interpreter::contin_eval(combo_tree::iterator it) const
 #else
             contin_t res = log(x);
 #endif
-            if (isnan(res) || isinf(res))
+            if (std::isnan(res) || std::isinf(res))
                 throw OverflowException(vertex(res));
             return res;
         }
@@ -206,7 +206,7 @@ contin_t contin_interpreter::contin_eval(combo_tree::iterator it) const
     }
     // contin constant
     else if (const contin_t* c = boost::get<contin_t>(&v)) {
-        if (isnan(*c) || isinf(*c))
+        if (std::isnan(*c) || std::isinf(*c))
             throw OverflowException(vertex(*c));
         return *c;
     }

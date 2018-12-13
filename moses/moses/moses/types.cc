@@ -133,8 +133,8 @@ bool composite_score::operator<(const composite_score &r) const
     score_t lef = penalized_score;
     score_t rig = r.penalized_score;
 
-    if (isnan(lef))
-        return !isnan(rig);
+    if (std::isnan(lef))
+        return !std::isnan(rig);
     else
         return (lef < rig)
                 // Note: I've tried to see if the addition below
