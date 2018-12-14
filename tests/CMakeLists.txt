@@ -7,10 +7,10 @@ IF (WIN32)
 	                -D_CRT_SECURE_NO_WARNINGS)
 ENDIF (WIN32)
 
-ADD_DEFINITIONS(-DPROJECT_SOURCE_DIR=\\"${CMAKE_SOURCE_DIR}\\"
-                -DPROJECT_BINARY_DIR=\\"${CMAKE_BINARY_DIR}\\")
+ADD_DEFINITIONS(-DPROJECT_SOURCE_DIR="${CMAKE_SOURCE_DIR}"
+                -DPROJECT_BINARY_DIR="${CMAKE_BINARY_DIR}")
 
-# The atom_types.h file is written to the build directory
+# Is this actually needed ???
 INCLUDE_DIRECTORIES(${CMAKE_BINARY_DIR})
 
 # Perform tests in component-dependency order, as much as possible.

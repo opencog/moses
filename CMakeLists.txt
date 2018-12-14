@@ -20,7 +20,6 @@ SET (MOSES_VERSION "${MOSES_VERSION_MAJOR}.${MOSES_VERSION_MINOR}.${MOSES_VERSIO
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8.8)
 IF (COMMAND CMAKE_POLICY)
 	CMAKE_POLICY(SET CMP0003 NEW)
-	CMAKE_POLICY(SET CMP0005 OLD)
 ENDIF (COMMAND CMAKE_POLICY)
 
 IF(CMAKE_VERSION VERSION_GREATER 3.0.2)
@@ -54,8 +53,8 @@ ENDIF (CMAKE_BUILD_TYPE STREQUAL "")
 
 MESSAGE(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
 
-ADD_DEFINITIONS(-DPROJECT_SOURCE_DIR=\\"${CMAKE_SOURCE_DIR}\\"
-                -DPROJECT_BINARY_DIR=\\"${CMAKE_BINARY_DIR}\\")
+ADD_DEFINITIONS(-DPROJECT_SOURCE_DIR="${CMAKE_SOURCE_DIR}"
+                -DPROJECT_BINARY_DIR="${CMAKE_BINARY_DIR}")
 
 # Add the 'lib' dir to cmake's module search path
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/lib/")
@@ -293,23 +292,20 @@ IF(Boost_FOUND AND COGUTIL_FOUND)
 ENDIF(Boost_FOUND AND COGUTIL_FOUND)
 
 # ===================================================================
-# global includes
+# Global includes
 
-# set confdir and datadir
-IF (NOT DEFINED CONFDIR)
-	SET (CONFDIR "${CMAKE_INSTALL_PREFIX}/etc")
-ENDIF (NOT DEFINED CONFDIR)
-IF (NOT DEFINED DATADIR)
-	SET (DATADIR "${CMAKE_INSTALL_PREFIX}/share/moses")
-ENDIF (NOT DEFINED DATADIR)
-ADD_DEFINITIONS(-DCONFDIR=\\"${CONFDIR}\\")
-ADD_DEFINITIONS(-DDATADIR=\\"${DATADIR}\\")
+# -------------------------------------------------
+# Include configuration.
 
-# (re?)define MAN_INSTALL_DIR
-SET (MAN_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/share/man")
+# Set default include paths.
+INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR} ${Boost_INCLUDE_DIRS}
+	${COGUTIL_INCLUDE_DIR})
 
-# small hack to handle unixes that use "/usr/lib64" instead of "/usr/lib" as the
-# default lib path on 64 bit archs
+# -------------------------------------------------
+# Library configuration
+
+# Small hack to handle unixes that use "/usr/lib64"
+# instead of "/usr/lib" as the default lib path on 64 bit archs
 IF (NOT DEFINED LIB_DIR_SUFFIX)
 	EXECUTE_PROCESS(COMMAND ${CMAKE_CXX_COMPILER} -print-search-dirs OUTPUT_VARIABLE PRINT_SEARCH_DIRS_OUTPUT)
 	STRING(REGEX MATCH "\r?\nlibraries:.*\r?\n" COMPILER_LIB_SEARCH_DIRS ${PRINT_SEARCH_DIRS_OUTPUT})
@@ -321,15 +317,34 @@ IF (NOT DEFINED LIB_DIR_SUFFIX)
 	ENDIF (NOT ${COMPILER_LIB_SEARCH_DIRS} STREQUAL "")
 ENDIF (NOT DEFINED LIB_DIR_SUFFIX)
 
-# set default include paths
-INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR} ${Boost_INCLUDE_DIRS}
-	${COGUTIL_INCLUDE_DIR})
-
-# rpath handling
+# RPATH handling (see https://cmake.org/Wiki/CMake_RPATH_handling)
+# Note: RPATH only supported under Linux!
 SET(CMAKE_SKIP_BUILD_RPATH	FALSE)
 SET(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
 SET(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib/moses")
 SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+
+# -------------------------------------------------
+# Install configuration
+
+# Only list install files that have actually changed.
+SET(CMAKE_INSTALL_MESSAGE "LAZY")
+
+# Set confdir and datadir
+IF (NOT DEFINED CONFDIR)
+	SET (CONFDIR "${CMAKE_INSTALL_PREFIX}/etc")
+ENDIF (NOT DEFINED CONFDIR)
+IF (NOT DEFINED DATADIR)
+	SET (DATADIR "${CMAKE_INSTALL_PREFIX}/share/moses")
+ENDIF (NOT DEFINED DATADIR)
+ADD_DEFINITIONS(-DCONFDIR="${CONFDIR}")
+ADD_DEFINITIONS(-DDATADIR="${DATADIR}")
+
+# (re?)define MAN_INSTALL_DIR
+SET (MAN_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/share/man")
+
+# ==========================================================
+# Decide what to build, based on the packages found.
 
 ADD_SUBDIRECTORY(moses)
 
@@ -366,7 +381,6 @@ IF (CXXTEST_FOUND AND COGUTIL_FOUND)
 	ENDIF (CMAKE_BUILD_TYPE STREQUAL "Coverage")
 ENDIF (CXXTEST_FOUND AND COGUTIL_FOUND)
 
-
 ADD_SUBDIRECTORY(examples EXCLUDE_FROM_ALL)
 
 IF (NOT WIN32)
@@ -391,7 +405,8 @@ ADD_CUSTOM_TARGET(cscope
 	COMMENT "Generating CScope database"
 )
 
-# packaging
+# ===================================================================
+# Packaging
 SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Meta-Optimizing Semantic Evolutionary Search")
 SET(CPACK_PACKAGE_NAME "moses")
 SET(CPACK_PACKAGE_VENDOR "opencog.org")
@@ -465,12 +480,15 @@ ENDIF(WIN32)
 SET(CPACK_PACKAGE_EXECUTABLES "cogserver" "The Open Cognition Framework")
 INCLUDE(CPack)
 
+# ===================================================================
 # documentation
 FIND_PACKAGE(Doxygen)
 ADD_SUBDIRECTORY(doc EXCLUDE_FROM_ALL)
 ADD_SUBDIRECTORY(lib)
 
-# Show a summary of what we got
+# ===================================================================
+# Show a summary of what we found, what we will do.
+
 SUMMARY_ADD("ComboReduct" "Library for reduction of combo program trees" HAVE_COMBOREDUCT)
 SUMMARY_ADD("Doxygen" "Code documentation" DOXYGEN_FOUND)
 SUMMARY_ADD("Feature selection" "MOSES based feature selection tool" HAVE_FEATURE_SELECTION)
