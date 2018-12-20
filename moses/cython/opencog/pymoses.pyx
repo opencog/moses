@@ -60,7 +60,7 @@ cdef class moses:
         # Create temporary files for sending input/output to the moses_exec
         # function
         if input is not None:
-            input_file = tempfile.NamedTemporaryFile()
+            input_file = tempfile.NamedTemporaryFile(mode='w+', encoding='utf-8')
             input_file_builder = csv.writer(input_file, delimiter = ',')
             input_file_builder.writerows(input)
             input_file.flush()
@@ -88,7 +88,7 @@ cdef class moses:
         candidates = []
         # Python header declared in moses/moses/moses/types.h
         # (ostream_combo_tree_composite_pbscore_python)
-        python_header = "#!/usr/bin/env python"
+        python_header = bytes("#!/usr/bin/env python", "utf8")
 
         if len(output) == 0:
             raise MosesException('Error: No output file was obtained from '
@@ -97,13 +97,13 @@ cdef class moses:
 
         # Python output
         elif output.splitlines()[0].startswith(python_header):
-            output_list = [python_header + "\n" + element for
+            output_list = [python_header + b"\n" + element for
                            element in output.split(python_header)[1:]]
 
             for candidate in output_list:
                 program = candidate
-                if "#score: " in program:
-                    score = int(program.split("#score: ")[1].splitlines()[0])
+                if b"#score: " in program:
+                    score = int(program.split(b"#score: ")[1].splitlines()[0])
                 else:
                     raise MosesException('Error: A score value was expected '
                                          'but not found in the Python '
@@ -126,11 +126,11 @@ cdef class moses:
                 # prints, and that will change for abitrary reasons.
                 # The output string is NOT a part of the formal API
                 # for moses!
-                score = int(candidate.partition(' ')[0])
-                rest = candidate.partition(' ')[2]
-                # weight = int(rest.partition(' ')[0])
-                # rest = rest.partition(' ')[2]
-                program = rest.partition('[')[0]
+                score = int(candidate.partition(b' ')[0])
+                rest = candidate.partition(b' ')[2]
+                # weight = int(rest.partition(b' ')[0])
+                # rest = rest.partition(b' ')[2]
+                program = rest.partition(b'[')[0]
                 if scheme :
 
                     candidates.append(MosesCandidate(score = score,
@@ -185,16 +185,19 @@ cdef class moses:
     def _run_args_list(self, args_list):
         args_list.insert(0, "moses")
         cdef char **c_argv
-        args_list = [bytes(x) for x in args_list]
+        args_list = [bytes(x,"utf8") for x in args_list]
         c_argv = <char**>malloc(sizeof(char*) * len(args_list))
         for idx, s in enumerate(args_list):
             c_argv[idx] = s
         try:
             moses_exec(len(args_list), c_argv)
         except RuntimeError, ex:
-            if ex is None:
-                ex = ""
-            raise MosesException('Error: exception occurred when calling C++ '
-                                 'MOSES. Exception message:\n' + ex.message)
+            raise MosesException('Error: exception occurred calling C++ MOSES.')
+
+            # WTF. FIXME. Something about exceptions is borken.
+            # AttributeError: 'RuntimeError' object has no attribute 'message'
+
+            # raise MosesException('Error: exception occurred when calling C++ '
+            #                     'MOSES. Exception message:\n' + ex.message)
         finally:
             free(c_argv)

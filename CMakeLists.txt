@@ -168,10 +168,6 @@ FIND_PACKAGE(Boost 1.46 COMPONENTS date_time filesystem program_options regex se
 
 IF(Boost_FOUND)
 	SET(Boost_FOUND_SAVE 1)
-
-	# Boost.Signals2 requires this in signal_type.hpp
-	SET(BOOST_PARAMETER_MAX_ARITY 7)
-	ADD_DEFINITIONS(-DBOOST_PARAMETER_MAX_ARITY=${BOOST_PARAMETER_MAX_ARITY})
 ELSE(Boost_FOUND)
 	MESSAGE(FATAL_ERROR "Boost 1.46 or newer is needed to build OpenCog!")
 ENDIF(Boost_FOUND)
@@ -179,7 +175,6 @@ ENDIF(Boost_FOUND)
 MESSAGE(STATUS "Boost version ${Boost_VERSION} found.")
 
 # Optional boost packages; can build without these.
-FIND_PACKAGE(Boost 1.46 COMPONENTS python program_options QUIET)
 FIND_PACKAGE(Boost 1.46 COMPONENTS math_c99 QUIET)
 
 # Arghhh. Except cmake is treating above as required, not optional. #$%**&
@@ -190,7 +185,7 @@ ENDIF(Boost_FOUND_SAVE)
 IF(Boost_PROGRAM_OPTIONS_FOUND)
 	MESSAGE(STATUS "Found Boost::program_options")
 ELSE(Boost_PROGRAM_OPTIONS_FOUND)
-	MESSAGE(STATUS "Boost program_options missing: needed for Spatial tools (MapTools).")
+	MESSAGE(STATUS "Boost program_options missing: needed for command line.")
 ENDIF(Boost_PROGRAM_OPTIONS_FOUND)
 
 IF(Boost_MATH_C99_FOUND)
@@ -278,6 +273,9 @@ IF (CYTHON_FOUND AND PYTHONLIBS_FOUND)
 	ELSE ("${PYTHON_DEST}" STREQUAL "")
 		MESSAGE(STATUS "Python destination dir found: ${PYTHON_DEST}" )
 	ENDIF ("${PYTHON_DEST}" STREQUAL "")
+
+	# thunk
+	SET(PYTHON_DEST "${PYTHON_DEST}/opencog")
 ELSE (CYTHON_FOUND AND PYTHONLIBS_FOUND)
 	IF(NOT CYTHON_FOUND)
 		MESSAGE(STATUS "Cython executable not found.")
@@ -531,6 +529,7 @@ SUMMARY_ADD("ComboReduct" "Library for reduction of combo program trees" HAVE_CO
 SUMMARY_ADD("Doxygen" "Code documentation" DOXYGEN_FOUND)
 SUMMARY_ADD("Feature selection" "MOSES based feature selection tool" HAVE_FEATURE_SELECTION)
 SUMMARY_ADD("MOSES" "Meta-Optimizing Semantic Evolutionary Search" HAVE_MOSES)
+SUMMARY_ADD("MPI-MOSES" "Distributed MOSES via MPI" HAVE_MPI)
 SUMMARY_ADD("Python bindings" "Python (cython) bindings" HAVE_CYTHON)
 SUMMARY_ADD("Python tests" "Python bindings nose tests" HAVE_NOSETESTS)
 SUMMARY_ADD("Unit tests" "Unit tests" CXXTEST_FOUND AND COGUTIL_FOUND)
