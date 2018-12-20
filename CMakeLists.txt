@@ -175,7 +175,6 @@ ENDIF(Boost_FOUND)
 MESSAGE(STATUS "Boost version ${Boost_VERSION} found.")
 
 # Optional boost packages; can build without these.
-FIND_PACKAGE(Boost 1.46 COMPONENTS python program_options QUIET)
 FIND_PACKAGE(Boost 1.46 COMPONENTS math_c99 QUIET)
 
 # Arghhh. Except cmake is treating above as required, not optional. #$%**&
@@ -186,7 +185,7 @@ ENDIF(Boost_FOUND_SAVE)
 IF(Boost_PROGRAM_OPTIONS_FOUND)
 	MESSAGE(STATUS "Found Boost::program_options")
 ELSE(Boost_PROGRAM_OPTIONS_FOUND)
-	MESSAGE(STATUS "Boost program_options missing: needed for Spatial tools (MapTools).")
+	MESSAGE(STATUS "Boost program_options missing: needed for command line.")
 ENDIF(Boost_PROGRAM_OPTIONS_FOUND)
 
 IF(Boost_MATH_C99_FOUND)
