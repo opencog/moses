@@ -62,6 +62,7 @@ cdef class moses:
         if input is not None:
             input_file = tempfile.NamedTemporaryFile()
             input_file_builder = csv.writer(input_file, delimiter = ',')
+            input_file_builder = input_file_builder.decode("utf8")
             input_file_builder.writerows(input)
             input_file.flush()
 
@@ -97,13 +98,13 @@ cdef class moses:
 
         # Python output
         elif output.splitlines()[0].startswith(python_header):
-            output_list = [python_header + "\n" + element for
+            output_list = [python_header + b"\n" + element for
                            element in output.split(python_header)[1:]]
 
             for candidate in output_list:
                 program = candidate
-                if "#score: " in program:
-                    score = int(program.split("#score: ")[1].splitlines()[0])
+                if b"#score: " in program:
+                    score = int(program.split(b"#score: ")[1].splitlines()[0])
                 else:
                     raise MosesException('Error: A score value was expected '
                                          'but not found in the Python '
@@ -193,7 +194,8 @@ cdef class moses:
             moses_exec(len(args_list), c_argv)
         except RuntimeError, ex:
             if ex is None:
-                ex = ""
+                raise MosesException('Error: exception occurred calling C++ '
+                                    'MOSES. No exception message\n')
             raise MosesException('Error: exception occurred when calling C++ '
                                  'MOSES. Exception message:\n' + ex.message)
         finally:
