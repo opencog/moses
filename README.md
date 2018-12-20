@@ -75,7 +75,7 @@ few exceptions, most Linux distributions will provide these packages.
 Optional Prerequisites
 ----------------------
 The following packages are optional. If they are not installed, some
-optional parts of OpenCog will not be built.  The CMake command, during
+optional parts of MOSES will not be built.  The CMake command, during
 the build, will be more precise as to which parts will not be built.
 
 ###### MPI
