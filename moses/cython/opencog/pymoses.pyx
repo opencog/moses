@@ -126,11 +126,11 @@ cdef class moses:
                 # prints, and that will change for abitrary reasons.
                 # The output string is NOT a part of the formal API
                 # for moses!
-                score = int(candidate.partition(' ')[0])
-                rest = candidate.partition(' ')[2]
-                # weight = int(rest.partition(' ')[0])
-                # rest = rest.partition(' ')[2]
-                program = rest.partition('[')[0]
+                score = int(candidate.partition(b' ')[0])
+                rest = candidate.partition(b' ')[2]
+                # weight = int(rest.partition(b' ')[0])
+                # rest = rest.partition(b' ')[2]
+                program = rest.partition(b'[')[0]
                 if scheme :
 
                     candidates.append(MosesCandidate(score = score,
