@@ -185,7 +185,7 @@ cdef class moses:
     def _run_args_list(self, args_list):
         args_list.insert(0, "moses")
         cdef char **c_argv
-        args_list = [bytes(x) for x in args_list]
+        args_list = [bytes(x,"utf8") for x in args_list]
         c_argv = <char**>malloc(sizeof(char*) * len(args_list))
         for idx, s in enumerate(args_list):
             c_argv[idx] = s
