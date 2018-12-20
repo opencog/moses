@@ -88,7 +88,7 @@ cdef class moses:
         candidates = []
         # Python header declared in moses/moses/moses/types.h
         # (ostream_combo_tree_composite_pbscore_python)
-        python_header = "#!/usr/bin/env python"
+        python_header = bytes("#!/usr/bin/env python", "utf8")
 
         if len(output) == 0:
             raise MosesException('Error: No output file was obtained from '
