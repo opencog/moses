@@ -62,8 +62,7 @@ cdef class moses:
         if input is not None:
             input_file = tempfile.NamedTemporaryFile()
             input_file_builder = csv.writer(input_file, delimiter = ',')
-            input_file_builder = input_file_builder.decode("utf8")
-            input_file_builder.writerows(input)
+            input_file_builder.writerows(bytes(input, "utf8"))
             input_file.flush()
 
         output_file = tempfile.NamedTemporaryFile()
@@ -193,10 +192,12 @@ cdef class moses:
         try:
             moses_exec(len(args_list), c_argv)
         except RuntimeError, ex:
-            if ex is None:
-                raise MosesException('Error: exception occurred calling C++ '
-                                    'MOSES. No exception message\n')
-            raise MosesException('Error: exception occurred when calling C++ '
-                                 'MOSES. Exception message:\n' + ex.message)
+            raise MosesException('Error: exception occurred calling C++ MOSES.')
+
+            # WTF. FIXME. Something about exceptions is borken.
+            # AttributeError: 'RuntimeError' object has no attribute 'message'
+
+            # raise MosesException('Error: exception occurred when calling C++ '
+            #                     'MOSES. Exception message:\n' + ex.message)
         finally:
             free(c_argv)
