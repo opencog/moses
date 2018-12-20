@@ -60,10 +60,9 @@ cdef class moses:
         # Create temporary files for sending input/output to the moses_exec
         # function
         if input is not None:
-            binput = [line.decode("utf8") for line in input]
-            input_file = tempfile.NamedTemporaryFile()
+            input_file = tempfile.NamedTemporaryFile(mode='w+', encoding='utf-8')
             input_file_builder = csv.writer(input_file, delimiter = ',')
-            input_file_builder.writerows(binput)
+            input_file_builder.writerows(input)
             input_file.flush()
 
         output_file = tempfile.NamedTemporaryFile()
