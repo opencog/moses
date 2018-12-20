@@ -53,6 +53,7 @@ IF (HAVE_MOSES)
 	TARGET_LINK_LIBRARIES(moses_cython
 		moses_exec
 		moses
+		${COGUTIL_LIBRARY}
 	)
 
 	IF (HAVE_MPI)
@@ -68,8 +69,8 @@ IF (HAVE_MOSES)
 		OUTPUT_NAME pymoses)
 
 	INSTALL (TARGETS moses_cython
-                 EXPORT MosesTargets
-	DESTINATION "${DATADIR}/python/moses")
+		EXPORT MosesTargets
+		DESTINATION "${DATADIR}/python/moses")
 ENDIF (HAVE_MOSES)
 
 INSTALL (FILES
