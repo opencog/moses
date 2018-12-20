@@ -111,10 +111,13 @@ struct metapop_printer
         if (output_ensemble) {
             const scored_combo_tree_set& tree_set =
                 metapop.get_ensemble().get_ensemble();
-            if (output_format::python == fmt) {
+            if (output_format::python == fmt or output_format::python3 == fmt) {
                 // Python boilerplate
-                ss << "#!/usr/bin/env python\n"
-                   << "#score: " << metapop.best_score() << std::endl
+                if (output_format::python == fmt)
+                    ss << "#!/usr/bin/env python\n";
+                else
+                    ss << "#!/usr/bin/env python3\n";
+                ss << "#score: " << metapop.best_score() << std::endl
                    << "def moses_eval(i):\n"
                    << "    sum = 0.0 \\\n";
                 for (const scored_combo_tree& sct : tree_set)
@@ -154,10 +157,13 @@ struct metapop_printer
             long cnt = 0;
             for (const scored_combo_tree& sct : tree_set) {
                 if (result_count == cnt++) break;
-                if (output_format::python == fmt) {
+                if (output_format::python == fmt or output_format::python3 == fmt) {
                     // Python boilerplate
-                    ss << "#!/usr/bin/env python\n"
-                       << "#score: " << sct.get_score() << std::endl
+                    if (output_format::python == fmt)
+                        ss << "#!/usr/bin/env python\n";
+                    else
+                        ss << "#!/usr/bin/env python3\n";
+                    ss << "#score: " << sct.get_score() << std::endl
                        << "import operator as op\n"
                        << "from functools import reduce\n"
                        << "from math import log, exp, sin\n"

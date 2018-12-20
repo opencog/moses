@@ -18,7 +18,7 @@ Example usage of run:
 Example #1: XOR example with Python output and Python input
 
 input_data = [[0, 0, 0], [1, 1, 0], [1, 0, 1], [0, 1, 1]]
-output = moses.run(input=input_data, python=True)
+output = moses.run(input=input_data, python3=True)
 print output[0].score # Prints: 0
 model = output[0].eval
 model([0, 1])  # Returns: True
@@ -27,7 +27,7 @@ model([1, 1])  # Returns: False
 Example #2: Run the majority demo problem, return only one candidate, and use
 Python output
 
-output = moses.run(args="-H maj -c 1", python=True)
+output = moses.run(args="-H maj -c 1", python3=True)
 model = output[0].eval
 model([0, 1, 0, 1, 0])  # Returns: False
 model([1, 1, 0, 1, 0])  # Returns: True

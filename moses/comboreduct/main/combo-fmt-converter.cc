@@ -95,7 +95,7 @@ pgrParameters parse_program_args(int argc, char** argv)
 
 		("output-format,f",
 		 value<string>(&pa.output_format_str)->default_value("combo"),
-		 "Supported output formats are combo, python and scheme.\n")
+		 "Supported output formats are combo, python, python3 and scheme.\n")
 
 		;
 
