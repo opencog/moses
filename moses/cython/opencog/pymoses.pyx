@@ -1,5 +1,6 @@
 __author__ = 'Cosmo Harrigan'
 
+from cpython.version cimport PY_MAJOR_VERSION
 from libc.stdlib cimport malloc, free
 import shlex
 import tempfile
@@ -60,7 +61,10 @@ cdef class moses:
         # Create temporary files for sending input/output to the moses_exec
         # function
         if input is not None:
-            input_file = tempfile.NamedTemporaryFile(mode='w+', encoding='utf-8')
+            if PY_MAJOR_VERSION < 3:
+                input_file = tempfile.NamedTemporaryFile()
+            else:
+                input_file = tempfile.NamedTemporaryFile(mode='w+', encoding='utf-8')
             input_file_builder = csv.writer(input_file, delimiter = ',')
             input_file_builder.writerows(input)
             input_file.flush()
@@ -88,7 +92,7 @@ cdef class moses:
         candidates = []
         # Python header declared in moses/moses/moses/types.h
         # (ostream_combo_tree_composite_pbscore_python)
-        python_header = bytes("#!/usr/bin/env python", "utf8")
+        python_header = b"#!/usr/bin/env python"
 
         if len(output) == 0:
             raise MosesException('Error: No output file was obtained from '
@@ -185,7 +189,7 @@ cdef class moses:
     def _run_args_list(self, args_list):
         args_list.insert(0, "moses")
         cdef char **c_argv
-        args_list = [bytes(x,"utf8") for x in args_list]
+        args_list = [bytes(x.decode("utf8")) for x in args_list]
         c_argv = <char**>malloc(sizeof(char*) * len(args_list))
         for idx, s in enumerate(args_list):
             c_argv[idx] = s
