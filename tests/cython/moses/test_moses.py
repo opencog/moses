@@ -1,5 +1,12 @@
 __author__ = 'Cosmo Harrigan'
 
+import sys
+
+# The opencog.pymoses module won't be found without this!
+if sys.version_info >= (3, 0):
+   sys.path.append("/usr/local/lib/python3/dist-packages")
+print ("The package search path is:" '\n'.join(sys.path))
+
 from nose.tools import *
 from opencog.pymoses import moses, MosesException, MosesCandidate
 
