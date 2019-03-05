@@ -43,13 +43,13 @@ The code for reproducing all of the published experiments on MOSES
 may be found in the learning/moses subdirectory.
 
 Below is a list of publications on MOSES.  The QuickGuide.pdf file in
-this driectory provides an overview of the MOSES alorithms and the main
+this directory provides an overview of the MOSES alorithms and the main
 structures and routines in the source code.  In addition, documentation
 may be found here:
 
-learning/moses/man   -- a unix 'manual' page describing the executable.
-learning/moses/documentation  -- algorthm insights
-learning/moses/diary  -- a diary of experimental results
+moses/moses/man   -- a unix 'manual' page describing the executable.
+moses/moses/documentation  -- algorthm insights
+moses/moses/diary  -- a diary of experimental results
 
 
 ************
