@@ -338,16 +338,19 @@ void metapop_moses_results(const std::vector<combo_tree>& bases,
                            const reduct::rule& si_ca,
                            const reduct::rule& si_kb,
                            behave_cscore& c_scorer,
-                           optim_parameters opt_params,
-                           hc_parameters hc_params,
-                           ps_parameters ps_params,
+                           const optim_parameters opt_params,
+                           const hc_parameters hc_params,
+                           const ps_parameters ps_params,
                            const deme_parameters& deme_params,
                            const subsample_deme_filter_parameters& filter_params,
                            const metapop_parameters& meta_params,
-                           moses_parameters moses_params,
+                           const moses_parameters moses_params,
                            Printer& printer)
 {
-    adjust_termination_criteria(c_scorer, opt_params, moses_params);
+    // Parameters that might get tweaked are copied
+    optim_parameters twk_opt_params(opt_params);
+    moses_parameters twk_moses_params(moses_params);
+    adjust_termination_criteria(c_scorer, twk_opt_params, twk_moses_params);
 
     if (filter_params.n_subsample_fitnesses > 1
         and filter_params.low_dev_pressure > 0.0)
@@ -361,15 +364,15 @@ void metapop_moses_results(const std::vector<combo_tree>& bases,
         behave_cscore ss_cscorer(ss_bscorer);
         metapop_moses_results_b(bases, type_sig, si_ca, si_kb,
                                 ss_cscorer,
-                                opt_params, hc_params, ps_params,
+                                twk_opt_params, hc_params, ps_params,
                                 deme_params, filter_params, meta_params,
-                                moses_params, printer);
+                                twk_moses_params, printer);
     } else {
         metapop_moses_results_b(bases, type_sig, si_ca, si_kb,
                                 c_scorer,
-                                opt_params, hc_params, ps_params,
+                                twk_opt_params, hc_params, ps_params,
                                 deme_params, filter_params, meta_params,
-                                moses_params, printer);
+                                twk_moses_params, printer);
     }
 }
 
