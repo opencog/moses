@@ -1,5 +1,5 @@
 %define name moses
-%define version 3.6.8
+%define version 3.7.0
 %define release 1
 
 Summary: MOSES automated program learning system

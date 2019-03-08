@@ -729,7 +729,7 @@ problem_params::add_options(boost::program_options::options_description& desc)
         ("diversity-dst",
          po::value<string>(&diversity_dst)->default_value(p_norm),
          str(format("Set the distance between behavioral scores, "
-                    "then used to determine the diversity penalty."
+                    "then used to determine the uniformity penalty."
                     "3 distances are available: %s, %s and %s.\n")
              % p_norm % tanimoto % angular).c_str())
 
@@ -939,7 +939,7 @@ problem_params::add_options(boost::program_options::options_description& desc)
         // ======= Feature-selection diversity pressure =======
         ("fs-diversity-pressure",
          po::value<double>(&festor_params.diversity_pressure)->default_value(0.0),
-         "Multiplicative coefficient of the diversity penalty "
+         "Multiplicative coefficient of the uniformity penalty "
          "(itself being in [0,1]).\n")
 
         ("fs-diversity-cap",

@@ -219,7 +219,7 @@ Scoring Requirements:
 1) hill-climber needs a *single* scalar score, to determine which way is "up".
 2) This scalar score needs to be a sum of:
    a) a complexity penalty, obtained from the combo tree,
-   b) a diversity penalty, based on
+   b) a uniformity penalty, based on
       i) the metapopulation
       ii) possibly the behavioral score
       iii) possibly the combo tree

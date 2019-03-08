@@ -71,9 +71,9 @@ void metapopulation::set_diversity()
     // mean is replaced by the max
     bool dp_max = _params.diversity.exponent <= 0.0;
 
-    // Update the diversity penalty of the candidate according to its
+    // Update the uniformity penalty of the candidate according to its
     // diversity distance to the pool
-    auto update_diversity_penalty = [&](bsct_dp_pair& v) {
+    auto update_uniformity_penalty = [&](bsct_dp_pair& v) {
 
         if (!pool.empty()) { // only do something if the pool is
                              // not empty (WARNING: this assumes
@@ -84,7 +84,7 @@ void metapopulation::set_diversity()
             OC_ASSERT(bsct.get_bscore().size(),
                       "Behavioral score is needed for diversity!");
 
-            // compute diversity penalty between bs and the last
+            // compute uniformity penalty between bs and the last
             // element of the pool
             dp_t last_dst = this->_cached_dst(&bsct, last_ptr);
             OC_ASSERT(last_dst >= 0.0, "The distance cannot be negative."
@@ -101,7 +101,7 @@ void metapopulation::set_diversity()
             // // ~debug
 
             // add it to v.second and compute the aggregated
-            // diversity penalty
+            // uniformity penalty
             dp_t adp;
             if (dp_max) {
                 v.second = std::max(v.second, last_ddp);
@@ -115,7 +115,7 @@ void metapopulation::set_diversity()
             // update v.first
             if (_params.diversity.dst2dp_type == _params.diversity.pthpower)
                 bsct.get_composite_score().multiply_diversity = true;
-            bsct.get_composite_score().set_diversity_penalty(adp);
+            bsct.get_composite_score().set_uniformity_penalty(adp);
 
             if (logger().is_fine_enabled()) {
                 stringstream ss;
@@ -131,7 +131,7 @@ void metapopulation::set_diversity()
 
     while (tmp.size()) {
         // update all diversity penalties of tmp
-        OMP_ALGO::for_each(tmp.begin(), tmp.end(), update_diversity_penalty);
+        OMP_ALGO::for_each(tmp.begin(), tmp.end(), update_uniformity_penalty);
 
         // take the max score, insert in the pool and remove from tmp
 

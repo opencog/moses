@@ -195,7 +195,7 @@ void local_moses(metapopulation& mp,
             ss << pa.max_cnd_output << " best candidates of the metapopulation (with scores and visited status):" << std::endl;
             mp.ostream_metapop(ss, pa.max_cnd_output);
             logger().debug(ss.str());
-        }        
+        }
     }
     
     // Log that MOSES ends and why

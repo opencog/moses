@@ -107,8 +107,6 @@ ToDo List
 
 -- Add equ support (i.e. enumerated input support).  Priority: high.
 
--- Add a diversity Penalty: High priority.
-
 -- There is a hint that, when decorating large trees, two slightly
    different trees end up being more or less exactly the same after
    decoration.  That is, both start with nearly the same initial
@@ -117,7 +115,7 @@ ToDo List
    to one-another, and fail to differ by much, and, after decoration, fail
    to differ at all.  This should be fixed.  Priority: High.
 
-   Current plan is to use diversity penalty to suppress this.
+   Current plan is to use uniformity penalty to suppress this.
 
 -- The build_knobs::disc_probe does some rather expensive masuring
    but its not clear if it is really needed.  Should try some perf 

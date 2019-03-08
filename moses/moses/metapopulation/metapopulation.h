@@ -94,7 +94,7 @@ namespace moses {
  * A number of different approaches are taken to maintain a well-balanced,
  * evenly-distributed collection of exemplars.  One of these is the
  * "diversity" mechanism, which seeks to ensure that the distribution
- * stays as diverse as possible, by means of a "diversity penalty",
+ * stays as diverse as possible, by means of a "uniformity penalty",
  * which enables low-scoring combo trees to be kept around, without being
  * crowded out by higher-scoring rivals. The point here is that it is
  * often the case that low-scoring, unfit combo trees can generate very
@@ -282,10 +282,10 @@ private:
 
     // ------------------- Diversity-realted parts --------------------
 private:
-    typedef diversity_parameters::dp_t dp_t;  // diversity_penalty type
+    typedef diversity_parameters::dp_t dp_t;  // uniformity_penalty type
 
     /**
-     * Distort a diversity penalty component between 2
+     * Distort a uniformity penalty component between 2
      * candidates. (actually not used apart from a comment of
      * aggregated_dps)
      */
@@ -304,9 +304,9 @@ private:
     }
 
     /**
-     * Compute the diversity penalty for all models of the metapopulation.
+     * Compute the uniformity penalty for all models of the metapopulation.
      *
-     * If the diversity penalty is enabled, then punish the scores of
+     * If the uniformity penalty is enabled, then punish the scores of
      * those exemplars that are too similar to the previous ones.
      * This may not make any difference for the first dozen exemplars
      * choosen, but starts getting important once the metapopulation
@@ -317,7 +317,7 @@ private:
      * performance by quite a bit.  To avoid this, we'd need to change
      * the use of scored_combo_tree_set in this class. This would be
      * a fairly big task, and it's currently not clear that its worth
-     * the effort, as diversity_penalty is not yet showing promising
+     * the effort, as uniformity_penalty is not yet showing promising
      * results...
      */
     void set_diversity();
@@ -350,7 +350,7 @@ public:
 private:
 
     /**
-     * Cache for bscore distance between (for diversity penalty). Maps
+     * Cache for bscore distance between (for uniformity penalty). Maps
      * a std::set<scored_combo_tree*> (only 2 elements to represent
      * an unordered pair) to a a bscore distance. We don't use
      * {lru,prr}_cache because

@@ -113,7 +113,7 @@ const composite_score worst_composite_score = composite_score();
 
 composite_score::composite_score()
     : score(very_worst_score), complexity(least_complexity),
-      complexity_penalty(0.0), diversity_penalty(0.0),
+      complexity_penalty(0.0), uniformity_penalty(0.0),
       penalized_score(very_worst_score)
 {}
 
@@ -123,7 +123,7 @@ composite_score& composite_score::operator=(const composite_score &r)
     complexity = r.complexity;
     penalized_score = r.penalized_score;
     complexity_penalty = r.complexity_penalty;
-    diversity_penalty = r.diversity_penalty;
+    uniformity_penalty = r.uniformity_penalty;
     multiply_diversity = r.multiply_diversity;
     return *this;
 }
@@ -159,7 +159,7 @@ bool composite_score::operator==(const composite_score &r) const
     return is_approx_eq(score, r.get_score(), EPSILON)
         and complexity == r.get_complexity()
         and is_approx_eq(complexity_penalty, r.get_complexity_penalty(), EPSILON)
-        and is_approx_eq(diversity_penalty, r.get_diversity_penalty(), EPSILON)
+        and is_approx_eq(uniformity_penalty, r.get_uniformity_penalty(), EPSILON)
         and is_approx_eq(penalized_score, r.get_penalized_score(), EPSILON);
 }
 
@@ -222,7 +222,7 @@ scored_combo_tree string_to_scored_combo_tree(const std::string& line)
         + "penalized score=" + float_re + ", "
         + "complexity=" + "(\\d+)" + ", "
         + "complexity penalty=" + float_re + ", "
-        + "diversity penalty=" + float_re + "\\]";
+        + "uniformity penalty=" + float_re + "\\]";
 
     static const string demeID_re = string("( demeID: ")
         + "([0-9]+)(\\.([0-9]+))?(\\.SS-([0-9]+))?)?";
@@ -259,8 +259,8 @@ scored_combo_tree string_to_scored_combo_tree(const std::string& line)
     // Parse composite score
     complexity_t cpx = std::stoi(sct_match[5].str());
     score_t cpx_penalty = std::stof(sct_match[6].str()),
-        diversity_penalty = std::stof(sct_match[7].str());
-    composite_score cs(sc, cpx, cpx_penalty, diversity_penalty);
+        uniformity_penalty = std::stof(sct_match[7].str());
+    composite_score cs(sc, cpx, cpx_penalty, uniformity_penalty);
 
     // Parse demeID
     demeID_t demeID;
