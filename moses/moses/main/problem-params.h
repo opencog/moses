@@ -126,6 +126,7 @@ struct problem_params : public option_base
 
     // metapopulation diversity parameters
     score_t diversity_pressure;
+    bool diversity_autoscale;
     score_t diversity_exponent;
     bool diversity_normalize;
     std::string diversity_dst;

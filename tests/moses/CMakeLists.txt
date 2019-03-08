@@ -118,3 +118,11 @@ TARGET_LINK_LIBRARIES(AntUTest
 	comboreduct
 	${COGUTIL_LIBRARY}
 )
+
+ADD_CXXTEST(diversityUTest)
+TARGET_LINK_LIBRARIES(diversityUTest
+	moses_exec
+	moses
+	comboreduct
+	${COGUTIL_LIBRARY}
+)

@@ -696,7 +696,18 @@ problem_params::add_options(boost::program_options::options_description& desc)
          po::value<score_t>(&diversity_pressure)->default_value(0.0),
          "Set a diversity pressure on the metapopulation. "
          "Programs behaving similarily to others are more penalized. "
-         "That value sets the importance of that penalty (from 0 to +inf).\n")
+         "That value sets the importance of that penalty. It ranges "
+         "from 0 to +inf. If --diversity-autoscale is enabled "
+         "(recommended) then it typically ranges from 0 to 1.  "
+         "Default 0.0.\n")
+
+        ("diversity-autoscale",
+         po::value<bool>(&diversity_autoscale)->default_value(false),
+         "Automatically rescale the --diversity-pressure parameter so "
+         "that a pressure may typically range from 0 to 1, regardless of "
+         "the fitness function. Although this option is disabled by "
+         "default for backward compatibility, it is highly recommended.  "
+         "Default 0.\n")
 
         ("diversity-exponent",
          po::value<score_t>(&diversity_exponent)->default_value(-1.0),
@@ -718,14 +729,14 @@ problem_params::add_options(boost::program_options::options_description& desc)
         ("diversity-dst",
          po::value<string>(&diversity_dst)->default_value(p_norm),
          str(format("Set the distance between behavioral scores, "
-                    "then used to determin the diversity penalty."
+                    "then used to determine the diversity penalty."
                     "3 distances are available: %s, %s and %s.\n")
              % p_norm % tanimoto % angular).c_str())
 
         ("diversity-p-norm",
          po::value<score_t>(&diversity_p_norm)->default_value(2.0),
-         "Set the parameter of the p_norm distance. A value of 1.0"
-         "correspond to the Manhatan distance. A value of 2.0 corresponds to "
+         "Set the parameter of the p_norm distance. A value of 1.0 "
+         "corresponds to the Manhatan distance. A value of 2.0 corresponds to"
          "the Euclidean distance. A value of 0.0 or less correspond to the "
          "max component-wise. Any other value corresponds to the general case.\n")
 
@@ -1365,6 +1376,7 @@ void problem_params::parse_options(boost::program_options::variables_map& vm)
 
     // diversity parameters
     meta_params.diversity.pressure = diversity_pressure;
+    meta_params.diversity.autoscale = diversity_autoscale;
     meta_params.diversity.exponent = diversity_exponent;
     meta_params.diversity.normalize = diversity_normalize;
     // set distance

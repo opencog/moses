@@ -1,4 +1,4 @@
-/** dynFeatSelTest.cxxtest ---
+/** dynFeatSelUTest.cxxtest ---
  *
  * Copyright (C) 2012 OpenCog Foundation
  * Copyright (C) 2013 Linas Vepstas
@@ -25,6 +25,7 @@
 #include <opencog/util/mt19937ar.h>
 #include "moses-framework.h"
 
+using namespace opencog;
 using namespace opencog::moses;
 
 const string test_dir = string(PROJECT_SOURCE_DIR) + "/tests/moses/";
@@ -37,7 +38,7 @@ class dynamicFeatsUTest : public CxxTest::TestSuite
 public:
     dynamicFeatsUTest()
     {
-        // logger().setPrintToStdoutFlag(true);
+        // logger().set_print_to_stdout_flag(true);
         // to control the log level use option -l
     }
 

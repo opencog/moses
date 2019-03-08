@@ -100,6 +100,18 @@ void adjust_termination_criteria(const behave_cscore& c_scorer,
     opt_params.set_min_score_improv(c_scorer.min_improv());
 }
 
+void autoscale_diversity(const behave_cscore& sc,
+                         metapop_parameters& meta_params)
+{
+    if (meta_params.diversity.enabled() and meta_params.diversity.autoscale) {
+        score_t magnitude = sc.best_possible_score() - sc.worst_possible_score();
+        meta_params.diversity.pressure *= magnitude;
+        meta_params.diversity.set_dst2dp(meta_params.diversity.dst2dp_type);
+        logger().info("Diversity pressure has been rescaled to %g",
+                      meta_params.diversity.pressure);
+    }
+}
+
 } // ~namespace moses
 } // ~namespace opencog
 

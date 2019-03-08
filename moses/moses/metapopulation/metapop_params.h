@@ -40,6 +40,11 @@ struct diversity_parameters
     // the strong the pressure.
     dp_t pressure;
 
+    // Whether pressure should be rescaled to match the magnitude of
+    // the score (so that the user can simply set a pressure between 0
+    // and 1).
+    bool autoscale;
+
     // exponent of the generalized mean (or sum, see below) used to
     // aggregate the diversity penalties of a candidate between a set
     // of candidates. If the exponent is negative (default) then the
@@ -92,6 +97,9 @@ struct diversity_parameters
 
     void set_dst2dp(dst2dp_enum_t d2de);
     std::function<dp_t(dp_t)> dst2dp;
+
+    // Return true if diversity is enabled
+    bool enabled() const;
 };
 
 /**
