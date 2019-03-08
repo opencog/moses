@@ -345,7 +345,7 @@ public:
      * thus, in principle, speeding learning.
      */
     bool diversity_enabled() const {
-        return _params.diversity.pressure > 0.0;
+        return _params.diversity.enabled();
     }
 private:
 

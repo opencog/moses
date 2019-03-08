@@ -81,5 +81,10 @@ void diversity_parameters::set_dst2dp(diversity_parameters::dst2dp_enum_t d2de)
     }
 }
 
+bool diversity_parameters::enabled() const
+{
+    return pressure > 0.0;
+}
+
 } // ~namespace moses
 } // ~namespace opencog

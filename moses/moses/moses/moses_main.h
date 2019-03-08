@@ -330,6 +330,12 @@ void adjust_termination_criteria(const behave_cscore& sc,
                                  moses_parameters& moses_params);
 
 /**
+ * Autoscale diversity pressure to match the magnitude of the scorer
+ */
+void autoscale_diversity(const behave_cscore& sc,
+                         metapop_parameters& meta_params);
+
+/**
  * like above, but assumes that the score is bscore based
  */
 template<typename Printer>
@@ -349,8 +355,10 @@ void metapop_moses_results(const std::vector<combo_tree>& bases,
 {
     // Parameters that might get tweaked are copied
     optim_parameters twk_opt_params(opt_params);
+    metapop_parameters twk_meta_params(meta_params);
     moses_parameters twk_moses_params(moses_params);
     adjust_termination_criteria(c_scorer, twk_opt_params, twk_moses_params);
+    autoscale_diversity(c_scorer, twk_meta_params);
 
     if (filter_params.n_subsample_fitnesses > 1
         and filter_params.low_dev_pressure > 0.0)
@@ -365,13 +373,13 @@ void metapop_moses_results(const std::vector<combo_tree>& bases,
         metapop_moses_results_b(bases, type_sig, si_ca, si_kb,
                                 ss_cscorer,
                                 twk_opt_params, hc_params, ps_params,
-                                deme_params, filter_params, meta_params,
+                                deme_params, filter_params, twk_meta_params,
                                 twk_moses_params, printer);
     } else {
         metapop_moses_results_b(bases, type_sig, si_ca, si_kb,
                                 c_scorer,
                                 twk_opt_params, hc_params, ps_params,
-                                deme_params, filter_params, meta_params,
+                                deme_params, filter_params, twk_meta_params,
                                 twk_moses_params, printer);
     }
 }
