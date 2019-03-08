@@ -1536,18 +1536,87 @@ Beware that a lot of log files are going to be generated on the
 remote machines.
 
 .\" ============================================================
+
+.SH DIVERSITY
+.PP
+\fBmoses\fR can enforce diversity in the metapopulation, by taking
+into account a diversity pressure during ranking, effectively pushing
+down semantically redundant candidates to the bottom of the
+metapopulation. This has 2 effects
+
+1. Selected exemplars for new demes are more likely to be diverse.
+
+2. Top candidates output to the user at the end of learning are more
+likely to be diverse.
+
+The diversity pressure operates over the semantics of the candidates
+by measuring the distance between the behavioral scores of the current
+candidate to be ranked and the top candidates already ranked. The
+exact algorithm is described in Section 1.3 of
+\fIhttps://github.com/opencog/moses/blob/master/moses/moses/documentation/diversity_report_v0.3_disclosable.pdf\fR.
+
+.PP
+.\" ============================================================
+.SS "Diversity options"
+User options can be used to determine how much pressure to apply and
+how the distance between behavioral scores should be calculated. If
+you do not wish to understand much of these options but still want to
+enforce diversity simply set a positive diversity pressure (typically
+around 0.01) with option --diversity-pressure, and enable autoscale
+with option --diversity-autoscale=1.
+.TP
+.BI --diversity-pressure= num
+Set a diversity pressure on the metapopulation. Programs behaving
+similarily to others are more penalized. That value sets the
+importance of that penalty. It ranges from 0 to +inf. If
+--diversity-autoscale is enabled (recommended) then it typically
+ranges from 0 to 1.  Default 0.0.
+.TP
+.BI --diversity-autoscale= bool
+Automatically rescale the --diversity-pressure parameter so that a
+pressure may typically range from 0 to 1, regardless of the fitness
+function. Although this option is disabled by default for backward
+compatibility, it is highly recommended.  Default 0.
+.TP
+.BI --diversity-exponent= num
+Set the exponent of the generalized mean (or sum, if
+--diversity-normalize is set to 0) aggregating the penalties between a
+candidate and the set of all candidates better than itself (taking
+into account diversity). If the value tends towards 0 it tends to the
+geometric mean, towards +inf it tends to the max function. If negative
+or null is it the max function.  Default -1.0.
+.TP
+.BI --diversity-normalize= bool
+If set to 1 then the aggregating function is a generalized mean.
+Otherwize it is a generalized sum (generalize mean * number of
+elements).  If --diversity-exponent is set to negatively then this
+doesn't have any impact as the aggregating function is the max anyway.
+Default 1.
+.TP
+.BI --diversity-dst= distance
+Set the distance between behavioral scores, then used to determine the
+diversity penalty. 3 distances are available: p_norm, tanimoto and
+angular.  Default p_norm.
+.TP
+.BI --diversity-p-norm= num
+Set the parameter of the p_norm distance. A value of 1.0 corresponds
+to the Manhatan distance. A value of 2.0 corresponds to the Euclidean
+distance.  A value of 0.0 or less correspond to the max
+component-wise. Any other value corresponds to the general case.
+Default 2.0.
+.TP
+.BI --diversity-dst2dp= type
+Set the type of function to convert distance into penalty. 4 options
+are available: auto, inverse, complement and power. When auto is
+selected the function is selected depending on the distance, if the
+distance is p_norm, then inverse is selected, otherwise complement is
+selected.  Default auto.
+
+.\" ============================================================
 .SH TODO
 Finish documenting these algo flags:
 --fs-scorer
-
-
-  -M
---diversity-pressure
---diversity-exponent
---diversity-normalize
---diversity-dst
---diversity-p-norm
---diversity-dst2dp
+-M
 .PP
 -R discretize target var
 .PP
