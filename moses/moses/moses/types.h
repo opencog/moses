@@ -88,10 +88,10 @@ struct composite_score:
     // subtraction in the comparison operator.
     composite_score(score_t scor, complexity_t cpxy,
                     score_t complexity_penalty_ = 0.0,
-                    score_t diversity_penalty_ = 0.0)
+                    score_t uniformity_penalty_ = 0.0)
         : multiply_diversity(false), score(scor), complexity(cpxy),
           complexity_penalty(complexity_penalty_),
-          diversity_penalty(diversity_penalty_)
+          uniformity_penalty(uniformity_penalty_)
     {
         update_penalized_score();
     }
@@ -118,15 +118,15 @@ struct composite_score:
         complexity_penalty = penalty;
         update_penalized_score();
     }
-    score_t get_diversity_penalty() const { return diversity_penalty; }
-    void set_diversity_penalty(score_t penalty)
+    score_t get_uniformity_penalty() const { return uniformity_penalty; }
+    void set_uniformity_penalty(score_t penalty)
     {
-        diversity_penalty = penalty;
+        uniformity_penalty = penalty;
         update_penalized_score();
     }
     score_t get_penalty() const
     {
-        return complexity_penalty + diversity_penalty;
+        return complexity_penalty + uniformity_penalty;
     }
 
     /// Compare penalized scores.  That is, we compare score-penalty
@@ -143,7 +143,7 @@ struct composite_score:
     bool operator==(const composite_score& r) const;
 
     // EXPERIMENTAL: if multiply_diversity is set to true then the
-    // diversity_penalty is multiplied with the raw score instead
+    // uniformity_penalty is multiplied with the raw score instead
     // being subtracted. This makes more sense if the diversity
     // penalty represent a probability. Hmm. Except that scores
     // behave kind-of-like the logarithm of a (solomonoff) probability...
@@ -158,17 +158,17 @@ protected:
     score_t score;
     complexity_t complexity;
     score_t complexity_penalty;
-    score_t diversity_penalty;
+    score_t uniformity_penalty;
     score_t penalized_score;
 
     /// Update penalized_score, i.e. substract the complexity and
-    /// diversity penalty from the raw score.
+    /// uniformity penalty from the raw score.
     void update_penalized_score() {
         penalized_score = score - complexity_penalty;
         if (multiply_diversity)
-            penalized_score *= diversity_penalty;
+            penalized_score *= uniformity_penalty;
         else
-            penalized_score -= diversity_penalty;
+            penalized_score -= uniformity_penalty;
     }
 };
 
@@ -310,7 +310,7 @@ public:
     complexity_t get_complexity() const { return _cscore.get_complexity(); }
     score_t get_penalized_score() const { return _cscore.get_penalized_score(); }
     score_t get_complexity_penalty() const { return _cscore.get_complexity_penalty(); }
-    score_t get_diversity_penalty() const { return _cscore.get_diversity_penalty(); }
+    score_t get_uniformity_penalty() const { return _cscore.get_uniformity_penalty(); }
     score_t get_penalty() const { return _cscore.get_penalty(); }
 
     bool operator==(const scored_combo_tree& r) const;
@@ -437,7 +437,7 @@ inline std::ostream& operator<<(std::ostream& out,
                << ", penalized score=" << ts.get_penalized_score()
                << ", complexity=" << ts.get_complexity()
                << ", complexity penalty=" << ts.get_complexity_penalty()
-               << ", diversity penalty=" << ts.get_diversity_penalty()
+               << ", uniformity penalty=" << ts.get_uniformity_penalty()
                << "]";
 }
 

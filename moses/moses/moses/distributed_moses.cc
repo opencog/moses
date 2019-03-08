@@ -245,9 +245,9 @@ void parse_result(istream& in, scored_combo_tree_set& candidates, int& evals)
             // read complexity penalty
             score_t complexity_penalty;
             in >> complexity_penalty;
-            // read complexity penalty
-            score_t diversity_penalty;
-            in >> diversity_penalty;
+            // read uniformity penalty
+            score_t uniformity_penalty;
+            in >> uniformity_penalty;
             // read candidate
             combo_tree tr;
             in >> tr;

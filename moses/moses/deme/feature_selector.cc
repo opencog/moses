@@ -350,7 +350,7 @@ csc_feature_set_pop feature_selector::rank_feature_sets(const feature_set_pop& f
 
     // initialize csc_fs_pop (the temporary structure holding all the
     // feature sets not yet ranked by diversity).  Each element will
-    // contain the current diversity penalty between itself and the
+    // contain the current uniformity penalty between itself and the
     // ranked features sets (in res). Because the way the diversity
     // penalties are aggregated (max) we only need to compute the
     // diversity between the elements and the lastly added feature set
@@ -399,11 +399,11 @@ csc_feature_set_pop feature_selector::rank_feature_sets(const feature_set_pop& f
                 // // ~DEBUG
 
                 // aggregate the results (here max)
-                float agg_dp = std::max(csc_fs.first.get_diversity_penalty(),
+                float agg_dp = std::max(csc_fs.first.get_uniformity_penalty(),
                                         last_dp);
 
-                // compute and update the diversity penalty
-                csc_fs.first.set_diversity_penalty(agg_dp);
+                // compute and update the uniformity penalty
+                csc_fs.first.set_uniformity_penalty(agg_dp);
 
                 // // DEBUG
                 // logger().debug() << "With composite score (AFTER): " << csc_fs.first;

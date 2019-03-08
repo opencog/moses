@@ -71,7 +71,7 @@ struct diversity_parameters
     std::function<dp_t(const std::vector<score_t>&,
                        const std::vector<score_t>&)> dst;
 
-    // Function to convert the distance into diversity penalty. There
+    // Function to convert the distance into uniformity penalty. There
     // are 3 possible functions
     //
     // The inserve (offset by 1)

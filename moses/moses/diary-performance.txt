@@ -2815,7 +2815,7 @@ the heck is -U2 faster!?
 2.56M:
 
 
-"16-diverse":  bzr rev 7178 with diversity penalty manually enabled.
+"16-diverse":  bzr rev 7178 with uniformity penalty manually enabled.
     Otherwise, as above, using the 16-sector dataset so that above
     provides a baseline.
     moses-perf -Hit -utarg -i magic-16-sect.data -W1 -x1 -n sin -n log
@@ -2954,7 +2954,7 @@ almost 56% accuracy.  Yahoo!  The 5.12M run is hitting 78% accuracy.
 
 "yeast-j12-nn-5K": As above, on Cray, -j12, fixed first row labels.
 
-"yeast-diverse": as above, but with a diversity penalty enabled.
+"yeast-diverse": as above, but with a uniformity penalty enabled.
          A promising jump, and then it stalls. Hmm. Need to think
          about this one... is this due to the cond structure?  
          Perhaps the penalty is too large?
@@ -2991,7 +2991,7 @@ wdbc-base:
 wdbc-base-j12: as above, but -j12  Clearly, this stalls out above
     160K evals.  I think work on contin and linearization is needed.
 
-wdbc-div-j12: as above, but diversity penalty turned on (by mistake).
+wdbc-div-j12: as above, but uniformity penalty turned on (by mistake).
 
 wdbc-canon: bzr rev 7242, fix of the build_knobs::rec_canonize
         warning for id::times canonization.  Doing this exhibits

@@ -104,7 +104,7 @@ int main(int argc, char** argv)
         ("diversity-dst",
          po::value<string>(&edp.diversity_dst)->default_value(p_norm),
          str(boost::format("Set the distance between behavioral scores, "
-                           "then used to determin the diversity penalty."
+                           "then used to determin the uniformity penalty."
                            "3 distances are available: %s, %s and %s.\n")
              % p_norm % tanimoto % angular).c_str())
 
