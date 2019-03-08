@@ -41,11 +41,11 @@ public:
         score_t sc = 0.5;
         complexity_t cpx = tree_complexity(tr);
         score_t cpx_penalty = 0.1;
-        score_t diversity_penalty = 0.2;
+        score_t uniformity_penalty = 0.2;
         behavioral_score bs = {0.25, 0, 0.25};
 
         // build the scored_combo_tree
-        composite_score cs(sc, cpx, cpx_penalty, diversity_penalty);
+        composite_score cs(sc, cpx, cpx_penalty, uniformity_penalty);
         scored_combo_tree bct(tr, demeID_t(1,2,3), cs, bs);
 
         // build expected string
