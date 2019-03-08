@@ -12,7 +12,7 @@
 # MOSES' version, must be updated manually
 SET (MOSES_VERSION_MAJOR 3)
 SET (MOSES_VERSION_MINOR 6)
-SET (MOSES_VERSION_PATCH 10)
+SET (MOSES_VERSION_PATCH 11)
 SET (MOSES_VERSION "${MOSES_VERSION_MAJOR}.${MOSES_VERSION_MINOR}.${MOSES_VERSION_PATCH}")
 
 # Need to have cmake-2.8.8 in order to be able to check the
