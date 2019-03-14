@@ -570,7 +570,7 @@ protected:
     std::mutex _merge_mutex;
 
     // For now, the ensemble is along for the ride.  Someday, perhaps
-    // it should enjoy life ndependently of the metapop.
+    // it should enjoy life independently of the metapop.
     ensemble _ensemble;
 };
 
