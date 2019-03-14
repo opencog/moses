@@ -189,10 +189,12 @@ void local_moses(metapopulation& mp,
         }
 
         // I find this particularly useful for studying diversity but
-        // it could be relaxed and printed whatever
+        // it could be relaxed to be printed regardless of whether
+        // diversity is enabled or not.
         if (logger().is_debug_enabled() and mp.diversity_enabled()) {
             std::stringstream ss;
-            ss << pa.max_cnd_output << " best candidates of the metapopulation (with scores and visited status):" << std::endl;
+            ss << "Top " << pa.max_cnd_output
+               << " candidates of the metapopulation:" << std::endl;
             mp.ostream_metapop(ss, pa.max_cnd_output);
             logger().debug(ss.str());
         }
