@@ -528,6 +528,11 @@ public:
     // log the best candidates
     void log_best_candidates() const;
 
+    // Output the top n candidates (with behavior scores) of the
+    // metapopulation. This function is used for fine logging to
+    // deeply probe the metapopulation.
+    //
+    // TODO: we may want to output the visited status as well
     std::ostream& ostream_metapop(std::ostream&, int n = INT_MAX) const;
 
 private:
