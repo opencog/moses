@@ -528,6 +528,11 @@ public:
     // log the best candidates
     void log_best_candidates() const;
 
+    // Output the top n candidates (with behavior scores) of the
+    // metapopulation. This function is used for fine logging to
+    // deeply probe the metapopulation.
+    //
+    // TODO: we may want to output the visited status as well
     std::ostream& ostream_metapop(std::ostream&, int n = INT_MAX) const;
 
 private:
@@ -570,7 +575,7 @@ protected:
     std::mutex _merge_mutex;
 
     // For now, the ensemble is along for the ride.  Someday, perhaps
-    // it should enjoy life ndependently of the metapop.
+    // it should enjoy life independently of the metapop.
     ensemble _ensemble;
 };
 

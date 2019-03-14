@@ -248,9 +248,8 @@ const combo_tree& metapopulation::best_tree() const
 
 std::ostream& metapopulation::ostream_metapop(std::ostream& out, int maxcnt) const
 {
-    const scored_combo_tree_set& tree_set = best_candidates();
     int cnt = 0;
-    for (const scored_combo_tree& sct : tree_set) {
+    for (const scored_combo_tree& sct : _scored_trees) {
         if (maxcnt < ++cnt) break;
         out << sct;
     }

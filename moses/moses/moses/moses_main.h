@@ -221,7 +221,7 @@ struct metapop_printer
                     logger().warn("No candidate is good enough to be returned. "
                                   "Yeah that's bad!");
                 else
-                    logger().info("Best candidates:\n%s", ssb.str().c_str());
+                    logger().info("Best candidate:\n%s", ssb.str().c_str());
             }
         }
 

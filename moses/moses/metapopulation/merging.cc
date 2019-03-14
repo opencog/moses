@@ -144,10 +144,10 @@ void metapopulation::rescore()
 #endif
 }
 
-/// Merge the given set of candidates into the metapopulation.
-/// It is assumed that these candiates have already be vetted for
-/// quality, quantity, suitability, etc.  This simply performs that
-/// final, actual merge.
+/// Merge the given set of candidates into the metapopulation.  It is
+/// assumed that these candidates have already be vetted for quality,
+/// quantity, suitability, etc.  This simply performs that final,
+/// actual merge.
 void metapopulation::merge_candidates(scored_combo_tree_set& candidates)
 {
     if (logger().is_debug_enabled()) {
