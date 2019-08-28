@@ -246,7 +246,7 @@ int ITable::get_column_offset(const std::string& name) const
     auto pos = std::find(labels.begin(), labels.end(), name);
     if (pos == labels.end())
         return -1;
-    return distance(labels.begin(), pos);
+    return std::distance(labels.begin(), pos);
 }
 
 vertex_seq ITable::get_column_data(int offset) const
