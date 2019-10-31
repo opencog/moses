@@ -1314,9 +1314,9 @@ double mutualInformationBtwSets(const CTable& ctable,
     FeatureSet fs_u = set_union(fs_l, fs_r);
 
     // Check that the arities are within permitted range
-    OC_ASSERT(all_of(fs_u.begin(), fs_u.end(),
-                     [&](const typename FeatureSet::value_type& f) {
-                         return f < ctable.get_arity();}));
+    OC_ASSERT(std::all_of(fs_u.begin(), fs_u.end(),
+                          [&](const typename FeatureSet::value_type& f) {
+	                          return f < ctable.get_arity();}));
 
     // declare useful visitors
     seq_filtered_visitor<FeatureSet> sfv_u(fs_u), sfv_l(fs_l), sfv_r(fs_r);
