@@ -247,7 +247,9 @@ protected:
                            size_t sample_size,
                            const instance& base);
 
-    // chain the 3 crossovers methods above and return the number of new instances
+    // Chain the 3 crossovers methods above and return the number of
+    // new instances. The number of new instances should be lower or
+    // equal to max_number_of_new_instance.
     size_t crossover(deme_t& deme, size_t deme_size,
                      size_t max_number_of_new_instance,
                      size_t sample_start, size_t sample_size,
