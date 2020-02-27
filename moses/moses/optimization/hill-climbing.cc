@@ -704,7 +704,10 @@ size_t hill_climbing::crossover(deme_t& deme, size_t deme_size,
     // These cross-over (in the genetic sense) the
     // top-scoring one, two and three instances,respectively.
     size_t number_of_new_instances =
-        cross_top_one(deme, deme_size, num_to_make / 3,
+        cross_top_one(deme, deme_size,
+                      // Add the remainder so that it all sums up to
+                      // num_to_make in the end.
+                      num_to_make / 3 + num_to_make % 3,
                       sample_start, sample_size, base);
 
     number_of_new_instances +=
