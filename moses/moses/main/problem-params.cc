@@ -224,7 +224,7 @@ problem_params::add_options(boost::program_options::options_description& desc)
          "maj, demo, majority problem\n\n"
          "sr, demo, regression of f_n(x) = sum_{k=1,n} x^k\n")
 
-        (opt_desc_str(nsamples_opt).c_str(),
+        (nsamples_opt.c_str(),
          po::value<int>(&nsamples)->default_value(-1),
          "Number of samples to describe the problem. "
          "If nsample is negative, null or larger than the maximum "

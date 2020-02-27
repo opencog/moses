@@ -36,7 +36,7 @@ using namespace std;
 // Available abbreviations are: O
 static const pair<string, string> rand_seed_opt("random-seed", "r");
 static const pair<string, string> problem_opt("problem", "H");
-static const pair<string, string> nsamples_opt("nsamples", "b");
+static const string nsamples_opt("nsamples");
 static const pair<string, string> min_rand_input_opt("min-rand-input", "q");
 static const pair<string, string> max_rand_input_opt("max-rand-input", "w");
 static const pair<string, string> max_evals_opt("max-evals", "m");
