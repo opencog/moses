@@ -28,6 +28,7 @@
  */
 
 #include <math.h>   // for sqrtf, cbrtf
+#include <algorithm>
 
 #include <boost/algorithm/minmax_element.hpp>
 
@@ -532,11 +533,12 @@ size_t hill_climbing::n_new_instances(size_t distance, unsigned max_evals,
 // disabled and it leads to some massive slow down because then most
 // of the computational power is spent on successive representation
 // building
-#define MINIMUM_DEME_SIZE         100
+#define MINIMUM_DEME_SIZE         100UL
 
-    // If fraction is small, just use up the rest of the cycles.
+    // If fraction is small, just use up the rest of the cycles up to
+    // MINIMUM_DEME_SIZE.
     if (number_of_new_instances < MINIMUM_DEME_SIZE)
-        number_of_new_instances = nleft;
+        number_of_new_instances = std::min(nleft, MINIMUM_DEME_SIZE);
 
     if (nleft < number_of_new_instances)
         number_of_new_instances = nleft;
