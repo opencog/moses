@@ -66,8 +66,7 @@ moses \- meta-optimizing semantic evolutionary search solver
 .IR algo ]
 .RB [ \-B
 .IR knob_effort ]
-.RB [ \-b
-.IR nsamples ]
+.RB [ \-\-nsamples ]
 .RB [ \-C1 ]
 .RB [ \-c
 .IR result_count ]
@@ -481,7 +480,7 @@ For boolean problems, this is the same as flipping the output
 value.  This option can only be used once, and, if used, it should
 specify a column containing an integer or floating-point value.
 .TP
-.BI \-b\  num \fR,\ \fB\-\-nsamples= num
+.BI \-\-nsamples= num
 The number of samples to be taken from the input file. Valid values
 run between 1 and the number of rows in the data file; other values
 are ignored. If this option is absent, then all data rows are used.
@@ -1249,7 +1248,7 @@ combo program specified with the \fB-y\fR flag. That is, the goal of
 the run is to deduce and learn the specified combo program.
 
 When specifying combo programs with continuous variables in them, be
-sure to use the \fB\-q\fR, \fB\-w\fR and \fB\-b\fR flags to specify
+sure to use \fB\-q\fR, \fB\-w\fR and \fB\-\-nsample\fR to specify
 a range of input values to be sampled. In order to determine the fitness
 of any candidate, it must be compared to the specified combo
 program.  The comparison is done at a variety of different input
