@@ -249,6 +249,7 @@ protected:
 
     // chain the 3 crossovers methods above and return the number of new instances
     size_t crossover(deme_t& deme, size_t deme_size,
+                     size_t max_number_of_new_instance,
                      size_t sample_start, size_t sample_size,
                      const instance& base);
 

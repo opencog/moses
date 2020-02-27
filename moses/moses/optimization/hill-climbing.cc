@@ -166,6 +166,7 @@ void hill_climbing::operator()(deme_t& deme,
 
             number_of_new_instances =
                 crossover(deme, current_number_of_instances,
+                          number_of_new_instances,
                           prev_start, prev_size, prev_center);
 
             already_xover = true;
@@ -693,23 +694,26 @@ size_t hill_climbing::cross_top_three(deme_t& deme,
 }
 
 size_t hill_climbing::crossover(deme_t& deme, size_t deme_size,
+                                size_t max_number_of_new_instances,
                                 size_t sample_start, size_t sample_size,
                                 const instance& base) {
+    // Do not make more than the budget
+    size_t num_to_make = std::min(max_number_of_new_instances,
+                                  (size_t)hc_params.crossover_pop_size);
+
     // These cross-over (in the genetic sense) the
     // top-scoring one, two and three instances,respectively.
     size_t number_of_new_instances =
-        cross_top_one(deme, deme_size, hc_params.crossover_pop_size / 3,
+        cross_top_one(deme, deme_size, num_to_make / 3,
                       sample_start, sample_size, base);
 
     number_of_new_instances +=
         cross_top_two(deme, deme_size + number_of_new_instances,
-                      hc_params.crossover_pop_size / 3,
-                      sample_start, sample_size, base);
+                      num_to_make / 3, sample_start, sample_size, base);
 
     number_of_new_instances +=
         cross_top_three(deme, deme_size + number_of_new_instances,
-                        hc_params.crossover_pop_size / 3,
-                        sample_start, sample_size, base);
+                        num_to_make / 3, sample_start, sample_size, base);
 
     return number_of_new_instances;
 }
