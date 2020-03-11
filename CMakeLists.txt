@@ -59,78 +59,6 @@ ADD_DEFINITIONS(-DPROJECT_SOURCE_DIR="${CMAKE_SOURCE_DIR}"
 # Add the 'lib' dir to cmake's module search path
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/lib/")
 
-# ===============================================================
-# Detect different compilers and OS'es, tweak flags as necessary.
-
-IF (CMAKE_COMPILER_IS_GNUCXX)
-	IF (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 4.6.4)
-		MESSAGE(FATAL_ERROR "GCC version must be at least 4.6.4!")
-	ENDIF (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 4.6.4)
-
-	IF (APPLE)
-		SET(CMAKE_C_FLAGS "-Wall -Wno-long-long -Wno-conversion")
-		SET(CMAKE_C_FLAGS_DEBUG "-O0 -g")
-		SET(CMAKE_C_FLAGS_PROFILE "-O0 -pg")
-		SET(CMAKE_C_FLAGS_RELEASE "-O2 -g0")
-		# Vital to do this otherwise unresolved symbols everywhere:
-		SET(CMAKE_SHARED_LINKER_FLAGS "-Wl,-flat_namespace,-undefined,dynamic_lookup")
-		SET(CMAKE_EXE_LINKER_FLAGS "-Wl,-flat_namespace,-undefined,dynamic_lookup")
-	ELSE (APPLE)
-		SET(CMAKE_C_FLAGS "-Wall -fPIC")
-		SET(CMAKE_C_FLAGS "-Wl,--copy-dt-needed-entries")
-		SET(CMAKE_C_FLAGS_DEBUG "-ggdb3 -fstack-protector")
-		SET(CMAKE_C_FLAGS_PROFILE "-O2 -g3 -fstack-protector -pg")
-		SET(CMAKE_C_FLAGS_RELEASE "-O2 -g -fstack-protector")
-	ENDIF (APPLE)
-
-	# 1) -Wno-variadic-macros is to avoid warnings regarding using
-	# variadic in macro OC_ASSERT (the warning warns that this is only
-	# available from C99, lol!)
-	#
-	# 2) -fopenmp for multithreading support
-	#
-	# 3) -std=gnu++0x for C++0x and GNU extensions support
-	SET(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -Wno-variadic-macros -fopenmp -std=gnu++0x")
-
-	SET(CMAKE_CXX_FLAGS_DEBUG ${CMAKE_C_FLAGS_DEBUG})
-	SET(CMAKE_CXX_FLAGS_PROFILE ${CMAKE_C_FLAGS_PROFILE})
-	SET(CMAKE_CXX_FLAGS_RELEASE ${CMAKE_C_FLAGS_RELEASE})
-
-	# Options for generating gcov code coverage output
-	SET(CMAKE_C_FLAGS_COVERAGE "-O0 -g -fprofile-arcs -ftest-coverage -fno-inline")
-	SET(CMAKE_CXX_FLAGS_COVERAGE "${CMAKE_C_FLAGS_COVERAGE} -fno-default-inline")
-	# Might be needed for some combinations of ln and gcc
-	IF (CMAKE_BUILD_TYPE STREQUAL "Coverage")
-		LINK_LIBRARIES(gcov)
-	ENDIF (CMAKE_BUILD_TYPE STREQUAL "Coverage")
-ENDIF (CMAKE_COMPILER_IS_GNUCXX)
-
-# Do the windows build
-IF (WIN32)
-	ADD_DEFINITIONS(-DWIN32)
-	IF (CYGWIN)
-		ADD_DEFINITIONS(-DCYGWIN)
-	ENDIF (CYGWIN)
-
-	# It is "not unix" when the code is compiled under windows but not
-	# under cygwin.
-	IF (NOT UNIX)
-		ADD_DEFINITIONS(-DWIN32_NOT_UNIX)
-		FIND_PACKAGE(PThreads REQUIRED)
-		FIND_PACKAGE(STLPort REQUIRED)
-		INCLUDE_DIRECTORIES("${CMAKE_SOURCE_DIR}/include/win32" ${PTHREADS_INCLUDE_DIR} ${STLPORT_INCLUDE_DIR})
-		LINK_LIBRARIES(${PTHREADS_LIBRARY} ${STLPORT_LIBRARIES})
-		ADD_DEFINITIONS(-D_CRT_SECURE_NO_WARNINGS -D_CRT_NONSTDC_NO_DEPRECATE)
-	ELSE (NOT UNIX)
-		LINK_LIBRARIES(pthread)
-		IF (CYGWIN)
-			SET(CMAKE_SHARED_LINKER_FLAGS "-Wl")
-		ELSE (CYGWIN)
-			SET(CMAKE_SHARED_LINKER_FLAGS "-Wl,--enable-new-dtags")
-		ENDIF (CYGWIN)
-	ENDIF (NOT UNIX)
-ENDIF (WIN32)
-
 # ===================================================================
 # Check for existance of various required, optional packages.
 # Listed in alphabetical order, more or less.
@@ -152,6 +80,7 @@ ENDIF (COGUTIL_FOUND)
 # cmake module search path. (For the FindXXX macros).
 list(APPEND CMAKE_MODULE_PATH  ${COGUTIL_DATA_DIR}/cmake)
 
+include(${COGUTIL_DATA_DIR}/cmake/OpenCogGccOptions.cmake)
 include(${COGUTIL_DATA_DIR}/cmake/Summary.cmake)
 
 # ----------------------------------------------------------
