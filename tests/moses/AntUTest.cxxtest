@@ -80,7 +80,7 @@ public:
         ant_bscore bscorer;
 
         // See the diary for the complexity ratio.
-        double complexity_ratio = 0.16;
+        double complexity_ratio = 0.08;
         bscorer.set_complexity_coef(complexity_ratio);
         behave_cscore cscorer(bscorer);
 
