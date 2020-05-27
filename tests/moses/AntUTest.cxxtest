@@ -58,13 +58,6 @@ public:
         int max_evals = 1000000;
 
         // Random seed
-        // The performance of AntUTest is very highly dependent on the
-        // initial random number seed. At the time of this writing, some
-        // seeds result in a solution being found in a few seconds or
-        // less, while others take at least minutes, or longer. The
-        // bottom of the file moses/moses/diary-performance.txt
-        // provides more information.
-        //
         int rand_seed = 10;
         randGen().seed(rand_seed);
 
@@ -80,7 +73,7 @@ public:
         ant_bscore bscorer;
 
         // See the diary for the complexity ratio.
-        double complexity_ratio = 0.08;
+        double complexity_ratio = 0.06;
         bscorer.set_complexity_coef(complexity_ratio);
         behave_cscore cscorer(bscorer);
 

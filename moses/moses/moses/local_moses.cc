@@ -71,8 +71,8 @@ static bool expand_deme(metapopulation& mp,
         if (dex.create_demes(exemplar->get_tree(), stats.n_expansions))
             break;
 
-        logger().error() << "Exemplar: " << exemplar->get_tree();
-        OC_ASSERT(false, "Exemplar failed to expand!\n");
+        logger().warn() << "Exemplar: " << exemplar->get_tree();
+        logger().warn() << "failed to expand! Let's try another.";
     }
 
     dex.optimize_demes(max_evals, max_time);

@@ -396,7 +396,7 @@ bool deme_expander::create_demes(const combo_tree& exemplar, int n_expansions)
         }
     }
 
-    return true;
+    return not _demes.empty();
 }
 
 
