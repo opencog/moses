@@ -16,7 +16,11 @@ INCLUDE_DIRECTORIES(
 	${CMAKE_CURRENT_BINARY_DIR}
 )
 
+
 SET(CYTHON_FLAGS "-f")
+IF (3.4.0 VERSION_LESS "${PYTHON3_VERSION_STRING}")
+    set(CYTHON_FLAGS ${CYTHON_FLAGS} "-3")
+ENDIF()
 
 # Cythonizes one .pyx file into a .cpp file
 # Additional arguments are dependencies
