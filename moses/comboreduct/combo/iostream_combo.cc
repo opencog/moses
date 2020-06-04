@@ -351,6 +351,8 @@ ostream& ostream_builtin(ostream& out, const builtin& h, output_format f)
             return out << "exp";
         case id::sin:
             return out << "sin";
+        case id::impulse:
+            return out << "impulse";
         default:
             return out << "Builtin " << (unsigned) h << " unknown";
         }
