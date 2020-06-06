@@ -25,7 +25,7 @@ class MosesCandidate(object):
                                  'values.')
 
         namespace = {}
-        exec self.program in namespace
+        exec(self.program, namespace)
         return namespace.get('moses_eval')(arglist)
 
 cdef class moses:
