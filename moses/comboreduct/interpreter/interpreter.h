@@ -79,7 +79,7 @@ protected:
 struct mixed_interpreter : public boolean_interpreter, public contin_interpreter
 {
     // ctor
-    mixed_interpreter(const std::vector<vertex>& inputs = std::vector<vertex>());
+    mixed_interpreter(const std::vector<vertex>& inputs=empty_vertex_seq);
     mixed_interpreter(const std::vector<contin_t>& inputs);
     mixed_interpreter(const std::vector<builtin>& inputs);
 

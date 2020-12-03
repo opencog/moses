@@ -147,6 +147,7 @@ typedef vertex_set::const_iterator vertex_set_const_it;
 typedef std::vector<vertex> vertex_seq;
 typedef vertex_seq::iterator vertex_seq_it;
 typedef vertex_seq::const_iterator vertex_seq_const_it;
+static const vertex_seq empty_vertex_seq = vertex_seq();
 
 typedef std::set<vertex> operator_set;
 typedef operator_set::iterator operator_set_it;

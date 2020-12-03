@@ -234,14 +234,14 @@ mixed_interpreter::mixed_interpreter(const std::vector<contin_t>& inputs) :
     contin_interpreter(inputs),
     _use_boolean_inputs(false),
     _use_contin_inputs(true),
-    _mixed_inputs(std::vector<vertex>())
+    _mixed_inputs(empty_vertex_seq)
 {}
 
 mixed_interpreter::mixed_interpreter(const std::vector<builtin>& inputs) :
     boolean_interpreter(inputs),
     _use_boolean_inputs(true),
     _use_contin_inputs(false),
-    _mixed_inputs(std::vector<vertex>())
+    _mixed_inputs(empty_vertex_seq)
 {}
 
 vertex mixed_interpreter::operator()(const combo_tree& tr) const

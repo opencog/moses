@@ -195,7 +195,7 @@ struct feature_selector
     // Parameters
     feature_selector_parameters params;
 
-    const combo::CTable& _ctable;
+    const combo::CTable _ctable;
 protected:
     /// Overwrite some parameters
     void preprocess_params(const combo::combo_tree& xmplr);
