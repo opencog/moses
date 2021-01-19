@@ -51,6 +51,8 @@ void hill_climbing::operator()(deme_t& deme,
                                unsigned max_evals,
                                time_t max_time)
 {
+    using namespace boost::placeholders;
+
     logger().debug("Local Search Optimization");
 
     log_stats_legend();

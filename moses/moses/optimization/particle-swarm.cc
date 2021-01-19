@@ -49,6 +49,8 @@ void particle_swarm::operator()(deme_t& best_parts,
                                unsigned max_evals,
                                time_t max_time)
 {
+    using namespace boost::placeholders;
+
     logger().debug("PSO...");
 
     log_stats_legend();

@@ -286,6 +286,8 @@ void reduce_or_assumptions::operator()(combo_tree& tr,combo_tree::iterator it) c
 /// Also, true||X -> true, false||X -> X
 void reduce_ors::operator()(combo_tree& tr, combo_tree::iterator it) const
 {
+    using namespace boost::placeholders;
+
     if (*it != id::logical_or)
         return;
 
@@ -336,6 +338,7 @@ void reduce_ors::operator()(combo_tree& tr, combo_tree::iterator it) const
 /// Also, true&&X -> X, false&&X -> false
 void reduce_ands::operator()(combo_tree& tr, combo_tree::iterator it) const
 {
+    using namespace boost::placeholders;
     if (*it != id::logical_and)
         return;
 

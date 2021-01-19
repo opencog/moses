@@ -58,6 +58,8 @@ void simulated_annealing::operator()(deme_t& deme,
                                      unsigned max_evals,
                                      time_t max_time)
 {
+    using namespace boost::placeholders;
+
     const field_set& fields = deme.fields();
     max_distance = opt_params.max_distance(fields);
 

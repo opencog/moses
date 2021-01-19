@@ -93,7 +93,7 @@ namespace moses {
                  const ReplacementPolicy& replace,
                  LoggingPolicy& write_log) 
     {
-
+        using namespace boost::placeholders;
 
         // Logger
         logger().debug("Probabilistic Learning Optimization");

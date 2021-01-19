@@ -39,6 +39,7 @@ namespace moses {
 // instances [l, u)
 bool local_structure_model::is_uniform_on(iptr_iter l, iptr_iter u, int idx) const
 {
+    using namespace boost::placeholders;
     return (adjacent_find(boost::make_indirect_iterator(l), boost::make_indirect_iterator(u),
                           bind(std::not_equal_to<disc_t>(),
                                bind(&field_set::get_raw, &_fields, _1, idx),
@@ -51,6 +52,8 @@ void local_structure_model::rec_split_term(iptr_iter l, iptr_iter u,
                                            dtree::iterator node,
                                            term_tree::iterator osrc)
 {
+    using namespace boost::placeholders;
+
     int raw_arity = osrc.number_of_children() + 1;
 
     if (is_uniform_on(l, u, idx) || raw_arity == 1) {
@@ -93,6 +96,8 @@ void local_structure_model::rec_split_contin(iptr_iter l, iptr_iter u,
                                              int src_idx, int idx,
                                              dtree::iterator node)
 {
+    using namespace boost::placeholders;
+
     if(is_uniform_on(l, u, idx))
         return;
 
