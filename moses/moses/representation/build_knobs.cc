@@ -722,6 +722,8 @@ void build_knobs::build_logical(pre_it subtree, pre_it it)
 /// (???)
 void build_knobs::contin_canonize(pre_it it)
 {
+    using namespace boost::placeholders;
+
     if (is_contin(*it) && get_contin(*it) == 0) {
         *it = id::plus;
     }

@@ -28,6 +28,7 @@ namespace opencog { namespace reduct {
   /// Does c contain p and !p?
   bool tautology(const clause& c)
   {
+    using namespace boost::placeholders;
     return (std::adjacent_find(c.begin(), c.end(),
 			       bind(std::equal_to<int>(), _1,
 				    bind(std::negate<int>(), _2))) != c.end());
@@ -50,6 +51,7 @@ namespace opencog { namespace reduct {
 
   int number_of_literals(const nf& f)
   {
+    using namespace boost::placeholders;
     return std::accumulate(f.begin(), f.end(), 0,
 			   bind(std::plus<int>(), _1, bind(&clause::size, _2)));
   }

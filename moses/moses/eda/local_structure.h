@@ -281,6 +281,8 @@ void local_structure_probs_learning::operator()(const field_set& fs,
                                                 It from, It to,
                                                 local_structure_model& dst) const
 {
+    using namespace boost::placeholders;
+
     // This is a binary for_each, defined in util/algorithms.h
     for_each(dst.begin(), dst.end(), make_counting_iterator(0),
              boost::bind(&local_structure_probs_learning::rec_learn<It>,
@@ -296,6 +298,8 @@ void local_structure_probs_learning::rec_learn(const field_set& fs,
                                                It from, It to,
                                                int idx, dtree::iterator dtr) const
 {
+    using namespace boost::placeholders;
+
     // Empty tree: a leaf.
     if (dtr.is_childless())
     {

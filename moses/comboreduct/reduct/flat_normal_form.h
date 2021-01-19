@@ -29,7 +29,7 @@
 #include <numeric>
 #include <map>
 #include <unordered_map>
-#include <boost/bind.hpp>
+#include <boost/bind/bind.hpp>
 
 #include <opencog/util/Logger.h>
 #include <opencog/util/numeric.h>
