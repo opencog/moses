@@ -59,78 +59,6 @@ ADD_DEFINITIONS(-DPROJECT_SOURCE_DIR="${CMAKE_SOURCE_DIR}"
 # Add the 'lib' dir to cmake's module search path
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/lib/")
 
-# ===============================================================
-# Detect different compilers and OS'es, tweak flags as necessary.
-
-IF (CMAKE_COMPILER_IS_GNUCXX)
-	IF (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 4.6.4)
-		MESSAGE(FATAL_ERROR "GCC version must be at least 4.6.4!")
-	ENDIF (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 4.6.4)
-
-	IF (APPLE)
-		SET(CMAKE_C_FLAGS "-Wall -Wno-long-long -Wno-conversion")
-		SET(CMAKE_C_FLAGS_DEBUG "-O0 -g")
-		SET(CMAKE_C_FLAGS_PROFILE "-O0 -pg")
-		SET(CMAKE_C_FLAGS_RELEASE "-O2 -g0")
-		# Vital to do this otherwise unresolved symbols everywhere:
-		SET(CMAKE_SHARED_LINKER_FLAGS "-Wl,-flat_namespace,-undefined,dynamic_lookup")
-		SET(CMAKE_EXE_LINKER_FLAGS "-Wl,-flat_namespace,-undefined,dynamic_lookup")
-	ELSE (APPLE)
-		SET(CMAKE_C_FLAGS "-Wall -fPIC")
-		SET(CMAKE_C_FLAGS "-Wl,--copy-dt-needed-entries")
-		SET(CMAKE_C_FLAGS_DEBUG "-ggdb3 -fstack-protector")
-		SET(CMAKE_C_FLAGS_PROFILE "-O2 -g3 -fstack-protector -pg")
-		SET(CMAKE_C_FLAGS_RELEASE "-O2 -g -fstack-protector")
-	ENDIF (APPLE)
-
-	# 1) -Wno-variadic-macros is to avoid warnings regarding using
-	# variadic in macro OC_ASSERT (the warning warns that this is only
-	# available from C99, lol!)
-	#
-	# 2) -fopenmp for multithreading support
-	#
-	# 3) -std=gnu++0x for C++0x and GNU extensions support
-	SET(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -Wno-variadic-macros -fopenmp -std=gnu++0x")
-
-	SET(CMAKE_CXX_FLAGS_DEBUG ${CMAKE_C_FLAGS_DEBUG})
-	SET(CMAKE_CXX_FLAGS_PROFILE ${CMAKE_C_FLAGS_PROFILE})
-	SET(CMAKE_CXX_FLAGS_RELEASE ${CMAKE_C_FLAGS_RELEASE})
-
-	# Options for generating gcov code coverage output
-	SET(CMAKE_C_FLAGS_COVERAGE "-O0 -g -fprofile-arcs -ftest-coverage -fno-inline")
-	SET(CMAKE_CXX_FLAGS_COVERAGE "${CMAKE_C_FLAGS_COVERAGE} -fno-default-inline")
-	# Might be needed for some combinations of ln and gcc
-	IF (CMAKE_BUILD_TYPE STREQUAL "Coverage")
-		LINK_LIBRARIES(gcov)
-	ENDIF (CMAKE_BUILD_TYPE STREQUAL "Coverage")
-ENDIF (CMAKE_COMPILER_IS_GNUCXX)
-
-# Do the windows build
-IF (WIN32)
-	ADD_DEFINITIONS(-DWIN32)
-	IF (CYGWIN)
-		ADD_DEFINITIONS(-DCYGWIN)
-	ENDIF (CYGWIN)
-
-	# It is "not unix" when the code is compiled under windows but not
-	# under cygwin.
-	IF (NOT UNIX)
-		ADD_DEFINITIONS(-DWIN32_NOT_UNIX)
-		FIND_PACKAGE(PThreads REQUIRED)
-		FIND_PACKAGE(STLPort REQUIRED)
-		INCLUDE_DIRECTORIES("${CMAKE_SOURCE_DIR}/include/win32" ${PTHREADS_INCLUDE_DIR} ${STLPORT_INCLUDE_DIR})
-		LINK_LIBRARIES(${PTHREADS_LIBRARY} ${STLPORT_LIBRARIES})
-		ADD_DEFINITIONS(-D_CRT_SECURE_NO_WARNINGS -D_CRT_NONSTDC_NO_DEPRECATE)
-	ELSE (NOT UNIX)
-		LINK_LIBRARIES(pthread)
-		IF (CYGWIN)
-			SET(CMAKE_SHARED_LINKER_FLAGS "-Wl")
-		ELSE (CYGWIN)
-			SET(CMAKE_SHARED_LINKER_FLAGS "-Wl,--enable-new-dtags")
-		ENDIF (CYGWIN)
-	ENDIF (NOT UNIX)
-ENDIF (WIN32)
-
 # ===================================================================
 # Check for existance of various required, optional packages.
 # Listed in alphabetical order, more or less.
@@ -148,11 +76,11 @@ ELSE (COGUTIL_FOUND)
 	MESSAGE(FATAL_ERROR "CogUtil missing: it is needed!")
 ENDIF (COGUTIL_FOUND)
 
-# Add the 'cmake' directory that cogutil provides, to the
-# cmake module search path. (For the FindXXX macros).
 list(APPEND CMAKE_MODULE_PATH  ${COGUTIL_DATA_DIR}/cmake)
-
-include(${COGUTIL_DATA_DIR}/cmake/Summary.cmake)
+include(OpenCogGccOptions)
+include(OpenCogLibOptions)
+include(OpenCogInstallOptions)
+include(Summary)
 
 # ----------------------------------------------------------
 # Check for boost. We need dynamic-linked, threaded libs by default.
@@ -200,7 +128,7 @@ ENDIF (CXXTEST_FOUND)
 
 # ----------------------------------------------------------
 # MPI is needed for MOSES on compute clusters.
-FIND_PACKAGE(MPI)
+# FIND_PACKAGE(MPI)
 
 IF (MPI_FOUND)
 	ADD_DEFINITIONS(-DHAVE_MPI)
@@ -212,90 +140,8 @@ ELSE (MPI_FOUND)
 ENDIF (MPI_FOUND)
 
 # ----------------------------------------------------------
-# Python bindings using Cython
-# Cython is used to generate bindings
-#
-# NOTE: Python interpreter is needed for runing python unit tests,
-# and for running the FindCython module.
-#
-# Search for Python3 first, and use that, if found. Else use Python2.
-# To use Python2 only from the build directory run the following
-# rm CMakeCache.txt && cmake
-# -DCMAKE_DISABLE_FIND_PACKAGE_Python3Interp=TRUE ..
-
-FIND_PACKAGE(Python3Interp)
-IF (3.4.0 VERSION_LESS "${PYTHON3_VERSION_STRING}")
-	SET (HAVE_PY_INTERP 1)
-	SET (PYTHON_VER python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR})
-	MESSAGE(STATUS "Python ${PYTHON3_VERSION_STRING} interpreter found.")
-ENDIF()
-
-IF (NOT HAVE_PY_INTERP)
-	FIND_PACKAGE(PythonInterp)
-	IF (2.7.0 VERSION_LESS ${PYTHON_VERSION_STRING})
-		SET (HAVE_PY_INTERP 1)
-		SET (PYTHON_VER python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR})
-		MESSAGE(STATUS "Python ${PYTHON_VERSION_STRING} interpreter found.")
-	ENDIF()
-ENDIF()
-
-FIND_PACKAGE(PythonLibs)
-IF (PYTHONLIBS_FOUND AND
-     ((PYTHON3INTERP_FOUND AND 3.4.0 VERSION_LESS ${PYTHONLIBS_VERSION_STRING})
-     OR
-     (2.7.0 VERSION_LESS ${PYTHONLIBS_VERSION_STRING})))
-	SET (HAVE_PY_LIBS 1)
-	MESSAGE(STATUS "Python ${PYTHONLIBS_VERSION_STRING} libraries found.")
-ELSE()
-	MESSAGE(STATUS "Python libraries NOT found.")
-ENDIF()
-
-FIND_PACKAGE(Cython 0.19.0)
-IF (CYTHON_FOUND AND PYTHONLIBS_FOUND)
-	ADD_DEFINITIONS(-DHAVE_CYTHON)
-	SET(HAVE_CYTHON 1)
-
-	# Find python destination dir for python bindings
-	# because it may differ on each operating system.
-	EXECUTE_PROCESS(
-		COMMAND ${PYTHON_EXECUTABLE} -c "from distutils.sysconfig import *;print(get_python_lib())"
-		OUTPUT_VARIABLE PYTHON_DEST
-	)
-
-	# Chop off leading /usr
-	STRING(REPLACE "/usr" ${CMAKE_INSTALL_PREFIX} PYTHON_DEST "${PYTHON_DEST}")
-
-	# Replace new line at end
-	STRING(REPLACE "\n" "" PYTHON_DEST "${PYTHON_DEST}")
-	IF ("${PYTHON_DEST}" STREQUAL "")
-		MESSAGE(FATAL_ERROR "Python destination dir not found")
-	ELSE ("${PYTHON_DEST}" STREQUAL "")
-		MESSAGE(STATUS "Python destination dir found: ${PYTHON_DEST}" )
-	ENDIF ("${PYTHON_DEST}" STREQUAL "")
-
-	# thunk
-	SET(PYTHON_DEST "${PYTHON_DEST}/opencog")
-ELSE (CYTHON_FOUND AND PYTHONLIBS_FOUND)
-	IF(NOT CYTHON_FOUND)
-		MESSAGE(STATUS "Cython executable not found.")
-	ENDIF(NOT CYTHON_FOUND)
-ENDIF (CYTHON_FOUND AND PYTHONLIBS_FOUND)
-
-# Nosetests will find and automatically run python tests.
-IF (CYTHON_FOUND AND PYTHONLIBS_FOUND)
-	IF (PYTHON3INTERP_FOUND AND 3.4.0 VERSION_LESS ${PYTHONLIBS_VERSION_STRING})
-		FIND_PROGRAM(NOSETESTS_EXECUTABLE nosetests3)
-	ELSE ()
-		FIND_PROGRAM(NOSETESTS_EXECUTABLE nosetests-2.7)
-	ENDIF ()
-	IF (NOSETESTS_EXECUTABLE)
-		SET(HAVE_NOSETESTS 1)
-		MESSAGE(STATUS "Using nosetests executable " ${NOSETESTS_EXECUTABLE})
-	ELSE (NOSETESTS_EXECUTABLE)
-		MESSAGE(STATUS "nosetests not found: needed for python tests")
-	ENDIF (NOSETESTS_EXECUTABLE)
-
-ENDIF (CYTHON_FOUND AND PYTHONLIBS_FOUND)
+# This is required for Python
+include(OpenCogFindPython)
 
 # ----------------------------------------------------------
 # Optional, currently needed only to hush up DRD in util/Logger.cc
