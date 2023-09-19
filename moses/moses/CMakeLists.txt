@@ -24,50 +24,50 @@ ADD_SUBDIRECTORY (main)
 ADD_SUBDIRECTORY (man)
 
 ADD_LIBRARY (moses SHARED
-	deme/deme_expander
-	deme/feature_selector
+	deme/deme_expander.cc
+	deme/feature_selector.cc
 
-	eda/initialization
-	eda/local_structure
+	eda/initialization.cc
+	eda/local_structure.cc
 
-	metapopulation/diversity
-	metapopulation/domination
-	metapopulation/ensemble
-	metapopulation/merging
-	metapopulation/metapopulation
-	metapopulation/metapop_params
-	metapopulation/subsample
+	metapopulation/diversity.cc
+	metapopulation/domination.cc
+	metapopulation/ensemble.cc
+	metapopulation/merging.cc
+	metapopulation/metapopulation.cc
+	metapopulation/metapop_params.cc
+	metapopulation/subsample.cc
 
-	moses/complexity
-	moses/distributed_moses
-	moses/local_moses
-	moses/moses_main
-	moses/mpi_moses
-	moses/neighborhood_sampling
-	moses/partial
-	moses/types
+	moses/complexity.cc
+	moses/distributed_moses.cc
+	moses/local_moses.cc
+	moses/moses_main.cc
+	moses/mpi_moses.cc
+	moses/neighborhood_sampling.cc
+	moses/partial.cc
+	moses/types.cc
 
-	optimization/hill-climbing
-	optimization/optimization
-	optimization/star-anneal
-	optimization/univariate
-	optimization/particle-swarm
+	optimization/hill-climbing.cc
+	optimization/optimization.cc
+	optimization/star-anneal.cc
+	optimization/univariate.cc
+	optimization/particle-swarm.cc
 
-	representation/build_knobs
-	representation/field_set
-	representation/knob_mapper
-	representation/knobs
-	representation/representation
+	representation/build_knobs.cc
+	representation/field_set.cc
+	representation/knob_mapper.cc
+	representation/knobs.cc
+	representation/representation.cc
 
-	scoring/behave_cscore
-	scoring/bscores
-	scoring/discriminating_bscore
-	scoring/precision_bscore
-	scoring/bscores
-	scoring/time_dispersion
-	scoring/ss_bscore
-	scoring/scoring_base
-	scoring/select_bscore
+	scoring/behave_cscore.cc
+	scoring/bscores.cc
+	scoring/discriminating_bscore.cc
+	scoring/precision_bscore.cc
+	scoring/bscores.cc
+	scoring/time_dispersion.cc
+	scoring/ss_bscore.cc
+	scoring/scoring_base.cc
+	scoring/select_bscore.cc
 )
 
 TARGET_LINK_LIBRARIES (moses

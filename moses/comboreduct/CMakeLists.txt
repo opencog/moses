@@ -9,56 +9,56 @@ ADD_SUBDIRECTORY(man)
 ADD_SUBDIRECTORY(crutil)
 
 ADD_LIBRARY(comboreduct SHARED
-	crutil/exception
+	crutil/exception.cc
 
-	combo/action
-	combo/action_symbol
-	combo/argument
-	combo/assumption
-	combo/builtin_action
-	combo/convert_ann_combo
-	combo/definite_object
-	combo/descriptions
-	combo/enum_type
-	combo/indefinite_object
-	combo/iostream_combo
-	combo/message
-	combo/perception
-	combo/procedure_call
-	combo/procedure_repository
-	combo/similarity
-	combo/simple_nn
-	combo/vertex
+	combo/action.cc
+	combo/action_symbol.cc
+	combo/argument.h
+	combo/assumption.cc
+	combo/builtin_action.cc
+	combo/convert_ann_combo.cc
+	combo/definite_object.cc
+	combo/descriptions.cc
+	combo/enum_type.cc
+	combo/indefinite_object.cc
+	combo/iostream_combo.cc
+	combo/message.cc
+	combo/perception.cc
+	combo/procedure_call.cc
+	combo/procedure_repository.cc
+	combo/similarity.cc
+	combo/simple_nn.cc
+	combo/vertex.cc
 
-	table/table
-	table/table_io
+	table/table.cc
+	table/table_io.cc
 
-	interpreter/interpreter
-    interpreter/eval
+	interpreter/interpreter.cc
+	interpreter/eval.cc
 
-	type_checker/type_tree_def
-	type_checker/type_tree
+	type_checker/type_tree_def.cc
+	type_checker/type_tree.cc
 
-	reduct/action_reduction
-	reduct/action_rules
-	reduct/branch_rules
-	reduct/clean_reduction
-	reduct/contin_reduction
-	reduct/contin_rules
-	reduct/flat_normal_form
-	reduct/full_reduction
-	reduct/general_rules
-	reduct/logical_reduction
-	reduct/ann_reduction
-	reduct/logical_rules
-	reduct/fold_reduction
-	reduct/fold_rules
-	reduct/meta_rules
-	reduct/mixed_reduction
-	reduct/mixed_rules
-	reduct/perception_reduction
-	reduct/perception_rules
-	reduct/reduct
+	reduct/action_reduction.cc
+	reduct/action_rules.cc
+	reduct/branch_rules.cc
+	reduct/clean_reduction.cc
+	reduct/contin_reduction.cc
+	reduct/contin_rules.cc
+	reduct/flat_normal_form.cc
+	reduct/full_reduction.cc
+	reduct/general_rules.cc
+	reduct/logical_reduction.cc
+	reduct/ann_reduction.cc
+	reduct/logical_rules.cc
+	reduct/fold_reduction.cc
+	reduct/fold_rules.cc
+	reduct/meta_rules.cc
+	reduct/mixed_reduction.cc
+	reduct/mixed_rules.cc
+	reduct/perception_reduction.cc
+	reduct/perception_rules.cc
+	reduct/reduct.cc
 )
 
 TARGET_LINK_LIBRARIES (comboreduct
@@ -69,11 +69,11 @@ TARGET_LINK_LIBRARIES (comboreduct
 )
 
 ADD_LIBRARY(comboant SHARED
-	ant_combo_vocabulary/ant_builtin_action
-	ant_combo_vocabulary/ant_perception
-	ant_combo_vocabulary/ant_action_symbol
-	ant_combo_vocabulary/ant_indefinite_object
-	ant_combo_vocabulary/ant_combo_vocabulary
+	ant_combo_vocabulary/ant_builtin_action.cc
+	ant_combo_vocabulary/ant_perception.cc
+	ant_combo_vocabulary/ant_action_symbol.cc
+	ant_combo_vocabulary/ant_indefinite_object.cc
+	ant_combo_vocabulary/ant_combo_vocabulary.cc
 )
 
 TARGET_LINK_LIBRARIES (comboant
