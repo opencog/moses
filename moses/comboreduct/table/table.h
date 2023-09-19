@@ -615,7 +615,7 @@ public:
         // Filter the content
         seq_filtered_visitor<F> sfv(filter);
         auto asfv = boost::apply_visitor(sfv);
-        for (const CTable::value_type v : *this)
+        for (const CTable::value_type& v : *this)
             res[asfv(v.first.get_variant())] += v.second;
 
         // return the filtered CTable
