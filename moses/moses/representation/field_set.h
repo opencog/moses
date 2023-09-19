@@ -965,16 +965,20 @@ public:
             }
 
             reference& operator|=(bool x) {
-                if  (x) do_set();   return *this;
+                if  (x) do_set();
+                return *this;
             }
             reference& operator&=(bool x) {
-                if (!x) do_reset(); return *this;
+                if (!x) do_reset();
+                return *this;
             }
             reference& operator^=(bool x) {
-                if  (x) do_flip();  return *this;
+                if  (x) do_flip();
+                return *this;
             }
             reference& operator-=(bool x) {
-                if  (x) do_reset(); return *this;
+                if  (x) do_reset();
+                return *this;
             }
         protected:
             instance::iterator _it;
