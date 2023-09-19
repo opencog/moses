@@ -45,7 +45,8 @@ using namespace combo;
 template<typename FeatureSet>
 struct MutualInformation
 {
-
+    typedef const FeatureSet& argument_type;
+    typedef double result_type;
     MutualInformation(const CTable& ctable)
         : _ctable(ctable) {}
 
