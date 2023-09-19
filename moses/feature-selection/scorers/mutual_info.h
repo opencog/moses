@@ -43,7 +43,7 @@ using namespace combo;
  * The actual work is done in the combo table code.
  */
 template<typename FeatureSet>
-struct MutualInformation : public std::unary_function<FeatureSet, double>
+struct MutualInformation
 {
 
     MutualInformation(const CTable& ctable)
@@ -78,7 +78,7 @@ protected:
  * is a bug in our MI code???)
  */
 template<typename FeatureSet>
-struct MICScorer : public std::unary_function<FeatureSet, double>
+struct MICScorer
 {
     MICScorer(const ITable& it, const OTable& ot,
               double confi = 100)

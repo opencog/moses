@@ -333,7 +333,6 @@ public:
  * (as these are usually very bad candidates).
  */
 struct sct_score_greater
-    : public std::binary_function<scored_combo_tree, scored_combo_tree, bool>
 {
     bool operator()(const scored_combo_tree&,
                     const scored_combo_tree&) const;
@@ -345,20 +344,17 @@ struct sct_score_greater
  * equality requires two  lexicographic compares :-(
  */
 struct sct_tree_greater
-    : public std::binary_function<scored_combo_tree, scored_combo_tree, bool>
 {
     bool operator()(const scored_combo_tree&,
                     const scored_combo_tree&) const;
 };
 
 struct scored_combo_tree_hash
-     : public std::unary_function<scored_combo_tree, size_t>
 {
     size_t operator()(const scored_combo_tree&) const;
 };
 
 struct scored_combo_tree_equal
-     : public std::binary_function<scored_combo_tree, scored_combo_tree, bool>
 {
     bool operator()(const scored_combo_tree&,
                     const scored_combo_tree&) const;

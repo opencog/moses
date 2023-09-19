@@ -54,7 +54,7 @@ score_t contin_complexity_coef(unsigned alphabet_size, double stdev);
 
 /// Abstract base class for behavioral scoring.
 /// A behavioral score is a vector of scores, one per sample of a dataset.
-struct bscore_base : public std::unary_function<combo_tree, behavioral_score>
+struct bscore_base
 {
     bscore_base() : _return_weighted_score(false), _complexity_coef(0.0), _size(0) {};
     virtual ~bscore_base() {};

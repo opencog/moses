@@ -146,7 +146,7 @@ struct iscorer_cache : public iscorer_base
     iscorer_cache(size_t n, const DBScorer& sc) :
         _cache(n, sc) {}
 
-    result_type operator()(const argument_type& x) const
+    composite_score operator()(const instance& x) const
     {
         return _cache.operator()(x);
     }
@@ -157,7 +157,7 @@ struct iscorer_cache : public iscorer_base
 
 
 template<typename FeatureSet>
-struct fs_scorer : public std::unary_function<FeatureSet, double>
+struct fs_scorer
 {
     fs_scorer(const CTable& ctable,
               const feature_selection_parameters& fs_params)

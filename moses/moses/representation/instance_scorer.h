@@ -32,7 +32,7 @@
 
 namespace opencog { namespace moses {
 
-struct iscorer_base : public std::unary_function<instance, composite_score>
+struct iscorer_base
 {
     virtual composite_score operator()(const instance&) const = 0;
     virtual ~iscorer_base() {}
