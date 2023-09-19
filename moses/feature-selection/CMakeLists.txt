@@ -13,7 +13,7 @@ ADD_LIBRARY(feature_selection SHARED
 )
 
 TARGET_LINK_LIBRARIES(feature_selection
-	INTERFACE moses
+	# INTERFACE moses
 	${COGUTIL_LIBRARY}
 	${Boost_PROGRAM_OPTIONS_LIBRARY} 
 )
