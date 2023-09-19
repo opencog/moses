@@ -663,7 +663,7 @@ public:
         CTable res(olabel, ilabels, tsig);
 
         // Filter the rows (replace filtered out values by id::null_vertex)
-        for (const CTable::value_type v : *this)
+        for (const CTable::value_type& v : *this)
             res[filtered_preserve_idxs(filter, v.first)] += v.second;
 
         // return the filtered CTable
