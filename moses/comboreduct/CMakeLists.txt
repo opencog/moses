@@ -16,7 +16,7 @@ ADD_LIBRARY(comboreduct SHARED
 	combo/argument.h
 	combo/assumption.cc
 	combo/builtin_action.cc
-	combo/convert_ann_combo.cc
+	combo/convert_ann_combo.h
 	combo/definite_object.cc
 	combo/descriptions.cc
 	combo/enum_type.cc

@@ -55,7 +55,7 @@ ADD_LIBRARY (moses SHARED
 
 	representation/build_knobs.cc
 	representation/field_set.cc
-	representation/knob_mapper.cc
+	representation/knob_mapper.h
 	representation/knobs.cc
 	representation/representation.cc
 
