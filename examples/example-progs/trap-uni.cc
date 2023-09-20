@@ -80,7 +80,7 @@ using boost::lexical_cast;
 // The per-variable scoring function is implemented in "vee()".
 // The operator() function computes the score for a given instance.
 
-struct trap : public unary_function<instance, int>
+struct trap
 {
     trap(const field_set& fs, int n) : fields(fs), max(n-1) {}
 

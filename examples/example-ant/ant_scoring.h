@@ -76,7 +76,7 @@ static const char init_trail[ANT_Y][ANT_X+1] =
     "                                "
 };
 
-struct AntFitnessFunction : std::unary_function<combo_tree, score_t>
+struct AntFitnessFunction
 {
     typedef combo_tree::iterator pre_it;
     typedef combo_tree::sibling_iterator sib_it;

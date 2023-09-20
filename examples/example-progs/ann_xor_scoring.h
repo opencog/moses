@@ -39,12 +39,12 @@ using namespace moses;
 #define MIN_FITNESS -1.0e10
 
 // Demo scoring function for solvig the binary XOR function, suing neural nets.
-struct AnnXORFitnessFunction : public unary_function<combo_tree, double>
+struct AnnXORFitnessFunction
 {
     typedef combo_tree::iterator pre_it;
     typedef combo_tree::sibling_iterator sib_it;
 
-    result_type operator()(argument_type tr) const
+    double operator()(const combo_tree& tr) const
     {
         if (tr.empty())
             return MIN_FITNESS;

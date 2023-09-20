@@ -84,7 +84,7 @@ using boost::lexical_cast;
 // The per-trap scoring function is implemented in "vee()".
 // The operator() function computes the score for a given instance.
 
-struct trap : public unary_function<instance, int>
+struct trap
 {
     trap(int n, int len) : trapsz(n), rounds(len) {}
 
