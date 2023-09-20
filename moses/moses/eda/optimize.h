@@ -93,8 +93,6 @@ namespace moses {
                  const ReplacementPolicy& replace,
                  LoggingPolicy& write_log) 
     {
-        using namespace boost::placeholders;
-
         // Logger
         logger().debug("Probabilistic Learning Optimization");
         // ~Logger
@@ -119,7 +117,7 @@ namespace moses {
         // Note score.operator() needs to be thread-safe!
         OMP_ALGO::transform(current.begin(), current.end(),
                             current.begin_scores(),
-                            bind(boost::cref(score), _1));
+                            std::bind(std::cref(score), std::placeholders::_1));
 
         // Main loop.
         int generation = 0;
@@ -166,7 +164,7 @@ namespace moses {
             // This is parallelized.
             OMP_ALGO::transform(new_instances.begin(), new_instances.end(),
                                 new_instances.begin_scores(),
-                                bind(boost::cref(score), _1));
+                                std::bind(std::cref(score), std::placeholders::_1));
 
             // Run a tournament to replace old instances.
             logger().debug("Replace the new candidates");
