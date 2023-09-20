@@ -84,7 +84,7 @@ struct AnnXORFitnessFunction
 
 struct ann_xor_bscore : public bscore_base
 {
-    result_type operator()(const combo_tree& tr) const
+    behavioral_score operator()(const combo_tree& tr) const
     {
         behavioral_score bs;
         bs.push_back(-aff(tr));
