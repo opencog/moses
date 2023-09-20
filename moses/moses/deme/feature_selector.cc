@@ -422,7 +422,7 @@ csc_feature_set_pop feature_selector::rank_feature_sets(const feature_set_pop& f
     logger().info() << "Feature sets ranked";
 
     if (logger().is_fine_enabled()) {
-        for (const csc_feature_set& cfs : res) {
+        for (const csc_feature_set cfs : res) {
             ostream_container(logger().fine() << "Feature set: ", cfs.second);
             logger().fine() << "With composite score: " << cfs.first;
         }

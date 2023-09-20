@@ -1328,7 +1328,7 @@ double mutualInformationBtwSets(const CTable& ctable,
     ///////////////////
     // discrete case //
     ///////////////////
-    if (id::enum_type == otype or id::boolean_type == otype or id::contin_type)
+    if (id::enum_type == otype or id::boolean_type == otype or id::contin_type == otype)
     {
         // Let U1, ..., Un the features resulting from the union
         // between fs_l and fs_r.
