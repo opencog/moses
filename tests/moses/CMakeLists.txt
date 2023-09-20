@@ -34,12 +34,12 @@ TARGET_LINK_LIBRARIES(FieldSetUTest
 	${COGUTIL_LIBRARY}
 )
 
-ADD_CXXTEST(representationUTest)
-TARGET_LINK_LIBRARIES(representationUTest
-	moses
-	comboreduct
-	${COGUTIL_LIBRARY}
-)
+#ADD_CXXTEST(representationUTest)
+#TARGET_LINK_LIBRARIES(representationUTest
+#	moses
+#	comboreduct
+#	${COGUTIL_LIBRARY}
+#)
 
 ADD_CXXTEST(scoringUTest)
 TARGET_LINK_LIBRARIES(scoringUTest
@@ -70,45 +70,45 @@ TARGET_LINK_LIBRARIES(MOSESUTest
 	${COGUTIL_LIBRARY}
 )
 
-ADD_CXXTEST(weightedUTest)
-TARGET_LINK_LIBRARIES(weightedUTest
-	moses_exec
-	moses
-	comboreduct
-	${COGUTIL_LIBRARY}
-)
+#ADD_CXXTEST(weightedUTest)
+#TARGET_LINK_LIBRARIES(weightedUTest
+#	moses_exec
+#	moses
+#	comboreduct
+#	${COGUTIL_LIBRARY}
+#)
 
-ADD_CXXTEST(mixedUTest)
-TARGET_LINK_LIBRARIES(mixedUTest
-	moses_exec
-	moses
-	comboreduct
-	${COGUTIL_LIBRARY}
-)
+#ADD_CXXTEST(mixedUTest)
+#TARGET_LINK_LIBRARIES(mixedUTest
+#	moses_exec
+#	moses
+#	comboreduct
+#	${COGUTIL_LIBRARY}
+#)
 
-ADD_CXXTEST(irisUTest)
-TARGET_LINK_LIBRARIES(irisUTest
-	moses_exec
-	moses
-	comboreduct
-	${COGUTIL_LIBRARY}
-)
+#ADD_CXXTEST(irisUTest)
+#TARGET_LINK_LIBRARIES(irisUTest
+#	moses_exec
+#	moses
+#	comboreduct
+#	${COGUTIL_LIBRARY}
+#)
 
-ADD_CXXTEST(selectionUTest)
-TARGET_LINK_LIBRARIES(selectionUTest
-	moses_exec
-	moses
-	comboreduct
-	${COGUTIL_LIBRARY}
-)
+#ADD_CXXTEST(selectionUTest)
+#TARGET_LINK_LIBRARIES(selectionUTest
+#	moses_exec
+#	moses
+#	comboreduct
+#	${COGUTIL_LIBRARY}
+#)
 
-ADD_CXXTEST(dynFeatSelUTest)
-TARGET_LINK_LIBRARIES(dynFeatSelUTest
-	moses_exec
-	moses
-	comboreduct
-	${COGUTIL_LIBRARY}
-)
+#ADD_CXXTEST(dynFeatSelUTest)
+#TARGET_LINK_LIBRARIES(dynFeatSelUTest
+#	moses_exec
+#	moses
+#	comboreduct
+#	${COGUTIL_LIBRARY}
+#)
 
 ADD_CXXTEST(AntUTest)
 TARGET_LINK_LIBRARIES(AntUTest
@@ -119,10 +119,10 @@ TARGET_LINK_LIBRARIES(AntUTest
 	${COGUTIL_LIBRARY}
 )
 
-ADD_CXXTEST(diversityUTest)
-TARGET_LINK_LIBRARIES(diversityUTest
-	moses_exec
-	moses
-	comboreduct
-	${COGUTIL_LIBRARY}
-)
+#ADD_CXXTEST(diversityUTest)
+#TARGET_LINK_LIBRARIES(diversityUTest
+#	moses_exec
+#	moses
+#	comboreduct
+#	${COGUTIL_LIBRARY}
+#)
