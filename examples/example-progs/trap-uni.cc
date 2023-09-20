@@ -24,8 +24,6 @@
 
 #include "headers.h"
 
-using boost::lexical_cast;
-
 // Demonstration program for the "univariate trap" optimization problem.
 // This is a standard optimization demonstraton problem: a 
 // scoring function is given that surrounds the correct solution with
@@ -94,9 +92,9 @@ struct trap
     {
         return accumulate
                (make_transform_iterator(fields.begin_disc(inst),
-                    bind(&trap::vee, this, _1)),
+                    std::bind(&trap::vee, this, std::placeholders::_1)),
                 make_transform_iterator(fields.end_disc(inst), 
-                    bind(&trap::vee, this, _1)),
+                    std::bind(&trap::vee, this, std::placeholders::_1)),
                 0);
     }
 
@@ -124,7 +122,7 @@ int main(int argc, char** argv)
     // Parse program arguments
     vector<string> add_args{"<trap size>"};
     optargs args(argc, argv, add_args);
-    int n = lexical_cast<int>(argv[5]);
+    int n = boost::lexical_cast<int>(argv[5]);
 
 
     // Initialize random number generator (from the first argument
@@ -149,7 +147,7 @@ int main(int argc, char** argv)
     // Initialize each member of the population to a random value.
     for (instance& inst : population)
         generate(fs.begin_disc(inst), fs.end_disc(inst),
-                 bind(&RandGen::randint, boost::ref(randGen()), n));
+                 boost::bind(&RandGen::randint, boost::ref(randGen()), n));
 
     // Run the optimizer.
     // For this problem, there is no dependency at all between different
