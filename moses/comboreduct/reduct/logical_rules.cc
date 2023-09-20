@@ -448,8 +448,8 @@ void subtree_to_enf::reduce_to_enf::operator()(sib_it it)
     for (up_it p = ++tr.begin_upwards(it);
          p != tr.end_upwards() && is_logical_operator(*p); ++p)
     {
-        if (!opencog::is_sorted(make_counting_iterator(p.begin()),
-                                make_counting_iterator(p.end()), comp))
+        if (!std::is_sorted(make_counting_iterator(p.begin()),
+                            make_counting_iterator(p.end()), comp))
             tr.sort_on_subtrees(p.begin(), p.end(), comp);
     }
     subtree_set dominant, command;
@@ -589,7 +589,7 @@ subtree_to_enf::reduce_to_enf::reduce(sib_it current,
 {
 #if DEBUG
     // For performance, skip this check ...
-    OC_ASSERT(opencog::is_sorted(dominant.begin(), dominant.end(), comp),
+    OC_ASSERT(std::is_sorted(dominant.begin(), dominant.end(), comp),
               "dominant subtree_set should be sorted (reduce)");
 #endif
 
@@ -612,9 +612,9 @@ subtree_to_enf::reduce_to_enf::reduce(sib_it current,
 
 #if DEBUG
     // We skip this to improve performance.
-    OC_ASSERT(opencog::is_sorted(dominant.begin(), dominant.end(), comp),
+    OC_ASSERT(std::is_sorted(dominant.begin(), dominant.end(), comp),
               "dominant subtree_set should be sorted (reduce)");
-    OC_ASSERT(opencog::is_sorted(command.begin(), command.end(), comp),
+    OC_ASSERT(std::is_sorted(command.begin(), command.end(), comp),
               "command subtree_set should be sorted (reduce).");
 #endif
 
@@ -665,12 +665,12 @@ subtree_to_enf::reduce_to_enf::reduce_and(sib_it current,
 
 #if DEBUG
         // stub out, for performance.
-        OC_ASSERT(opencog::is_sorted(dominant.begin(),dominant.end(), comp),
+        OC_ASSERT(std::is_sorted(dominant.begin(),dominant.end(), comp),
                   "dominant subtree_set should be sorted (reduce_and)");
 #endif
 
-        if (!opencog::is_sorted(make_counting_iterator(current.begin()),
-                                make_counting_iterator(current.end()), comp))
+        if (!std::is_sorted(make_counting_iterator(current.begin()),
+                            make_counting_iterator(current.end()), comp))
             tr.sort_on_subtrees(current.begin(), current.end(), comp);
 
         subtree_set handle_set; //broom handle
@@ -695,9 +695,9 @@ subtree_to_enf::reduce_to_enf::reduce_and(sib_it current,
 
 #if DEBUG
             // stubbed out for performance
-            OC_ASSERT(opencog::is_sorted(command.begin(),command.end(),comp),
+            OC_ASSERT(std::is_sorted(command.begin(),command.end(),comp),
                       "command subtree_set should be sorted (reduce_and)");
-            OC_ASSERT(opencog::is_sorted(handle_set.begin(),handle_set.end(),comp),
+            OC_ASSERT(std::is_sorted(handle_set.begin(),handle_set.end(),comp),
                       "handle_set subtree_set should be sorted (reduce_and)");
 #endif
             subtree_set::iterator tmp_it = handle_set.find(child);
@@ -719,9 +719,9 @@ subtree_to_enf::reduce_to_enf::reduce_and(sib_it current,
                 break;
             case Keep:
 
-                if (!opencog::is_sorted(make_counting_iterator(current.begin()),
-                                        make_counting_iterator(current.end()),
-                                        comp))
+                if (!std::is_sorted(make_counting_iterator(current.begin()),
+                                    make_counting_iterator(current.end()),
+                                    comp))
                     tr.sort_on_subtrees(current.begin(), current.end(), comp);
 
                 OC_ASSERT(child.begin() != child.end(),

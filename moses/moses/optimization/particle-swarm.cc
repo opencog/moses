@@ -70,7 +70,7 @@ void particle_swarm::operator()(deme_t& best_parts,
         + sizeof(packed_t) * fields.packed_width();
 
     unsigned swarm_size = calc_swarm_size(fields);
-    unsigned dim_size = fields.dim_size();
+    // unsigned dim_size = fields.dim_size();
 
         //if(swarm_size < ps_params.max_parts){
         // If small enough, try all combinations
@@ -171,7 +171,7 @@ void particle_swarm::operator()(deme_t& best_parts,
         gettimeofday(&stop, NULL);
         timersub(&stop, &start, &elapsed);
         start = stop;
-        unsigned usec = 1000000 * elapsed.tv_sec + elapsed.tv_usec;
+        // unsigned usec = 1000000 * elapsed.tv_sec + elapsed.tv_usec;
 
         /* If we've blown our budget for evaluating the scorer,
          * then we are done. */
@@ -324,7 +324,7 @@ void particle_swarm::update_particles(deme_t& temp_parts, const deme_t& best_par
 
     // Over each instance
     for(;temp_it != end_temp; temp_it++, bestp_it++,
-            vels_it++, disc_temp_it++, disc_best_it){
+            vels_it++, disc_temp_it++){
         instance& temp_inst = (*temp_it).first;
         const instance& bestp_inst = (*bestp_it).first;
         velocity::iterator vel = (*vels_it).begin();

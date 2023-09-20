@@ -49,10 +49,6 @@ using namespace moses;
 // instance for fitness.  Recall that an "instance" is a string of bits
 // that encode a set of knob settings; an instance may encode discrete,
 // continuous, or string variables.
-//
-// Recall that the C++ std::unary_fuinction<> template is just a trick
-// to make a C++ class behave as if it were a function, so that it can
-// be used anywhere a function is used.
 
 unsigned int count_bitz(packed_t pack)
 {
@@ -61,7 +57,7 @@ unsigned int count_bitz(packed_t pack)
 }
 
 // Return, as the score, the total number of bits set in the instance.
-struct one_max : public unary_function<instance, int>
+struct one_max
 {
     int operator()(const instance& inst) const
     {
@@ -83,7 +79,7 @@ struct one_max : public unary_function<instance, int>
 
 // Return, as the score, the sum total settings of all discrete knob
 // settings in the instance.
-struct n_max : public unary_function<instance, int>
+struct n_max
 {
     n_max(const field_set& fs) : fields(fs) {}
     int operator()(const instance& inst) const
@@ -95,7 +91,7 @@ struct n_max : public unary_function<instance, int>
 
 // Return, as the score, the sum total of all continuous knob settings
 // in the instance.
-struct contin_max : public unary_function<instance, contin_t>
+struct contin_max
 {
     contin_max(const field_set& fs) : fields(fs) {}
     contin_t operator()(const instance& inst) const
@@ -115,7 +111,7 @@ struct contin_max : public unary_function<instance, contin_t>
 // and summed over, thus returning the "lp_1" distance between the instance,
 // and the random vector.
 //
-struct contin_uniform : public unary_function<instance, contin_t>
+struct contin_uniform
 {
     contin_uniform(const field_set& fs, contin_t minval, contin_t maxval)
         : fields(fs), target(fs.n_contin_fields())
@@ -143,7 +139,7 @@ struct contin_uniform : public unary_function<instance, contin_t>
 // Return, as the score, minus the sum of the squares of all
 // continuous knob settings in the instance.
 //
-struct sphere : public unary_function<instance, contin_t>
+struct sphere
 {
     sphere(const field_set& fs) : fields(fs) {}
     contin_t operator()(const instance& inst) const {
@@ -167,7 +163,7 @@ struct sphere : public unary_function<instance, contin_t>
 // character is an ASCII digit. This scoring function then goes over
 // all term knobs in the instance, pulls out these two digits, and
 // adds them together.  The sum of all of these is the returned score.
-struct termmax: public unary_function<instance, contin_t>
+struct termmax
 {
     termmax(const field_set& fs) : fields(fs) {}
     contin_t operator()(const instance& inst) const

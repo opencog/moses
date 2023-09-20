@@ -615,7 +615,7 @@ public:
         // Filter the content
         seq_filtered_visitor<F> sfv(filter);
         auto asfv = boost::apply_visitor(sfv);
-        for (const CTable::value_type v : *this)
+        for (const CTable::value_type& v : *this)
             res[asfv(v.first.get_variant())] += v.second;
 
         // return the filtered CTable
@@ -663,7 +663,7 @@ public:
         CTable res(olabel, ilabels, tsig);
 
         // Filter the rows (replace filtered out values by id::null_vertex)
-        for (const CTable::value_type v : *this)
+        for (const CTable::value_type& v : *this)
             res[filtered_preserve_idxs(filter, v.first)] += v.second;
 
         // return the filtered CTable
@@ -1328,7 +1328,7 @@ double mutualInformationBtwSets(const CTable& ctable,
     ///////////////////
     // discrete case //
     ///////////////////
-    if (id::enum_type == otype or id::boolean_type == otype or id::contin_type)
+    if (id::enum_type == otype or id::boolean_type == otype or id::contin_type == otype)
     {
         // Let U1, ..., Un the features resulting from the union
         // between fs_l and fs_r.

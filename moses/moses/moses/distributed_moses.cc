@@ -298,7 +298,7 @@ void parse_result(const proc_map::value_type& pmv,
 host_proc_map init(const jobs_t& jobs)
 {
     host_proc_map hpm;
-    for (const jobs_t::value_type job : jobs) {
+    for (const jobs_t::value_type& job : jobs) {
         hpm.insert(make_pair(job.first, proc_map()));
     }
     return hpm;

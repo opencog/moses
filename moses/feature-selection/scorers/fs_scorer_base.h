@@ -31,7 +31,7 @@ namespace opencog {
 using namespace combo;
 
 template<typename FeatureSet>
-struct fs_scorer_base : public std::unary_function<FeatureSet, double>
+struct fs_scorer_base
 {
     // ctor
     fs_scorer_base(const CTable& ctable, double confi)

@@ -25,6 +25,7 @@
 #define _EDA_LOCAL_STRUCTURE_H
 
 #include <vector>
+#include <boost/bind/bind.hpp>
 
 #include <opencog/util/digraph.h>
 #include <opencog/util/oc_assert.h>

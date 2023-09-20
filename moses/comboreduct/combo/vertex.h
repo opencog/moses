@@ -422,14 +422,14 @@ inline bool operator!=(const vertex& v1, const vertex& v2)
 }
 #endif
 
-inline size_t hash_value(const message& m)
+inline size_t hash_value(const message& m) noexcept
 {
     /// WARNING: let the boost namespace as it permits to not generate
     /// infinit recursive calls of hash_value(const vertex& v)
     return boost::hash_value(m.getContent());
 }
 
-inline size_t hash_value(const vertex& v)
+inline size_t hash_value(const vertex& v) noexcept
 {
     using boost::hash_combine;
 
@@ -805,11 +805,24 @@ namespace std
     template<>
     struct hash<opencog::combo::vertex>
     {
-        size_t operator()(opencog::combo::vertex v) const
+        size_t operator()(opencog::combo::vertex v) const noexcept
         {
             return opencog::combo::hash_value(v);
         }
     };
+
+	template<>
+	struct hash<opencog::combo::combo_tree>
+	{
+		size_t operator()(const opencog::combo::combo_tree& tre) const noexcept
+		{
+			size_t hsh = 0;
+			for (const opencog::combo::vertex& v: tre)
+				hsh ^= std::hash<opencog::combo::vertex>{}(v)
+				       + 0x9e3779b9 + (hsh << 6) + (hsh >> 2);
+			return hsh;
+		}
+	};
 }
 
 #endif

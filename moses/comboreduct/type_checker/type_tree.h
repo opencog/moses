@@ -118,7 +118,8 @@ type_tree get_type_tree(const vertex& v);
 // returns true iff ty1 inherits ty2 and ty2 inherits ty1
 bool equal_type_tree(const type_tree& ty1, const type_tree& ty2);
 
-struct equal_to_type_tree : std::unary_function<const type_tree&, bool> {
+struct equal_to_type_tree
+{
 private:
     const type_tree& _tt;
 public:
@@ -170,7 +171,8 @@ public:
  */
 bool inherit_type_tree(const type_tree& ty1, const type_tree& ty2);
 
-struct inherit_from_type_tree : std::unary_function<const type_tree&, bool> {
+struct inherit_from_type_tree
+{
 private:
     const type_tree& _tt;
 public:

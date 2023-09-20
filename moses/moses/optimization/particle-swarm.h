@@ -50,10 +50,10 @@ struct ps_parameters
     ps_parameters()
         : max_parts(50),
           bit_c1(0.7),
-          bit_c2(1.43),
           disc_c1(2.05),
-          disc_c2(2.05),
           cont_c1(0.7),
+          bit_c2(1.43),
+          disc_c2(2.05),
           cont_c2(1.43),
           inertia(0.7), // static inertia
           bit_min_value(0),

@@ -146,7 +146,7 @@ struct iscorer_cache : public iscorer_base
     iscorer_cache(size_t n, const DBScorer& sc) :
         _cache(n, sc) {}
 
-    result_type operator()(const argument_type& x) const
+    composite_score operator()(const instance& x) const
     {
         return _cache.operator()(x);
     }
@@ -157,7 +157,7 @@ struct iscorer_cache : public iscorer_base
 
 
 template<typename FeatureSet>
-struct fs_scorer : public std::unary_function<FeatureSet, double>
+struct fs_scorer
 {
     fs_scorer(const CTable& ctable,
               const feature_selection_parameters& fs_params)
@@ -224,5 +224,22 @@ void feature_selection(const Table& table,
                        const feature_selection_parameters& fs_params);
 
 } // ~namespace opencog
+
+// This allows std::unordered_map to be used.
+namespace std
+{
+	template<>
+	struct hash<opencog::feature_set>
+	{
+		size_t operator()(const opencog::feature_set& fs) const noexcept
+		{
+			size_t hsh = 0;
+			for (int ii: fs)
+				hsh ^= std::hash<opencog::arity_t>{}(ii)
+					+ 0x9e3779b9 + (hsh << 6) + (hsh >> 2);
+			return hsh;
+		}
+	};
+}
 
 #endif // _OPENCOG_FEATURE-SELECTION_H

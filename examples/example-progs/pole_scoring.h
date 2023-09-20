@@ -39,9 +39,9 @@ using namespace std;
 using namespace moses;
 #define MIN_FITNESS -1.0e10
 
-struct AnnPole2NVFitnessFunction : public unary_function<combo_tree, double>
+struct AnnPole2NVFitnessFunction
 {
-    result_type operator()(argument_type tr) const
+    double operator()(const combo_tree& tr) const
     {
         bool velocity = false;
         if (tr.empty())
@@ -58,9 +58,9 @@ struct AnnPole2NVFitnessFunction : public unary_function<combo_tree, double>
 
 };
 
-struct AnnPole2FitnessFunction : public unary_function<combo_tree, double>
+struct AnnPole2FitnessFunction
 {
-    result_type operator()(argument_type tr) const
+    double operator()(const combo_tree& tr) const
     {
         bool velocity = true;
         if (tr.empty())
@@ -76,9 +76,9 @@ struct AnnPole2FitnessFunction : public unary_function<combo_tree, double>
     }
 };
 
-struct AnnPoleFitnessFunction : public unary_function<combo_tree, double>
+struct AnnPoleFitnessFunction
 {
-    result_type operator()(argument_type tr) const
+    double operator()(const combo_tree& tr) const
     {
         if (tr.empty())
             return MIN_FITNESS;
@@ -211,7 +211,7 @@ struct AnnPoleFitnessFunction : public unary_function<combo_tree, double>
 
 struct ann_pole_bscore : public bscore_base
 {
-    result_type operator()(const combo_tree& tr) const
+    behavioral_score operator()(const combo_tree& tr) const
     {
         behavioral_score bs;
         bs.push_back(pff(tr));
@@ -231,7 +231,7 @@ struct ann_pole_bscore : public bscore_base
 
 struct ann_pole2_bscore : public bscore_base
 {
-    result_type operator()(const combo_tree& tr) const
+    behavioral_score operator()(const combo_tree& tr) const
     {
         behavioral_score bs;
         bs.push_back(p2ff(tr));
@@ -251,7 +251,7 @@ struct ann_pole2_bscore : public bscore_base
 
 struct ann_pole2nv_bscore : public bscore_base
 {
-    result_type operator()(const combo_tree& tr) const
+    behavioral_score operator()(const combo_tree& tr) const
     {
         behavioral_score bs;
         bs.push_back(p2nvff(tr));
@@ -268,7 +268,5 @@ struct ann_pole2nv_bscore : public bscore_base
     score_t get_complexity_coef() const { return 1.0/CPXY_RATIO; }
     AnnPole2NVFitnessFunction p2nvff;
 };
-
-
 
 #endif
